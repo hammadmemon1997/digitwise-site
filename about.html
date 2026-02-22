@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Digitwise Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D1B2A; --navy-mid: #142237; --navy-light: #1E3251;
+    --gold: #C9A84C; --gold-light: #E2C46B; --slate: #8A9AB5;
+    --white: #FFFFFF; --text-muted: #6B7A99; --border: rgba(201, 168, 76, 0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 60px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,27,42,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); transition: all 0.3s;
+  }
+  .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-mark { width: 44px; height: 44px; flex-shrink: 0; }
+  .logo-text .wordmark { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 18px; color: var(--white); display: block; }
+  .logo-text .tagline { font-size: 9px; font-weight: 500; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--slate); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 10px 22px; border-radius: 4px; font-weight: 600 !important; font-size: 13px !important; letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 160px 60px 80px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-hero-radial {
+    position: absolute; top: -100px; right: -100px; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: block; }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(44px, 5vw, 72px);
+    font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; max-width: 700px;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p {
+    font-size: 18px; color: var(--slate); line-height: 1.7; max-width: 560px;
+    margin-top: 24px; font-weight: 300;
+  }
+
+  /* CONTENT */
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  section { position: relative; z-index: 1; }
+
+  /* STORY */
+  .story { padding: 100px 0; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .story-left h2 {
+    font-family: 'Playfair Display', serif; font-size: clamp(32px, 3vw, 46px);
+    font-weight: 700; line-height: 1.15; margin-bottom: 28px; letter-spacing: -0.02em;
+  }
+  .story-left h2 em { font-style: italic; color: var(--gold); }
+  .story-left p { font-size: 15px; color: var(--slate); line-height: 1.8; margin-bottom: 20px; font-weight: 300; }
+  .story-left p strong { color: var(--white); font-weight: 500; }
+
+  .founder-card {
+    background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; position: relative;
+  }
+  .founder-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+  .founder-avatar-area {
+    background: var(--navy-light); padding: 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .founder-initials {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(201,168,76,0.1); border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 48px; color: var(--gold); font-weight: 700;
+  }
+  .founder-info { padding: 32px; }
+  .founder-info h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .founder-info .title { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+  .founder-info p { font-size: 14px; color: var(--slate); line-height: 1.7; font-weight: 300; margin-bottom: 20px; }
+  .founder-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .founder-tag {
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border);
+    border-radius: 4px; padding: 5px 12px; font-size: 11px; color: var(--gold);
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* VALUES */
+  .values { padding: 100px 0; background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .values-header { text-align: center; margin-bottom: 60px; }
+  .values-header .section-label { justify-content: center; }
+  .values-header .section-label::before { display: none; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 50px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .value-card {
+    background: var(--navy); border: 1px solid var(--border); border-radius: 12px;
+    padding: 40px 32px; transition: transform 0.3s, border-color 0.3s;
+  }
+  .value-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.4); }
+  .value-num {
+    font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700;
+    color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 16px;
+  }
+  .value-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+  .value-card p { font-size: 14px; color: var(--slate); line-height: 1.7; font-weight: 300; }
+
+  /* MARKETS */
+  .markets { padding: 100px 0; }
+  .markets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 60px; }
+  .market-card {
+    background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px;
+    padding: 48px; position: relative; overflow: hidden; transition: transform 0.3s;
+  }
+  .market-card:hover { transform: translateY(-4px); }
+  .market-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .market-flag { font-size: 48px; margin-bottom: 20px; display: block; }
+  .market-card h3 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .market-card .subtitle { font-size: 13px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 24px; }
+  .market-card p { font-size: 15px; color: var(--slate); line-height: 1.7; font-weight: 300; margin-bottom: 28px; }
+  .market-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .market-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--slate); font-weight: 300; }
+  .market-features li::before {
+    content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* TOOL EXPERTISE */
+  .tools { padding: 80px 0; background: var(--navy-mid); border-top: 1px solid var(--border); }
+  .tools-header { text-align: center; margin-bottom: 48px; }
+  .tools-header p { font-size: 13px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .tool-card {
+    background: var(--navy); border: 1px solid var(--border); border-radius: 8px;
+    padding: 28px; text-align: center; transition: border-color 0.3s, transform 0.3s;
+  }
+  .tool-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+  .tool-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .tool-desc { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .tool-badge { display: inline-block; margin-top: 12px; font-size: 10px; color: var(--gold); border: 1px solid var(--border); border-radius: 3px; padding: 3px 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* CTA */
+  .cta-section { padding: 100px 0; position: relative; overflow: hidden; }
+  .cta-section::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 800px; height: 400px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  .cta-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; }
+  .cta-inner .section-label { justify-content: center; }
+  .cta-inner .section-label::before { display: none; }
+  .cta-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cta-inner h2 em { font-style: italic; color: var(--gold); }
+  .cta-inner p { font-size: 16px; color: var(--slate); line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy); padding: 15px 32px; border-radius: 4px;
+    font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(201,168,76,0.25); }
+  .btn-secondary {
+    color: var(--white); padding: 15px 32px; border-radius: 4px; font-weight: 500;
+    font-size: 14px; text-decoration: none; transition: all 0.25s;
+    border: 1px solid rgba(255,255,255,0.15); display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+
+  /* FOOTER */
+  footer { background: #080F17; border-top: 1px solid var(--border); padding: 60px 60px 40px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-top: 16px; font-weight: 300; max-width: 280px; }
+  .footer-col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .footer-bottom .offices { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); }
+
+  /* ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: fadeInUp 0.7s ease both; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 16px 30px; }
+    .page-hero { padding: 120px 30px 60px; }
+    .section-inner { padding: 0 30px; }
+    .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .markets-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    footer { padding: 60px 30px 40px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .values-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
+        <path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        <path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="wordmark">Digitwise</span>
+      <span class="tagline">Consulting</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Free Call</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-radial"></div>
+  <div class="page-hero-inner animate-in">
+    <div class="section-label">Our Story</div>
+    <h1>Accounting built on<br><em>trust & precision.</em></h1>
+    <p>We're a Melbourne-based accounting firm serving small and medium businesses across Australia and the United States — remote-first, detail-obsessed, and always on your side.</p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-left reveal">
+        <h2>Why we started<br><em>Digitwise.</em></h2>
+        <p>After nearly a decade working inside large organisations as an auditor and accountant, I kept seeing the same problem: <strong>small businesses were getting generic, surface-level accounting</strong> that didn't reflect the care and precision their finances deserved.</p>
+        <p>Numbers were reconciled by totals, not by transactions. Reports were delivered late, or not at all. And compliance — BAS, GST, payroll — was treated as an afterthought rather than a foundation.</p>
+        <p>Digitwise was built to fix that. We bring the <strong>rigour of enterprise-level accounting</strong> to small and medium businesses, at a price that makes sense for where you are — not where we'd like you to be.</p>
+        <p>Based in Melbourne, we serve clients across Australia and the United States. Remote-first by design, available in your timezone, and obsessed with getting every number right.</p>
+      </div>
+      <div class="story-right reveal">
+        <div class="founder-card">
+          <div class="founder-avatar-area">
+            <div class="founder-initials">H</div>
+          </div>
+          <div class="founder-info">
+            <h3>Hammad Memon</h3>
+            <div class="title">Founder & Lead Accountant</div>
+            <p>Melbourne-based accountant with extensive experience in bank reconciliations, audit workpapers, and financial reporting across multiple industries and jurisdictions.</p>
+            <div class="founder-tags">
+              <span class="founder-tag">Xero</span>
+              <span class="founder-tag">QuickBooks</span>
+              <span class="founder-tag">MYOB</span>
+              <span class="founder-tag">AU Tax</span>
+              <span class="founder-tag">US Tax</span>
+              <span class="founder-tag">Payroll</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="section-inner">
+    <div class="values-header reveal">
+      <div class="section-label">What We Stand For</div>
+      <h2 class="section-title">Our <em>principles.</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-num">01</div>
+        <h3>Precision over speed</h3>
+        <p>We don't rush reconciliations. Every transaction is matched line by line, every discrepancy is investigated, every report is verified before it reaches you.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-num">02</div>
+        <h3>Transparency always</h3>
+        <p>Fixed pricing, clear scope, no hidden fees. You'll always know exactly what you're paying for and what we're working on — no surprises, ever.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-num">03</div>
+        <h3>Your growth is our goal</h3>
+        <p>We're not just a compliance service. We aim to give you financial clarity that helps you make better decisions and grow your business with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets">
+  <div class="section-inner">
+    <div class="section-label reveal">Dual-Market Expertise</div>
+    <h2 class="section-title reveal">Two countries.<br><em>One firm.</em></h2>
+    <div class="markets-grid">
+      <div class="market-card reveal">
+        <span class="market-flag">🇦🇺</span>
+        <h3>Australia</h3>
+        <div class="subtitle">ATO Compliance Specialists</div>
+        <p>Deep knowledge of Australian tax law, BAS/GST obligations, superannuation, and ATO reporting requirements. We work with Xero and MYOB — the tools Australian businesses trust.</p>
+        <ul class="market-features">
+          <li>BAS & GST lodgement</li>
+          <li>ATO compliance management</li>
+          <li>Superannuation processing</li>
+          <li>Single Touch Payroll (STP)</li>
+          <li>MYOB & Xero certified</li>
+          <li>Business Activity Statements</li>
+        </ul>
+      </div>
+      <div class="market-card reveal">
+        <span class="market-flag">🇺🇸</span>
+        <h3>United States</h3>
+        <div class="subtitle">IRS & State Tax Specialists</div>
+        <p>Comprehensive US accounting services covering federal and state tax compliance, payroll management, and financial reporting — using QuickBooks, the standard for US small businesses.</p>
+        <ul class="market-features">
+          <li>Federal & state tax filing</li>
+          <li>IRS compliance management</li>
+          <li>1099 & W-2 processing</li>
+          <li>Payroll tax management</li>
+          <li>QuickBooks Online certified</li>
+          <li>Multi-state accounting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools">
+  <div class="section-inner">
+    <div class="tools-header reveal">
+      <p>Software we're certified in</p>
+    </div>
+    <div class="tools-grid reveal">
+      <div class="tool-card">
+        <div class="tool-name">Xero</div>
+        <div class="tool-desc">Cloud accounting for Australian SMBs</div>
+        <span class="tool-badge">AU Primary</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">QuickBooks</div>
+        <div class="tool-desc">Leading US small business platform</div>
+        <span class="tool-badge">US Primary</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">MYOB</div>
+        <div class="tool-desc">Australian payroll & compliance</div>
+        <span class="tool-badge">AU Payroll</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Zoho Books</div>
+        <div class="tool-desc">Multi-currency & global accounting</div>
+        <span class="tool-badge">Global</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="cta-inner reveal">
+      <div class="section-label">Work With Us</div>
+      <h2>Let's talk about<br><em>your business.</em></h2>
+      <p>Book a free 30-minute consultation. We'll review your current setup, identify any gaps, and walk you through exactly how we can help.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-primary">Book a Free Call →</a>
+        <a href="services.html" class="btn-secondary">View Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/><path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/></svg>
+          </div>
+          <div class="logo-text"><span class="wordmark">Digitwise</span><span class="tagline">Consulting</span></div>
+        </a>
+        <p>Precision accounting for growing businesses in Australia and the United States.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bookkeeping</a></li><li><a href="services.html">BAS & GST (AU)</a></li><li><a href="services.html">US Tax Filing</a></li><li><a href="services.html">Payroll</a></li><li><a href="services.html">AP & AR</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:salesdesk@digitwiseconsulting.com">salesdesk@digitwiseconsulting.com</a></li><li><a href="contact.html">Book a Free Call</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Terms & Conditions</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Digitwise Consulting. All rights reserved. ABN: XX XXX XXX XXX</p>
+      <div class="offices"><span>🇦🇺 Melbourne, Australia</span><span>🇺🇸 United States</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.padding = window.scrollY > 50 ? '14px 60px' : '20px 60px';
+    nav.style.background = window.scrollY > 50 ? 'rgba(13,27,42,0.97)' : 'rgba(13,27,42,0.85)';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Digitwise Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #0D1B2A; --navy-mid: #142237; --navy-light: #1E3251; --gold: #C9A84C; --gold-light: #E2C46B; --slate: #8A9AB5; --white: #FFFFFF; --text-muted: #6B7A99; --border: rgba(201, 168, 76, 0.2); }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,27,42,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: all 0.3s; }
+  .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-mark { width: 44px; height: 44px; flex-shrink: 0; }
+  .logo-text .wordmark { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 18px; color: var(--white); display: block; }
+  .logo-text .tagline { font-size: 9px; font-weight: 500; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--slate); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 10px 22px; border-radius: 4px; font-weight: 600 !important; font-size: 13px !important; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .page-hero { padding: 160px 60px 80px; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+  .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+  .page-hero-radial { position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .section-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: block; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(44px, 5vw, 72px); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; max-width: 700px; }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p { font-size: 18px; color: var(--slate); line-height: 1.7; max-width: 560px; margin-top: 24px; font-weight: 300; }
+
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  section { position: relative; z-index: 1; }
+
+  /* FEATURED POST */
+  .featured-post { padding: 80px 0 60px; }
+  .featured-card {
+    background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; display: grid; grid-template-columns: 1.2fr 1fr; transition: transform 0.3s;
+  }
+  .featured-card:hover { transform: translateY(-3px); }
+  .featured-visual {
+    background: var(--navy-light); padding: 60px; display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid var(--border); position: relative; overflow: hidden;
+  }
+  .featured-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(201,168,76,0.1) 0%, transparent 60%);
+  }
+  .featured-visual .big-icon { font-size: 80px; position: relative; z-index: 1; }
+  .featured-content { padding: 48px; }
+  .post-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .post-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 600; background: rgba(201,168,76,0.1); border: 1px solid var(--border); border-radius: 3px; padding: 3px 10px; }
+  .post-date { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .post-market { font-size: 12px; color: var(--text-muted); }
+  .featured-content h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 16px; }
+  .featured-content p { font-size: 15px; color: var(--slate); line-height: 1.7; font-weight: 300; margin-bottom: 28px; }
+  .read-more { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: gap 0.2s; }
+  .read-more:hover { gap: 12px; }
+
+  /* BLOG GRID */
+  .blog-section { padding: 20px 0 100px; }
+  .blog-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+  .blog-section-header h2 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .blog-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; cursor: pointer; }
+  .blog-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.4); }
+  .card-visual { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative; overflow: hidden; }
+  .card-visual.au { background: linear-gradient(135deg, #0D1B2A, #1a2f4a); }
+  .card-visual.us { background: linear-gradient(135deg, #0D1B2A, #1a2040); }
+  .card-visual.both { background: linear-gradient(135deg, #0D1B2A, #1a3030); }
+  .card-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, transparent 70%); }
+  .card-body { padding: 24px; }
+  .card-body .post-meta { margin-bottom: 12px; }
+  .card-body h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; line-height: 1.3; margin-bottom: 10px; }
+  .card-body p { font-size: 13px; color: var(--slate); line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
+  .card-read { font-size: 12px; color: var(--gold); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+
+  /* NEWSLETTER */
+  .newsletter { padding: 80px 0; background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .newsletter-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+  .newsletter-inner h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+  .newsletter-inner h2 em { font-style: italic; color: var(--gold); }
+  .newsletter-inner p { font-size: 15px; color: var(--slate); margin-bottom: 32px; font-weight: 300; line-height: 1.6; }
+  .newsletter-form { display: flex; gap: 12px; }
+  .newsletter-form input { flex: 1; background: var(--navy); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .newsletter-form input:focus { border-color: var(--gold); }
+  .newsletter-form input::placeholder { color: var(--text-muted); }
+  .newsletter-form button { background: var(--gold); color: var(--navy); padding: 14px 28px; border-radius: 6px; font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  .newsletter-form button:hover { background: var(--gold-light); }
+  .newsletter-note { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+  footer { background: #080F17; border-top: 1px solid var(--border); padding: 60px 60px 40px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-top: 16px; font-weight: 300; max-width: 280px; }
+  .footer-col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .footer-bottom .offices { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: fadeInUp 0.7s ease both; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 16px 30px; } .page-hero { padding: 120px 30px 60px; }
+    .section-inner { padding: 0 30px; }
+    .featured-card { grid-template-columns: 1fr; }
+    .featured-visual { padding: 40px; height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } footer { padding: 60px 30px 40px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; } .blog-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/><path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/></svg></div>
+    <div class="logo-text"><span class="wordmark">Digitwise</span><span class="tagline">Consulting</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Free Call</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-radial"></div>
+  <div class="page-hero-inner animate-in">
+    <div class="section-label">Insights & Guides</div>
+    <h1>Accounting made<br><em>simple.</em></h1>
+    <p>Plain-English guides on tax, bookkeeping, compliance, and cash flow — for Australian and US small business owners.</p>
+  </div>
+</section>
+
+<!-- FEATURED POST -->
+<section class="featured-post">
+  <div class="section-inner reveal">
+    <div class="featured-card">
+      <div class="featured-visual">
+        <div class="big-icon">📋</div>
+      </div>
+      <div class="featured-content">
+        <div class="post-meta">
+          <span class="post-tag">🇦🇺 Australia</span>
+          <span class="post-date">February 2025</span>
+        </div>
+        <h2>The 5 BAS Mistakes Australian Small Businesses Keep Making</h2>
+        <p>Business Activity Statements trip up thousands of Australian SMBs every quarter — not because the rules are complicated, but because nobody explains them clearly. Here are the five most common BAS mistakes we see, and exactly how to avoid them.</p>
+        <a href="#" class="read-more">Read Article →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="blog-section">
+  <div class="section-inner">
+    <div class="blog-section-header reveal">
+      <h2>Latest Articles</h2>
+    </div>
+    <div class="blog-grid reveal">
+      <div class="blog-card">
+        <div class="card-visual us">📊</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">🇺🇸 US Tax</span>
+            <span class="post-date">Jan 2025</span>
+          </div>
+          <h3>What Every US Small Business Needs to Know About Quarterly Tax Payments</h3>
+          <p>Missing estimated quarterly payments is one of the most expensive mistakes US business owners make. Here's a clear guide to staying on top of them.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-visual au">💰</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">🇦🇺 Bookkeeping</span>
+            <span class="post-date">Jan 2025</span>
+          </div>
+          <h3>Xero vs MYOB in 2025: Which Is Right for Your Australian Business?</h3>
+          <p>Both are excellent platforms, but they suit different businesses. We break down the real differences so you can choose with confidence.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-visual both">🌏</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">AU & US</span>
+            <span class="post-date">Dec 2024</span>
+          </div>
+          <h3>Running a Business in Both Australia and the US? Here's How to Handle the Accounting</h3>
+          <p>Managing dual-jurisdiction compliance doesn't have to be a nightmare. Here's a practical framework for businesses operating in both countries.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-visual au">📈</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">🇦🇺 Cash Flow</span>
+            <span class="post-date">Dec 2024</span>
+          </div>
+          <h3>Why Your P&L Looks Great But Your Bank Account Feels Empty</h3>
+          <p>Profit and cash flow are not the same thing. Understanding the difference could be the most valuable financial lesson your business learns this year.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-visual us">🧾</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">🇺🇸 Payroll</span>
+            <span class="post-date">Nov 2024</span>
+          </div>
+          <h3>1099 vs W-2: Getting Worker Classification Right in Your US Business</h3>
+          <p>Misclassifying workers is one of the fastest ways to trigger an IRS audit. Here's how to get it right from day one.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-visual au">⚡</div>
+        <div class="card-body">
+          <div class="post-meta">
+            <span class="post-tag">🇦🇺 Payroll</span>
+            <span class="post-date">Nov 2024</span>
+          </div>
+          <h3>Single Touch Payroll (STP) Phase 2: What Australian Employers Need to Know</h3>
+          <p>STP Phase 2 expanded reporting requirements for all Australian employers. Here's a plain-English breakdown of what's changed and what you need to do.</p>
+          <div class="card-read">Read Article →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="section-inner">
+    <div class="newsletter-inner reveal">
+      <h2>Stay <em>informed.</em></h2>
+      <p>Get monthly accounting tips, tax deadline reminders, and compliance updates for Australian and US small businesses — straight to your inbox.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com">
+        <button onclick="subscribeNewsletter(this)">Subscribe →</button>
+      </div>
+      <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/><path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/></svg></div>
+          <div class="logo-text"><span class="wordmark">Digitwise</span><span class="tagline">Consulting</span></div>
+        </a>
+        <p>Precision accounting for growing businesses in Australia and the United States.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bookkeeping</a></li><li><a href="services.html">BAS & GST (AU)</a></li><li><a href="services.html">US Tax Filing</a></li><li><a href="services.html">Payroll</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:salesdesk@digitwiseconsulting.com">salesdesk@digitwiseconsulting.com</a></li><li><a href="contact.html">Book a Free Call</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Digitwise Consulting. All rights reserved.</p>
+      <div class="offices"><span>🇦🇺 Melbourne, Australia</span><span>🇺🇸 United States</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function subscribeNewsletter(btn) {
+    btn.textContent = '✓ Subscribed!';
+    btn.style.background = '#2ECC71';
+    btn.disabled = true;
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.padding = window.scrollY > 50 ? '14px 60px' : '20px 60px';
+  });
+</script>
+</body>
+</html>

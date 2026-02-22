@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Digitwise Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #0D1B2A; --navy-mid: #142237; --navy-light: #1E3251; --gold: #C9A84C; --gold-light: #E2C46B; --slate: #8A9AB5; --white: #FFFFFF; --text-muted: #6B7A99; --border: rgba(201, 168, 76, 0.2); }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,27,42,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: all 0.3s; }
+  .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-mark { width: 44px; height: 44px; flex-shrink: 0; }
+  .logo-text .wordmark { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 18px; color: var(--white); display: block; }
+  .logo-text .tagline { font-size: 9px; font-weight: 500; color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--slate); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 10px 22px; border-radius: 4px; font-weight: 600 !important; font-size: 13px !important; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .page-hero { padding: 160px 60px 80px; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+  .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+  .page-hero-radial { position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+  .section-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; justify-content: center; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(44px, 5vw, 72px); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p { font-size: 18px; color: var(--slate); line-height: 1.7; max-width: 520px; margin: 24px auto 0; font-weight: 300; }
+
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  section { position: relative; z-index: 1; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* MARKET SWITCH */
+  .switch-section { padding: 48px 0 0; }
+  .switch-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; display: flex; justify-content: center; }
+  .market-switch { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .switch-btn { padding: 12px 36px; font-size: 14px; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; border: none; transition: all 0.2s; background: transparent; color: var(--slate); font-family: 'DM Sans', sans-serif; }
+  .switch-btn.active { background: var(--gold); color: var(--navy); font-weight: 600; }
+
+  /* PRICING */
+  .pricing-section { padding: 60px 0 100px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pricing-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; padding: 40px 36px; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .pricing-card.featured { border-color: var(--gold); background: var(--navy-light); }
+  .pricing-card.featured::before { content: 'Most Popular'; position: absolute; top: 22px; right: -28px; background: var(--gold); color: var(--navy); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 40px; transform: rotate(45deg); }
+  .plan-name { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 6px; }
+  .plan-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .plan-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; font-weight: 300; line-height: 1.5; }
+  .plan-price { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .plan-price .amount { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--white); line-height: 1; }
+  .plan-price .currency { font-size: 22px; vertical-align: top; margin-top: 8px; display: inline-block; color: var(--slate); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  .plan-price .period { font-size: 13px; color: var(--text-muted); font-weight: 300; margin-top: 4px; }
+  .plan-price .txn-limit { font-size: 12px; color: var(--text-muted); margin-top: 6px; padding: 4px 10px; background: rgba(201,168,76,0.08); border-radius: 4px; display: inline-block; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+  .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--slate); font-weight: 300; line-height: 1.4; }
+  .plan-features li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; background: rgba(201,168,76,0.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolyline points='3.5,8 6.5,11 12.5,5' fill='none' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") center/contain; border: 1px solid rgba(201,168,76,0.3); }
+  .plan-cta { display: block; text-align: center; padding: 13px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; border: 1px solid var(--border); color: var(--slate); }
+  .plan-cta:hover { border-color: var(--gold); color: var(--gold); }
+  .pricing-card.featured .plan-cta { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 700; }
+  .pricing-card.featured .plan-cta:hover { background: var(--gold-light); }
+
+  /* COMPARISON TABLE */
+  .comparison { padding: 100px 0; background: var(--navy-mid); border-top: 1px solid var(--border); }
+  .comparison-header { text-align: center; margin-bottom: 60px; }
+  .comparison-header .section-label { justify-content: center; }
+  .compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .compare-table th { background: var(--navy-light); padding: 16px 24px; text-align: left; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 600; border-bottom: 1px solid var(--border); }
+  .compare-table th:first-child { width: 40%; }
+  .compare-table td { padding: 14px 24px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--slate); font-weight: 300; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: rgba(201,168,76,0.02); }
+  .compare-table td:not(:first-child) { text-align: center; }
+  .check-yes { color: var(--gold); font-size: 16px; }
+  .check-no { color: var(--text-muted); font-size: 16px; }
+  .feature-name { color: var(--white); font-weight: 400; }
+  .cat-row td { background: var(--navy); color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 24px; }
+
+  /* FAQ */
+  .faq { padding: 100px 0; }
+  .faq-header { text-align: center; margin-bottom: 60px; }
+  .faq-header .section-label { justify-content: center; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .faq-item { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .faq-question { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
+  .faq-question:hover { background: rgba(201,168,76,0.03); }
+  .faq-question h4 { font-size: 15px; font-weight: 500; color: var(--white); line-height: 1.4; padding-right: 16px; }
+  .faq-toggle { width: 24px; height: 24px; flex-shrink: 0; background: rgba(201,168,76,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--gold); transition: transform 0.3s; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-answer p { padding: 0 24px 20px; font-size: 14px; color: var(--slate); line-height: 1.7; font-weight: 300; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  .faq-item.open .faq-answer { max-height: 300px; }
+
+  /* CTA */
+  .cta-section { padding: 100px 0; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .cta-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; }
+  .cta-inner .section-label { justify-content: center; }
+  .cta-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .cta-inner h2 em { font-style: italic; color: var(--gold); }
+  .cta-inner p { font-size: 16px; color: var(--slate); line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 15px 32px; border-radius: 4px; font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-secondary { color: var(--white); padding: 15px 32px; border-radius: 4px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.25s; border: 1px solid rgba(255,255,255,0.15); }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+
+  footer { background: #080F17; border-top: 1px solid var(--border); padding: 60px 60px 40px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-top: 16px; font-weight: 300; max-width: 280px; }
+  .footer-col h4 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .footer-bottom .offices { display: flex; gap: 24px; font-size: 12px; color: var(--text-muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: fadeInUp 0.7s ease both; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 16px 30px; } .page-hero { padding: 120px 30px 60px; }
+    .section-inner { padding: 0 30px; } .switch-inner { padding: 0 30px; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } footer { padding: 60px 30px 40px; }
+    .compare-table { font-size: 13px; } .compare-table th, .compare-table td { padding: 12px 16px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; } .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/><path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/></svg></div>
+    <div class="logo-text"><span class="wordmark">Digitwise</span><span class="tagline">Consulting</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Free Call</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-radial"></div>
+  <div class="page-hero-inner animate-in">
+    <div class="section-label">Transparent Pricing</div>
+    <h1>Simple plans.<br><em>No surprises.</em></h1>
+    <p>Fixed monthly pricing so you always know what you're paying. Scale up or down as your business grows.</p>
+  </div>
+</section>
+
+<div class="switch-section">
+  <div class="switch-inner">
+    <div class="market-switch">
+      <button class="switch-btn active" onclick="switchMarket('au', this)">🇦🇺 Australia (AUD)</button>
+      <button class="switch-btn" onclick="switchMarket('us', this)">🇺🇸 United States (USD)</button>
+    </div>
+  </div>
+</div>
+
+<section class="pricing-section">
+  <div class="section-inner">
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-title">Essentials</div>
+        <div class="plan-desc">For sole traders and micro businesses getting their books in order.</div>
+        <div class="plan-price">
+          <span class="currency">$</span><span class="amount" id="p1">499</span>
+          <div class="period">per month · <span id="curr1">AUD</span></div>
+          <span class="txn-limit" id="txn1">Up to 100 transactions/month</span>
+        </div>
+        <ul class="plan-features">
+          <li>Monthly bookkeeping & reconciliation</li>
+          <li id="f1a">BAS & GST lodgement</li>
+          <li>Bank reconciliation</li>
+          <li>Monthly P&L report</li>
+          <li>Email support (48hr response)</li>
+          <li>Xero or QuickBooks setup</li>
+        </ul>
+        <a href="contact.html" class="plan-cta">Get Started</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="plan-name">Growth</div>
+        <div class="plan-title">Professional</div>
+        <div class="plan-desc">For growing SMBs who need full-service accounting support month to month.</div>
+        <div class="plan-price">
+          <span class="currency">$</span><span class="amount" id="p2">999</span>
+          <div class="period">per month · <span id="curr2">AUD</span></div>
+          <span class="txn-limit" id="txn2">Up to 500 transactions/month</span>
+        </div>
+        <ul class="plan-features">
+          <li>Everything in Essentials</li>
+          <li id="f2a">Payroll (up to 10 employees)</li>
+          <li>Accounts Payable & Receivable</li>
+          <li>Full month-end close</li>
+          <li id="f2b">Superannuation compliance</li>
+          <li>Priority support (24hr response)</li>
+          <li>Quarterly strategy call</li>
+          <li>Cash flow reporting</li>
+        </ul>
+        <a href="contact.html" class="plan-cta">Get Started</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-title">Premium</div>
+        <div class="plan-desc">For established businesses with complex, multi-entity, or high-volume needs.</div>
+        <div class="plan-price">
+          <span class="currency"></span><span class="amount" id="p3">Custom</span>
+          <div class="period">tailored to your business</div>
+          <span class="txn-limit">Unlimited transactions</span>
+        </div>
+        <ul class="plan-features">
+          <li>Everything in Professional</li>
+          <li>Dedicated account manager</li>
+          <li>Unlimited payroll</li>
+          <li>Multi-entity accounting</li>
+          <li>CFO-level advisory</li>
+          <li>Same-day priority support</li>
+          <li>Custom reporting dashboards</li>
+          <li>Annual financial review</li>
+        </ul>
+        <a href="contact.html" class="plan-cta">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <div class="section-inner">
+    <div class="comparison-header reveal">
+      <div class="section-label">Compare Plans</div>
+      <h2 class="section-title">What's <em>included.</em></h2>
+    </div>
+    <div class="reveal" style="overflow-x:auto">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Essentials</th>
+            <th>Professional</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="4">Core Accounting</td></tr>
+          <tr><td class="feature-name">Monthly bookkeeping</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td class="feature-name">Bank reconciliation</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td class="feature-name">P&L & Balance Sheet</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td class="feature-name">Cash flow reporting</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr class="cat-row"><td colspan="4">Compliance</td></tr>
+          <tr><td class="feature-name">BAS & GST (AU) / Tax Filing (US)</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td class="feature-name">Payroll processing</td><td><span class="check-no">—</span></td><td>Up to 10</td><td>Unlimited</td></tr>
+          <tr><td class="feature-name">Super / Payroll tax</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr class="cat-row"><td colspan="4">Support & Advisory</td></tr>
+          <tr><td class="feature-name">Email support</td><td>48hr</td><td>24hr</td><td>Same-day</td></tr>
+          <tr><td class="feature-name">Strategy calls</td><td><span class="check-no">—</span></td><td>Quarterly</td><td>Monthly</td></tr>
+          <tr><td class="feature-name">Dedicated account manager</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+          <tr><td class="feature-name">CFO advisory</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-inner">
+    <div class="faq-header reveal">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title">Frequently <em>asked.</em></h2>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>Do you lock me into a contract?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>No lock-in contracts. We work month-to-month, and you can cancel with 30 days notice. We earn your business every month.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>What if my transaction volume changes?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>We'll review your volume each month and adjust your plan accordingly — up or down. You'll always be on the right plan for your business size.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>Do I need to provide my own accounting software?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>We can work with your existing Xero, QuickBooks, or MYOB subscription, or help you set one up. Software costs are separate from our service fees.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>How do you handle Australian and US tax differently?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>Our team is experienced in both ATO and IRS requirements. Australian clients get BAS/GST and superannuation compliance. US clients get federal/state tax filing and 1099/W-2 processing. The plan structure is the same — the compliance framework differs.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>What does onboarding look like?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>After signing up, we schedule a 60-minute onboarding call, connect to your accounting software, review your chart of accounts, and import any historical data. Most clients are fully onboarded within one week.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question"><h4>Can I upgrade or downgrade my plan?</h4><div class="faq-toggle">+</div></div>
+        <div class="faq-answer"><p>Absolutely. You can move between plans at any time. Upgrades take effect immediately; downgrades take effect the following billing cycle.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="cta-inner reveal">
+      <div class="section-label">Not Sure?</div>
+      <h2>Let's find the right<br>plan <em>together.</em></h2>
+      <p>Book a free 30-minute consultation. We'll assess your needs and recommend the right plan — no pressure, no commitment.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-primary">Book a Free Call →</a>
+        <a href="services.html" class="btn-secondary">See All Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="21" stroke="#C9A84C" stroke-width="1" opacity="0.3"/><path d="M8 13h6c4.4 0 8 3.6 8 9s-3.6 9-8 9H8V13z" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M24 13l3 13 3.5-8 3.5 8 3-13" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="22" x2="16" y2="22" stroke="#C9A84C" stroke-width="1" opacity="0.4"/></svg></div>
+          <div class="logo-text"><span class="wordmark">Digitwise</span><span class="tagline">Consulting</span></div>
+        </a>
+        <p>Precision accounting for growing businesses in Australia and the United States.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bookkeeping</a></li><li><a href="services.html">BAS & GST (AU)</a></li><li><a href="services.html">US Tax Filing</a></li><li><a href="services.html">Payroll</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:salesdesk@digitwiseconsulting.com">salesdesk@digitwiseconsulting.com</a></li><li><a href="contact.html">Book a Free Call</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Digitwise Consulting. All rights reserved.</p>
+      <div class="offices"><span>🇦🇺 Melbourne, Australia</span><span>🇺🇸 United States</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const au = { p1:'499', p2:'999', p3:'Custom', c:'AUD', t1:'Up to 100 transactions/month', t2:'Up to 500 transactions/month', f1a:'BAS & GST lodgement', f2a:'Payroll (up to 10 employees)', f2b:'Superannuation compliance (AU)' };
+  const us = { p1:'399', p2:'799', p3:'Custom', c:'USD', t1:'Up to 100 transactions/month', t2:'Up to 500 transactions/month', f1a:'Federal & State Tax Filing', f2a:'Payroll (up to 10 employees)', f2b:'1099 & W-2 filing' };
+
+  function switchMarket(market, btn) {
+    document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const d = market === 'au' ? au : us;
+    document.getElementById('p1').textContent = d.p1;
+    document.getElementById('p2').textContent = d.p2;
+    document.getElementById('p3').textContent = d.p3;
+    document.getElementById('curr1').textContent = d.c;
+    document.getElementById('curr2').textContent = d.c;
+    document.getElementById('txn1').textContent = d.t1;
+    document.getElementById('txn2').textContent = d.t2;
+    document.getElementById('f1a').textContent = d.f1a;
+    document.getElementById('f2a').textContent = d.f2a;
+    document.getElementById('f2b').textContent = d.f2b;
+  }
+
+  function toggleFaq(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.padding = window.scrollY > 50 ? '14px 60px' : '20px 60px';
+  });
+</script>
+</body>
+</html>
