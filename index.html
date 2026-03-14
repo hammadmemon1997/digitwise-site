@@ -1477,6 +1477,171 @@ footer {
   .calendly-inline-widget { min-height: 580px; }
   .calendly-loading { min-height: 580px; }
 }
+
+/* ── BLOG / INSIGHTS ── */
+.blog-section { background: var(--cream); }
+
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  gap: 40px;
+}
+
+.blog-link-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9A7530;
+  text-decoration: none;
+  transition: gap 0.2s;
+  white-space: nowrap;
+}
+.blog-link-all:hover { gap: 10px; }
+.blog-link-all svg { transition: transform 0.2s; }
+.blog-link-all:hover svg { transform: translateX(3px); }
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.blog-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.28s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: default;
+}
+.blog-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  border-color: var(--gold-pale);
+}
+
+.blog-card-thumb {
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blog-card-thumb svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.blog-card-thumb-icon {
+  font-size: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+.blog-card-body {
+  padding: 24px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.blog-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.blog-tag-au { background: #E8F4E8; color: #2E7D32; }
+.blog-tag-us { background: #FFEBEE; color: #C62828; }
+.blog-tag-both { background: var(--gold-ghost); color: #9A7530; }
+
+.blog-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.blog-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.blog-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.blog-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9A7530;
+  text-decoration: none;
+  transition: gap 0.2s;
+  margin-top: auto;
+}
+.blog-card:hover .blog-read-more { gap: 10px; }
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+.blog-author-av {
+  width: 30px; height: 30px;
+  background: var(--navy);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 11px; font-weight: 700;
+  color: var(--gold); flex-shrink: 0;
+}
+.blog-author-name { font-size: 12px; font-weight: 600; color: var(--navy); }
+.blog-author-role { font-size: 11px; color: var(--text-muted); }
+.blog-read-time {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .blog-header { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 768px) {
+  .blog-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1524,6 +1689,7 @@ footer {
     <li><a href="#why-us">About</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#insights">Insights</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
   </ul>
@@ -2102,6 +2268,150 @@ footer {
   </div>
 </section>
 
+
+<!-- INSIGHTS / BLOG -->
+<section class="blog-section" id="insights">
+  <div class="container">
+    <div class="blog-header">
+      <div>
+        <div class="eyebrow dark">Latest Insights</div>
+        <h2 class="section-title">Accounting tips for <em>AU & US businesses.</em></h2>
+      </div>
+      <a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank" class="blog-link-all">
+        More on LinkedIn
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- Article 1 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background: #1C2B3A;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#1C2B3A"/>
+            <rect x="0" y="0" width="400" height="180" fill="url(#g1)" opacity="0.4"/>
+            <defs>
+              <radialGradient id="g1" cx="80%" cy="20%" r="60%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#1C2B3A" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="30" y="50" width="60" height="8" rx="4" fill="#C9A84C" opacity="0.8"/>
+            <rect x="30" y="66" width="100" height="6" rx="3" fill="white" opacity="0.15"/>
+            <rect x="30" y="80" width="80" height="6" rx="3" fill="white" opacity="0.1"/>
+            <rect x="200" y="40" width="40" height="40" rx="8" fill="#C9A84C" opacity="0.15"/>
+            <rect x="250" y="55" width="30" height="30" rx="6" fill="#C9A84C" opacity="0.1"/>
+            <rect x="290" y="45" width="50" height="50" rx="10" fill="#C9A84C" opacity="0.08"/>
+            <text x="200" y="145" font-family="Georgia, serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🇦🇺 Australia</text>
+          </svg>
+          <div class="blog-card-thumb-icon">🧾</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-au">🇦🇺 Australia</span>
+            <span class="blog-date">March 2026</span>
+          </div>
+          <h3>BAS Lodgement Deadlines 2026 — What Every AU Business Needs to Know</h3>
+          <p>Missing a BAS deadline can mean ATO penalties, interest charges and a compliance headache. Here's a complete breakdown of every quarterly lodgement date for the 2025–26 financial year, plus tips on how to never miss one.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">HM</div>
+            <div>
+              <div class="blog-author-name">Hammad Memon</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">5 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background: #2E4158;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#2E4158"/>
+            <defs>
+              <radialGradient id="g2" cx="20%" cy="80%" r="60%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#2E4158" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="0" y="0" width="400" height="180" fill="url(#g2)" opacity="0.5"/>
+            <circle cx="300" cy="60" r="50" fill="#C9A84C" opacity="0.07"/>
+            <circle cx="320" cy="80" r="30" fill="#C9A84C" opacity="0.07"/>
+            <rect x="40" y="60" width="8" height="60" rx="4" fill="#C9A84C" opacity="0.5"/>
+            <rect x="56" y="75" width="8" height="45" rx="4" fill="#C9A84C" opacity="0.35"/>
+            <rect x="72" y="50" width="8" height="70" rx="4" fill="#C9A84C" opacity="0.6"/>
+            <rect x="88" y="65" width="8" height="55" rx="4" fill="#C9A84C" opacity="0.4"/>
+            <text x="200" y="145" font-family="Georgia, serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🇺🇸 United States</text>
+          </svg>
+          <div class="blog-card-thumb-icon">🏛️</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-us">🇺🇸 United States</span>
+            <span class="blog-date">February 2026</span>
+          </div>
+          <h3>US Quarterly Tax Payments Explained — A Guide for Small Business Owners</h3>
+          <p>If you're a US sole trader or LLC owner, you're expected to pay estimated taxes four times a year. Miss a payment and you'll face IRS penalties. This guide covers every deadline, how to calculate what you owe, and how to never get caught short.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">HM</div>
+            <div>
+              <div class="blog-author-name">Hammad Memon</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">6 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background: #243447;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#243447"/>
+            <defs>
+              <radialGradient id="g3" cx="50%" cy="50%" r="70%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#243447" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="0" y="0" width="400" height="180" fill="url(#g3)"/>
+            <rect x="40" y="45" width="120" height="90" rx="8" fill="white" opacity="0.04" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.2"/>
+            <rect x="55" y="62" width="70" height="4" rx="2" fill="#C9A84C" opacity="0.5"/>
+            <rect x="55" y="74" width="90" height="3" rx="1.5" fill="white" opacity="0.15"/>
+            <rect x="55" y="83" width="75" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="55" y="92" width="85" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="55" y="101" width="60" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="220" y="55" width="110" height="70" rx="8" fill="white" opacity="0.03" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.15"/>
+            <rect x="235" y="70" width="55" height="4" rx="2" fill="#C9A84C" opacity="0.4"/>
+            <rect x="235" y="82" width="75" height="3" rx="1.5" fill="white" opacity="0.12"/>
+            <rect x="235" y="91" width="65" height="3" rx="1.5" fill="white" opacity="0.08"/>
+            <text x="200" y="145" font-family="Georgia, serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🌏 AU & US</text>
+          </svg>
+          <div class="blog-card-thumb-icon">📊</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-both">🌏 AU & US</span>
+            <span class="blog-date">January 2026</span>
+          </div>
+          <h3>5 Bookkeeping Mistakes Small Businesses Make — and How to Fix Them</h3>
+          <p>From mixing personal and business expenses to ignoring bank reconciliation, these are the five most common bookkeeping errors we see when onboarding new clients in both Australia and the US — and exactly how to avoid them.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">HM</div>
+            <div>
+              <div class="blog-author-name">Hammad Memon</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">4 min read</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- FAQ -->
 <section class="faq-section" id="faq">
