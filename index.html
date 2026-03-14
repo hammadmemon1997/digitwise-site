@@ -1101,33 +1101,7 @@ footer {
 }
 .process-step p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; }
 
-/* ── PARTNERS ── */
-.partners-section { background: var(--cream); padding: 56px 60px; }
-.partners-inner { max-width: 1180px; margin: 0 auto; }
-.partners-label {
-  text-align: center;
-  font-size: 12px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--text-muted); margin-bottom: 32px;
-}
-.partners-logos {
-  display: flex; align-items: center; justify-content: center;
-  gap: 0; flex-wrap: wrap;
-}
-.partner-logo {
-  padding: 14px 36px;
-  border-right: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-}
-.partner-logo:last-child { border-right: none; }
-.partner-logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; font-weight: 700;
-  color: var(--text-muted); letter-spacing: -0.01em;
-  transition: color 0.2s;
-}
-.partner-logo:hover .partner-logo-text { color: var(--navy); }
-.partner-logo-sub { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); display: block; text-align: center; margin-top: 3px; }
+
 
 /* ── LINKEDIN STRIP ── */
 .linkedin-strip {
@@ -1209,16 +1183,12 @@ footer {
 @media (max-width: 1024px) {
   .process-grid { grid-template-columns: 1fr; gap: 16px; }
   .process-grid::before { display: none; }
-  .partners-section { padding: 40px 28px; }
-  .partners-logos { gap: 0; }
-  .partner-logo { padding: 12px 20px; }
   .linkedin-strip { padding: 32px 28px; }
   .linkedin-strip-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
   .li-stats { gap: 24px; }
   .faq-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .partner-logo { padding: 10px 16px; }
   .li-stats { flex-wrap: wrap; gap: 16px; }
 }
 
@@ -1444,45 +1414,6 @@ footer {
 
 
 <main id="main-content">
-<!-- PARTNERS -->
-<div class="partners-section">
-  <div class="partners-inner">
-    <div class="partners-label">Certified & integrated with the tools you already use</div>
-    <div class="partners-logos">
-      <div class="partner-logo">
-        <div>
-          <div class="partner-logo-text">Xero</div>
-          <span class="partner-logo-sub">Certified Advisor</span>
-        </div>
-      </div>
-      <div class="partner-logo">
-        <div>
-          <div class="partner-logo-text">QuickBooks</div>
-          <span class="partner-logo-sub">ProAdvisor</span>
-        </div>
-      </div>
-      <div class="partner-logo">
-        <div>
-          <div class="partner-logo-text">MYOB</div>
-          <span class="partner-logo-sub">Certified Partner</span>
-        </div>
-      </div>
-      <div class="partner-logo">
-        <div>
-          <div class="partner-logo-text">Zoho Books</div>
-          <span class="partner-logo-sub">Integrated</span>
-        </div>
-      </div>
-      <div class="partner-logo">
-        <div>
-          <div class="partner-logo-text">ATO</div>
-          <span class="partner-logo-sub">Registered Agent</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav id="main-nav" role="navigation" aria-label="Main navigation">
   <a href="#" class="logo">
