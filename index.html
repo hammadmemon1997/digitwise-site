@@ -253,6 +253,27 @@
     }
   });
 })();
+
+// ── CALENDLY INIT ──
+(function() {
+  var script = document.createElement('script');
+  script.src = 'https://assets.calendly.com/assets/external/widget.js';
+  script.async = true;
+  script.onload = function() {
+    var el = document.getElementById('calendly-embed');
+    var loader = document.getElementById('cal-loading');
+    if (!el) return;
+    Calendly.initInlineWidget({
+      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C',
+      parentElement: el,
+      prefill: {},
+      utm: {}
+    });
+    el.style.display = 'block';
+    if (loader) loader.style.display = 'none';
+  };
+  document.head.appendChild(script);
+})();
 </script>
 
 <!-- ── PERFORMANCE ── -->
@@ -260,6 +281,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link href="https://calendly.com/assets/external/widget.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1385,6 +1407,76 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   .bas-strip { width: 100%; }
 }
+
+/* ── CALENDLY EMBED ── */
+.calendly-wrap {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+}
+.calendly-wrap::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  z-index: 1;
+}
+.calendly-header {
+  padding: 24px 28px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.calendly-icon {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.calendly-icon svg { width: 20px; height: 20px; }
+.calendly-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.02em;
+}
+.calendly-sub {
+  font-size: 12px; color: rgba(255,255,255,0.42); margin-top: 2px;
+}
+.calendly-inline-widget {
+  min-height: 660px;
+  border: none;
+}
+.calendly-loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 660px; flex-direction: column; gap: 12px;
+}
+.calendly-spinner {
+  width: 36px; height: 36px;
+  border: 2px solid rgba(201,168,76,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: cal-spin 0.8s linear infinite;
+}
+@keyframes cal-spin { to { transform: rotate(360deg); } }
+.calendly-loading p {
+  font-size: 13px; color: rgba(255,255,255,0.38);
+}
+
+/* Wider contact grid when Calendly is showing */
+.contact-grid-cal {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .contact-grid-cal { grid-template-columns: 1fr; gap: 40px; }
+  .calendly-inline-widget { min-height: 580px; }
+  .calendly-loading { min-height: 580px; }
+}
 </style>
 </head>
 <body>
@@ -1885,7 +1977,7 @@ footer {
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <div class="contact-grid">
+    <div class="contact-grid-cal">
       <div class="reveal">
         <div class="eyebrow">Let's Talk</div>
         <h2 class="section-title light">Ready for accounting that <em>actually works?</em></h2>
@@ -1913,7 +2005,38 @@ footer {
           </a>
         </div>
       </div>
-      <div class="contact-form reveal" id="contact-form-wrap">
+      <!-- Calendly inline widget -->
+      <div class="calendly-wrap reveal">
+        <div class="calendly-header">
+          <div class="calendly-icon">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="4" width="16" height="14" rx="3" stroke="#1C2B3A" stroke-width="1.8"/>
+              <path d="M2 8h16" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M6 2v4M14 2v4" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="7" cy="12" r="1.2" fill="#1C2B3A"/>
+              <circle cx="10" cy="12" r="1.2" fill="#1C2B3A"/>
+              <circle cx="13" cy="12" r="1.2" fill="#1C2B3A"/>
+            </svg>
+          </div>
+          <div>
+            <div class="calendly-title">Book a free 30-min call</div>
+            <div class="calendly-sub">Pick a time that suits you — AEST or EST</div>
+          </div>
+        </div>
+        <div id="cal-loading" class="calendly-loading">
+          <div class="calendly-spinner"></div>
+          <p>Loading calendar...</p>
+        </div>
+        <div
+          class="calendly-inline-widget"
+          id="calendly-embed"
+          data-url="https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C"
+          style="display:none;">
+        </div>
+      </div>
+
+      <!-- Keep Formspree form as a fallback below on mobile -->
+      <div class="contact-form reveal" id="contact-form-wrap" style="display:none;">
         <div id="form-content">
           <div class="form-title">Send us a message</div>
           <div class="form-sub">We'll get back to you within 48 hours. No pressure, no commitment.</div>
@@ -2181,6 +2304,27 @@ function toggleFaq(el) {
       btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
     }
   });
+})();
+
+// ── CALENDLY INIT ──
+(function() {
+  var script = document.createElement('script');
+  script.src = 'https://assets.calendly.com/assets/external/widget.js';
+  script.async = true;
+  script.onload = function() {
+    var el = document.getElementById('calendly-embed');
+    var loader = document.getElementById('cal-loading');
+    if (!el) return;
+    Calendly.initInlineWidget({
+      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C',
+      parentElement: el,
+      prefill: {},
+      utm: {}
+    });
+    el.style.display = 'block';
+    if (loader) loader.style.display = 'none';
+  };
+  document.head.appendChild(script);
 })();
 </script>
 </body>
