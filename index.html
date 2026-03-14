@@ -444,50 +444,80 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 
 /* ── HERO ── */
 .hero {
-  background: var(--navy);
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
   padding-top: 70px;
+  background: var(--navy);
+}
+
+/* Diagonal split: cream bleeds in from right */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+  clip-path: polygon(62% 0, 100% 0, 100% 100%, 52% 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero-texture {
-  position: absolute; inset: 0; pointer-events: none;
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background-image:
     linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 70% at 55% 45%, black 30%, transparent 100%);
+  /* Only show grid on navy side */
+  clip-path: polygon(0 0, 63% 0, 53% 100%, 0 100%);
 }
 
 .hero-orb-1 {
   position: absolute;
-  width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-  top: -140px; right: -140px;
-  pointer-events: none;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+  top: -80px; left: 30%;
+  pointer-events: none; z-index: 1;
   animation: orb-drift 10s ease-in-out infinite;
 }
 .hero-orb-2 {
   position: absolute;
-  width: 380px; height: 380px;
-  background: radial-gradient(circle, rgba(46,65,88,0.8) 0%, transparent 70%);
-  bottom: -80px; left: -80px;
-  pointer-events: none;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(46,65,88,0.5) 0%, transparent 70%);
+  bottom: -60px; left: -60px;
+  pointer-events: none; z-index: 1;
 }
 @keyframes orb-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,20px)} }
 
 .hero-inner {
   position: relative; z-index: 2;
-  max-width: 1180px; margin: 0 auto;
-  padding: 96px 60px;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 80px;
-  align-items: center;
   width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+/* Left column — navy side */
+.hero-left-col {
+  padding: 80px 56px 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Right column — cream side */
+.hero-right-col {
+  padding: 64px 52px 64px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  z-index: 3;
 }
 
 .hero-badge {
@@ -633,6 +663,82 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 }
 .fcard-n span { color: var(--gold); }
 .fcard-l { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 3px; }
+
+
+/* Hero right col — cream side card styles */
+.hero-card-cream {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(28,43,58,0.1);
+}
+.hero-card-cream::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.hc-label-dark {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: #9A7530; margin-bottom: 18px;
+}
+.hc-list-dark {
+  list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;
+}
+.hc-list-dark li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 500; color: var(--navy);
+}
+.hc-check-dark {
+  width: 20px; height: 20px;
+  background: rgba(154,117,48,0.12);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hc-check-dark::after {
+  content: '';
+  width: 8px; height: 5px;
+  border-left: 2px solid #9A7530;
+  border-bottom: 2px solid #9A7530;
+  transform: rotate(-45deg) translate(0,-1px);
+}
+.hc-certs-dark {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.cert-tag-dark {
+  background: var(--gold-ghost);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 4px 10px; border-radius: 5px;
+  font-size: 11px; font-weight: 700;
+  color: #9A7530; letter-spacing: 0.04em;
+}
+.float-pair-cream {
+  display: flex; gap: 12px;
+}
+.fcard-cream {
+  flex: 1;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 16px 18px;
+  box-shadow: 0 4px 16px rgba(28,43,58,0.07);
+  animation: flt 6s ease-in-out infinite;
+}
+.fcard-cream:nth-child(2) { animation-delay: 1.2s; }
+.fcard-cream-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--navy); line-height: 1;
+}
+.fcard-cream-n span { color: var(--gold); }
+.fcard-cream-l { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
 /* ── SHARED SECTION STYLES ── */
 section { padding: 96px 60px; }
@@ -1088,7 +1194,10 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   nav { padding: 0 28px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 28px; }
+  .hero::after { clip-path: none; background: transparent; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-left-col { padding: 60px 28px 40px; }
+  .hero-right-col { padding: 0 28px 60px; background: var(--cream); }
   section { padding: 80px 28px; }
   .about-grid, .whyus-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .services-grid, .testi-grid { grid-template-columns: repeat(2,1fr); }
@@ -1103,6 +1212,7 @@ footer {
   .nav-toggle { display: flex; }
   .hero-stats { flex-wrap: wrap; gap: 20px 0; }
   .hstat { padding-right: 18px; margin-right: 18px; }
+  .float-pair-cream { flex-direction: column; }
   .services-grid, .testi-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
@@ -1756,11 +1866,14 @@ footer {
   <div class="hero-orb-2"></div>
 
   <div class="hero-inner">
-    <div>
+
+    <!-- LEFT — navy side -->
+    <div class="hero-left-col">
       <div class="hero-badge">
         <span class="live-dot"></span>
         Serving Australia &amp; United States
       </div>
+
       <div class="bas-strip" id="bas-strip">
         <div class="bas-flag">🇦🇺</div>
         <div>
@@ -1778,13 +1891,15 @@ footer {
 
       <h1>Your books, done<br><em>precisely.</em> Every time.</h1>
       <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, fluent in both ATO and IRS compliance.</p>
+
       <div class="hero-actions">
         <button onclick="openCalModal()" class="btn-gold" style="border:none;cursor:pointer;">
           Book a Free Consultation
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+        </button>
         <a href="#pricing" class="btn-outline-ghost">View Pricing</a>
       </div>
+
       <div class="hero-stats">
         <div class="hstat"><div class="hstat-n">50<span>+</span></div><div class="hstat-l">SMBs Served</div></div>
         <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l">Countries</div></div>
@@ -1793,35 +1908,38 @@ footer {
       </div>
     </div>
 
-    <div>
-      <div class="hero-card">
-        <div class="hc-label">What we handle</div>
-        <ul class="hc-list">
-          <li><span class="hc-check"></span>BAS &amp; GST Lodgement (AU)</li>
-          <li><span class="hc-check"></span>IRS Federal &amp; State Tax (US)</li>
-          <li><span class="hc-check"></span>Bank Reconciliation</li>
-          <li><span class="hc-check"></span>Payroll &amp; Superannuation</li>
-          <li><span class="hc-check"></span>Month-End Close &amp; Reporting</li>
-          <li><span class="hc-check"></span>Accounts Payable &amp; Receivable</li>
+    <!-- RIGHT — cream side -->
+    <div class="hero-right-col">
+      <div class="hero-card-cream">
+        <div class="hc-label-dark">What we handle</div>
+        <ul class="hc-list-dark">
+          <li><span class="hc-check-dark"></span>BAS &amp; GST Lodgement (AU)</li>
+          <li><span class="hc-check-dark"></span>IRS Federal &amp; State Tax (US)</li>
+          <li><span class="hc-check-dark"></span>Bank Reconciliation</li>
+          <li><span class="hc-check-dark"></span>Payroll &amp; Superannuation</li>
+          <li><span class="hc-check-dark"></span>Month-End Close &amp; Reporting</li>
+          <li><span class="hc-check-dark"></span>Accounts Payable &amp; Receivable</li>
         </ul>
-        <div class="hc-certs">
+        <div class="hc-certs-dark">
           Certified in
-          <span class="cert-tag">Xero</span>
-          <span class="cert-tag">QBO</span>
-          <span class="cert-tag">MYOB</span>
+          <span class="cert-tag-dark">Xero</span>
+          <span class="cert-tag-dark">QBO</span>
+          <span class="cert-tag-dark">MYOB</span>
         </div>
       </div>
-      <div class="float-pair">
-        <div class="fcard">
-          <div class="fcard-n">48<span>hr</span></div>
-          <div class="fcard-l">Max response time</div>
+
+      <div class="float-pair-cream">
+        <div class="fcard-cream">
+          <div class="fcard-cream-n">48<span>hr</span></div>
+          <div class="fcard-cream-l">Max response time</div>
         </div>
-        <div class="fcard">
-          <div class="fcard-n" style="font-size:18px;padding-top:3px;">Fixed</div>
-          <div class="fcard-l">Transparent pricing</div>
+        <div class="fcard-cream">
+          <div class="fcard-cream-n" style="font-size:18px;padding-top:3px;">Fixed</div>
+          <div class="fcard-cream-l">Transparent pricing</div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
