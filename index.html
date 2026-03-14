@@ -6,248 +6,233 @@
 <title>Digitwise Consulting — Accounting for Australian & US Businesses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --blue-deep:    #0A2463;
-  --blue-mid:     #1B4FBF;
-  --blue-bright:  #2563EB;
-  --blue-light:   #DBEAFE;
-  --blue-pale:    #EFF6FF;
-  --accent:       #3B82F6;
-  --sky:          #BAE6FD;
-  --white:        #FFFFFF;
-  --off-white:    #F8FAFC;
-  --gray-50:      #F9FAFB;
-  --gray-100:     #F3F4F6;
-  --gray-200:     #E5E7EB;
-  --gray-400:     #9CA3AF;
-  --gray-500:     #6B7280;
-  --gray-700:     #374151;
-  --gray-900:     #111827;
-  --text:         #1E293B;
-  --text-muted:   #64748B;
-  --border:       #E2E8F0;
-  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:    0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg:    0 20px 48px rgba(10,36,99,0.12), 0 8px 16px rgba(10,36,99,0.06);
-  --shadow-blue:  0 8px 32px rgba(37,99,235,0.2);
+  --char:        #141210;
+  --char-mid:    #1E1B17;
+  --char-light:  #2A2520;
+  --char-soft:   #3A342D;
+  --lime:        #C8F135;
+  --lime-dim:    #A8D120;
+  --lime-pale:   #EEF9B8;
+  --lime-ghost:  #F5FCD8;
+  --white:       #FFFFFF;
+  --cream:       #FAF8F4;
+  --cream-mid:   #F2EFE8;
+  --cream-dark:  #E8E3D8;
+  --text:        #1E1B17;
+  --text-mid:    #4A4238;
+  --text-muted:  #7A7168;
+  --border-dark: rgba(255,255,255,0.08);
+  --border-light: #E2DDD4;
+  --shadow-card: 0 2px 12px rgba(20,18,16,0.06), 0 1px 3px rgba(20,18,16,0.04);
+  --shadow-lift: 0 16px 48px rgba(20,18,16,0.12), 0 4px 12px rgba(20,18,16,0.06);
+  --shadow-lime: 0 8px 32px rgba(200,241,53,0.25);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--white);
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--gray-100); }
-::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 3px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--char); }
+::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 3px; }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--lime);
+  padding: 11px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-flex;
+  animation: ticker-scroll 30s linear infinite;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 28px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--char);
+}
+.ticker-sep { width: 4px; height: 4px; background: var(--char-light); border-radius: 50%; opacity: 0.4; }
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 /* ── NAV ── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 0 60px;
-  height: 72px;
+  z-index: 200;
+  height: 68px;
+  padding: 0 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: all 0.3s ease;
+  background: rgba(20,18,16,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-dark);
+  transition: all 0.3s;
 }
-
-nav.scrolled {
-  box-shadow: var(--shadow-md);
-}
+nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   text-decoration: none;
 }
-
-.logo-icon {
-  width: 38px; height: 38px;
-  background: var(--blue-deep);
-  border-radius: 10px;
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--lime);
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-
-.logo-icon svg { width: 22px; height: 22px; }
-
+.logo-mark svg { width: 20px; height: 20px; }
 .logo-name {
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 19px;
-  color: var(--blue-deep);
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--white);
   letter-spacing: -0.02em;
 }
-
-.logo-name span { color: var(--blue-bright); }
+.logo-name span { color: var(--lime); }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 32px;
   list-style: none;
 }
-
 .nav-links a {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  color: var(--gray-700);
+  color: rgba(255,255,255,0.6);
   transition: color 0.2s;
   letter-spacing: 0.01em;
 }
-
-.nav-links a:hover { color: var(--blue-bright); }
+.nav-links a:hover { color: var(--white); }
 
 .nav-cta {
-  background: var(--blue-bright);
-  color: var(--white) !important;
-  padding: 10px 22px;
-  border-radius: 8px;
-  font-weight: 600 !important;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s !important;
-  box-shadow: var(--shadow-blue);
+  background: var(--lime) !important;
+  color: var(--char) !important;
+  padding: 9px 20px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: var(--char) !important;
+  transition: all 0.2s !important;
+  box-shadow: var(--shadow-lime) !important;
 }
-
 .nav-cta:hover {
-  background: var(--blue-mid) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 36px rgba(37,99,235,0.3) !important;
+  background: var(--lime-dim) !important;
+  transform: translateY(-1px) !important;
 }
 
 /* ── HERO ── */
 .hero {
+  background: var(--char);
   min-height: 100vh;
-  background: var(--blue-deep);
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 72px;
+  padding-top: 68px;
 }
 
-.hero-bg-grid {
+/* subtle dot grid */
+.hero::before {
+  content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+  background-image: radial-gradient(circle, rgba(200,241,53,0.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, black 20%, transparent 80%);
 }
 
-.hero-orbs {
-  position: absolute; inset: 0; pointer-events: none;
-}
-
-.orb {
+.hero-glow {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
-}
-
-.orb-1 {
-  width: 600px; height: 600px;
-  background: var(--blue-bright);
-  top: -150px; right: -100px;
-  animation: float1 8s ease-in-out infinite;
-}
-
-.orb-2 {
-  width: 400px; height: 400px;
-  background: #60A5FA;
-  bottom: 0; left: -80px;
-  animation: float2 10s ease-in-out infinite;
-}
-
-@keyframes float1 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-30px, 30px); }
-}
-
-@keyframes float2 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(20px, -20px); }
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(200,241,53,0.07) 0%, transparent 70%);
+  top: -200px; right: -200px;
+  pointer-events: none;
 }
 
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 1200px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 100px 60px;
+  padding: 100px 56px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 72px;
   align-items: center;
+  width: 100%;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 7px 16px;
+  background: rgba(200,241,53,0.1);
+  border: 1px solid rgba(200,241,53,0.25);
+  padding: 6px 15px;
   border-radius: 100px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--sky);
-  letter-spacing: 0.04em;
+  color: var(--lime);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 28px;
-  backdrop-filter: blur(8px);
 }
-
-.hero-badge .dot {
+.live-dot {
   width: 6px; height: 6px;
-  background: #34D399;
+  background: var(--lime);
   border-radius: 50%;
-  box-shadow: 0 0 8px #34D399;
-  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--lime);
+  animation: blink 2s ease-in-out infinite;
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 .hero h1 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(42px, 5vw, 64px);
-  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 4.8vw, 66px);
+  font-weight: 800;
   color: var(--white);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   margin-bottom: 24px;
 }
-
 .hero h1 em {
   font-style: italic;
-  color: var(--sky);
+  color: var(--lime);
+  font-weight: 700;
 }
 
 .hero-sub {
-  font-size: 18px;
-  color: rgba(255,255,255,0.7);
+  font-size: 17px;
+  color: rgba(255,255,255,0.55);
   line-height: 1.7;
   margin-bottom: 40px;
   max-width: 480px;
@@ -255,1253 +240,798 @@ nav.scrolled {
 
 .hero-actions {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
+  margin-bottom: 52px;
 }
 
-.btn-primary {
+.btn-lime {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--white);
-  color: var(--blue-deep);
-  padding: 15px 28px;
+  background: var(--lime);
+  color: var(--char);
+  padding: 14px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   transition: all 0.2s;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  box-shadow: var(--shadow-lime);
   letter-spacing: -0.01em;
+  font-family: 'Syne', sans-serif;
 }
+.btn-lime:hover { background: var(--lime-dim); transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,241,53,0.35); }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 36px rgba(255,255,255,0.25);
-}
-
-.btn-ghost {
+.btn-outline-white {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: transparent;
-  color: rgba(255,255,255,0.85);
-  padding: 15px 28px;
+  color: rgba(255,255,255,0.75);
+  padding: 14px 28px;
   border-radius: 10px;
-  border: 1.5px solid rgba(255,255,255,0.25);
+  border: 1.5px solid rgba(255,255,255,0.18);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   transition: all 0.2s;
   letter-spacing: -0.01em;
 }
-
-.btn-ghost:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.45);
-}
+.btn-outline-white:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.35); color: white; }
 
 .hero-stats {
-  display: flex;
-  gap: 32px;
-  margin-top: 52px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(255,255,255,0.12);
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0;
+  width: fit-content;
 }
-
-.hero-stat-num {
-  font-family: 'Fraunces', serif;
-  font-size: 36px;
-  font-weight: 700;
+.hero-stat {
+  padding: 0 28px 0 0;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 28px;
+}
+.hero-stat:last-child { border: none; margin: 0; padding: 0; }
+.hero-stat-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
   color: var(--white);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
 }
+.hero-stat-n span { color: var(--lime); }
+.hero-stat-l { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.01em; }
 
-.hero-stat-label {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  font-weight: 500;
-  margin-top: 4px;
-  letter-spacing: 0.01em;
-}
+/* Hero right — feature card */
+.hero-right { position: relative; }
 
-/* Hero right — card stack */
-.hero-card-stack {
-  position: relative;
-  height: 480px;
-}
-
-.hero-card {
-  position: absolute;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.13);
+.feature-card {
+  background: var(--char-mid);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  padding: 28px 32px;
-  transition: transform 0.3s ease;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--lime), transparent);
 }
 
-.hero-card:hover { transform: translateY(-4px); }
-
-.hero-card-main {
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
+.fc-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lime);
+  margin-bottom: 20px;
 }
 
-.hero-card-float-1 {
-  width: 220px;
-  bottom: 60px;
-  left: -20px;
-  background: rgba(37,99,235,0.5);
-  border-color: rgba(37,99,235,0.4);
-  animation: cardFloat 6s ease-in-out infinite;
+.fc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 28px;
+}
+.fc-list li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+.fc-check {
+  width: 20px; height: 20px;
+  background: rgba(200,241,53,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.fc-check::after {
+  content: '';
+  width: 8px; height: 5px;
+  border-left: 2px solid var(--lime);
+  border-bottom: 2px solid var(--lime);
+  transform: rotate(-45deg) translate(0px,-1px);
 }
 
-.hero-card-float-2 {
-  width: 200px;
-  bottom: 20px;
-  right: 0px;
-  background: rgba(255,255,255,0.1);
-  animation: cardFloat 7s ease-in-out infinite 1s;
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.card-label {
+.fc-certs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--sky);
-  margin-bottom: 16px;
+  color: rgba(255,255,255,0.35);
 }
-
-.card-service-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.card-service-list li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.85);
-  font-weight: 500;
-}
-
-.card-service-list .check {
-  width: 20px; height: 20px;
-  background: rgba(52,211,153,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-
-.card-service-list .check::after {
-  content: '';
-  width: 8px; height: 5px;
-  border-left: 2px solid #34D399;
-  border-bottom: 2px solid #34D399;
-  transform: rotate(-45deg) translate(0, -1px);
-}
-
-.mini-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.mini-stat-val {
-  font-family: 'Fraunces', serif;
-  font-size: 28px;
+.cert-pill {
+  background: rgba(200,241,53,0.12);
+  border: 1px solid rgba(200,241,53,0.2);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--white);
-  letter-spacing: -0.03em;
+  color: var(--lime);
+  letter-spacing: 0.04em;
 }
 
-.mini-stat-lbl {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-}
-
-/* ── FLAG STRIP ── */
-.flag-strip {
-  background: var(--blue-pale);
-  padding: 18px 60px;
+.float-cards {
+  position: absolute;
+  bottom: -20px;
+  left: -28px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  border-bottom: 1px solid var(--blue-light);
-}
-
-.flag-item {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--blue-deep);
 }
-
-.flag-item .sep { width: 1px; height: 20px; background: var(--blue-light); }
+.float-card {
+  background: var(--char-light);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px 18px;
+  min-width: 160px;
+  animation: floatUp 6s ease-in-out infinite;
+}
+.float-card:nth-child(2) { animation-delay: 1.5s; left: 20px; }
+.float-card-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
+.float-card-n span { color: var(--lime); }
+.float-card-l { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+@keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
 /* ── SECTIONS ── */
-section { padding: 100px 60px; }
+section { padding: 96px 56px; }
+.container { max-width: 1180px; margin: 0 auto; }
 
-.container { max-width: 1200px; margin: 0 auto; }
-
-.section-eyebrow {
+.eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--blue-bright);
-  margin-bottom: 16px;
+  color: var(--lime-dim);
+  margin-bottom: 14px;
 }
-
-.section-eyebrow::before {
+.eyebrow::before {
   content: '';
   display: block;
-  width: 24px; height: 2px;
-  background: var(--blue-bright);
+  width: 20px; height: 2px;
+  background: var(--lime-dim);
   border-radius: 1px;
 }
 
 .section-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  color: var(--blue-deep);
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 800;
+  color: var(--char);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 14px;
 }
-
-.section-title em {
-  font-style: italic;
-  color: var(--blue-bright);
-}
+.section-title em { font-style: italic; color: var(--lime-dim); font-weight: 700; }
+.section-title.light { color: var(--white); }
+.section-title.light em { color: var(--lime); }
 
 .section-lead {
-  font-size: 18px;
+  font-size: 17px;
   color: var(--text-muted);
   line-height: 1.7;
-  max-width: 560px;
+  max-width: 540px;
 }
+.section-lead.light { color: rgba(255,255,255,0.55); }
 
 /* ── ABOUT ── */
-.about-section {
-  background: var(--white);
-}
+.about-section { background: var(--cream); }
 
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 72px;
   align-items: center;
 }
 
 .about-visual {
-  position: relative;
-}
-
-.about-visual-card {
-  background: var(--blue-deep);
+  background: var(--char);
   border-radius: 24px;
-  padding: 48px;
-  color: white;
+  padding: 40px;
   position: relative;
   overflow: hidden;
 }
-
-.about-visual-card::before {
+.about-visual::after {
   content: '';
   position: absolute;
-  top: -60px; right: -60px;
-  width: 240px; height: 240px;
-  background: var(--blue-bright);
-  border-radius: 50%;
-  opacity: 0.15;
+  bottom: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(200,241,53,0.1), transparent 70%);
+  pointer-events: none;
 }
 
-.about-visual-card::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: -40px;
-  width: 180px; height: 180px;
-  background: #60A5FA;
-  border-radius: 50%;
-  opacity: 0.1;
-}
-
-.about-market {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.market-row {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
+.market-block {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px;
-  padding: 20px 24px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
 }
-
-.market-flag-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.market-block:last-of-type { margin-bottom: 0; }
+.market-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  font-size: 15px;
-  color: white;
+  color: var(--white);
   margin-bottom: 12px;
 }
-
-.market-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.market-pill {
-  background: rgba(37,99,235,0.4);
-  border: 1px solid rgba(255,255,255,0.15);
+.market-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  background: rgba(200,241,53,0.1);
+  border: 1px solid rgba(200,241,53,0.18);
   border-radius: 100px;
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255,255,255,0.85);
+  color: var(--lime);
 }
 
-.certified-bar {
+.cert-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.12);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--sky);
+  gap: 10px;
+  padding-top: 22px;
+  margin-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
-
-.cert-badge {
-  background: rgba(255,255,255,0.12);
-  padding: 6px 14px;
+.cert-tag {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 6px;
-  font-size: 13px;
+  padding: 6px 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
   font-weight: 700;
   color: white;
 }
 
-.about-content .section-lead { margin-bottom: 36px; }
+.about-content .section-lead { margin-bottom: 32px; }
 
-.about-points {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.about-points li {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
+.point-list { list-style: none; display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+.point-list li { display: flex; gap: 15px; align-items: flex-start; }
 .point-icon {
-  width: 44px; height: 44px;
-  background: var(--blue-pale);
-  border-radius: 12px;
+  width: 42px; height: 42px;
+  background: var(--lime-ghost);
+  border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
   font-size: 18px;
+  flex-shrink: 0;
 }
-
-.point-text strong {
-  display: block;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--blue-deep);
-  margin-bottom: 4px;
-}
-
-.point-text p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
+.point-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--char); margin-bottom: 3px; }
+.point-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
 /* ── SERVICES ── */
-.services-section {
-  background: var(--off-white);
-}
+.services-section { background: var(--white); }
 
 .services-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 60px;
+  margin-bottom: 52px;
   gap: 40px;
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
-.service-card {
-  background: var(--white);
-  border-radius: 20px;
-  padding: 36px 32px;
-  border: 1.5px solid var(--border);
-  transition: all 0.3s ease;
-  cursor: default;
+.svc-card {
+  background: var(--cream);
+  border: 1.5px solid var(--border-light);
+  border-radius: 18px;
+  padding: 32px 28px;
+  transition: all 0.25s;
   position: relative;
   overflow: hidden;
+  cursor: default;
 }
-
-.service-card::after {
+.svc-card::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--blue-bright);
+  height: 2px;
+  background: var(--lime);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
 }
+.svc-card:hover { border-color: var(--lime-pale); box-shadow: var(--shadow-lift); transform: translateY(-4px); background: var(--cream-mid); }
+.svc-card:hover::after { transform: scaleX(1); }
 
-.service-card:hover {
-  border-color: var(--blue-light);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-}
-
-.service-card:hover::after { transform: scaleX(1); }
-
-.service-market {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.market-tag {
-  font-size: 11px;
+.svc-mkt { display: flex; gap: 5px; margin-bottom: 16px; }
+.mkt-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
   font-weight: 700;
   padding: 3px 8px;
   border-radius: 4px;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
+.mkt-au { background: #E8F5E9; color: #2E7D32; }
+.mkt-us { background: #FFEBEE; color: #C62828; }
 
-.market-tag.au {
-  background: #DBEAFE;
-  color: #1D4ED8;
-}
-
-.market-tag.us {
-  background: #FEE2E2;
-  color: #DC2626;
-}
-
-.service-icon {
-  width: 52px; height: 52px;
-  background: var(--blue-pale);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  transition: background 0.3s;
-}
-
-.service-card:hover .service-icon {
-  background: var(--blue-light);
-}
-
-.service-card h3 {
-  font-family: 'Fraunces', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--blue-deep);
-  margin-bottom: 10px;
+.svc-icon { font-size: 26px; margin-bottom: 14px; }
+.svc-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--char);
+  margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
-
-.service-card p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.65;
-}
+.svc-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
 
 /* ── WHY US ── */
-.whyus-section {
-  background: var(--white);
-}
+.whyus-section { background: var(--char); }
+.whyus-section .eyebrow { color: var(--lime); }
+.whyus-section .eyebrow::before { background: var(--lime); }
 
 .whyus-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 72px;
   align-items: center;
 }
 
-.whyus-stats {
+.stats-block {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.stat-box {
-  background: var(--off-white);
-  border: 1.5px solid var(--border);
-  border-radius: 20px;
-  padding: 32px 28px;
-  transition: all 0.25s;
-}
-
-.stat-box:hover {
-  border-color: var(--blue-light);
-  background: var(--blue-pale);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.stat-box:first-child {
-  grid-column: span 2;
-  background: var(--blue-deep);
-  border-color: var(--blue-deep);
-  color: white;
-}
-
-.stat-box:first-child:hover {
-  background: var(--blue-mid);
-  border-color: var(--blue-mid);
-}
-
-.stat-num {
-  font-family: 'Fraunces', serif;
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--blue-deep);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-box:first-child .stat-num { color: white; }
-
-.stat-lbl {
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.stat-box:first-child .stat-lbl { color: rgba(255,255,255,0.6); }
-
-.whyus-content .section-lead { margin-bottom: 40px; }
-
-.whyus-points {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
   gap: 16px;
 }
+.stat-tile {
+  background: var(--char-mid);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: all 0.25s;
+}
+.stat-tile:hover { border-color: rgba(200,241,53,0.2); transform: translateY(-2px); }
+.stat-tile.featured {
+  grid-column: span 2;
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.stat-tile.featured .stat-n { color: var(--char); }
+.stat-tile.featured .stat-l { color: rgba(20,18,16,0.55); }
+.stat-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: 6px;
+}
+.stat-l { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; }
 
-.whyus-points li {
+.whyus-points { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.whyus-point {
   display: flex;
   gap: 14px;
   align-items: flex-start;
   padding: 18px 20px;
-  background: var(--gray-50);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 12px;
-  border: 1px solid var(--border);
   transition: all 0.2s;
 }
-
-.whyus-points li:hover {
-  background: var(--blue-pale);
-  border-color: var(--blue-light);
-}
-
-.num-badge {
+.whyus-point:hover { background: rgba(200,241,53,0.05); border-color: rgba(200,241,53,0.15); }
+.num-tag {
   width: 28px; height: 28px;
-  background: var(--blue-bright);
-  color: white;
+  background: var(--lime);
+  color: var(--char);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
   font-size: 12px;
   font-weight: 800;
   flex-shrink: 0;
   margin-top: 1px;
 }
-
-.whyus-points strong {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--blue-deep);
-  display: block;
-  margin-bottom: 3px;
-}
-
-.whyus-points p {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
+.whyus-point strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.whyus-point p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
 
 /* ── PRICING ── */
-.pricing-section {
-  background: var(--blue-deep);
-  position: relative;
-  overflow: hidden;
-}
-
-.pricing-section::before {
-  content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: var(--blue-bright);
-  border-radius: 50%;
-  opacity: 0.08;
-}
-
-.pricing-section .section-title { color: white; }
-.pricing-section .section-eyebrow { color: var(--sky); }
-.pricing-section .section-eyebrow::before { background: var(--sky); }
-.pricing-section .section-lead { color: rgba(255,255,255,0.6); }
+.pricing-section { background: var(--cream); }
 
 .pricing-toggle {
   display: flex;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: var(--char);
   border-radius: 100px;
   padding: 4px;
   width: fit-content;
-  margin: 32px 0 48px;
+  margin: 28px 0 48px;
+  gap: 0;
 }
-
-.toggle-btn {
+.tog-btn {
   padding: 10px 24px;
   border-radius: 100px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
   cursor: pointer;
   border: none;
   background: transparent;
-  color: rgba(255,255,255,0.55);
-  transition: all 0.25s;
-  letter-spacing: 0.01em;
+  color: rgba(255,255,255,0.45);
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
 }
+.tog-btn.active { background: var(--lime); color: var(--char); }
 
-.toggle-btn.active {
-  background: white;
-  color: var(--blue-deep);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
+.pricing-panel { display: none; }
+.pricing-panel.active { display: block; }
 
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  position: relative;
-  z-index: 1;
+  gap: 20px;
 }
 
 .price-card {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.12);
-  border-radius: 24px;
-  padding: 40px 36px;
-  transition: all 0.3s;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: 22px;
+  padding: 36px 32px;
+  transition: all 0.25s;
   position: relative;
 }
-
-.price-card.featured {
-  background: var(--white);
-  border-color: var(--white);
+.price-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+.price-card.hot {
+  background: var(--char);
+  border-color: var(--char);
   transform: translateY(-8px);
 }
+.price-card.hot:hover { transform: translateY(-12px); }
 
-.price-card:hover:not(.featured) {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.25);
-  transform: translateY(-4px);
-}
-
-.popular-badge {
+.hot-badge {
   position: absolute;
-  top: -14px;
-  left: 50%;
+  top: -13px; left: 50%;
   transform: translateX(-50%);
-  background: var(--blue-bright);
-  color: white;
-  font-size: 11px;
+  background: var(--lime);
+  color: var(--char);
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 5px 16px;
+  padding: 4px 16px;
   border-radius: 100px;
+  white-space: nowrap;
 }
 
 .price-tier {
-  font-size: 12px;
-  font-weight: 800;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--sky);
-  margin-bottom: 8px;
+  color: var(--lime-dim);
+  margin-bottom: 6px;
 }
-
-.price-card.featured .price-tier { color: var(--blue-bright); }
+.price-card.hot .price-tier { color: var(--lime); }
 
 .price-name {
-  font-family: 'Fraunces', serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--char);
+  letter-spacing: -0.03em;
+  margin-bottom: 5px;
 }
+.price-card.hot .price-name { color: var(--white); }
 
-.price-card.featured .price-name { color: var(--blue-deep); }
+.price-tag { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+.price-card.hot .price-tag { color: rgba(255,255,255,0.45); }
 
-.price-tagline {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 28px;
-}
-
-.price-card.featured .price-tagline { color: var(--text-muted); }
-
-.price-amount {
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.price-currency {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  line-height: 1;
-  padding-bottom: 8px;
-}
-
-.price-card.featured .price-currency { color: var(--blue-deep); }
-
+.price-amount { display: flex; align-items: flex-end; gap: 3px; margin-bottom: 5px; }
+.price-cur { font-size: 18px; font-weight: 700; color: var(--char); padding-bottom: 8px; }
+.price-card.hot .price-cur { color: var(--white); }
 .price-num {
-  font-family: 'Fraunces', serif;
+  font-family: 'Syne', sans-serif;
   font-size: 52px;
-  font-weight: 700;
-  color: white;
+  font-weight: 800;
+  color: var(--char);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
 }
+.price-card.hot .price-num { color: var(--lime); }
+.price-per { font-size: 13px; color: var(--text-muted); padding-bottom: 10px; }
+.price-card.hot .price-per { color: rgba(255,255,255,0.4); }
+.price-note { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.price-card.hot .price-note { color: rgba(255,255,255,0.35); }
 
-.price-card.featured .price-num { color: var(--blue-deep); }
+.price-div { height: 1px; background: var(--border-light); margin-bottom: 22px; }
+.price-card.hot .price-div { background: rgba(255,255,255,0.08); }
 
-.price-period {
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  padding-bottom: 10px;
-}
-
-.price-card.featured .price-period { color: var(--text-muted); }
-
-.price-note {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 28px;
-}
-
-.price-card.featured .price-note { color: var(--text-muted); }
-
-.price-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.1);
-  margin-bottom: 24px;
-}
-
-.price-card.featured .price-divider { background: var(--border); }
-
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 36px;
-}
-
-.price-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.75);
-}
-
-.price-card.featured .price-features li { color: var(--text); }
-
-.feat-check {
-  width: 18px; height: 18px;
-  background: rgba(52,211,153,0.2);
+.price-feats { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+.price-feats li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-mid); }
+.price-card.hot .price-feats li { color: rgba(255,255,255,0.7); }
+.feat-dot {
+  width: 17px; height: 17px;
+  background: var(--lime-ghost);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-
-.price-card.featured .feat-check { background: rgba(37,99,235,0.12); }
-
-.feat-check svg { width: 10px; height: 10px; }
+.price-card.hot .feat-dot { background: rgba(200,241,53,0.15); }
+.feat-dot svg { width: 9px; height: 9px; }
 
 .price-btn {
   display: block;
   width: 100%;
-  padding: 14px;
+  padding: 13px;
   border-radius: 10px;
   text-align: center;
+  font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   text-decoration: none;
   transition: all 0.2s;
-  border: none;
   cursor: pointer;
-  letter-spacing: 0.01em;
+  border: none;
+  letter-spacing: 0.02em;
 }
-
-.price-btn-outline {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: 1.5px solid rgba(255,255,255,0.2);
+.btn-char {
+  background: var(--char);
+  color: var(--white);
 }
-
-.price-btn-outline:hover {
-  background: rgba(255,255,255,0.18);
+.btn-char:hover { background: var(--char-light); }
+.btn-lime-solid {
+  background: var(--lime);
+  color: var(--char);
+  box-shadow: var(--shadow-lime);
 }
-
-.price-btn-primary {
-  background: var(--blue-bright);
-  color: white;
-  box-shadow: var(--shadow-blue);
-}
-
-.price-btn-primary:hover {
-  background: var(--blue-mid);
-  transform: translateY(-1px);
-  box-shadow: 0 12px 32px rgba(37,99,235,0.35);
-}
-
-/* Pricing panels */
-.pricing-panel { display: none; }
-.pricing-panel.active { display: block; }
+.btn-lime-solid:hover { background: var(--lime-dim); transform: translateY(-1px); }
 
 /* ── TESTIMONIALS ── */
-.testimonials-section {
-  background: var(--off-white);
-}
+.testimonials-section { background: var(--white); }
 
-.testimonials-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
+.testi-header { text-align: center; margin-bottom: 56px; }
+.testi-header .section-lead { margin: 0 auto; }
 
-.testimonials-header .section-lead { margin: 0 auto; }
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.testimonial-card {
-  background: var(--white);
+.testi-card {
+  background: var(--cream);
+  border: 1.5px solid var(--border-light);
   border-radius: 20px;
-  padding: 36px 32px;
-  border: 1.5px solid var(--border);
-  transition: all 0.3s;
+  padding: 32px 28px;
+  transition: all 0.25s;
   display: flex;
   flex-direction: column;
 }
+.testi-card:hover { box-shadow: var(--shadow-lift); border-color: var(--lime-pale); transform: translateY(-4px); }
 
-.testimonial-card:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: var(--blue-light);
-  transform: translateY(-4px);
+.testi-q {
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--lime-pale);
+  line-height: 0.6;
+  margin-bottom: 18px;
 }
+.testi-text { font-size: 15px; color: var(--text-mid); line-height: 1.7; flex: 1; margin-bottom: 26px; }
 
-.testimonial-quote {
-  font-family: 'Fraunces', serif;
-  font-size: 52px;
-  color: var(--blue-light);
-  line-height: 0.5;
-  margin-bottom: 16px;
-  font-style: italic;
-}
-
-.testimonial-text {
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.7;
-  flex: 1;
-  margin-bottom: 28px;
-}
-
-.testimonial-author {
+.testi-author {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
+  gap: 12px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-light);
 }
-
-.author-avatar {
-  width: 44px; height: 44px;
-  background: var(--blue-deep);
+.author-avi {
+  width: 42px; height: 42px;
+  background: var(--char);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--lime);
   flex-shrink: 0;
 }
-
-.author-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--blue-deep);
-  letter-spacing: -0.01em;
-}
-
-.author-meta {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.author-flag {
-  margin-left: auto;
-  font-size: 22px;
-}
+.author-name { font-size: 14px; font-weight: 700; color: var(--char); letter-spacing: -0.01em; }
+.author-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.author-flag { margin-left: auto; font-size: 22px; }
 
 /* ── CONTACT ── */
-.contact-section {
-  background: var(--white);
-}
+.contact-section { background: var(--char); }
+.contact-section .eyebrow { color: var(--lime); }
+.contact-section .eyebrow::before { background: var(--lime); }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 72px;
   align-items: center;
 }
 
-.contact-details {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 36px;
-}
-
+.contact-items { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  background: var(--off-white);
+  gap: 15px;
+  padding: 18px 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
   border-radius: 14px;
-  border: 1.5px solid var(--border);
   text-decoration: none;
   transition: all 0.2s;
 }
-
-.contact-item:hover {
-  border-color: var(--blue-light);
-  background: var(--blue-pale);
-  transform: translateX(4px);
-}
-
-.contact-icon {
-  width: 44px; height: 44px;
-  background: var(--blue-pale);
-  border-radius: 12px;
+.contact-item:hover { background: rgba(200,241,53,0.07); border-color: rgba(200,241,53,0.18); transform: translateX(4px); }
+.ci-icon {
+  width: 42px; height: 42px;
+  background: rgba(200,241,53,0.1);
+  border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
 }
+.ci-strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); }
+.ci-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
 
-.contact-item-text strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--blue-deep);
-}
-
-.contact-item-text span {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.contact-cta-box {
-  background: var(--blue-deep);
-  border-radius: 28px;
-  padding: 56px 48px;
-  color: white;
+.cta-box {
+  background: var(--lime);
+  border-radius: 24px;
+  padding: 48px 44px;
   position: relative;
   overflow: hidden;
 }
-
-.contact-cta-box::before {
+.cta-box::before {
   content: '';
   position: absolute;
-  top: -80px; right: -80px;
-  width: 280px; height: 280px;
-  background: var(--blue-bright);
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.15);
   border-radius: 50%;
-  opacity: 0.15;
 }
-
-.contact-cta-box h3 {
-  font-family: 'Fraunces', serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: -0.03em;
-  margin-bottom: 14px;
+.cta-box h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--char);
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
   position: relative;
   z-index: 1;
+  line-height: 1.15;
 }
+.cta-box p { font-size: 15px; color: rgba(20,18,16,0.6); line-height: 1.7; margin-bottom: 32px; position: relative; z-index: 1; }
 
-.contact-cta-box p {
-  font-size: 16px;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.7;
-  margin-bottom: 36px;
-  position: relative;
-  z-index: 1;
-}
-
-.contact-cta-box .btn-white {
+.btn-dark {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: white;
-  color: var(--blue-deep);
-  padding: 16px 32px;
+  background: var(--char);
+  color: var(--white);
+  padding: 15px 28px;
   border-radius: 10px;
+  font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   transition: all 0.2s;
   position: relative;
   z-index: 1;
-  letter-spacing: -0.01em;
 }
+.btn-dark:hover { background: var(--char-light); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,18,16,0.3); }
 
-.contact-cta-box .btn-white:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 36px rgba(255,255,255,0.2);
-}
-
-.avail-row {
-  display: flex;
-  gap: 16px;
-  margin-top: 28px;
-  position: relative;
-  z-index: 1;
-}
-
+.avail-pills { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; position: relative; z-index: 1; }
 .avail-pill {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(20,18,16,0.12);
   border-radius: 100px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.75);
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--char);
 }
 
 /* ── FOOTER ── */
 footer {
-  background: var(--gray-900);
-  color: var(--gray-400);
-  padding: 64px 60px 36px;
+  background: var(--char-mid);
+  padding: 60px 56px 32px;
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
+.footer-inner { max-width: 1180px; margin: 0 auto; }
 .footer-top {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 36px;
+  gap: 52px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 32px;
 }
-
-.footer-brand p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--gray-400);
-  margin: 16px 0 24px;
-  max-width: 280px;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.footer-logo .logo-icon {
-  background: var(--blue-mid);
-}
-
-.footer-logo .logo-name {
-  color: white;
-  font-size: 17px;
-}
-
-.footer-social {
-  display: flex;
-  gap: 12px;
-}
-
-.social-btn {
-  width: 36px; height: 36px;
-  background: rgba(255,255,255,0.06);
+.footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.7; margin: 14px 0 22px; max-width: 270px; }
+.footer-socials { display: flex; gap: 10px; }
+.soc-btn {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.05);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   text-decoration: none;
-  color: var(--gray-400);
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.social-btn:hover {
-  background: var(--blue-bright);
-  color: white;
-}
-
-.footer-col h4 {
-  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
   font-weight: 700;
+  transition: all 0.2s;
+  font-family: 'Syne', sans-serif;
+}
+.soc-btn:hover { background: var(--lime); color: var(--char); }
+.footer-col h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: white;
-  margin-bottom: 20px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 18px;
 }
-
 .footer-col ul { list-style: none; }
-
-.footer-col ul li { margin-bottom: 10px; }
-
-.footer-col ul li a {
-  font-size: 14px;
-  color: var(--gray-400);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-col ul li a:hover { color: white; }
-
+.footer-col ul li { margin-bottom: 9px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--lime); }
 .footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
-  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
 }
+.footer-bottom-links { display: flex; gap: 22px; }
+.footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
+.footer-bottom-links a:hover { color: rgba(255,255,255,0.5); }
 
-.footer-bottom-links {
-  display: flex;
-  gap: 24px;
-}
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-.footer-bottom-links a {
-  font-size: 13px;
-  color: rgba(255,255,255,0.3);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-bottom-links a:hover { color: white; }
-
-/* ── MARQUEE TICKER ── */
-.ticker {
-  background: var(--blue-bright);
-  color: white;
-  padding: 14px 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.ticker-inner {
-  display: inline-flex;
-  animation: ticker 25s linear infinite;
-  gap: 0;
-}
-
-.ticker-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 32px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.ticker-dot {
-  width: 4px; height: 4px;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%;
-}
-
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ── SCROLL ANIMATION ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── MOBILE HAMBURGER ── */
+/* ── MOBILE ── */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -1509,57 +1039,67 @@ footer {
   cursor: pointer;
   padding: 4px;
 }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
 
-.nav-toggle span {
-  display: block;
-  width: 22px; height: 2px;
-  background: var(--blue-deep);
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-
-/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  nav { padding: 0 32px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 32px; }
-  .hero-card-stack { height: 280px; }
-  .hero-card-main { padding: 24px; }
-  section { padding: 80px 32px; }
+  nav { padding: 0 28px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 28px; }
+  section { padding: 80px 28px; }
   .about-grid, .whyus-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
-  .price-card.featured { transform: none; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .price-card.hot { transform: none; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
   .services-header { flex-direction: column; align-items: flex-start; }
-  .flag-strip { padding: 16px 32px; flex-wrap: wrap; gap: 20px; }
+  .stats-block { grid-template-columns: 1fr 1fr; }
+  .stat-tile.featured { grid-column: span 2; }
 }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
-  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .hero-stats { grid-template-columns: repeat(2, auto); row-gap: 20px; }
+  .hero-stat { padding-right: 20px; margin-right: 20px; }
   .services-grid { grid-template-columns: 1fr; }
-  .whyus-stats { grid-template-columns: 1fr; }
-  .stat-box:first-child { grid-column: span 1; }
-  .footer-top { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .avail-row { flex-wrap: wrap; }
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
   .hero-actions { flex-direction: column; }
-  .btn-primary, .btn-ghost { text-align: center; justify-content: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- TICKER -->
+<div class="ticker" style="margin-top: 0; position: relative; z-index: 201;">
+  <div class="ticker-inner">
+    <span class="ticker-item">🇦🇺 BAS &amp; GST Lodgement<span class="ticker-sep"></span></span>
+    <span class="ticker-item">🇺🇸 IRS Compliance<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Xero Certified<span class="ticker-sep"></span></span>
+    <span class="ticker-item">QuickBooks Partner<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Bank Reconciliation<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Payroll Management<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Month-End Close<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Financial Reporting<span class="ticker-sep"></span></span>
+    <span class="ticker-item">🇦🇺 BAS &amp; GST Lodgement<span class="ticker-sep"></span></span>
+    <span class="ticker-item">🇺🇸 IRS Compliance<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Xero Certified<span class="ticker-sep"></span></span>
+    <span class="ticker-item">QuickBooks Partner<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Bank Reconciliation<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Payroll Management<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Month-End Close<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Financial Reporting<span class="ticker-sep"></span></span>
+  </div>
+</div>
+
+<!-- NAV -->
 <nav id="main-nav">
   <a href="#" class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 11C4 7.134 7.134 4 11 4C14.866 4 18 7.134 18 11C18 14.866 14.866 18 11 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <path d="M11 8V11L13 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="7" cy="17" r="2" fill="#60A5FA"/>
+    <div class="logo-mark">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 10C3 6.134 6.134 3 10 3s7 3.134 7 7-3.134 7-7 7" stroke="#141210" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 7v3l2 2" stroke="#141210" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="6" cy="16" r="2" fill="#141210"/>
       </svg>
     </div>
     <span class="logo-name">Digit<span>wise</span></span>
@@ -1573,180 +1113,143 @@ footer {
     <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
   </ul>
 
-  <div class="nav-toggle" onclick="this.classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="nav-toggle"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ── TICKER ── -->
-<div class="ticker" style="margin-top: 72px;">
-  <div class="ticker-inner">
-    <span class="ticker-item">🇦🇺 BAS & GST Lodgement <span class="ticker-dot"></span></span>
-    <span class="ticker-item">🇺🇸 IRS Compliance <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Xero Certified <span class="ticker-dot"></span></span>
-    <span class="ticker-item">QuickBooks Partner <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Bank Reconciliation <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Payroll Management <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Month-End Close <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Financial Reporting <span class="ticker-dot"></span></span>
-    <span class="ticker-item">🇦🇺 BAS & GST Lodgement <span class="ticker-dot"></span></span>
-    <span class="ticker-item">🇺🇸 IRS Compliance <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Xero Certified <span class="ticker-dot"></span></span>
-    <span class="ticker-item">QuickBooks Partner <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Bank Reconciliation <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Payroll Management <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Month-End Close <span class="ticker-dot"></span></span>
-    <span class="ticker-item">Financial Reporting <span class="ticker-dot"></span></span>
-  </div>
-</div>
-
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-bg-grid"></div>
-  <div class="hero-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-  </div>
+  <div class="hero-glow"></div>
 
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">
-        <span class="dot"></span>
-        Serving Australia & United States
+        <span class="live-dot"></span>
+        Serving Australia &amp; United States
       </div>
 
-      <h1>Your books, done <em>precisely.</em> Every time.</h1>
+      <h1>Your books,<br>done <em>precisely.</em><br>Every time.</h1>
 
-      <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, and fluent in both ATO and IRS compliance.</p>
+      <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, fluent in both ATO and IRS compliance.</p>
 
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="#contact" class="btn-lime">
           Book a Free Consultation
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="#pricing" class="btn-ghost">View Pricing</a>
+        <a href="#pricing" class="btn-outline-white">View Pricing</a>
       </div>
 
       <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">50+</div>
-          <div class="hero-stat-label">SMBs Served</div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">50<span>+</span></div>
+          <div class="hero-stat-l">SMBs Served</div>
         </div>
-        <div>
-          <div class="hero-stat-num">2</div>
-          <div class="hero-stat-label">Countries</div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">2</div>
+          <div class="hero-stat-l">Countries</div>
         </div>
-        <div>
-          <div class="hero-stat-num">10yr</div>
-          <div class="hero-stat-label">Experience</div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">10<span>yr</span></div>
+          <div class="hero-stat-l">Experience</div>
         </div>
-        <div>
-          <div class="hero-stat-num">99%</div>
-          <div class="hero-stat-label">On-time filing</div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">99<span>%</span></div>
+          <div class="hero-stat-l">On-time filing</div>
         </div>
       </div>
     </div>
 
     <div class="hero-right">
-      <div class="hero-card-stack">
-        <div class="hero-card hero-card-main">
-          <div class="card-label">What we handle</div>
-          <ul class="card-service-list">
-            <li><span class="check"></span> BAS & GST Lodgement (AU)</li>
-            <li><span class="check"></span> IRS Federal & State Tax (US)</li>
-            <li><span class="check"></span> Bank Reconciliation</li>
-            <li><span class="check"></span> Payroll & Superannuation</li>
-            <li><span class="check"></span> Month-End Close & Reporting</li>
-            <li><span class="check"></span> Accounts Payable & Receivable</li>
-          </ul>
-          <div class="certified-bar">
-            Certified in
-            <span class="cert-badge">Xero</span>
-            <span class="cert-badge">QBO</span>
-            <span class="cert-badge">MYOB</span>
-          </div>
+      <div class="feature-card">
+        <div class="fc-label">What we handle</div>
+        <ul class="fc-list">
+          <li><span class="fc-check"></span>BAS &amp; GST Lodgement (AU)</li>
+          <li><span class="fc-check"></span>IRS Federal &amp; State Tax (US)</li>
+          <li><span class="fc-check"></span>Bank Reconciliation</li>
+          <li><span class="fc-check"></span>Payroll &amp; Superannuation</li>
+          <li><span class="fc-check"></span>Month-End Close &amp; Reporting</li>
+          <li><span class="fc-check"></span>Accounts Payable &amp; Receivable</li>
+        </ul>
+        <div class="fc-certs">
+          Certified in
+          <span class="cert-pill">Xero</span>
+          <span class="cert-pill">QBO</span>
+          <span class="cert-pill">MYOB</span>
         </div>
+      </div>
 
-        <div class="hero-card hero-card-float-1">
-          <div class="mini-stat">
-            <div class="mini-stat-val">48hr</div>
-            <div class="mini-stat-lbl">Max response time</div>
-          </div>
+      <div class="float-cards">
+        <div class="float-card">
+          <div class="float-card-n">48<span>hr</span></div>
+          <div class="float-card-l">Max response time</div>
         </div>
-
-        <div class="hero-card hero-card-float-2">
-          <div class="mini-stat">
-            <div class="mini-stat-val">Fixed</div>
-            <div class="mini-stat-lbl">Transparent pricing</div>
-          </div>
+        <div class="float-card" style="margin-left: 24px;">
+          <div class="float-card-n" style="font-size:18px;">Fixed</div>
+          <div class="float-card-l">Transparent pricing</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
+<!-- ABOUT -->
 <section class="about-section" id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-visual reveal">
-        <div class="about-visual-card">
-          <div class="about-market">
-            <div class="market-row">
-              <div class="market-flag-title">🇦🇺 Australia</div>
-              <div class="market-pills">
-                <span class="market-pill">BAS & GST Lodgement</span>
-                <span class="market-pill">ATO Compliance</span>
-                <span class="market-pill">Xero & MYOB</span>
-                <span class="market-pill">Payroll & Super</span>
-                <span class="market-pill">Month-End Reporting</span>
-              </div>
-            </div>
-            <div class="market-row">
-              <div class="market-flag-title">🇺🇸 United States</div>
-              <div class="market-pills">
-                <span class="market-pill">Federal & State Tax</span>
-                <span class="market-pill">IRS Compliance</span>
-                <span class="market-pill">QuickBooks</span>
-                <span class="market-pill">Payroll Management</span>
-                <span class="market-pill">Financial Reporting</span>
-              </div>
-            </div>
+        <div class="market-block">
+          <div class="market-title">🇦🇺 Australia</div>
+          <div class="market-chips">
+            <span class="chip">BAS &amp; GST Lodgement</span>
+            <span class="chip">ATO Compliance</span>
+            <span class="chip">Xero &amp; MYOB</span>
+            <span class="chip">Payroll &amp; Super</span>
+            <span class="chip">Month-End Reporting</span>
           </div>
-          <div class="certified-bar">
-            Certified in
-            <span class="cert-badge">Xero</span>
-            <span class="cert-badge">QuickBooks</span>
-            <span class="cert-badge">MYOB</span>
+        </div>
+        <div class="market-block">
+          <div class="market-title">🇺🇸 United States</div>
+          <div class="market-chips">
+            <span class="chip">Federal &amp; State Tax</span>
+            <span class="chip">IRS Compliance</span>
+            <span class="chip">QuickBooks</span>
+            <span class="chip">Payroll Management</span>
+            <span class="chip">Financial Reporting</span>
           </div>
+        </div>
+        <div class="cert-row">
+          <span style="font-size:11px;color:rgba(255,255,255,0.3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Certified in</span>
+          <span class="cert-tag">Xero</span>
+          <span class="cert-tag">QuickBooks</span>
+          <span class="cert-tag">MYOB</span>
         </div>
       </div>
 
       <div class="about-content reveal">
-        <div class="section-eyebrow">About Us</div>
+        <div class="eyebrow">About Us</div>
         <h2 class="section-title">Built for <em>both markets</em> from day one</h2>
-        <p class="section-lead">Based in Melbourne with deep expertise in both Australian and US accounting standards, we serve small and medium businesses who need a reliable financial partner, not just a data-entry service.</p>
+        <p class="section-lead">Based in Melbourne with deep expertise in both Australian and US accounting standards. A reliable financial partner, not just a data-entry service.</p>
 
-        <ul class="about-points">
+        <ul class="point-list">
           <li>
             <div class="point-icon">🔍</div>
             <div class="point-text">
               <strong>Line-by-line precision</strong>
-              <p>We reconcile every transaction individually — not by totals. Nothing slips through.</p>
+              <p>Every transaction reconciled individually — not by totals. Nothing slips through.</p>
             </div>
           </li>
           <li>
             <div class="point-icon">🌏</div>
             <div class="point-text">
               <strong>Dual-market fluency</strong>
-              <p>ATO & IRS compliance handled by the same team. No fragmented vendors, no communication gaps.</p>
+              <p>ATO &amp; IRS compliance handled by the same team. No fragmented vendors.</p>
             </div>
           </li>
           <li>
-            <div class="point-icon">⏰</div>
+            <div class="point-icon">⏱️</div>
             <div class="point-text">
               <strong>Your timezone, always</strong>
-              <p>Responsive during your business hours — whether you're in Sydney or San Francisco.</p>
+              <p>Responsive during your business hours — Sydney or San Francisco.</p>
             </div>
           </li>
           <li>
@@ -1758,140 +1261,124 @@ footer {
           </li>
         </ul>
 
-        <a href="#contact" class="btn-primary" style="color: white; background: var(--blue-bright); display: inline-flex; width: fit-content;">Book a Free Call →</a>
+        <a href="#contact" class="btn-lime" style="width: fit-content;">Book a Free Call →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SERVICES ── -->
+<!-- SERVICES -->
 <section class="services-section" id="services">
   <div class="container">
     <div class="services-header">
       <div>
-        <div class="section-eyebrow">What We Do</div>
+        <div class="eyebrow" style="color: var(--lime-dim);">What We Do</div>
         <h2 class="section-title">Every number <em>accounted for.</em></h2>
       </div>
-      <p class="section-lead" style="max-width: 380px;">We handle the financial complexity so you can focus on running and growing your business.</p>
+      <p class="section-lead" style="max-width: 360px;">We handle the financial complexity so you can focus on growing your business.</p>
     </div>
 
     <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag au">🇦🇺 AU</span>
-          <span class="market-tag us">🇺🇸 US</span>
-        </div>
-        <div class="service-icon">📊</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
+        <div class="svc-icon">📊</div>
         <h3>Bookkeeping & Reconciliation</h3>
-        <p>Meticulous, line-by-line transaction matching. Every account reconciled, every month — no exceptions, no shortcuts.</p>
+        <p>Meticulous, line-by-line transaction matching every month — no exceptions, no shortcuts.</p>
       </div>
-
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag au">🇦🇺 AU</span>
-        </div>
-        <div class="service-icon">🧾</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span></div>
+        <div class="svc-icon">🧾</div>
         <h3>BAS, GST & ATO Compliance</h3>
-        <p>Timely BAS lodgement, GST tracking, and full ATO compliance management. Never miss a deadline again.</p>
+        <p>Timely BAS lodgement, GST tracking, and full ATO compliance management.</p>
       </div>
-
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag us">🇺🇸 US</span>
-        </div>
-        <div class="service-icon">🏛️</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
+        <div class="svc-icon">🏛️</div>
         <h3>US Federal & State Tax Filing</h3>
-        <p>Accurate federal and state tax preparation and filing for US-based SMBs. IRS compliance without the stress.</p>
+        <p>Accurate federal and state tax preparation for US-based SMBs. IRS compliance, zero stress.</p>
       </div>
-
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag au">🇦🇺 AU</span>
-          <span class="market-tag us">🇺🇸 US</span>
-        </div>
-        <div class="service-icon">👥</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
+        <div class="svc-icon">👥</div>
         <h3>Payroll & Compliance</h3>
-        <p>End-to-end payroll processing with full superannuation compliance (AU) and payroll tax management (US).</p>
+        <p>End-to-end payroll with full superannuation compliance (AU) and payroll tax management (US).</p>
       </div>
-
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag au">🇦🇺 AU</span>
-          <span class="market-tag us">🇺🇸 US</span>
-        </div>
-        <div class="service-icon">💳</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
+        <div class="svc-icon">💳</div>
         <h3>Accounts Payable & Receivable</h3>
-        <p>Optimize your cash flow with professional AP/AR management. Faster collections, controlled outflows.</p>
+        <p>Optimize your cash flow. Faster collections, controlled outflows, clearer picture.</p>
       </div>
-
-      <div class="service-card reveal">
-        <div class="service-market">
-          <span class="market-tag au">🇦🇺 AU</span>
-          <span class="market-tag us">🇺🇸 US</span>
-        </div>
-        <div class="service-icon">📈</div>
+      <div class="svc-card reveal">
+        <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
+        <div class="svc-icon">📈</div>
         <h3>Month-End Financial Reporting</h3>
-        <p>Clear, decision-ready financial reports every month. P&L, balance sheet, cash flow — delivered on schedule.</p>
+        <p>P&amp;L, balance sheet, cash flow — clear, decision-ready reports delivered on schedule.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── WHY US ── -->
+<!-- WHY US -->
 <section class="whyus-section" id="why-us">
   <div class="container">
     <div class="whyus-grid">
-      <div class="whyus-stats reveal">
-        <div class="stat-box">
-          <div class="stat-num">99%</div>
-          <div class="stat-lbl">On-time filing rate — every quarter, every year</div>
+      <div class="stats-block reveal">
+        <div class="stat-tile featured">
+          <div class="stat-n">99%</div>
+          <div class="stat-l">On-time filing rate — every quarter, every year</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num" style="color: var(--blue-deep);">48hr</div>
-          <div class="stat-lbl">Max response time</div>
+        <div class="stat-tile">
+          <div class="stat-n">48hr</div>
+          <div class="stat-l">Max response time</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num" style="color: var(--blue-deep);">50+</div>
-          <div class="stat-lbl">Businesses served</div>
+        <div class="stat-tile">
+          <div class="stat-n">50+</div>
+          <div class="stat-l">Businesses served</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num" style="color: var(--blue-deep);">10yr</div>
-          <div class="stat-lbl">Industry experience</div>
+        <div class="stat-tile">
+          <div class="stat-n">10yr</div>
+          <div class="stat-l">Industry experience</div>
+        </div>
+        <div class="stat-tile" style="grid-column: span 2; text-align: center; padding: 20px;">
+          <div style="display: flex; justify-content: center; gap: 20px; font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600;">
+            <span>Xero</span><span>·</span><span>QuickBooks</span><span>·</span><span>MYOB</span><span>·</span><span>Zoho</span>
+          </div>
         </div>
       </div>
 
-      <div class="whyus-content reveal">
-        <div class="section-eyebrow">Why Digitwise</div>
-        <h2 class="section-title">We treat your books like <em>our own reputation.</em></h2>
-        <p class="section-lead">Most bookkeeping services give you surface-level reconciliation — matching totals and moving on. We go deeper.</p>
+      <div class="reveal">
+        <div class="eyebrow">Why Digitwise</div>
+        <h2 class="section-title light">We treat your books like <em>our own reputation.</em></h2>
+        <p class="section-lead light" style="margin-bottom: 32px;">Most bookkeeping services give you surface-level reconciliation — matching totals and moving on. We go deeper.</p>
 
         <ul class="whyus-points">
-          <li>
-            <div class="num-badge">01</div>
+          <li class="whyus-point">
+            <div class="num-tag">01</div>
             <div>
               <strong>Line-by-line precision</strong>
-              <p>We reconcile every transaction individually — not by totals. Nothing slips through.</p>
+              <p>Every transaction reconciled individually. Nothing slips through.</p>
             </div>
           </li>
-          <li>
-            <div class="num-badge">02</div>
+          <li class="whyus-point">
+            <div class="num-tag">02</div>
             <div>
               <strong>Dual-market fluency</strong>
-              <p>ATO & IRS compliance handled by the same expert team. No fragmented vendors.</p>
+              <p>ATO &amp; IRS handled by the same expert team. No fragmented vendors.</p>
             </div>
           </li>
-          <li>
-            <div class="num-badge">03</div>
+          <li class="whyus-point">
+            <div class="num-tag">03</div>
             <div>
               <strong>Fixed, transparent pricing</strong>
               <p>No surprise invoices. Know exactly what you're paying before we start.</p>
             </div>
           </li>
-          <li>
-            <div class="num-badge">04</div>
+          <li class="whyus-point">
+            <div class="num-tag">04</div>
             <div>
               <strong>Works with your stack</strong>
-              <p>Xero, QuickBooks, MYOB, Zoho — we're certified across all major platforms.</p>
+              <p>Xero, QuickBooks, MYOB, Zoho — certified across all major platforms.</p>
             </div>
           </li>
         </ul>
@@ -1900,204 +1387,204 @@ footer {
   </div>
 </section>
 
-<!-- ── PRICING ── -->
+<!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <div class="section-eyebrow">Transparent Pricing</div>
+    <div class="eyebrow">Transparent Pricing</div>
     <h2 class="section-title">Simple plans. <em>No surprises.</em></h2>
     <p class="section-lead">Choose your market. Pick a plan. Scale as you grow.</p>
 
     <div class="pricing-toggle">
-      <button class="toggle-btn active" onclick="switchPricing('au', this)">🇦🇺 Australia (AUD)</button>
-      <button class="toggle-btn" onclick="switchPricing('us', this)">🇺🇸 United States (USD)</button>
+      <button class="tog-btn active" onclick="switchPricing('au', this)">🇦🇺 Australia (AUD)</button>
+      <button class="tog-btn" onclick="switchPricing('us', this)">🇺🇸 United States (USD)</button>
     </div>
 
-    <!-- AU Pricing -->
+    <!-- AU -->
     <div class="pricing-panel active" id="pricing-au">
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-tier">Starter</div>
           <div class="price-name">Essentials</div>
-          <div class="price-tagline">For sole traders and micro businesses</div>
+          <div class="price-tag">For sole traders &amp; micro businesses</div>
           <div class="price-amount">
-            <span class="price-currency">A$</span>
+            <span class="price-cur">A$</span>
             <span class="price-num">499</span>
-            <span class="price-period">/mo</span>
+            <span class="price-per">/mo</span>
           </div>
           <div class="price-note">Up to 100 transactions/month</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Monthly bookkeeping & reconciliation</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> BAS & GST lodgement</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Bank reconciliation</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Monthly P&L report</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Email support (48hr response)</li>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>BAS &amp; GST lodgement</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
+          <a href="#contact" class="price-btn btn-char">Get Started</a>
         </div>
 
-        <div class="price-card featured">
-          <div class="popular-badge">Most Popular</div>
+        <div class="price-card hot">
+          <div class="hot-badge">Most Popular</div>
           <div class="price-tier">Growth</div>
           <div class="price-name">Professional</div>
-          <div class="price-tagline">For growing SMBs needing full-service support</div>
+          <div class="price-tag">For growing SMBs needing full-service support</div>
           <div class="price-amount">
-            <span class="price-currency" style="color: var(--blue-deep);">A$</span>
-            <span class="price-num" style="color: var(--blue-deep);">999</span>
-            <span class="price-period" style="color: var(--text-muted);">/mo</span>
+            <span class="price-cur">A$</span>
+            <span class="price-num">999</span>
+            <span class="price-per">/mo</span>
           </div>
-          <div class="price-note" style="color: var(--text-muted);">Up to 500 transactions/month</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Everything in Essentials</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Payroll (up to 10 employees)</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Accounts Payable & Receivable</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Full month-end close</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Superannuation compliance</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Priority support (24hr)</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Quarterly strategy call</li>
+          <div class="price-note">Up to 500 transactions/month</div>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Superannuation compliance</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-primary">Get Started</a>
+          <a href="#contact" class="price-btn btn-lime-solid">Get Started</a>
         </div>
 
         <div class="price-card">
           <div class="price-tier">Enterprise</div>
           <div class="price-name">Premium</div>
-          <div class="price-tagline">For established businesses with complex needs</div>
+          <div class="price-tag">For established businesses with complex needs</div>
           <div class="price-amount">
-            <span class="price-num" style="font-size: 36px;">Custom</span>
+            <span class="price-num" style="font-size:38px;">Custom</span>
           </div>
           <div class="price-note">Unlimited transactions</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Everything in Professional</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Dedicated account manager</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Unlimited payroll employees</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> CFO-level advisory calls</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Multi-entity accounting</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Same-day support</li>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-outline">Talk to Us</a>
+          <a href="#contact" class="price-btn btn-char">Talk to Us</a>
         </div>
       </div>
     </div>
 
-    <!-- US Pricing -->
+    <!-- US -->
     <div class="pricing-panel" id="pricing-us">
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-tier">Starter</div>
           <div class="price-name">Essentials</div>
-          <div class="price-tagline">For sole traders and micro businesses</div>
+          <div class="price-tag">For sole traders &amp; micro businesses</div>
           <div class="price-amount">
-            <span class="price-currency">$</span>
+            <span class="price-cur">$</span>
             <span class="price-num">349</span>
-            <span class="price-period">/mo</span>
+            <span class="price-per">/mo</span>
           </div>
           <div class="price-note">Up to 100 transactions/month</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Monthly bookkeeping & reconciliation</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Federal & state tax filing</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Bank reconciliation</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Monthly P&L report</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Email support (48hr response)</li>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Federal &amp; state tax filing</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
+          <a href="#contact" class="price-btn btn-char">Get Started</a>
         </div>
 
-        <div class="price-card featured">
-          <div class="popular-badge">Most Popular</div>
+        <div class="price-card hot">
+          <div class="hot-badge">Most Popular</div>
           <div class="price-tier">Growth</div>
           <div class="price-name">Professional</div>
-          <div class="price-tagline">For growing SMBs needing full-service support</div>
+          <div class="price-tag">For growing SMBs needing full-service support</div>
           <div class="price-amount">
-            <span class="price-currency" style="color: var(--blue-deep);">$</span>
-            <span class="price-num" style="color: var(--blue-deep);">699</span>
-            <span class="price-period" style="color: var(--text-muted);">/mo</span>
+            <span class="price-cur">$</span>
+            <span class="price-num">699</span>
+            <span class="price-per">/mo</span>
           </div>
-          <div class="price-note" style="color: var(--text-muted);">Up to 500 transactions/month</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Everything in Essentials</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Payroll (up to 10 employees)</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Accounts Payable & Receivable</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Full month-end close</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> IRS compliance management</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Priority support (24hr)</li>
-            <li><span class="feat-check" style="background: rgba(37,99,235,0.12);"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Quarterly strategy call</li>
+          <div class="price-note">Up to 500 transactions/month</div>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>IRS compliance management</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
+            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-primary">Get Started</a>
+          <a href="#contact" class="price-btn btn-lime-solid">Get Started</a>
         </div>
 
         <div class="price-card">
           <div class="price-tier">Enterprise</div>
           <div class="price-name">Premium</div>
-          <div class="price-tagline">For established businesses with complex needs</div>
+          <div class="price-tag">For established businesses with complex needs</div>
           <div class="price-amount">
-            <span class="price-num" style="font-size: 36px;">Custom</span>
+            <span class="price-num" style="font-size:38px;">Custom</span>
           </div>
           <div class="price-note">Unlimited transactions</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Everything in Professional</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Dedicated account manager</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Unlimited payroll employees</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> CFO-level advisory calls</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Multi-entity accounting</li>
-            <li><span class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Same-day support</li>
+          <div class="price-div"></div>
+          <ul class="price-feats">
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
+            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
           </ul>
-          <a href="#contact" class="price-btn price-btn-outline">Talk to Us</a>
+          <a href="#contact" class="price-btn btn-char">Talk to Us</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── TESTIMONIALS ── -->
+<!-- TESTIMONIALS -->
 <section class="testimonials-section" id="testimonials">
   <div class="container">
-    <div class="testimonials-header reveal">
-      <div class="section-eyebrow">Client Stories</div>
+    <div class="testi-header reveal">
+      <div class="eyebrow" style="justify-content: center;">Client Stories</div>
       <h2 class="section-title">Trusted by businesses <em>across two continents.</em></h2>
       <p class="section-lead">Real results from real clients who trust Digitwise with their books.</p>
     </div>
 
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">Digitwise completely transformed how we handle our finances. BAS used to be a nightmare — now it's just done. Accurately, on time, every quarter. I don't even think about it anymore.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">KA</div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-q">"</div>
+        <p class="testi-text">Digitwise completely transformed how we handle our finances. BAS used to be a nightmare — now it's just done. Accurately, on time, every quarter. I don't even think about it anymore.</p>
+        <div class="testi-author">
+          <div class="author-avi">KA</div>
           <div>
             <div class="author-name">Kazim Ali</div>
-            <div class="author-meta">Manager, Devkind</div>
+            <div class="author-sub">Manager, Devkind</div>
           </div>
           <div class="author-flag">🇦🇺</div>
         </div>
       </div>
 
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">As a healthcare business, compliance is non-negotiable. Digitwise handles our bookkeeping, reporting, and tax with a level of precision I hadn't experienced before. Highly professional.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">AH</div>
+      <div class="testi-card reveal">
+        <div class="testi-q">"</div>
+        <p class="testi-text">As a healthcare business, compliance is non-negotiable. Digitwise handles our bookkeeping, reporting, and tax with a level of precision I hadn't experienced before. Highly professional.</p>
+        <div class="testi-author">
+          <div class="author-avi">AH</div>
           <div>
             <div class="author-name">Ahmed</div>
-            <div class="author-meta">Accounts Director, Yasscare</div>
+            <div class="author-sub">Accounts Director, Yasscare</div>
           </div>
           <div class="author-flag">🇺🇸</div>
         </div>
       </div>
 
-      <div class="testimonial-card reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">We're a small beauty brand and needed someone who understood our numbers without overcomplicating things. Digitwise delivered — clean books, clear reports, and a team that actually responds.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">PE</div>
+      <div class="testi-card reveal">
+        <div class="testi-q">"</div>
+        <p class="testi-text">We're a small beauty brand and needed someone who understood our numbers without overcomplicating things. Digitwise delivered — clean books, clear reports, and a team that actually responds.</p>
+        <div class="testi-author">
+          <div class="author-avi">PE</div>
           <div>
             <div class="author-name">Philip Eyster</div>
-            <div class="author-meta">Founder, Heavenly Hub</div>
+            <div class="author-sub">Founder, Heavenly Hub</div>
           </div>
           <div class="author-flag">🇺🇸</div>
         </div>
@@ -2106,48 +1593,48 @@ footer {
   </div>
 </section>
 
-<!-- ── CONTACT ── -->
+<!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="contact-grid">
       <div class="reveal">
-        <div class="section-eyebrow">Let's Talk</div>
-        <h2 class="section-title">Ready for accounting that <em>actually works?</em></h2>
-        <p class="section-lead">Book a free 30-minute consultation. We'll review your current setup, identify any gaps, and walk you through exactly how we can help.</p>
+        <div class="eyebrow">Let's Talk</div>
+        <h2 class="section-title light">Ready for accounting that <em>actually works?</em></h2>
+        <p class="section-lead light">Book a free 30-minute consultation. We'll review your current setup and walk you through exactly how we can help — no pressure, no commitment.</p>
 
-        <div class="contact-details">
+        <div class="contact-items">
           <a href="mailto:salesdesk@digitwiseconsulting.com" class="contact-item">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-item-text">
-              <strong>Email us directly</strong>
-              <span>salesdesk@digitwiseconsulting.com</span>
+            <div class="ci-icon">✉️</div>
+            <div>
+              <span class="ci-strong">Email us directly</span>
+              <span class="ci-sub">salesdesk@digitwiseconsulting.com</span>
             </div>
           </a>
           <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div class="contact-item-text">
-              <strong>Business hours</strong>
-              <span>AEST (AU) & EST (US) — Mon to Fri</span>
+            <div class="ci-icon">🕐</div>
+            <div>
+              <span class="ci-strong">Business hours</span>
+              <span class="ci-sub">AEST (AU) &amp; EST (US) — Mon to Fri</span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-icon">⚡</div>
-            <div class="contact-item-text">
-              <strong>Response time</strong>
-              <span>Within 48 hours guaranteed</span>
+            <div class="ci-icon">⚡</div>
+            <div>
+              <span class="ci-strong">Response time</span>
+              <span class="ci-sub">Within 48 hours guaranteed</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="contact-cta-box reveal">
+      <div class="cta-box reveal">
         <h3>Book your free 30-minute call</h3>
         <p>No pressure, no commitment. Just a clear picture of how we can help your business stay compliant and financially sharp.</p>
-        <a href="mailto:salesdesk@digitwiseconsulting.com" class="btn-white">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="mailto:salesdesk@digitwiseconsulting.com" class="btn-dark">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Book a Free Call
         </a>
-        <div class="avail-row">
+        <div class="avail-pills">
           <span class="avail-pill">🇦🇺 Melbourne, AEST</span>
           <span class="avail-pill">🇺🇸 Available EST</span>
         </div>
@@ -2156,32 +1643,30 @@ footer {
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#" class="footer-logo">
-          <div class="logo-icon">
-            <svg viewBox="0 0 22 22" fill="none"><path d="M4 11C4 7.134 7.134 4 11 4C14.866 4 18 7.134 18 11C18 14.866 14.866 18 11 18" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M11 8V11L13 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="2" fill="#60A5FA"/></svg>
-          </div>
+      <div>
+        <a href="#" class="logo">
+          <div class="logo-mark"><svg viewBox="0 0 20 20" fill="none"><path d="M3 10C3 6.134 6.134 3 10 3s7 3.134 7 7-3.134 7-7 7" stroke="#141210" stroke-width="2" stroke-linecap="round"/><path d="M10 7v3l2 2" stroke="#141210" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="16" r="2" fill="#141210"/></svg></div>
           <span class="logo-name">Digit<span>wise</span></span>
         </a>
-        <p>Precision accounting for growing businesses in Australia and the United States. Remote-first. Detail-obsessed. Always on time.</p>
-        <div class="footer-social">
-          <a href="#" class="social-btn">in</a>
-          <a href="#" class="social-btn">tw</a>
+        <p class="footer-brand-desc">Precision accounting for growing businesses in Australia and the United States. Remote-first. Detail-obsessed. Always on time.</p>
+        <div class="footer-socials">
+          <a href="#" class="soc-btn">in</a>
+          <a href="#" class="soc-btn">tw</a>
         </div>
       </div>
 
       <div class="footer-col">
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">Bookkeeping & Reconciliation</a></li>
-          <li><a href="#services">BAS & GST (AU)</a></li>
+          <li><a href="#services">Bookkeeping &amp; Reconciliation</a></li>
+          <li><a href="#services">BAS &amp; GST (AU)</a></li>
           <li><a href="#services">US Tax Filing</a></li>
           <li><a href="#services">Payroll</a></li>
-          <li><a href="#services">AP & AR Management</a></li>
+          <li><a href="#services">AP &amp; AR Management</a></li>
           <li><a href="#services">Financial Reporting</a></li>
         </ul>
       </div>
@@ -2203,7 +1688,7 @@ footer {
           <li><a href="#contact">Book a Free Call</a></li>
           <li><a href="#">LinkedIn</a></li>
           <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
         </ul>
       </div>
     </div>
@@ -2212,36 +1697,28 @@ footer {
       <span>© 2025 Digitwise Consulting. All rights reserved.</span>
       <div class="footer-bottom-links">
         <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
+        <a href="#">Terms &amp; Conditions</a>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
-// Nav scroll effect
 const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-});
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-// Pricing toggle
 function switchPricing(market, btn) {
-  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('pricing-' + market).classList.add('active');
 }
 
-// Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-    }
+    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 75);
   });
-}, { threshold: 0.1 });
-
+}, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
