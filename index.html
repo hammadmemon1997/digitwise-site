@@ -254,8 +254,31 @@
   });
 })();
 
-// ── CALENDLY INIT ──
-(function() {
+// ── CALENDLY MODAL ──
+var calLoaded = false;
+
+function openCalModal() {
+  document.getElementById('cal-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!calLoaded) {
+    loadCalendly();
+  }
+}
+
+function closeCalModal() {
+  document.getElementById('cal-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('cal-modal-overlay')) closeCalModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCalModal();
+});
+
+function loadCalendly() {
   var script = document.createElement('script');
   script.src = 'https://assets.calendly.com/assets/external/widget.js';
   script.async = true;
@@ -264,16 +287,15 @@
     var loader = document.getElementById('cal-loading');
     if (!el) return;
     Calendly.initInlineWidget({
-      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C',
-      parentElement: el,
-      prefill: {},
-      utm: {}
+      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=1C2B3A&text_color=ffffff&primary_color=C9A84C',
+      parentElement: el
     });
     el.style.display = 'block';
     if (loader) loader.style.display = 'none';
+    calLoaded = true;
   };
   document.head.appendChild(script);
-})();
+}
 </script>
 
 <!-- ── PERFORMANCE ── -->
@@ -1408,51 +1430,92 @@ footer {
   .bas-strip { width: 100%; }
 }
 
-/* ── CALENDLY EMBED ── */
-.calendly-wrap {
-  background: rgba(255,255,255,0.04);
+/* ── CALENDLY MODAL ── */
+.cal-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,16,22,0.75);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cal-modal-overlay.open {
+  display: flex;
+}
+.cal-modal {
+  background: var(--navy-mid);
+  border-radius: 24px;
   border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 22px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: cal-modal-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
-.calendly-wrap::before {
+@keyframes cal-modal-in {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.cal-modal::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, var(--gold), transparent);
-  z-index: 1;
 }
-.calendly-header {
-  padding: 24px 28px 0;
+.cal-modal-head {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  padding: 22px 28px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
 }
-.calendly-icon {
+.cal-modal-title-row {
+  display: flex; align-items: center; gap: 12px;
+}
+.cal-modal-icon {
   width: 38px; height: 38px;
   background: var(--gold);
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.calendly-icon svg { width: 20px; height: 20px; }
-.calendly-title {
+.cal-modal-icon svg { width: 20px; height: 20px; }
+.cal-modal-title {
   font-family: 'Playfair Display', serif;
   font-size: 18px; font-weight: 700;
   color: var(--white); letter-spacing: -0.02em;
 }
-.calendly-sub {
-  font-size: 12px; color: rgba(255,255,255,0.42); margin-top: 2px;
-}
-.calendly-inline-widget {
-  min-height: 660px;
-  border: none;
-}
-.calendly-loading {
+.cal-modal-sub { font-size: 12px; color: rgba(255,255,255,0.42); margin-top: 2px; }
+.cal-modal-close {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  min-height: 660px; flex-direction: column; gap: 12px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+  line-height: 1;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
-.calendly-spinner {
+.cal-modal-close:hover { background: rgba(255,255,255,0.12); color: white; }
+.cal-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+.cal-loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 500px; flex-direction: column; gap: 12px;
+}
+.cal-spinner {
   width: 36px; height: 36px;
   border: 2px solid rgba(201,168,76,0.2);
   border-top-color: var(--gold);
@@ -1460,22 +1523,12 @@ footer {
   animation: cal-spin 0.8s linear infinite;
 }
 @keyframes cal-spin { to { transform: rotate(360deg); } }
-.calendly-loading p {
-  font-size: 13px; color: rgba(255,255,255,0.38);
-}
+.cal-loading p { font-size: 13px; color: rgba(255,255,255,0.38); }
+.calendly-inline-widget { min-height: 580px; border: none; }
 
-/* Wider contact grid when Calendly is showing */
-.contact-grid-cal {
-  display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-@media (max-width: 1100px) {
-  .contact-grid-cal { grid-template-columns: 1fr; gap: 40px; }
-  .calendly-inline-widget { min-height: 580px; }
-  .calendly-loading { min-height: 580px; }
+@media (max-width: 600px) {
+  .cal-modal { max-height: 95vh; border-radius: 16px; }
+  .calendly-inline-widget { min-height: 520px; }
 }
 
 /* ── BLOG / INSIGHTS ── */
@@ -1691,7 +1744,7 @@ footer {
     <li><a href="#testimonials">Clients</a></li>
     <li><a href="#insights">Insights</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
+    <li><button onclick="openCalModal()" class="nav-cta" style="border:none;cursor:pointer;">Book Free Call</button></li>
   </ul>
   <div class="nav-toggle"><span></span><span></span><span></span></div>
 </nav>
@@ -1726,7 +1779,7 @@ footer {
       <h1>Your books, done<br><em>precisely.</em> Every time.</h1>
       <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, fluent in both ATO and IRS compliance.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-gold">
+        <button onclick="openCalModal()" class="btn-gold" style="border:none;cursor:pointer;">
           Book a Free Consultation
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -1815,7 +1868,7 @@ footer {
           <li><div class="pt-icon">⏱️</div><div class="pt-text"><strong>Your timezone, always</strong><p>Responsive during your business hours — Sydney or San Francisco.</p></div></li>
           <li><div class="pt-icon">💎</div><div class="pt-text"><strong>Fixed, transparent pricing</strong><p>No surprise invoices. You know exactly what you're paying before we start.</p></div></li>
         </ul>
-        <a href="#contact" class="btn-gold" style="width:fit-content;">Book a Free Call →</a>
+        <button onclick="openCalModal()" class="btn-gold" style="width:fit-content;border:none;cursor:pointer;">Book a Free Call →</button>
       </div>
     </div>
   </div>
@@ -2143,12 +2196,17 @@ footer {
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <div class="contact-grid-cal">
+    <div class="contact-grid">
       <div class="reveal">
         <div class="eyebrow">Let's Talk</div>
         <h2 class="section-title light">Ready for accounting that <em>actually works?</em></h2>
-        <p class="section-lead light">Book a free 30-minute consultation. We'll review your current setup and walk you through exactly how we can help — no pressure, no commitment.</p>
+        <p class="section-lead light">Book a free 30-minute consultation or send us a message below. We'll get back to you within 48 hours — no pressure, no commitment.</p>
         <div class="contact-items">
+          <button onclick="openCalModal()" class="contact-item" style="width:100%;text-align:left;cursor:pointer;border:none;">
+            <div class="ci-icon">📅</div>
+            <div><span class="ci-strong">Book a free 30-min call</span><span class="ci-sub">Pick a time that suits you — opens calendar</span></div>
+            <svg style="margin-left:auto;flex-shrink:0;" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 4l4 4-4 4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
           <a href="mailto:hammad@digitwiseconsulting.com" class="contact-item">
             <div class="ci-icon">✉️</div>
             <div><span class="ci-strong">Email us directly</span><span class="ci-sub">hammad@digitwiseconsulting.com</span></div>
@@ -2156,10 +2214,6 @@ footer {
           <div class="contact-item">
             <div class="ci-icon">🕐</div>
             <div><span class="ci-strong">Business hours</span><span class="ci-sub">AEST (AU) &amp; EST (US) — Mon to Fri</span></div>
-          </div>
-          <div class="contact-item">
-            <div class="ci-icon">⚡</div>
-            <div><span class="ci-strong">Response time</span><span class="ci-sub">Within 48 hours guaranteed</span></div>
           </div>
           <div class="contact-item">
             <div class="ci-icon">📍</div>
@@ -2171,38 +2225,8 @@ footer {
           </a>
         </div>
       </div>
-      <!-- Calendly inline widget -->
-      <div class="calendly-wrap reveal">
-        <div class="calendly-header">
-          <div class="calendly-icon">
-            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="4" width="16" height="14" rx="3" stroke="#1C2B3A" stroke-width="1.8"/>
-              <path d="M2 8h16" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M6 2v4M14 2v4" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
-              <circle cx="7" cy="12" r="1.2" fill="#1C2B3A"/>
-              <circle cx="10" cy="12" r="1.2" fill="#1C2B3A"/>
-              <circle cx="13" cy="12" r="1.2" fill="#1C2B3A"/>
-            </svg>
-          </div>
-          <div>
-            <div class="calendly-title">Book a free 30-min call</div>
-            <div class="calendly-sub">Pick a time that suits you — AEST or EST</div>
-          </div>
-        </div>
-        <div id="cal-loading" class="calendly-loading">
-          <div class="calendly-spinner"></div>
-          <p>Loading calendar...</p>
-        </div>
-        <div
-          class="calendly-inline-widget"
-          id="calendly-embed"
-          data-url="https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C"
-          style="display:none;">
-        </div>
-      </div>
 
-      <!-- Keep Formspree form as a fallback below on mobile -->
-      <div class="contact-form reveal" id="contact-form-wrap" style="display:none;">
+      <div class="contact-form reveal" id="contact-form-wrap">
         <div id="form-content">
           <div class="form-title">Send us a message</div>
           <div class="form-sub">We'll get back to you within 48 hours. No pressure, no commitment.</div>
@@ -2458,6 +2482,39 @@ footer {
   </div>
 </section>
 
+
+<!-- CALENDLY MODAL -->
+<div class="cal-modal-overlay" id="cal-modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="cal-modal">
+    <div class="cal-modal-head">
+      <div class="cal-modal-title-row">
+        <div class="cal-modal-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="16" height="14" rx="3" stroke="#1C2B3A" stroke-width="1.8"/>
+            <path d="M2 8h16" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6 2v4M14 2v4" stroke="#1C2B3A" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="7" cy="12" r="1.2" fill="#1C2B3A"/>
+            <circle cx="10" cy="12" r="1.2" fill="#1C2B3A"/>
+            <circle cx="13" cy="12" r="1.2" fill="#1C2B3A"/>
+          </svg>
+        </div>
+        <div>
+          <div class="cal-modal-title">Book a free 30-min call</div>
+          <div class="cal-modal-sub">Pick a time that suits — AEST or EST welcome</div>
+        </div>
+      </div>
+      <button class="cal-modal-close" onclick="closeCalModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="cal-modal-body">
+      <div class="cal-loading" id="cal-loading">
+        <div class="cal-spinner"></div>
+        <p>Loading calendar...</p>
+      </div>
+      <div class="calendly-inline-widget" id="calendly-embed" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
 </main>
 <!-- FOOTER -->
 <footer role="contentinfo" aria-label="Site footer">
@@ -2616,8 +2673,31 @@ function toggleFaq(el) {
   });
 })();
 
-// ── CALENDLY INIT ──
-(function() {
+// ── CALENDLY MODAL ──
+var calLoaded = false;
+
+function openCalModal() {
+  document.getElementById('cal-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!calLoaded) {
+    loadCalendly();
+  }
+}
+
+function closeCalModal() {
+  document.getElementById('cal-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('cal-modal-overlay')) closeCalModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCalModal();
+});
+
+function loadCalendly() {
   var script = document.createElement('script');
   script.src = 'https://assets.calendly.com/assets/external/widget.js';
   script.async = true;
@@ -2626,16 +2706,15 @@ function toggleFaq(el) {
     var loader = document.getElementById('cal-loading');
     if (!el) return;
     Calendly.initInlineWidget({
-      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=243447&text_color=ffffff&primary_color=C9A84C',
-      parentElement: el,
-      prefill: {},
-      utm: {}
+      url: 'https://calendly.com/hammad-digitwiseconsulting?hide_landing_page_details=1&hide_gdpr_banner=1&background_color=1C2B3A&text_color=ffffff&primary_color=C9A84C',
+      parentElement: el
     });
     el.style.display = 'block';
     if (loader) loader.style.display = 'none';
+    calLoaded = true;
   };
   document.head.appendChild(script);
-})();
+}
 </script>
 </body>
 </html>
