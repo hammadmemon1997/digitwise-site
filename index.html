@@ -6,37 +6,39 @@
 <title>Digitwise Consulting — Accounting for Australian & US Businesses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --char:        #141210;
-  --char-mid:    #1E1B17;
-  --char-light:  #2A2520;
-  --char-soft:   #3A342D;
-  --lime:        #C8F135;
-  --lime-dim:    #A8D120;
-  --lime-pale:   #EEF9B8;
-  --lime-ghost:  #F5FCD8;
-  --white:       #FFFFFF;
-  --cream:       #FAF8F4;
-  --cream-mid:   #F2EFE8;
-  --cream-dark:  #E8E3D8;
-  --text:        #1E1B17;
-  --text-mid:    #4A4238;
-  --text-muted:  #7A7168;
-  --border-dark: rgba(255,255,255,0.08);
-  --border-light: #E2DDD4;
-  --shadow-card: 0 2px 12px rgba(20,18,16,0.06), 0 1px 3px rgba(20,18,16,0.04);
-  --shadow-lift: 0 16px 48px rgba(20,18,16,0.12), 0 4px 12px rgba(20,18,16,0.06);
-  --shadow-lime: 0 8px 32px rgba(200,241,53,0.25);
+  --navy:         #1C2B3A;
+  --navy-mid:     #243447;
+  --navy-light:   #2E4158;
+  --navy-soft:    #3A5070;
+  --gold:         #C9A84C;
+  --gold-bright:  #D4B060;
+  --gold-light:   #E8D08A;
+  --gold-pale:    #F5EDD0;
+  --gold-ghost:   #FBF6E8;
+  --white:        #FFFFFF;
+  --cream:        #F8F5EE;
+  --cream-mid:    #F2EDE0;
+  --cream-dark:   #EAE3D0;
+  --text:         #1C2B3A;
+  --text-mid:     #3A4A5A;
+  --text-muted:   #6A7A8A;
+  --border:       #E0D8C8;
+  --border-navy:  rgba(255,255,255,0.09);
+  --shadow-sm:    0 1px 4px rgba(28,43,58,0.06);
+  --shadow-md:    0 4px 20px rgba(28,43,58,0.09);
+  --shadow-lg:    0 16px 48px rgba(28,43,58,0.13);
+  --shadow-gold:  0 8px 32px rgba(201,168,76,0.22);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
   background: var(--white);
   color: var(--text);
   overflow-x: hidden;
@@ -45,1033 +47,770 @@ body {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--char); }
-::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
 /* ── TICKER ── */
 .ticker {
-  background: var(--lime);
-  padding: 11px 0;
+  background: var(--gold);
+  padding: 10px 0;
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
+  z-index: 201;
 }
 .ticker-inner {
   display: inline-flex;
-  animation: ticker-scroll 30s linear infinite;
+  animation: ticker-scroll 32s linear infinite;
 }
 .ticker-item {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   padding: 0 28px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--char);
+  color: var(--navy);
 }
-.ticker-sep { width: 4px; height: 4px; background: var(--char-light); border-radius: 50%; opacity: 0.4; }
-@keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+.ticker-sep { width: 4px; height: 4px; background: rgba(28,43,58,0.35); border-radius: 50%; }
+@keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
 /* ── NAV ── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 200;
-  height: 68px;
-  padding: 0 56px;
+  height: 70px;
+  padding: 0 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(20,18,16,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-dark);
+  background: rgba(28,43,58,0.94);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-navy);
   transition: all 0.3s;
 }
-nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  text-decoration: none;
-}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .logo-mark {
-  width: 36px; height: 36px;
-  background: var(--lime);
-  border-radius: 9px;
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.logo-mark svg { width: 20px; height: 20px; }
+.logo-mark svg { width: 22px; height: 22px; }
 .logo-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 17px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 19px;
   color: var(--white);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
-.logo-name span { color: var(--lime); }
+.logo-name span { color: var(--gold); }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  list-style: none;
-}
+.nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
 .nav-links a {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.58);
   transition: color 0.2s;
   letter-spacing: 0.01em;
 }
 .nav-links a:hover { color: var(--white); }
-
 .nav-cta {
-  background: var(--lime) !important;
-  color: var(--char) !important;
-  padding: 9px 20px !important;
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  padding: 9px 22px !important;
   border-radius: 8px !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   font-size: 13px !important;
-  color: var(--char) !important;
   transition: all 0.2s !important;
-  box-shadow: var(--shadow-lime) !important;
+  box-shadow: var(--shadow-gold) !important;
 }
-.nav-cta:hover {
-  background: var(--lime-dim) !important;
-  transform: translateY(-1px) !important;
-}
+.nav-cta:hover { background: var(--gold-bright) !important; transform: translateY(-1px) !important; }
+
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.nav-toggle span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; }
 
 /* ── HERO ── */
 .hero {
-  background: var(--char);
+  background: var(--navy);
   min-height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 68px;
+  padding-top: 70px;
 }
 
-/* subtle dot grid */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(200,241,53,0.12) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, black 20%, transparent 80%);
+.hero-texture {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 55% 45%, black 30%, transparent 100%);
 }
 
-.hero-glow {
+.hero-orb-1 {
   position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(200,241,53,0.07) 0%, transparent 70%);
-  top: -200px; right: -200px;
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  top: -140px; right: -140px;
+  pointer-events: none;
+  animation: orb-drift 10s ease-in-out infinite;
+}
+.hero-orb-2 {
+  position: absolute;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(46,65,88,0.8) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
   pointer-events: none;
 }
+@keyframes orb-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,20px)} }
 
 .hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 100px 56px;
+  position: relative; z-index: 2;
+  max-width: 1180px; margin: 0 auto;
+  padding: 96px 60px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 72px;
+  gap: 80px;
   align-items: center;
   width: 100%;
 }
 
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(200,241,53,0.1);
-  border: 1px solid rgba(200,241,53,0.25);
-  padding: 6px 15px;
-  border-radius: 100px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--lime);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.28);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 12px; font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.05em; text-transform: uppercase;
   margin-bottom: 28px;
 }
 .live-dot {
   width: 6px; height: 6px;
-  background: var(--lime);
+  background: var(--gold);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--lime);
-  animation: blink 2s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulse 2s ease-in-out infinite;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
 .hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(40px, 4.8vw, 66px);
-  font-weight: 800;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 4.8vw, 64px);
+  font-weight: 700;
   color: var(--white);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin-bottom: 24px;
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--lime);
-  font-weight: 700;
-}
+.hero h1 em { font-style: italic; color: var(--gold); }
 
 .hero-sub {
-  font-size: 17px;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.7;
+  font-size: 17px; font-weight: 400;
+  color: rgba(255,255,255,0.52);
+  line-height: 1.72;
   margin-bottom: 40px;
   max-width: 480px;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 52px;
-}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
 
-.btn-lime {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--lime);
-  color: var(--char);
-  padding: 14px 28px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  transition: all 0.2s;
-  box-shadow: var(--shadow-lime);
-  letter-spacing: -0.01em;
-  font-family: 'Syne', sans-serif;
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  padding: 14px 28px; border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 14px;
+  text-decoration: none; transition: all 0.2s;
+  box-shadow: var(--shadow-gold); letter-spacing: 0.01em;
 }
-.btn-lime:hover { background: var(--lime-dim); transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,241,53,0.35); }
+.btn-gold:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 16px 44px rgba(201,168,76,0.32); }
 
-.btn-outline-white {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: rgba(255,255,255,0.75);
-  padding: 14px 28px;
-  border-radius: 10px;
+.btn-outline-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,0.7);
+  padding: 14px 28px; border-radius: 10px;
   border: 1.5px solid rgba(255,255,255,0.18);
-  font-weight: 600;
-  font-size: 14px;
-  text-decoration: none;
-  transition: all 0.2s;
-  letter-spacing: -0.01em;
+  font-weight: 500; font-size: 14px;
+  text-decoration: none; transition: all 0.2s;
 }
-.btn-outline-white:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.35); color: white; }
+.btn-outline-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.35); color: white; }
 
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 0;
-  width: fit-content;
-}
-.hero-stat {
-  padding: 0 28px 0 0;
+.hero-stats { display: flex; gap: 0; }
+.hstat {
+  padding: 0 28px 0 0; margin-right: 28px;
   border-right: 1px solid rgba(255,255,255,0.1);
-  margin-right: 28px;
 }
-.hero-stat:last-child { border: none; margin: 0; padding: 0; }
-.hero-stat-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1;
-  letter-spacing: -0.04em;
+.hstat:last-child { border: none; margin: 0; padding: 0; }
+.hstat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px; font-weight: 700;
+  color: var(--white); line-height: 1;
+  letter-spacing: -0.03em;
 }
-.hero-stat-n span { color: var(--lime); }
-.hero-stat-l { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.01em; }
+.hstat-n span { color: var(--gold); }
+.hstat-l { font-size: 12px; color: rgba(255,255,255,0.38); margin-top: 4px; font-weight: 500; }
 
-/* Hero right — feature card */
-.hero-right { position: relative; }
-
-.feature-card {
-  background: var(--char-mid);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 32px;
+/* Hero card */
+.hero-card {
+  background: var(--navy-mid);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 22px;
+  padding: 34px;
   position: relative;
   overflow: hidden;
 }
-.feature-card::before {
+.hero-card::before {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--lime), transparent);
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
 }
-
-.fc-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--lime);
-  margin-bottom: 20px;
+.hc-label {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--gold); margin-bottom: 20px;
 }
-
-.fc-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  margin-bottom: 28px;
-}
-.fc-list li {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.8);
-  font-weight: 500;
-}
-.fc-check {
+.hc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
+.hc-list li { display: flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.78); }
+.hc-check {
   width: 20px; height: 20px;
-  background: rgba(200,241,53,0.15);
+  background: rgba(201,168,76,0.14);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.fc-check::after {
+.hc-check::after {
   content: '';
   width: 8px; height: 5px;
-  border-left: 2px solid var(--lime);
-  border-bottom: 2px solid var(--lime);
-  transform: rotate(-45deg) translate(0px,-1px);
+  border-left: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(-45deg) translate(0,-1px);
 }
+.hc-certs {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
+}
+.cert-tag {
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 4px 10px; border-radius: 5px;
+  font-size: 11px; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.04em;
+}
+.float-pair {
+  display: flex; gap: 10px; margin-top: 14px;
+}
+.fcard {
+  flex: 1; background: var(--navy-light);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 14px 16px;
+  animation: flt 6s ease-in-out infinite;
+}
+.fcard:nth-child(2) { animation-delay: 1.2s; }
+@keyframes flt { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+.fcard-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--white); line-height: 1;
+}
+.fcard-n span { color: var(--gold); }
+.fcard-l { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 3px; }
 
-.fc-certs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.35);
-}
-.cert-pill {
-  background: rgba(200,241,53,0.12);
-  border: 1px solid rgba(200,241,53,0.2);
-  padding: 4px 10px;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--lime);
-  letter-spacing: 0.04em;
-}
-
-.float-cards {
-  position: absolute;
-  bottom: -20px;
-  left: -28px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.float-card {
-  background: var(--char-light);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 14px 18px;
-  min-width: 160px;
-  animation: floatUp 6s ease-in-out infinite;
-}
-.float-card:nth-child(2) { animation-delay: 1.5s; left: 20px; }
-.float-card-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1;
-}
-.float-card-n span { color: var(--lime); }
-.float-card-l { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
-@keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-
-/* ── SECTIONS ── */
-section { padding: 96px 56px; }
+/* ── SHARED SECTION STYLES ── */
+section { padding: 96px 60px; }
 .container { max-width: 1180px; margin: 0 auto; }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--lime-dim);
-  margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--gold); margin-bottom: 14px;
 }
 .eyebrow::before {
-  content: '';
-  display: block;
+  content: ''; display: block;
   width: 20px; height: 2px;
-  background: var(--lime-dim);
-  border-radius: 1px;
+  background: var(--gold); border-radius: 1px;
 }
+.eyebrow.dark { color: #9A7530; }
+.eyebrow.dark::before { background: #9A7530; }
 
 .section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(30px, 3.5vw, 46px);
-  font-weight: 800;
-  color: var(--char);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 700; color: var(--navy);
+  line-height: 1.12; letter-spacing: -0.02em;
   margin-bottom: 14px;
 }
-.section-title em { font-style: italic; color: var(--lime-dim); font-weight: 700; }
+.section-title em { font-style: italic; color: #9A7530; }
 .section-title.light { color: var(--white); }
-.section-title.light em { color: var(--lime); }
+.section-title.light em { color: var(--gold); }
 
 .section-lead {
-  font-size: 17px;
-  color: var(--text-muted);
-  line-height: 1.7;
+  font-size: 17px; font-weight: 400;
+  color: var(--text-muted); line-height: 1.72;
   max-width: 540px;
 }
-.section-lead.light { color: rgba(255,255,255,0.55); }
+.section-lead.light { color: rgba(255,255,255,0.52); }
 
 /* ── ABOUT ── */
 .about-section { background: var(--cream); }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center;
 }
 
 .about-visual {
-  background: var(--char);
-  border-radius: 24px;
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
+  background: var(--navy);
+  border-radius: 24px; padding: 40px;
+  position: relative; overflow: hidden;
 }
 .about-visual::after {
   content: '';
-  position: absolute;
-  bottom: -60px; right: -60px;
-  width: 220px; height: 220px;
-  background: radial-gradient(circle, rgba(200,241,53,0.1), transparent 70%);
+  position: absolute; bottom: -50px; right: -50px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1), transparent 70%);
   pointer-events: none;
 }
 
-.market-block {
+.mkt-block {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 20px 22px;
-  margin-bottom: 14px;
+  border-radius: 14px; padding: 20px 22px; margin-bottom: 14px;
 }
-.market-block:last-of-type { margin-bottom: 0; }
-.market-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 12px;
+.mkt-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--white); margin-bottom: 12px;
 }
-.market-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.mkt-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .chip {
-  background: rgba(200,241,53,0.1);
-  border: 1px solid rgba(200,241,53,0.18);
-  border-radius: 100px;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--lime);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 12px; font-weight: 500; color: var(--gold-light);
 }
-
 .cert-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-top: 22px;
-  margin-top: 22px;
+  display: flex; align-items: center; gap: 9px;
+  padding-top: 20px; margin-top: 6px;
   border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.28);
 }
-.cert-tag {
+.cert-tag-sm {
   background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 5px 11px;
+  font-size: 12px; font-weight: 600; color: white;
 }
 
 .about-content .section-lead { margin-bottom: 32px; }
-
 .point-list { list-style: none; display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
 .point-list li { display: flex; gap: 15px; align-items: flex-start; }
-.point-icon {
+.pt-icon {
   width: 42px; height: 42px;
-  background: var(--lime-ghost);
-  border-radius: 11px;
+  background: var(--gold-ghost);
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
+  font-size: 18px; flex-shrink: 0;
 }
-.point-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--char); margin-bottom: 3px; }
-.point-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.pt-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.pt-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
 /* ── SERVICES ── */
 .services-section { background: var(--white); }
 
 .services-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 52px;
-  gap: 40px;
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 48px; gap: 40px;
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
 .svc-card {
   background: var(--cream);
-  border: 1.5px solid var(--border-light);
-  border-radius: 18px;
-  padding: 32px 28px;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-  cursor: default;
+  border: 1.5px solid var(--border);
+  border-radius: 18px; padding: 32px 28px;
+  transition: all 0.28s; cursor: default;
+  position: relative; overflow: hidden;
 }
 .svc-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--lime);
-  transform: scaleX(0);
-  transform-origin: left;
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
   transition: transform 0.3s ease;
 }
-.svc-card:hover { border-color: var(--lime-pale); box-shadow: var(--shadow-lift); transform: translateY(-4px); background: var(--cream-mid); }
+.svc-card:hover { border-color: var(--gold-pale); box-shadow: var(--shadow-lg); transform: translateY(-4px); background: var(--gold-ghost); }
 .svc-card:hover::after { transform: scaleX(1); }
 
 .svc-mkt { display: flex; gap: 5px; margin-bottom: 16px; }
 .mkt-tag {
-  font-family: 'Syne', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 10px; font-weight: 600;
+  padding: 3px 8px; border-radius: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
 }
-.mkt-au { background: #E8F5E9; color: #2E7D32; }
+.mkt-au { background: #E8F4E8; color: #2E7D32; }
 .mkt-us { background: #FFEBEE; color: #C62828; }
-
 .svc-icon { font-size: 26px; margin-bottom: 14px; }
 .svc-card h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--char);
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em;
 }
 .svc-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
 
 /* ── WHY US ── */
-.whyus-section { background: var(--char); }
-.whyus-section .eyebrow { color: var(--lime); }
-.whyus-section .eyebrow::before { background: var(--lime); }
+.whyus-section { background: var(--navy); }
 
 .whyus-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center;
 }
 
-.stats-block {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
+.stats-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
 .stat-tile {
-  background: var(--char-mid);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  padding: 28px 24px;
+  background: var(--navy-mid);
+  border: 1px solid var(--border-navy);
+  border-radius: 18px; padding: 28px 24px;
   transition: all 0.25s;
 }
-.stat-tile:hover { border-color: rgba(200,241,53,0.2); transform: translateY(-2px); }
-.stat-tile.featured {
+.stat-tile:hover { border-color: rgba(201,168,76,0.22); transform: translateY(-2px); }
+.stat-tile.gold-tile {
+  background: var(--gold);
+  border-color: var(--gold);
   grid-column: span 2;
-  background: var(--lime);
-  border-color: var(--lime);
 }
-.stat-tile.featured .stat-n { color: var(--char); }
-.stat-tile.featured .stat-l { color: rgba(20,18,16,0.55); }
+.stat-tile.gold-tile .stat-n { color: var(--navy); }
+.stat-tile.gold-tile .stat-l { color: rgba(28,43,58,0.55); }
 .stat-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 44px;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  margin-bottom: 6px;
+  font-family: 'Playfair Display', serif;
+  font-size: 44px; font-weight: 700;
+  color: var(--white); line-height: 1;
+  letter-spacing: -0.04em; margin-bottom: 6px;
 }
-.stat-l { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; }
+.stat-l { font-size: 13px; color: rgba(255,255,255,0.42); font-weight: 500; }
 
-.whyus-points { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-.whyus-point {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
+.whyus-points { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+.whyus-pt {
+  display: flex; gap: 14px; align-items: flex-start;
   padding: 18px 20px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
-  transition: all 0.2s;
+  border-radius: 12px; transition: all 0.2s;
 }
-.whyus-point:hover { background: rgba(200,241,53,0.05); border-color: rgba(200,241,53,0.15); }
+.whyus-pt:hover { background: rgba(201,168,76,0.05); border-color: rgba(201,168,76,0.15); }
 .num-tag {
   width: 28px; height: 28px;
-  background: var(--lime);
-  color: var(--char);
+  background: var(--gold); color: var(--navy);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  flex-shrink: 0;
-  margin-top: 1px;
+  font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
 }
-.whyus-point strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.whyus-point p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.whyus-pt strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+.whyus-pt p { font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.6; }
 
 /* ── PRICING ── */
 .pricing-section { background: var(--cream); }
 
 .pricing-toggle {
   display: flex;
-  background: var(--char);
-  border-radius: 100px;
-  padding: 4px;
-  width: fit-content;
-  margin: 28px 0 48px;
-  gap: 0;
+  background: var(--navy);
+  border-radius: 100px; padding: 4px;
+  width: fit-content; margin: 28px 0 48px;
 }
 .tog-btn {
-  padding: 10px 24px;
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: 'Syne', sans-serif;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: rgba(255,255,255,0.45);
-  transition: all 0.2s;
-  letter-spacing: 0.02em;
+  padding: 10px 24px; border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none;
+  background: transparent; color: rgba(255,255,255,0.4);
+  transition: all 0.22s; letter-spacing: 0.01em;
 }
-.tog-btn.active { background: var(--lime); color: var(--char); }
+.tog-btn.active { background: var(--gold); color: var(--navy); }
 
 .pricing-panel { display: none; }
 .pricing-panel.active { display: block; }
 
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
 .price-card {
   background: var(--white);
-  border: 1.5px solid var(--border-light);
-  border-radius: 22px;
-  padding: 36px 32px;
-  transition: all 0.25s;
-  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: 22px; padding: 36px 32px;
+  transition: all 0.28s; position: relative;
 }
-.price-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
-.price-card.hot {
-  background: var(--char);
-  border-color: var(--char);
+.price-card:hover:not(.featured) { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.price-card.featured {
+  background: var(--navy);
+  border-color: var(--navy);
   transform: translateY(-8px);
 }
-.price-card.hot:hover { transform: translateY(-12px); }
+.price-card.featured:hover { transform: translateY(-12px); }
 
-.hot-badge {
-  position: absolute;
-  top: -13px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--lime);
-  color: var(--char);
-  font-family: 'Syne', sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 4px 16px;
-  border-radius: 100px;
-  white-space: nowrap;
+.feat-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--navy);
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px 16px; border-radius: 100px; white-space: nowrap;
 }
 
 .price-tier {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--lime-dim);
-  margin-bottom: 6px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: #9A7530; margin-bottom: 6px;
 }
-.price-card.hot .price-tier { color: var(--lime); }
+.price-card.featured .price-tier { color: var(--gold); }
 
 .price-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--char);
-  letter-spacing: -0.03em;
-  margin-bottom: 5px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.02em; margin-bottom: 5px;
 }
-.price-card.hot .price-name { color: var(--white); }
+.price-card.featured .price-name { color: var(--white); }
 
-.price-tag { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-.price-card.hot .price-tag { color: rgba(255,255,255,0.45); }
+.price-tag { font-size: 13px; color: var(--text-muted); margin-bottom: 22px; }
+.price-card.featured .price-tag { color: rgba(255,255,255,0.42); }
 
 .price-amount { display: flex; align-items: flex-end; gap: 3px; margin-bottom: 5px; }
-.price-cur { font-size: 18px; font-weight: 700; color: var(--char); padding-bottom: 8px; }
-.price-card.hot .price-cur { color: var(--white); }
-.price-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 52px;
-  font-weight: 800;
-  color: var(--char);
-  line-height: 1;
-  letter-spacing: -0.05em;
+.p-cur { font-size: 18px; font-weight: 600; color: var(--navy); padding-bottom: 8px; }
+.price-card.featured .p-cur { color: var(--white); }
+.p-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; font-weight: 700;
+  color: var(--navy); line-height: 1; letter-spacing: -0.04em;
 }
-.price-card.hot .price-num { color: var(--lime); }
-.price-per { font-size: 13px; color: var(--text-muted); padding-bottom: 10px; }
-.price-card.hot .price-per { color: rgba(255,255,255,0.4); }
-.price-note { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
-.price-card.hot .price-note { color: rgba(255,255,255,0.35); }
+.price-card.featured .p-num { color: var(--gold); }
+.p-per { font-size: 13px; color: var(--text-muted); padding-bottom: 10px; }
+.price-card.featured .p-per { color: rgba(255,255,255,0.38); }
+.p-note { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; }
+.price-card.featured .p-note { color: rgba(255,255,255,0.32); }
 
-.price-div { height: 1px; background: var(--border-light); margin-bottom: 22px; }
-.price-card.hot .price-div { background: rgba(255,255,255,0.08); }
+.p-div { height: 1px; background: var(--border); margin-bottom: 20px; }
+.price-card.featured .p-div { background: rgba(255,255,255,0.09); }
 
-.price-feats { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
-.price-feats li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-mid); }
-.price-card.hot .price-feats li { color: rgba(255,255,255,0.7); }
-.feat-dot {
+.p-feats { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 30px; }
+.p-feats li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-mid); }
+.price-card.featured .p-feats li { color: rgba(255,255,255,0.7); }
+.p-check {
   width: 17px; height: 17px;
-  background: var(--lime-ghost);
+  background: var(--gold-ghost);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.price-card.hot .feat-dot { background: rgba(200,241,53,0.15); }
-.feat-dot svg { width: 9px; height: 9px; }
+.price-card.featured .p-check { background: rgba(201,168,76,0.16); }
+.p-check svg { width: 9px; height: 9px; }
 
-.price-btn {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  border-radius: 10px;
-  text-align: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-decoration: none;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: none;
-  letter-spacing: 0.02em;
+.p-btn {
+  display: block; width: 100%; padding: 13px;
+  border-radius: 10px; text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 14px;
+  text-decoration: none; transition: all 0.2s;
+  cursor: pointer; border: none; letter-spacing: 0.01em;
 }
-.btn-char {
-  background: var(--char);
-  color: var(--white);
-}
-.btn-char:hover { background: var(--char-light); }
-.btn-lime-solid {
-  background: var(--lime);
-  color: var(--char);
-  box-shadow: var(--shadow-lime);
-}
-.btn-lime-solid:hover { background: var(--lime-dim); transform: translateY(-1px); }
+.btn-navy { background: var(--navy); color: var(--white); }
+.btn-navy:hover { background: var(--navy-mid); }
+.btn-gold-solid { background: var(--gold); color: var(--navy); box-shadow: var(--shadow-gold); }
+.btn-gold-solid:hover { background: var(--gold-bright); transform: translateY(-1px); }
 
 /* ── TESTIMONIALS ── */
 .testimonials-section { background: var(--white); }
-
 .testi-header { text-align: center; margin-bottom: 56px; }
 .testi-header .section-lead { margin: 0 auto; }
-
-.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 
 .testi-card {
   background: var(--cream);
-  border: 1.5px solid var(--border-light);
-  border-radius: 20px;
-  padding: 32px 28px;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
+  border: 1.5px solid var(--border);
+  border-radius: 20px; padding: 32px 28px;
+  transition: all 0.28s;
+  display: flex; flex-direction: column;
 }
-.testi-card:hover { box-shadow: var(--shadow-lift); border-color: var(--lime-pale); transform: translateY(-4px); }
+.testi-card:hover { box-shadow: var(--shadow-lg); border-color: var(--gold-pale); transform: translateY(-4px); }
 
 .testi-q {
-  font-family: 'Syne', sans-serif;
-  font-size: 56px;
-  font-weight: 800;
-  color: var(--lime-pale);
-  line-height: 0.6;
-  margin-bottom: 18px;
+  font-family: 'Playfair Display', serif;
+  font-size: 60px; font-weight: 700;
+  color: var(--gold-pale); line-height: 0.6;
+  margin-bottom: 18px; font-style: italic;
 }
 .testi-text { font-size: 15px; color: var(--text-mid); line-height: 1.7; flex: 1; margin-bottom: 26px; }
-
 .testi-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 22px; border-top: 1px solid var(--border);
 }
-.author-avi {
+.author-av {
   width: 42px; height: 42px;
-  background: var(--char);
-  border-radius: 50%;
+  background: var(--navy); border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--lime);
-  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--gold); flex-shrink: 0;
 }
-.author-name { font-size: 14px; font-weight: 700; color: var(--char); letter-spacing: -0.01em; }
+.author-name { font-size: 14px; font-weight: 600; color: var(--navy); }
 .author-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .author-flag { margin-left: auto; font-size: 22px; }
 
 /* ── CONTACT ── */
-.contact-section { background: var(--char); }
-.contact-section .eyebrow { color: var(--lime); }
-.contact-section .eyebrow::before { background: var(--lime); }
+.contact-section { background: var(--navy); }
 
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center;
 }
 
-.contact-items { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+.contact-items { display: flex; flex-direction: column; gap: 13px; margin-top: 30px; }
 .contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+  display: flex; align-items: center; gap: 15px;
   padding: 18px 22px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px;
-  text-decoration: none;
+  border-radius: 14px; text-decoration: none;
   transition: all 0.2s;
 }
-.contact-item:hover { background: rgba(200,241,53,0.07); border-color: rgba(200,241,53,0.18); transform: translateX(4px); }
+.contact-item:hover { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.18); transform: translateX(4px); }
 .ci-icon {
   width: 42px; height: 42px;
-  background: rgba(200,241,53,0.1);
-  border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
+  background: rgba(201,168,76,0.1);
+  border-radius: 11px; font-size: 18px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.ci-strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); }
-.ci-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+.ci-strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); }
+.ci-sub { font-size: 13px; color: rgba(255,255,255,0.38); }
 
 .cta-box {
-  background: var(--lime);
-  border-radius: 24px;
-  padding: 48px 44px;
-  position: relative;
-  overflow: hidden;
+  background: var(--gold);
+  border-radius: 26px; padding: 50px 46px;
+  position: relative; overflow: hidden;
 }
 .cta-box::before {
   content: '';
-  position: absolute;
-  top: -60px; right: -60px;
+  position: absolute; top: -60px; right: -60px;
   width: 220px; height: 220px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
+  background: rgba(255,255,255,0.14); border-radius: 50%;
 }
 .cta-box h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 30px;
-  font-weight: 800;
-  color: var(--char);
-  letter-spacing: -0.04em;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 1;
-  line-height: 1.15;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.02em;
+  margin-bottom: 12px; line-height: 1.18;
+  position: relative; z-index: 1;
 }
-.cta-box p { font-size: 15px; color: rgba(20,18,16,0.6); line-height: 1.7; margin-bottom: 32px; position: relative; z-index: 1; }
-
-.btn-dark {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--char);
-  color: var(--white);
-  padding: 15px 28px;
-  border-radius: 10px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  transition: all 0.2s;
-  position: relative;
-  z-index: 1;
+.cta-box p {
+  font-size: 15px; color: rgba(28,43,58,0.62);
+  line-height: 1.72; margin-bottom: 32px;
+  position: relative; z-index: 1;
 }
-.btn-dark:hover { background: var(--char-light); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(20,18,16,0.3); }
+.btn-navy-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--navy); color: var(--white);
+  padding: 15px 28px; border-radius: 10px;
+  font-weight: 600; font-size: 14px;
+  text-decoration: none; transition: all 0.2s;
+  position: relative; z-index: 1;
+}
+.btn-navy-cta:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(28,43,58,0.35); }
 
 .avail-pills { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; position: relative; z-index: 1; }
 .avail-pill {
-  background: rgba(20,18,16,0.12);
-  border-radius: 100px;
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--char);
+  background: rgba(28,43,58,0.1); border-radius: 100px;
+  padding: 7px 14px; font-size: 12px; font-weight: 600; color: var(--navy);
 }
 
 /* ── FOOTER ── */
 footer {
-  background: var(--char-mid);
-  padding: 60px 56px 32px;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  background: var(--navy-mid);
+  padding: 60px 60px 32px;
+  border-top: 1px solid var(--border-navy);
 }
 .footer-inner { max-width: 1180px; margin: 0 auto; }
 .footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 52px;
-  padding-bottom: 44px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  margin-bottom: 32px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 52px; padding-bottom: 44px;
+  border-bottom: 1px solid var(--border-navy); margin-bottom: 32px;
 }
-.footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.7; margin: 14px 0 22px; max-width: 270px; }
+.footer-desc { font-size: 14px; color: rgba(255,255,255,0.33); line-height: 1.7; margin: 14px 0 22px; max-width: 260px; }
 .footer-socials { display: flex; gap: 10px; }
 .soc-btn {
   width: 34px; height: 34px;
   background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  text-decoration: none;
-  color: rgba(255,255,255,0.4);
-  font-size: 12px;
-  font-weight: 700;
-  transition: all 0.2s;
-  font-family: 'Syne', sans-serif;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: rgba(255,255,255,0.38);
+  font-size: 12px; font-weight: 700;
+  transition: all 0.2s; font-family: 'Outfit', sans-serif;
 }
-.soc-btn:hover { background: var(--lime); color: var(--char); }
+.soc-btn:hover { background: var(--gold); color: var(--navy); }
 .footer-col h4 {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 18px;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.55); margin-bottom: 18px;
+  letter-spacing: 0.01em;
 }
 .footer-col ul { list-style: none; }
 .footer-col ul li { margin-bottom: 9px; }
-.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
-.footer-col ul li a:hover { color: var(--lime); }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.32); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--gold); }
 .footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: rgba(255,255,255,0.2);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(255,255,255,0.2);
 }
 .footer-bottom-links { display: flex; gap: 22px; }
 .footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.2s; }
 .footer-bottom-links a:hover { color: rgba(255,255,255,0.5); }
 
-/* ── REVEAL ANIMATION ── */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ── MOBILE ── */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-}
-.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
-
+/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   nav { padding: 0 28px; }
   .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 28px; }
   section { padding: 80px 28px; }
   .about-grid, .whyus-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid, .testi-grid { grid-template-columns: repeat(2,1fr); }
   .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
-  .price-card.hot { transform: none; }
-  .testi-grid { grid-template-columns: 1fr; }
+  .price-card.featured { transform: none; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
   .services-header { flex-direction: column; align-items: flex-start; }
   .stats-block { grid-template-columns: 1fr 1fr; }
-  .stat-tile.featured { grid-column: span 2; }
 }
-
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
-  .hero-stats { grid-template-columns: repeat(2, auto); row-gap: 20px; }
-  .hero-stat { padding-right: 20px; margin-right: 20px; }
-  .services-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 20px 0; }
+  .hstat { padding-right: 18px; margin-right: 18px; }
+  .services-grid, .testi-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
   .hero-actions { flex-direction: column; }
+  .float-pair { display: none; }
 }
 </style>
 </head>
 <body>
 
 <!-- TICKER -->
-<div class="ticker" style="margin-top: 0; position: relative; z-index: 201;">
+<div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">🇦🇺 BAS &amp; GST Lodgement<span class="ticker-sep"></span></span>
     <span class="ticker-item">🇺🇸 IRS Compliance<span class="ticker-sep"></span></span>
@@ -1096,10 +835,10 @@ footer {
 <nav id="main-nav">
   <a href="#" class="logo">
     <div class="logo-mark">
-      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 10C3 6.134 6.134 3 10 3s7 3.134 7 7-3.134 7-7 7" stroke="#141210" stroke-width="2" stroke-linecap="round"/>
-        <path d="M10 7v3l2 2" stroke="#141210" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="6" cy="16" r="2" fill="#141210"/>
+      <svg viewBox="0 0 22 22" fill="none">
+        <path d="M4 11C4 7.134 7.134 4 11 4c3.866 0 7 3.134 7 7s-3.134 7-7 7" stroke="#1C2B3A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M11 8v3l2 2" stroke="#1C2B3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="7" cy="17" r="2" fill="#1C2B3A"/>
       </svg>
     </div>
     <span class="logo-name">Digit<span>wise</span></span>
@@ -1112,80 +851,64 @@ footer {
     <li><a href="#testimonials">Clients</a></li>
     <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
   </ul>
-
   <div class="nav-toggle"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-glow"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
 
   <div class="hero-inner">
-    <div class="hero-left">
+    <div>
       <div class="hero-badge">
         <span class="live-dot"></span>
         Serving Australia &amp; United States
       </div>
-
-      <h1>Your books,<br>done <em>precisely.</em><br>Every time.</h1>
-
+      <h1>Your books, done<br><em>precisely.</em> Every time.</h1>
       <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, fluent in both ATO and IRS compliance.</p>
-
       <div class="hero-actions">
-        <a href="#contact" class="btn-lime">
+        <a href="#contact" class="btn-gold">
           Book a Free Consultation
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="#pricing" class="btn-outline-white">View Pricing</a>
+        <a href="#pricing" class="btn-outline-ghost">View Pricing</a>
       </div>
-
       <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-n">50<span>+</span></div>
-          <div class="hero-stat-l">SMBs Served</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-n">2</div>
-          <div class="hero-stat-l">Countries</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-n">10<span>yr</span></div>
-          <div class="hero-stat-l">Experience</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-n">99<span>%</span></div>
-          <div class="hero-stat-l">On-time filing</div>
-        </div>
+        <div class="hstat"><div class="hstat-n">50<span>+</span></div><div class="hstat-l">SMBs Served</div></div>
+        <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l">Countries</div></div>
+        <div class="hstat"><div class="hstat-n">10<span>yr</span></div><div class="hstat-l">Experience</div></div>
+        <div class="hstat"><div class="hstat-n">99<span>%</span></div><div class="hstat-l">On-time filing</div></div>
       </div>
     </div>
 
-    <div class="hero-right">
-      <div class="feature-card">
-        <div class="fc-label">What we handle</div>
-        <ul class="fc-list">
-          <li><span class="fc-check"></span>BAS &amp; GST Lodgement (AU)</li>
-          <li><span class="fc-check"></span>IRS Federal &amp; State Tax (US)</li>
-          <li><span class="fc-check"></span>Bank Reconciliation</li>
-          <li><span class="fc-check"></span>Payroll &amp; Superannuation</li>
-          <li><span class="fc-check"></span>Month-End Close &amp; Reporting</li>
-          <li><span class="fc-check"></span>Accounts Payable &amp; Receivable</li>
+    <div>
+      <div class="hero-card">
+        <div class="hc-label">What we handle</div>
+        <ul class="hc-list">
+          <li><span class="hc-check"></span>BAS &amp; GST Lodgement (AU)</li>
+          <li><span class="hc-check"></span>IRS Federal &amp; State Tax (US)</li>
+          <li><span class="hc-check"></span>Bank Reconciliation</li>
+          <li><span class="hc-check"></span>Payroll &amp; Superannuation</li>
+          <li><span class="hc-check"></span>Month-End Close &amp; Reporting</li>
+          <li><span class="hc-check"></span>Accounts Payable &amp; Receivable</li>
         </ul>
-        <div class="fc-certs">
+        <div class="hc-certs">
           Certified in
-          <span class="cert-pill">Xero</span>
-          <span class="cert-pill">QBO</span>
-          <span class="cert-pill">MYOB</span>
+          <span class="cert-tag">Xero</span>
+          <span class="cert-tag">QBO</span>
+          <span class="cert-tag">MYOB</span>
         </div>
       </div>
-
-      <div class="float-cards">
-        <div class="float-card">
-          <div class="float-card-n">48<span>hr</span></div>
-          <div class="float-card-l">Max response time</div>
+      <div class="float-pair">
+        <div class="fcard">
+          <div class="fcard-n">48<span>hr</span></div>
+          <div class="fcard-l">Max response time</div>
         </div>
-        <div class="float-card" style="margin-left: 24px;">
-          <div class="float-card-n" style="font-size:18px;">Fixed</div>
-          <div class="float-card-l">Transparent pricing</div>
+        <div class="fcard">
+          <div class="fcard-n" style="font-size:18px;padding-top:3px;">Fixed</div>
+          <div class="fcard-l">Transparent pricing</div>
         </div>
       </div>
     </div>
@@ -1197,9 +920,9 @@ footer {
   <div class="container">
     <div class="about-grid">
       <div class="about-visual reveal">
-        <div class="market-block">
-          <div class="market-title">🇦🇺 Australia</div>
-          <div class="market-chips">
+        <div class="mkt-block">
+          <div class="mkt-title">🇦🇺 Australia</div>
+          <div class="mkt-chips">
             <span class="chip">BAS &amp; GST Lodgement</span>
             <span class="chip">ATO Compliance</span>
             <span class="chip">Xero &amp; MYOB</span>
@@ -1207,9 +930,9 @@ footer {
             <span class="chip">Month-End Reporting</span>
           </div>
         </div>
-        <div class="market-block">
-          <div class="market-title">🇺🇸 United States</div>
-          <div class="market-chips">
+        <div class="mkt-block">
+          <div class="mkt-title">🇺🇸 United States</div>
+          <div class="mkt-chips">
             <span class="chip">Federal &amp; State Tax</span>
             <span class="chip">IRS Compliance</span>
             <span class="chip">QuickBooks</span>
@@ -1218,50 +941,24 @@ footer {
           </div>
         </div>
         <div class="cert-row">
-          <span style="font-size:11px;color:rgba(255,255,255,0.3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Certified in</span>
-          <span class="cert-tag">Xero</span>
-          <span class="cert-tag">QuickBooks</span>
-          <span class="cert-tag">MYOB</span>
+          <span>Certified in</span>
+          <span class="cert-tag-sm">Xero</span>
+          <span class="cert-tag-sm">QuickBooks</span>
+          <span class="cert-tag-sm">MYOB</span>
         </div>
       </div>
 
-      <div class="about-content reveal">
-        <div class="eyebrow">About Us</div>
+      <div class="reveal">
+        <div class="eyebrow dark">About Us</div>
         <h2 class="section-title">Built for <em>both markets</em> from day one</h2>
-        <p class="section-lead">Based in Melbourne with deep expertise in both Australian and US accounting standards. A reliable financial partner, not just a data-entry service.</p>
-
+        <p class="section-lead">Based in Melbourne with deep expertise in both Australian and US accounting standards — a reliable financial partner, not just a data-entry service.</p>
         <ul class="point-list">
-          <li>
-            <div class="point-icon">🔍</div>
-            <div class="point-text">
-              <strong>Line-by-line precision</strong>
-              <p>Every transaction reconciled individually — not by totals. Nothing slips through.</p>
-            </div>
-          </li>
-          <li>
-            <div class="point-icon">🌏</div>
-            <div class="point-text">
-              <strong>Dual-market fluency</strong>
-              <p>ATO &amp; IRS compliance handled by the same team. No fragmented vendors.</p>
-            </div>
-          </li>
-          <li>
-            <div class="point-icon">⏱️</div>
-            <div class="point-text">
-              <strong>Your timezone, always</strong>
-              <p>Responsive during your business hours — Sydney or San Francisco.</p>
-            </div>
-          </li>
-          <li>
-            <div class="point-icon">💎</div>
-            <div class="point-text">
-              <strong>Fixed, transparent pricing</strong>
-              <p>No surprise invoices. You know exactly what you're paying before we start.</p>
-            </div>
-          </li>
+          <li><div class="pt-icon">🔍</div><div class="pt-text"><strong>Line-by-line precision</strong><p>Every transaction reconciled individually — not by totals. Nothing slips through.</p></div></li>
+          <li><div class="pt-icon">🌏</div><div class="pt-text"><strong>Dual-market fluency</strong><p>ATO &amp; IRS compliance handled by the same team. No fragmented vendors.</p></div></li>
+          <li><div class="pt-icon">⏱️</div><div class="pt-text"><strong>Your timezone, always</strong><p>Responsive during your business hours — Sydney or San Francisco.</p></div></li>
+          <li><div class="pt-icon">💎</div><div class="pt-text"><strong>Fixed, transparent pricing</strong><p>No surprise invoices. You know exactly what you're paying before we start.</p></div></li>
         </ul>
-
-        <a href="#contact" class="btn-lime" style="width: fit-content;">Book a Free Call →</a>
+        <a href="#contact" class="btn-gold" style="width:fit-content;">Book a Free Call →</a>
       </div>
     </div>
   </div>
@@ -1272,12 +969,11 @@ footer {
   <div class="container">
     <div class="services-header">
       <div>
-        <div class="eyebrow" style="color: var(--lime-dim);">What We Do</div>
+        <div class="eyebrow dark">What We Do</div>
         <h2 class="section-title">Every number <em>accounted for.</em></h2>
       </div>
-      <p class="section-lead" style="max-width: 360px;">We handle the financial complexity so you can focus on growing your business.</p>
+      <p class="section-lead" style="max-width:360px;">We handle the financial complexity so you can focus on growing your business.</p>
     </div>
-
     <div class="services-grid">
       <div class="svc-card reveal">
         <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
@@ -1307,7 +1003,7 @@ footer {
         <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
         <div class="svc-icon">💳</div>
         <h3>Accounts Payable & Receivable</h3>
-        <p>Optimize your cash flow. Faster collections, controlled outflows, clearer picture.</p>
+        <p>Optimise your cash flow. Faster collections, controlled outflows, clearer picture.</p>
       </div>
       <div class="svc-card reveal">
         <div class="svc-mkt"><span class="mkt-tag mkt-au">🇦🇺 AU</span><span class="mkt-tag mkt-us">🇺🇸 US</span></div>
@@ -1324,24 +1020,15 @@ footer {
   <div class="container">
     <div class="whyus-grid">
       <div class="stats-block reveal">
-        <div class="stat-tile featured">
+        <div class="stat-tile gold-tile">
           <div class="stat-n">99%</div>
           <div class="stat-l">On-time filing rate — every quarter, every year</div>
         </div>
-        <div class="stat-tile">
-          <div class="stat-n">48hr</div>
-          <div class="stat-l">Max response time</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-n">50+</div>
-          <div class="stat-l">Businesses served</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-n">10yr</div>
-          <div class="stat-l">Industry experience</div>
-        </div>
-        <div class="stat-tile" style="grid-column: span 2; text-align: center; padding: 20px;">
-          <div style="display: flex; justify-content: center; gap: 20px; font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600;">
+        <div class="stat-tile"><div class="stat-n">48hr</div><div class="stat-l">Max response time</div></div>
+        <div class="stat-tile"><div class="stat-n">50+</div><div class="stat-l">Businesses served</div></div>
+        <div class="stat-tile"><div class="stat-n">10yr</div><div class="stat-l">Industry experience</div></div>
+        <div class="stat-tile" style="grid-column:span 2;padding:16px 24px;">
+          <div style="display:flex;justify-content:center;gap:18px;font-size:13px;color:rgba(255,255,255,0.28);font-weight:500;">
             <span>Xero</span><span>·</span><span>QuickBooks</span><span>·</span><span>MYOB</span><span>·</span><span>Zoho</span>
           </div>
         </div>
@@ -1350,37 +1037,12 @@ footer {
       <div class="reveal">
         <div class="eyebrow">Why Digitwise</div>
         <h2 class="section-title light">We treat your books like <em>our own reputation.</em></h2>
-        <p class="section-lead light" style="margin-bottom: 32px;">Most bookkeeping services give you surface-level reconciliation — matching totals and moving on. We go deeper.</p>
-
+        <p class="section-lead light" style="margin-bottom:32px;">Most bookkeeping services give you surface-level reconciliation — matching totals and moving on. We go deeper.</p>
         <ul class="whyus-points">
-          <li class="whyus-point">
-            <div class="num-tag">01</div>
-            <div>
-              <strong>Line-by-line precision</strong>
-              <p>Every transaction reconciled individually. Nothing slips through.</p>
-            </div>
-          </li>
-          <li class="whyus-point">
-            <div class="num-tag">02</div>
-            <div>
-              <strong>Dual-market fluency</strong>
-              <p>ATO &amp; IRS handled by the same expert team. No fragmented vendors.</p>
-            </div>
-          </li>
-          <li class="whyus-point">
-            <div class="num-tag">03</div>
-            <div>
-              <strong>Fixed, transparent pricing</strong>
-              <p>No surprise invoices. Know exactly what you're paying before we start.</p>
-            </div>
-          </li>
-          <li class="whyus-point">
-            <div class="num-tag">04</div>
-            <div>
-              <strong>Works with your stack</strong>
-              <p>Xero, QuickBooks, MYOB, Zoho — certified across all major platforms.</p>
-            </div>
-          </li>
+          <li class="whyus-pt"><div class="num-tag">01</div><div><strong>Line-by-line precision</strong><p>Every transaction reconciled individually. Nothing slips through.</p></div></li>
+          <li class="whyus-pt"><div class="num-tag">02</div><div><strong>Dual-market fluency</strong><p>ATO &amp; IRS handled by the same expert team. No fragmented vendors.</p></div></li>
+          <li class="whyus-pt"><div class="num-tag">03</div><div><strong>Fixed, transparent pricing</strong><p>No surprise invoices. Know exactly what you're paying before we start.</p></div></li>
+          <li class="whyus-pt"><div class="num-tag">04</div><div><strong>Works with your stack</strong><p>Xero, QuickBooks, MYOB, Zoho — certified across all major platforms.</p></div></li>
         </ul>
       </div>
     </div>
@@ -1390,151 +1052,125 @@ footer {
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <div class="eyebrow">Transparent Pricing</div>
+    <div class="eyebrow dark">Transparent Pricing</div>
     <h2 class="section-title">Simple plans. <em>No surprises.</em></h2>
     <p class="section-lead">Choose your market. Pick a plan. Scale as you grow.</p>
 
     <div class="pricing-toggle">
-      <button class="tog-btn active" onclick="switchPricing('au', this)">🇦🇺 Australia (AUD)</button>
-      <button class="tog-btn" onclick="switchPricing('us', this)">🇺🇸 United States (USD)</button>
+      <button class="tog-btn active" onclick="switchPricing('au',this)">🇦🇺 Australia (AUD)</button>
+      <button class="tog-btn" onclick="switchPricing('us',this)">🇺🇸 United States (USD)</button>
     </div>
 
-    <!-- AU -->
     <div class="pricing-panel active" id="pricing-au">
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-tier">Starter</div>
           <div class="price-name">Essentials</div>
           <div class="price-tag">For sole traders &amp; micro businesses</div>
-          <div class="price-amount">
-            <span class="price-cur">A$</span>
-            <span class="price-num">499</span>
-            <span class="price-per">/mo</span>
-          </div>
-          <div class="price-note">Up to 100 transactions/month</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>BAS &amp; GST lodgement</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
+          <div class="price-amount"><span class="p-cur">A$</span><span class="p-num">499</span><span class="p-per">/mo</span></div>
+          <div class="p-note">Up to 100 transactions/month</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>BAS &amp; GST lodgement</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
           </ul>
-          <a href="#contact" class="price-btn btn-char">Get Started</a>
+          <a href="#contact" class="p-btn btn-navy">Get Started</a>
         </div>
-
-        <div class="price-card hot">
-          <div class="hot-badge">Most Popular</div>
+        <div class="price-card featured">
+          <div class="feat-badge">Most Popular</div>
           <div class="price-tier">Growth</div>
           <div class="price-name">Professional</div>
           <div class="price-tag">For growing SMBs needing full-service support</div>
-          <div class="price-amount">
-            <span class="price-cur">A$</span>
-            <span class="price-num">999</span>
-            <span class="price-per">/mo</span>
-          </div>
-          <div class="price-note">Up to 500 transactions/month</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Superannuation compliance</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
+          <div class="price-amount"><span class="p-cur">A$</span><span class="p-num">999</span><span class="p-per">/mo</span></div>
+          <div class="p-note">Up to 500 transactions/month</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Superannuation compliance</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
           </ul>
-          <a href="#contact" class="price-btn btn-lime-solid">Get Started</a>
+          <a href="#contact" class="p-btn btn-gold-solid">Get Started</a>
         </div>
-
         <div class="price-card">
           <div class="price-tier">Enterprise</div>
           <div class="price-name">Premium</div>
           <div class="price-tag">For established businesses with complex needs</div>
-          <div class="price-amount">
-            <span class="price-num" style="font-size:38px;">Custom</span>
-          </div>
-          <div class="price-note">Unlimited transactions</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
+          <div class="price-amount"><span class="p-num" style="font-size:38px;">Custom</span></div>
+          <div class="p-note">Unlimited transactions</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
           </ul>
-          <a href="#contact" class="price-btn btn-char">Talk to Us</a>
+          <a href="#contact" class="p-btn btn-navy">Talk to Us</a>
         </div>
       </div>
     </div>
 
-    <!-- US -->
     <div class="pricing-panel" id="pricing-us">
       <div class="pricing-grid">
         <div class="price-card">
           <div class="price-tier">Starter</div>
           <div class="price-name">Essentials</div>
           <div class="price-tag">For sole traders &amp; micro businesses</div>
-          <div class="price-amount">
-            <span class="price-cur">$</span>
-            <span class="price-num">349</span>
-            <span class="price-per">/mo</span>
-          </div>
-          <div class="price-note">Up to 100 transactions/month</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Federal &amp; state tax filing</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
+          <div class="price-amount"><span class="p-cur">$</span><span class="p-num">349</span><span class="p-per">/mo</span></div>
+          <div class="p-note">Up to 100 transactions/month</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly bookkeeping &amp; reconciliation</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Federal &amp; state tax filing</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank reconciliation</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly P&amp;L report</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Email support (48hr response)</li>
           </ul>
-          <a href="#contact" class="price-btn btn-char">Get Started</a>
+          <a href="#contact" class="p-btn btn-navy">Get Started</a>
         </div>
-
-        <div class="price-card hot">
-          <div class="hot-badge">Most Popular</div>
+        <div class="price-card featured">
+          <div class="feat-badge">Most Popular</div>
           <div class="price-tier">Growth</div>
           <div class="price-name">Professional</div>
           <div class="price-tag">For growing SMBs needing full-service support</div>
-          <div class="price-amount">
-            <span class="price-cur">$</span>
-            <span class="price-num">699</span>
-            <span class="price-per">/mo</span>
-          </div>
-          <div class="price-note">Up to 500 transactions/month</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>IRS compliance management</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
-            <li><span class="feat-dot" style="background:rgba(200,241,53,0.15)"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C8F135" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
+          <div class="price-amount"><span class="p-cur">$</span><span class="p-num">699</span><span class="p-per">/mo</span></div>
+          <div class="p-note">Up to 500 transactions/month</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Essentials</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Payroll (up to 10 employees)</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accounts Payable &amp; Receivable</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full month-end close</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>IRS compliance management</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Priority support (24hr)</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quarterly strategy call</li>
           </ul>
-          <a href="#contact" class="price-btn btn-lime-solid">Get Started</a>
+          <a href="#contact" class="p-btn btn-gold-solid">Get Started</a>
         </div>
-
         <div class="price-card">
           <div class="price-tier">Enterprise</div>
           <div class="price-name">Premium</div>
           <div class="price-tag">For established businesses with complex needs</div>
-          <div class="price-amount">
-            <span class="price-num" style="font-size:38px;">Custom</span>
-          </div>
-          <div class="price-note">Unlimited transactions</div>
-          <div class="price-div"></div>
-          <ul class="price-feats">
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
-            <li><span class="feat-dot"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#5A7A10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
+          <div class="price-amount"><span class="p-num" style="font-size:38px;">Custom</span></div>
+          <div class="p-note">Unlimited transactions</div>
+          <div class="p-div"></div>
+          <ul class="p-feats">
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in Professional</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated account manager</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited payroll employees</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CFO-level advisory calls</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multi-entity accounting</li>
+            <li><span class="p-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2" stroke="#9A7530" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same-day support</li>
           </ul>
-          <a href="#contact" class="price-btn btn-char">Talk to Us</a>
+          <a href="#contact" class="p-btn btn-navy">Talk to Us</a>
         </div>
       </div>
     </div>
@@ -1545,47 +1181,35 @@ footer {
 <section class="testimonials-section" id="testimonials">
   <div class="container">
     <div class="testi-header reveal">
-      <div class="eyebrow" style="justify-content: center;">Client Stories</div>
+      <div class="eyebrow dark" style="justify-content:center;">Client Stories</div>
       <h2 class="section-title">Trusted by businesses <em>across two continents.</em></h2>
       <p class="section-lead">Real results from real clients who trust Digitwise with their books.</p>
     </div>
-
     <div class="testi-grid">
       <div class="testi-card reveal">
         <div class="testi-q">"</div>
         <p class="testi-text">Digitwise completely transformed how we handle our finances. BAS used to be a nightmare — now it's just done. Accurately, on time, every quarter. I don't even think about it anymore.</p>
         <div class="testi-author">
-          <div class="author-avi">KA</div>
-          <div>
-            <div class="author-name">Kazim Ali</div>
-            <div class="author-sub">Manager, Devkind</div>
-          </div>
+          <div class="author-av">KA</div>
+          <div><div class="author-name">Kazim Ali</div><div class="author-sub">Manager, Devkind</div></div>
           <div class="author-flag">🇦🇺</div>
         </div>
       </div>
-
       <div class="testi-card reveal">
         <div class="testi-q">"</div>
         <p class="testi-text">As a healthcare business, compliance is non-negotiable. Digitwise handles our bookkeeping, reporting, and tax with a level of precision I hadn't experienced before. Highly professional.</p>
         <div class="testi-author">
-          <div class="author-avi">AH</div>
-          <div>
-            <div class="author-name">Ahmed</div>
-            <div class="author-sub">Accounts Director, Yasscare</div>
-          </div>
+          <div class="author-av">AH</div>
+          <div><div class="author-name">Ahmed</div><div class="author-sub">Accounts Director, Yasscare</div></div>
           <div class="author-flag">🇺🇸</div>
         </div>
       </div>
-
       <div class="testi-card reveal">
         <div class="testi-q">"</div>
         <p class="testi-text">We're a small beauty brand and needed someone who understood our numbers without overcomplicating things. Digitwise delivered — clean books, clear reports, and a team that actually responds.</p>
         <div class="testi-author">
-          <div class="author-avi">PE</div>
-          <div>
-            <div class="author-name">Philip Eyster</div>
-            <div class="author-sub">Founder, Heavenly Hub</div>
-          </div>
+          <div class="author-av">PE</div>
+          <div><div class="author-name">Philip Eyster</div><div class="author-sub">Founder, Heavenly Hub</div></div>
           <div class="author-flag">🇺🇸</div>
         </div>
       </div>
@@ -1601,36 +1225,25 @@ footer {
         <div class="eyebrow">Let's Talk</div>
         <h2 class="section-title light">Ready for accounting that <em>actually works?</em></h2>
         <p class="section-lead light">Book a free 30-minute consultation. We'll review your current setup and walk you through exactly how we can help — no pressure, no commitment.</p>
-
         <div class="contact-items">
           <a href="mailto:salesdesk@digitwiseconsulting.com" class="contact-item">
             <div class="ci-icon">✉️</div>
-            <div>
-              <span class="ci-strong">Email us directly</span>
-              <span class="ci-sub">salesdesk@digitwiseconsulting.com</span>
-            </div>
+            <div><span class="ci-strong">Email us directly</span><span class="ci-sub">salesdesk@digitwiseconsulting.com</span></div>
           </a>
           <div class="contact-item">
             <div class="ci-icon">🕐</div>
-            <div>
-              <span class="ci-strong">Business hours</span>
-              <span class="ci-sub">AEST (AU) &amp; EST (US) — Mon to Fri</span>
-            </div>
+            <div><span class="ci-strong">Business hours</span><span class="ci-sub">AEST (AU) &amp; EST (US) — Mon to Fri</span></div>
           </div>
           <div class="contact-item">
             <div class="ci-icon">⚡</div>
-            <div>
-              <span class="ci-strong">Response time</span>
-              <span class="ci-sub">Within 48 hours guaranteed</span>
-            </div>
+            <div><span class="ci-strong">Response time</span><span class="ci-sub">Within 48 hours guaranteed</span></div>
           </div>
         </div>
       </div>
-
       <div class="cta-box reveal">
         <h3>Book your free 30-minute call</h3>
         <p>No pressure, no commitment. Just a clear picture of how we can help your business stay compliant and financially sharp.</p>
-        <a href="mailto:salesdesk@digitwiseconsulting.com" class="btn-dark">
+        <a href="mailto:salesdesk@digitwiseconsulting.com" class="btn-navy-cta">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Book a Free Call
         </a>
@@ -1649,16 +1262,15 @@ footer {
     <div class="footer-top">
       <div>
         <a href="#" class="logo">
-          <div class="logo-mark"><svg viewBox="0 0 20 20" fill="none"><path d="M3 10C3 6.134 6.134 3 10 3s7 3.134 7 7-3.134 7-7 7" stroke="#141210" stroke-width="2" stroke-linecap="round"/><path d="M10 7v3l2 2" stroke="#141210" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="16" r="2" fill="#141210"/></svg></div>
+          <div class="logo-mark"><svg viewBox="0 0 22 22" fill="none"><path d="M4 11C4 7.134 7.134 4 11 4c3.866 0 7 3.134 7 7s-3.134 7-7 7" stroke="#1C2B3A" stroke-width="2" stroke-linecap="round"/><path d="M11 8v3l2 2" stroke="#1C2B3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="2" fill="#1C2B3A"/></svg></div>
           <span class="logo-name">Digit<span>wise</span></span>
         </a>
-        <p class="footer-brand-desc">Precision accounting for growing businesses in Australia and the United States. Remote-first. Detail-obsessed. Always on time.</p>
+        <p class="footer-desc">Precision accounting for growing businesses in Australia and the United States. Remote-first. Detail-obsessed. Always on time.</p>
         <div class="footer-socials">
           <a href="#" class="soc-btn">in</a>
           <a href="#" class="soc-btn">tw</a>
         </div>
       </div>
-
       <div class="footer-col">
         <h4>Services</h4>
         <ul>
@@ -1670,7 +1282,6 @@ footer {
           <li><a href="#services">Financial Reporting</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
@@ -1680,7 +1291,6 @@ footer {
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
@@ -1692,7 +1302,6 @@ footer {
         </ul>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span>© 2025 Digitwise Consulting. All rights reserved.</span>
       <div class="footer-bottom-links">
@@ -1707,19 +1316,17 @@ footer {
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-function switchPricing(market, btn) {
+function switchPricing(m, btn) {
   document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('pricing-' + market).classList.add('active');
+  document.getElementById('pricing-' + m).classList.add('active');
 }
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 75);
-  });
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 75); });
 }, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
