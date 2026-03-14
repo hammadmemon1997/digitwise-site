@@ -708,6 +708,67 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 .fcard-cream-n span { color: var(--gold); }
 .fcard-cream-l { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
+
+/* ── HERO RIGHT COL EXTRAS ── */
+.hero-tagline {
+  text-align: center;
+  padding: 0 8px;
+}
+.hero-tagline-main {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.hero-tagline-main em {
+  font-style: italic;
+  color: #9A7530;
+}
+.hero-tagline-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.hero-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 4px;
+}
+.hero-trust-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 8px;
+  border-right: 1px solid var(--border);
+}
+.hero-trust-item:last-child { border-right: none; }
+.hero-trust-flag {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 5px;
+}
+.hero-trust-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.01em;
+  display: block;
+}
+.hero-trust-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: block;
+  margin-top: 2px;
+}
+
 /* ── SHARED SECTION STYLES ── */
 section { padding: 96px 60px; }
 .container { max-width: 1180px; margin: 0 auto; }
@@ -1858,6 +1919,13 @@ footer {
 
     <!-- RIGHT — cream side -->
     <div class="hero-right-col">
+
+      <!-- TOP: tagline fills upper empty space -->
+      <div class="hero-tagline">
+        <div class="hero-tagline-main">Accounting that <em>works<br>as hard</em> as you do.</div>
+        <div class="hero-tagline-sub">Digitwise Consulting · Melbourne, AU</div>
+      </div>
+
       <div class="hero-card-cream">
         <div class="hc-label-dark">What we handle</div>
         <ul class="hc-list-dark">
@@ -1886,6 +1954,26 @@ footer {
           <div class="fcard-cream-l">Transparent pricing</div>
         </div>
       </div>
+
+      <!-- BOTTOM: trust flags fill lower empty space -->
+      <div class="hero-trust-row">
+        <div class="hero-trust-item">
+          <span class="hero-trust-flag">🇦🇺</span>
+          <span class="hero-trust-label">ATO Compliant</span>
+          <span class="hero-trust-sub">BAS · GST · Payroll</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-flag">🇺🇸</span>
+          <span class="hero-trust-label">IRS Compliant</span>
+          <span class="hero-trust-sub">Federal · State · Payroll</span>
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-flag">🔒</span>
+          <span class="hero-trust-label">Secure & Private</span>
+          <span class="hero-trust-sub">Your data, protected</span>
+        </div>
+      </div>
+
     </div>
 
   </div>
