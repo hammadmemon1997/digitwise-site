@@ -296,6 +296,75 @@ function loadCalendly() {
   };
   document.head.appendChild(script);
 }
+
+// ── MOBILE DRAWER ──
+function toggleDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  const isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    closeDrawer();
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    toggle.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeDrawer() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('nav-toggle').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeDrawer();
+    closeCalModal();
+  }
+});
+
+// ── BACK TO TOP ──
+const btt = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 400) {
+    btt.classList.add('visible');
+  } else {
+    btt.classList.remove('visible');
+  }
+}, { passive: true });
+
+// ── ACTIVE NAV SCROLL SPY ──
+(function() {
+  const sections = ['home','services','about','why-us','pricing','testimonials','insights','faq','contact'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const drawerLinks = document.querySelectorAll('.mobile-drawer-links a');
+
+  function setActive(id) {
+    navLinks.forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
+    });
+    drawerLinks.forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        setActive(entry.target.id);
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
 </script>
 
 <!-- ── PERFORMANCE ── -->
@@ -1859,6 +1928,164 @@ footer {
 @media (max-width: 768px) {
   .blog-grid { grid-template-columns: 1fr; }
 }
+
+/* ── MOBILE NAV DRAWER ── */
+.mobile-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--navy-mid);
+  border-left: 1px solid rgba(201,168,76,0.15);
+  z-index: 9998;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.35);
+}
+.mobile-drawer.open { transform: translateX(0); }
+
+.mobile-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.mobile-drawer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.01em;
+}
+.mobile-drawer-logo span { color: var(--gold); }
+.mobile-drawer-close {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  font-size: 20px; line-height: 1;
+  transition: all 0.2s;
+}
+.mobile-drawer-close:hover { background: rgba(255,255,255,0.12); color: white; }
+
+.mobile-drawer-links {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+.mobile-drawer-links a {
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all 0.18s;
+}
+.mobile-drawer-links a:hover,
+.mobile-drawer-links a.active-link {
+  color: var(--white);
+  background: rgba(255,255,255,0.04);
+  border-left-color: var(--gold);
+}
+
+.mobile-drawer-cta {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.mobile-drawer-cta button {
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-gold);
+}
+.mobile-drawer-cta button:hover { background: var(--gold-bright); }
+
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9997;
+  backdrop-filter: blur(2px);
+}
+.drawer-overlay.open { display: block; }
+
+/* Animate hamburger → X */
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-toggle span { transition: all 0.25s; }
+
+/* ── BACK TO TOP ── */
+.back-to-top {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 46px; height: 46px;
+  background: var(--navy);
+  border: 1.5px solid rgba(201,168,76,0.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 500;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.back-to-top:hover svg path { stroke: var(--navy); }
+.back-to-top svg { width: 18px; height: 18px; }
+
+/* ── ACTIVE NAV HIGHLIGHT ── */
+.nav-links a {
+  position: relative;
+}
+.nav-links a.active-link {
+  color: var(--white) !important;
+}
+.nav-links a.active-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+  animation: nav-underline-in 0.2s ease forwards;
+}
+@keyframes nav-underline-in {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (max-width: 768px) {
+  .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+}
 </style>
 </head>
 <body>
@@ -1890,7 +2117,7 @@ footer {
     <li><a href="#faq">FAQ</a></li>
     <li><button onclick="openCalModal()" class="nav-cta" style="border:none;cursor:pointer;">Book Free Call</button></li>
   </ul>
-  <div class="nav-toggle"><span></span><span></span><span></span></div>
+  <div class="nav-toggle" id="nav-toggle" onclick="toggleDrawer()" aria-label="Open menu"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
@@ -2697,6 +2924,36 @@ footer {
   </div>
 </div>
 
+
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-head">
+    <span class="mobile-drawer-logo">Digit<span>wise</span></span>
+    <button class="mobile-drawer-close" onclick="closeDrawer()" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="mobile-drawer-links">
+    <a href="#services"      onclick="closeDrawer()">Services</a>
+    <a href="#about"         onclick="closeDrawer()">About</a>
+    <a href="#why-us"        onclick="closeDrawer()">Why Us</a>
+    <a href="#pricing"       onclick="closeDrawer()">Pricing</a>
+    <a href="#testimonials"  onclick="closeDrawer()">Clients</a>
+    <a href="#insights"      onclick="closeDrawer()">Insights</a>
+    <a href="#faq"           onclick="closeDrawer()">FAQ</a>
+    <a href="#contact"       onclick="closeDrawer()">Contact</a>
+  </nav>
+  <div class="mobile-drawer-cta">
+    <button onclick="closeDrawer(); openCalModal();">Book a Free Call</button>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 14V4M4 9l5-5 5 5" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
 </main>
 <!-- FOOTER -->
 <footer role="contentinfo" aria-label="Site footer">
@@ -2897,6 +3154,75 @@ function loadCalendly() {
   };
   document.head.appendChild(script);
 }
+
+// ── MOBILE DRAWER ──
+function toggleDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  const isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    closeDrawer();
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    toggle.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeDrawer() {
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('nav-toggle').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeDrawer();
+    closeCalModal();
+  }
+});
+
+// ── BACK TO TOP ──
+const btt = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 400) {
+    btt.classList.add('visible');
+  } else {
+    btt.classList.remove('visible');
+  }
+}, { passive: true });
+
+// ── ACTIVE NAV SCROLL SPY ──
+(function() {
+  const sections = ['home','services','about','why-us','pricing','testimonials','insights','faq','contact'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const drawerLinks = document.querySelectorAll('.mobile-drawer-links a');
+
+  function setActive(id) {
+    navLinks.forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
+    });
+    drawerLinks.forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        setActive(entry.target.id);
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
 </script>
 </body>
 </html>
