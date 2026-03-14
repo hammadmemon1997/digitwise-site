@@ -811,6 +811,162 @@ footer {
   .hero-actions { flex-direction: column; }
   .float-pair { display: none; }
 }
+
+/* ── HOW IT WORKS ── */
+.process-section { background: var(--navy); }
+.process-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 52px; position: relative; }
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 40px; left: calc(16.67% + 12px); right: calc(16.67% + 12px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201,168,76,0.3), rgba(201,168,76,0.6), rgba(201,168,76,0.3));
+}
+.process-step {
+  background: var(--navy-mid);
+  border: 1px solid var(--border-navy);
+  border-radius: 20px; padding: 36px 28px;
+  transition: all 0.25s; text-align: center;
+  position: relative;
+}
+.process-step:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-4px); }
+.step-num {
+  width: 56px; height: 56px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--navy); margin: 0 auto 20px;
+  position: relative; z-index: 1;
+}
+.process-step h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--white); margin-bottom: 10px; letter-spacing: -0.01em;
+}
+.process-step p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+/* ── PARTNERS ── */
+.partners-section { background: var(--cream); padding: 56px 60px; }
+.partners-inner { max-width: 1180px; margin: 0 auto; }
+.partners-label {
+  text-align: center;
+  font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-muted); margin-bottom: 32px;
+}
+.partners-logos {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; flex-wrap: wrap;
+}
+.partner-logo {
+  padding: 14px 36px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.partner-logo:last-child { border-right: none; }
+.partner-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--text-muted); letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+.partner-logo:hover .partner-logo-text { color: var(--navy); }
+.partner-logo-sub { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); display: block; text-align: center; margin-top: 3px; }
+
+/* ── LINKEDIN STRIP ── */
+.linkedin-strip {
+  background: var(--gold-ghost);
+  border-top: 1px solid var(--gold-pale);
+  border-bottom: 1px solid var(--gold-pale);
+  padding: 40px 60px;
+}
+.linkedin-strip-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px;
+}
+.li-left { display: flex; align-items: center; gap: 20px; }
+.li-icon {
+  width: 52px; height: 52px;
+  background: #0A66C2;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.li-icon svg { width: 28px; height: 28px; }
+.li-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.02em; margin-bottom: 4px;
+}
+.li-sub { font-size: 14px; color: var(--text-muted); }
+.li-stats { display: flex; gap: 32px; }
+.li-stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--navy); line-height: 1; letter-spacing: -0.03em;
+}
+.li-stat-l { font-size: 12px; color: var(--text-muted); margin-top: 3px; font-weight: 500; }
+.btn-linkedin {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #0A66C2; color: white;
+  padding: 13px 24px; border-radius: 10px;
+  font-weight: 600; font-size: 14px;
+  text-decoration: none; transition: all 0.2s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.btn-linkedin:hover { background: #0958A8; transform: translateY(-1px); }
+
+/* ── FAQ ── */
+.faq-section { background: var(--white); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+.faq-item {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item:hover { border-color: var(--gold-pale); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px; cursor: pointer;
+  font-size: 15px; font-weight: 600;
+  color: var(--navy); gap: 16px;
+  user-select: none;
+}
+.faq-q::after {
+  content: '+';
+  font-size: 20px; font-weight: 300;
+  color: var(--gold); flex-shrink: 0;
+  transition: transform 0.25s;
+}
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a {
+  display: none;
+  padding: 0 24px 22px;
+  font-size: 14px; color: var(--text-muted); line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.faq-item.open .faq-a { display: block; }
+
+@media (max-width: 1024px) {
+  .process-grid { grid-template-columns: 1fr; gap: 16px; }
+  .process-grid::before { display: none; }
+  .partners-section { padding: 40px 28px; }
+  .partners-logos { gap: 0; }
+  .partner-logo { padding: 12px 20px; }
+  .linkedin-strip { padding: 32px 28px; }
+  .linkedin-strip-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .li-stats { gap: 24px; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .partner-logo { padding: 10px 16px; }
+  .li-stats { flex-wrap: wrap; gap: 16px; }
+}
 </style>
 </head>
 <body>
@@ -837,6 +993,46 @@ footer {
   </div>
 </div>
 
+
+<!-- PARTNERS -->
+<div class="partners-section">
+  <div class="partners-inner">
+    <div class="partners-label">Certified & integrated with the tools you already use</div>
+    <div class="partners-logos">
+      <div class="partner-logo">
+        <div>
+          <div class="partner-logo-text">Xero</div>
+          <span class="partner-logo-sub">Certified Advisor</span>
+        </div>
+      </div>
+      <div class="partner-logo">
+        <div>
+          <div class="partner-logo-text">QuickBooks</div>
+          <span class="partner-logo-sub">ProAdvisor</span>
+        </div>
+      </div>
+      <div class="partner-logo">
+        <div>
+          <div class="partner-logo-text">MYOB</div>
+          <span class="partner-logo-sub">Certified Partner</span>
+        </div>
+      </div>
+      <div class="partner-logo">
+        <div>
+          <div class="partner-logo-text">Zoho Books</div>
+          <span class="partner-logo-sub">Integrated</span>
+        </div>
+      </div>
+      <div class="partner-logo">
+        <div>
+          <div class="partner-logo-text">ATO</div>
+          <span class="partner-logo-sub">Registered Agent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="main-nav">
   <a href="#" class="logo">
@@ -855,6 +1051,7 @@ footer {
     <li><a href="#why-us">About</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
   </ul>
   <div class="nav-toggle"><span></span><span></span><span></span></div>
@@ -1016,6 +1213,35 @@ footer {
         <div class="svc-icon">📈</div>
         <h3>Month-End Financial Reporting</h3>
         <p>P&amp;L, balance sheet, cash flow — clear, decision-ready reports delivered on schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="process-section" id="process">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">How It Works</div>
+      <h2 class="section-title light">From first call to <em>clean books</em> in days.</h2>
+      <p class="section-lead light" style="margin:0 auto;">No lengthy onboarding. No confusing processes. Three simple steps and you're set.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num">1</div>
+        <h3>Free Discovery Call</h3>
+        <p>We spend 30 minutes understanding your business, current accounting setup, pain points, and goals — AU or US, we speak both.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">2</div>
+        <h3>Onboarding & Setup</h3>
+        <p>We connect to your existing software (Xero, QuickBooks, MYOB), clean up the books, and set up a clear reporting framework.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">3</div>
+        <h3>Ongoing Partnership</h3>
+        <p>Monthly reconciliations, quarterly BAS/tax filings, payroll runs — all handled. You get clean reports, we handle the rest.</p>
       </div>
     </div>
   </div>
@@ -1223,6 +1449,43 @@ footer {
   </div>
 </section>
 
+
+<!-- LINKEDIN STRIP -->
+<div class="linkedin-strip">
+  <div class="linkedin-strip-inner">
+    <div class="li-left">
+      <div class="li-icon">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="4" fill="#0A66C2"/>
+          <path d="M8 11h3v9H8v-9zm1.5-4.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM13 11h2.9v1.2h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6V20h-3v-4.2c0-1-.02-2.3-1.4-2.3-1.4 0-1.62 1.1-1.62 2.22V20H13v-9z" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="li-title">Follow Digitwise on LinkedIn</div>
+        <div class="li-sub">Stay updated with accounting tips, tax deadlines &amp; business insights</div>
+      </div>
+    </div>
+    <div class="li-stats">
+      <div>
+        <div class="li-stat-n">AU &amp; US</div>
+        <div class="li-stat-l">Markets covered</div>
+      </div>
+      <div>
+        <div class="li-stat-n">10yr</div>
+        <div class="li-stat-l">Industry expertise</div>
+      </div>
+      <div>
+        <div class="li-stat-n">50+</div>
+        <div class="li-stat-l">Happy clients</div>
+      </div>
+    </div>
+    <a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank" class="btn-linkedin">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="2" fill="white" fill-opacity="0.2"/><path d="M4 6.5h2v5H4v-5zm1-3a1 1 0 110 2 1 1 0 010-2zM7.5 6.5h1.9v.68h.02c.25-.46.86-.94 1.77-.94 1.9 0 2.25 1.25 2.25 2.87V11.5h-2V9.37c0-.6-.01-1.37-.84-1.37-.84 0-.97.65-.97 1.33V11.5h-2v-5z" fill="white"/></svg>
+      Follow on LinkedIn
+    </a>
+  </div>
+</div>
+
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="container">
@@ -1232,9 +1495,9 @@ footer {
         <h2 class="section-title light">Ready for accounting that <em>actually works?</em></h2>
         <p class="section-lead light">Book a free 30-minute consultation. We'll review your current setup and walk you through exactly how we can help — no pressure, no commitment.</p>
         <div class="contact-items">
-          <a href="mailto:salesdesk@digitwiseconsulting.com" class="contact-item">
+          <a href="mailto:hammad@digitwiseconsulting.com" class="contact-item">
             <div class="ci-icon">✉️</div>
-            <div><span class="ci-strong">Email us directly</span><span class="ci-sub">salesdesk@digitwiseconsulting.com</span></div>
+            <div><span class="ci-strong">Email us directly</span><span class="ci-sub">hammad@digitwiseconsulting.com</span></div>
           </a>
           <div class="contact-item">
             <div class="ci-icon">🕐</div>
@@ -1244,12 +1507,20 @@ footer {
             <div class="ci-icon">⚡</div>
             <div><span class="ci-strong">Response time</span><span class="ci-sub">Within 48 hours guaranteed</span></div>
           </div>
+          <div class="contact-item">
+            <div class="ci-icon">📍</div>
+            <div><span class="ci-strong">Based in Melbourne, AU</span><span class="ci-sub">Serving clients across Australia &amp; United States</span></div>
+          </div>
+          <a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank" class="contact-item">
+            <div class="ci-icon">💼</div>
+            <div><span class="ci-strong">Connect on LinkedIn</span><span class="ci-sub">linkedin.com/company/digitwise-consulting</span></div>
+          </a>
         </div>
       </div>
       <div class="cta-box reveal">
         <h3>Book your free 30-minute call</h3>
         <p>No pressure, no commitment. Just a clear picture of how we can help your business stay compliant and financially sharp.</p>
-        <a href="mailto:salesdesk@digitwiseconsulting.com" class="btn-navy-cta">
+        <a href="mailto:hammad@digitwiseconsulting.com" class="btn-navy-cta">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Book a Free Call
         </a>
@@ -1257,6 +1528,52 @@ footer {
           <span class="avail-pill">🇦🇺 Melbourne, AEST</span>
           <span class="avail-pill">🇺🇸 Available EST</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:0;">
+      <div class="eyebrow dark" style="justify-content:center;">FAQs</div>
+      <h2 class="section-title">Questions we <em>always get asked.</em></h2>
+      <p class="section-lead" style="margin:0 auto 0;">Everything you need to know before booking a call.</p>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Do you work with Australian businesses only?</div>
+        <div class="faq-a">Not at all — we serve businesses in both Australia and the United States. Our team is based in Melbourne but works remotely with clients across both markets, handling ATO compliance for AU clients and IRS compliance for US clients.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How quickly can you get started?</div>
+        <div class="faq-a">After your free discovery call, we typically onboard within 2–3 business days. We'll connect to your existing software, review your chart of accounts, and have clean books ready within the first week.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What accounting software do you support?</div>
+        <div class="faq-a">We're certified in Xero, QuickBooks Online, and MYOB — and work with Zoho Books as well. If you're on a different platform, just let us know. We'll assess it on the discovery call.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Do you handle BAS lodgement for Australian clients?</div>
+        <div class="faq-a">Yes — BAS and GST lodgement are core to our Australian service. We manage your BAS preparation, GST reconciliation, and lodgement with the ATO on your behalf every quarter.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How are monthly reports delivered?</div>
+        <div class="faq-a">Every month you receive a P&L statement, balance sheet, and cash flow summary — all formatted clearly in your preferred software or as a PDF. Growth and Premium clients also receive a brief written commentary on key movements.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Can I upgrade or downgrade my plan?</div>
+        <div class="faq-a">Absolutely. Your plan can be adjusted at any time with 30 days notice. As your business grows, we'll proactively suggest when it makes sense to move up — and we'll never lock you in.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What's your response time if I have an urgent question?</div>
+        <div class="faq-a">Essentials clients get a 48-hour email response guarantee. Growth and Premium clients are on 24-hour priority support. For genuine urgent matters, we aim to respond same business day.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is there a contract or can I cancel anytime?</div>
+        <div class="faq-a">We work on a monthly rolling basis — no lock-in contracts. Just 30 days notice to cancel. We believe in earning your business every month, not trapping you in a long-term agreement.</div>
       </div>
     </div>
   </div>
@@ -1273,7 +1590,7 @@ footer {
         </a>
         <p class="footer-desc">Precision accounting for growing businesses in Australia and the United States. Remote-first. Detail-obsessed. Always on time.</p>
         <div class="footer-socials">
-          <a href="#" class="soc-btn">in</a>
+          <a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank" class="soc-btn">in</a>
           <a href="#" class="soc-btn">tw</a>
         </div>
       </div>
@@ -1300,9 +1617,9 @@ footer {
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:salesdesk@digitwiseconsulting.com">salesdesk@digitwiseconsulting.com</a></li>
+          <li><a href="mailto:hammad@digitwiseconsulting.com">hammad@digitwiseconsulting.com</a></li>
           <li><a href="#contact">Book a Free Call</a></li>
-          <li><a href="#">LinkedIn</a></li>
+          <li><a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank">LinkedIn</a></li>
           <li><a href="#">Privacy Policy</a></li>
           <li><a href="#">Terms &amp; Conditions</a></li>
         </ul>
@@ -1333,6 +1650,12 @@ const obs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 75); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
 </script>
 </body>
 </html>
