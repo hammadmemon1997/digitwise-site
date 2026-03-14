@@ -734,39 +734,46 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
   letter-spacing: 0.02em;
 }
 
-.hero-trust-row {
+.hero-cert-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  padding: 0 4px;
+  align-items: stretch;
+  gap: 10px;
 }
-.hero-trust-item {
+.hero-cert-item {
   flex: 1;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
   text-align: center;
-  padding: 12px 8px;
-  border-right: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(28,43,58,0.06);
+  transition: all 0.2s;
 }
-.hero-trust-item:last-child { border-right: none; }
-.hero-trust-flag {
-  font-size: 20px;
-  display: block;
-  margin-bottom: 5px;
+.hero-cert-item:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(28,43,58,0.1);
 }
-.hero-trust-label {
-  font-family: 'Outfit', sans-serif;
-  font-size: 11px;
+.hero-cert-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
   font-weight: 700;
   color: var(--navy);
-  letter-spacing: 0.01em;
   display: block;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
 }
-.hero-trust-sub {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 500;
-  display: block;
-  margin-top: 2px;
+.hero-cert-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9A7530;
+  background: var(--gold-ghost);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 100px;
+  padding: 2px 8px;
+  display: inline-block;
 }
 
 /* ── SHARED SECTION STYLES ── */
@@ -1955,22 +1962,19 @@ footer {
         </div>
       </div>
 
-      <!-- BOTTOM: trust flags fill lower empty space -->
-      <div class="hero-trust-row">
-        <div class="hero-trust-item">
-          <span class="hero-trust-flag">🇦🇺</span>
-          <span class="hero-trust-label">ATO Compliant</span>
-          <span class="hero-trust-sub">BAS · GST · Payroll</span>
+      <!-- BOTTOM: software certifications -->
+      <div class="hero-cert-row">
+        <div class="hero-cert-item">
+          <span class="hero-cert-logo">Xero</span>
+          <span class="hero-cert-badge">Certified</span>
         </div>
-        <div class="hero-trust-item">
-          <span class="hero-trust-flag">🇺🇸</span>
-          <span class="hero-trust-label">IRS Compliant</span>
-          <span class="hero-trust-sub">Federal · State · Payroll</span>
+        <div class="hero-cert-item">
+          <span class="hero-cert-logo">MYOB</span>
+          <span class="hero-cert-badge">Certified</span>
         </div>
-        <div class="hero-trust-item">
-          <span class="hero-trust-flag">🔒</span>
-          <span class="hero-trust-label">Secure & Private</span>
-          <span class="hero-trust-sub">Your data, protected</span>
+        <div class="hero-cert-item">
+          <span class="hero-cert-logo">QuickBooks</span>
+          <span class="hero-cert-badge">Certified</span>
         </div>
       </div>
 
