@@ -174,6 +174,85 @@
     }
   ]
 }
+
+// ── BAS DEADLINE COUNTDOWN ──
+(function() {
+  function getNextBASDeadline() {
+    const now = new Date();
+    const y = now.getFullYear();
+    // AU BAS quarterly deadlines (28th of month after quarter end, or next business day)
+    const deadlines = [
+      { date: new Date(y, 1, 28), label: 'Q2 (Oct–Dec)' },   // 28 Feb
+      { date: new Date(y, 3, 28), label: 'Q3 (Jan–Mar)' },   // 28 Apr
+      { date: new Date(y, 6, 28), label: 'Q4 (Apr–Jun)' },   // 28 Jul
+      { date: new Date(y, 9, 28), label: 'Q1 (Jul–Sep)' },   // 28 Oct
+      { date: new Date(y + 1, 1, 28), label: 'Q2 (Oct–Dec)' },
+    ];
+    for (const d of deadlines) {
+      if (d.date > now) return d;
+    }
+    return deadlines[deadlines.length - 1];
+  }
+
+  function updateBAS() {
+    const target = getNextBASDeadline();
+    const diff = target.date - new Date();
+    if (diff <= 0) return;
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const pad  = n => String(n).padStart(2, '0');
+    document.getElementById('bas-days').textContent = days;
+    document.getElementById('bas-hrs').textContent  = pad(hrs);
+    document.getElementById('bas-min').textContent  = pad(mins);
+    document.getElementById('bas-quarter').textContent = target.label;
+  }
+
+  updateBAS();
+  setInterval(updateBAS, 30000);
+})();
+
+// ── FORMSPREE AJAX SUBMIT ──
+(function() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-btn');
+    const errEl = document.getElementById('form-error');
+    const successEl = document.getElementById('form-success');
+    const contentEl = document.getElementById('form-content');
+
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28" stroke-dashoffset="28"><animate attributeName="stroke-dashoffset" dur="0.8s" values="28;0" repeatCount="indefinite"/></circle></svg> Sending...';
+    errEl.style.display = 'none';
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        contentEl.style.display = 'none';
+        successEl.style.display = 'block';
+      } else {
+        const json = await res.json().catch(() => ({}));
+        errEl.textContent = json.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please email hammad@digitwiseconsulting.com';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
+      }
+    } catch(err) {
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
+    }
+  });
+})();
 </script>
 
 <!-- ── PERFORMANCE ── -->
@@ -1142,6 +1221,200 @@ footer {
   .partner-logo { padding: 10px 16px; }
   .li-stats { flex-wrap: wrap; gap: 16px; }
 }
+
+/* ── BAS COUNTDOWN ── */
+.bas-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+.bas-flag {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.bas-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.bas-timer {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+.bas-unit {
+  text-align: center;
+}
+.bas-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  min-width: 36px;
+}
+.bas-sub {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
+  display: block;
+  margin-top: 2px;
+}
+.bas-colon {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(201,168,76,0.4);
+  line-height: 1;
+  padding-bottom: 12px;
+}
+.bas-quarter {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+/* ── CONTACT FORM ── */
+.contact-form {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 22px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-form::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.form-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.42);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.45);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+.form-field select option { background: var(--navy-mid); color: var(--white); }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(255,255,255,0.28); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: rgba(201,168,76,0.45);
+  background: rgba(255,255,255,0.09);
+}
+.form-field textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  width: 100%;
+  padding: 15px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+  box-shadow: var(--shadow-gold);
+}
+.form-submit:hover { background: var(--gold-bright); transform: translateY(-1px); box-shadow: 0 12px 32px rgba(201,168,76,0.35); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 32px 20px;
+}
+.form-success-icon {
+  width: 56px; height: 56px;
+  background: rgba(201,168,76,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+}
+.form-success h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 8px;
+}
+.form-success p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.form-error-msg {
+  display: none;
+  background: rgba(220,38,38,0.12);
+  border: 1px solid rgba(220,38,38,0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #FCA5A5;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .bas-strip { width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -1246,6 +1519,21 @@ footer {
         <span class="live-dot"></span>
         Serving Australia &amp; United States
       </div>
+      <div class="bas-strip" id="bas-strip">
+        <div class="bas-flag">🇦🇺</div>
+        <div>
+          <div class="bas-label">Next BAS lodgement due</div>
+          <div class="bas-timer">
+            <div class="bas-unit"><span class="bas-num" id="bas-days">--</span><span class="bas-sub">days</span></div>
+            <span class="bas-colon">:</span>
+            <div class="bas-unit"><span class="bas-num" id="bas-hrs">--</span><span class="bas-sub">hrs</span></div>
+            <span class="bas-colon">:</span>
+            <div class="bas-unit"><span class="bas-num" id="bas-min">--</span><span class="bas-sub">min</span></div>
+            <span class="bas-quarter" id="bas-quarter"></span>
+          </div>
+        </div>
+      </div>
+
       <h1>Your books, done<br><em>precisely.</em> Every time.</h1>
       <p class="hero-sub">Expert accounting and bookkeeping for small and medium businesses — whether you're in Melbourne or Manhattan. Remote-first, detail-obsessed, fluent in both ATO and IRS compliance.</p>
       <div class="hero-actions">
@@ -1694,16 +1982,66 @@ footer {
           </a>
         </div>
       </div>
-      <div class="cta-box reveal">
-        <h3>Book your free 30-minute call</h3>
-        <p>No pressure, no commitment. Just a clear picture of how we can help your business stay compliant and financially sharp.</p>
-        <a href="mailto:hammad@digitwiseconsulting.com" class="btn-navy-cta">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Book a Free Call
-        </a>
-        <div class="avail-pills">
-          <span class="avail-pill">🇦🇺 Melbourne, AEST</span>
-          <span class="avail-pill">🇺🇸 Available EST</span>
+      <div class="contact-form reveal" id="contact-form-wrap">
+        <div id="form-content">
+          <div class="form-title">Send us a message</div>
+          <div class="form-sub">We'll get back to you within 48 hours. No pressure, no commitment.</div>
+          <form id="contact-form" action="https://formspree.io/f/xnnvgwrq" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New enquiry from Digitwise website">
+            <input type="hidden" name="_next" value="https://digitwiseconsulting.com/#contact">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="fname">Your name</label>
+                <input type="text" id="fname" name="name" placeholder="Hammad Memon" required>
+              </div>
+              <div class="form-field">
+                <label for="fbusiness">Business name</label>
+                <input type="text" id="fbusiness" name="business" placeholder="Acme Pty Ltd">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="femail">Email address</label>
+              <input type="email" id="femail" name="email" placeholder="you@business.com" required>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="fmarket">Your market</label>
+                <select id="fmarket" name="market" required>
+                  <option value="" disabled selected>Select one...</option>
+                  <option value="Australia">🇦🇺 Australia</option>
+                  <option value="United States">🇺🇸 United States</option>
+                  <option value="Both">🌏 Both</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="fservice">Service needed</label>
+                <select id="fservice" name="service">
+                  <option value="" disabled selected>Select one...</option>
+                  <option value="Bookkeeping">Bookkeeping</option>
+                  <option value="BAS & GST">BAS &amp; GST (AU)</option>
+                  <option value="Tax Filing">Tax Filing (US)</option>
+                  <option value="Payroll">Payroll</option>
+                  <option value="Month-End Reporting">Month-End Reporting</option>
+                  <option value="Not sure">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="fmsg">Message</label>
+              <textarea id="fmsg" name="message" placeholder="Tell us a bit about your business and what you need help with..."></textarea>
+            </div>
+            <div class="form-error-msg" id="form-error">Something went wrong. Please try again or email hammad@digitwiseconsulting.com</div>
+            <button type="submit" class="form-submit" id="form-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">✓</div>
+          <h4>Message received!</h4>
+          <p>Thanks for reaching out. Hammad will get back to you within 48 hours.<br><br>
+          In the meantime, feel free to connect on <a href="https://www.linkedin.com/company/digitwise-consulting/" target="_blank" style="color:var(--gold);">LinkedIn</a>.</p>
         </div>
       </div>
     </div>
@@ -1834,6 +2172,85 @@ function toggleFaq(el) {
   document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
 }
+
+// ── BAS DEADLINE COUNTDOWN ──
+(function() {
+  function getNextBASDeadline() {
+    const now = new Date();
+    const y = now.getFullYear();
+    // AU BAS quarterly deadlines (28th of month after quarter end, or next business day)
+    const deadlines = [
+      { date: new Date(y, 1, 28), label: 'Q2 (Oct–Dec)' },   // 28 Feb
+      { date: new Date(y, 3, 28), label: 'Q3 (Jan–Mar)' },   // 28 Apr
+      { date: new Date(y, 6, 28), label: 'Q4 (Apr–Jun)' },   // 28 Jul
+      { date: new Date(y, 9, 28), label: 'Q1 (Jul–Sep)' },   // 28 Oct
+      { date: new Date(y + 1, 1, 28), label: 'Q2 (Oct–Dec)' },
+    ];
+    for (const d of deadlines) {
+      if (d.date > now) return d;
+    }
+    return deadlines[deadlines.length - 1];
+  }
+
+  function updateBAS() {
+    const target = getNextBASDeadline();
+    const diff = target.date - new Date();
+    if (diff <= 0) return;
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const pad  = n => String(n).padStart(2, '0');
+    document.getElementById('bas-days').textContent = days;
+    document.getElementById('bas-hrs').textContent  = pad(hrs);
+    document.getElementById('bas-min').textContent  = pad(mins);
+    document.getElementById('bas-quarter').textContent = target.label;
+  }
+
+  updateBAS();
+  setInterval(updateBAS, 30000);
+})();
+
+// ── FORMSPREE AJAX SUBMIT ──
+(function() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-btn');
+    const errEl = document.getElementById('form-error');
+    const successEl = document.getElementById('form-success');
+    const contentEl = document.getElementById('form-content');
+
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28" stroke-dashoffset="28"><animate attributeName="stroke-dashoffset" dur="0.8s" values="28;0" repeatCount="indefinite"/></circle></svg> Sending...';
+    errEl.style.display = 'none';
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        contentEl.style.display = 'none';
+        successEl.style.display = 'block';
+      } else {
+        const json = await res.json().catch(() => ({}));
+        errEl.textContent = json.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please email hammad@digitwiseconsulting.com';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
+      }
+    } catch(err) {
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
+    }
+  });
+})();
 </script>
 </body>
 </html>
