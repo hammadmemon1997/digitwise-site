@@ -348,39 +348,7 @@ body {
 ::-webkit-scrollbar-track { background: var(--navy); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
-/* ── TICKER ── */
-.ticker {
-  background: var(--navy-mid);
-  border-bottom: 1px solid rgba(201,168,76,0.18);
-  padding: 11px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  z-index: 201;
-}
-.ticker-inner {
-  display: inline-flex;
-  animation: ticker-scroll 36s linear infinite;
-}
-.ticker-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 32px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-}
-.ticker-sep {
-  width: 3px; height: 3px;
-  background: var(--gold);
-  border-radius: 50%;
-  opacity: 0.6;
-}
-@keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
 
 /* ── NAV ── */
 nav {
@@ -1810,26 +1778,6 @@ footer {
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:8px;background:var(--gold);color:var(--navy);padding:8px 16px;border-radius:6px;font-weight:600;font-size:13px;text-decoration:none;z-index:9999;transition:top 0.2s;" onfocus="this.style.top='8px'" onblur="this.style.top='-40px'">Skip to main content</a>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">🇦🇺 BAS &amp; GST Lodgement<span class="ticker-sep"></span></span>
-    <span class="ticker-item">🇺🇸 IRS Compliance<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Xero Certified<span class="ticker-sep"></span></span>
-    <span class="ticker-item">QuickBooks Partner<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Bank Reconciliation<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Payroll Management<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Month-End Close<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Financial Reporting<span class="ticker-sep"></span></span>
-    <span class="ticker-item">🇦🇺 BAS &amp; GST Lodgement<span class="ticker-sep"></span></span>
-    <span class="ticker-item">🇺🇸 IRS Compliance<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Xero Certified<span class="ticker-sep"></span></span>
-    <span class="ticker-item">QuickBooks Partner<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Bank Reconciliation<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Payroll Management<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Month-End Close<span class="ticker-sep"></span></span>
-    <span class="ticker-item">Financial Reporting<span class="ticker-sep"></span></span>
-  </div>
 </div>
 
 
