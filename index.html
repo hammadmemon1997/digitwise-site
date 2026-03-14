@@ -320,6 +320,18 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
+function drawerNav(el) {
+  var href = el.getAttribute('href');
+  closeDrawer();
+  // Small delay to let drawer close animation start before scrolling
+  setTimeout(function() {
+    var target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 80);
+}
+
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeDrawer();
@@ -631,6 +643,11 @@ function calcSuper() {
 
 html { scroll-behavior: smooth; }
 
+/* Offset anchor scroll for fixed nav height */
+section, footer {
+  scroll-margin-top: 70px;
+}
+
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--white);
@@ -849,6 +866,7 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 .hstat {
   padding: 0 28px 0 0; margin-right: 28px;
   border-right: 1px solid rgba(255,255,255,0.1);
+  min-width: 0;
 }
 .hstat:last-child { border: none; margin: 0; padding: 0; }
 .hstat-n {
@@ -1568,6 +1586,79 @@ footer {
   .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
   .hero-actions { flex-direction: column; }
   .float-pair { display: none; }
+
+  /* Hero sizing on small screens */
+  .hero h1 { font-size: 36px; }
+  .hero-left-col { padding: 48px 22px 32px; }
+  .hero-right-col { padding: 0 22px 48px; }
+  .bas-strip { width: 100%; }
+  .hero-badge { font-size: 11px; }
+  .hero-tagline-main { font-size: 18px; }
+
+  /* Tools mobile */
+  .tools-tabs { gap: 6px; }
+  .tool-tab { padding: 7px 12px; font-size: 11px; }
+  .tool-left { padding: 24px 20px; }
+  .tool-right { padding: 20px 20px 28px; }
+  .tool-title { font-size: 20px; }
+
+  /* Blog grid */
+  .blog-grid { grid-template-columns: 1fr; }
+
+  /* Contact form */
+  .form-row { grid-template-columns: 1fr; }
+
+  /* FAQ */
+  .faq-grid { grid-template-columns: 1fr; }
+
+  /* Process */
+  .process-grid { grid-template-columns: 1fr; }
+  .process-grid::before { display: none; }
+
+  /* Stats */
+  .stats-block { grid-template-columns: 1fr 1fr; }
+  .stat-tile.gold-tile { grid-column: span 2; }
+
+  /* Hero cert row */
+  .hero-cert-row { gap: 8px; }
+  .hero-cert-logo { font-size: 13px; }
+
+  /* Pricing */
+  .pricing-toggle { width: 100%; }
+  .tog-btn { flex: 1; font-size: 12px; padding: 9px 12px; }
+
+  /* LinkedIn strip */
+  .linkedin-strip-inner { flex-direction: column; gap: 20px; }
+  .li-stats { flex-wrap: wrap; gap: 16px; }
+
+  /* Section padding tighter on very small screens */
+  section { padding: 64px 20px; }
+  .container { padding: 0; }
+
+  /* About visual */
+  .about-visual { padding: 24px; }
+
+  /* Testimonials */
+  .testi-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; gap: 24px; }
+  footer { padding: 48px 22px 28px; }
+
+  /* CTA box */
+  .cta-box { padding: 36px 28px; }
+  .cta-box h3 { font-size: 24px; }
+
+  /* Scroll spy / drawer */
+  .back-to-top { bottom: 20px; right: 16px; }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 30px; }
+  .tool-tab { padding: 6px 10px; font-size: 10px; }
+  .hstat-n { font-size: 26px; }
+  .hero-cert-logo { font-size: 12px; }
 }
 
 /* ── HOW IT WORKS ── */
@@ -2324,6 +2415,7 @@ footer {
   flex-wrap: wrap;
   gap: 10px;
   margin: 32px 0 40px;
+  -webkit-overflow-scrolling: touch;
 }
 .tool-tab {
   padding: 9px 20px;
@@ -3736,15 +3828,15 @@ footer {
     <button class="mobile-drawer-close" onclick="closeDrawer()" aria-label="Close menu">&times;</button>
   </div>
   <nav class="mobile-drawer-links">
-    <a href="#services"      onclick="closeDrawer()">Services</a>
-    <a href="#about"         onclick="closeDrawer()">About</a>
-    <a href="#why-us"        onclick="closeDrawer()">Why Us</a>
-    <a href="#pricing"       onclick="closeDrawer()">Pricing</a>
-    <a href="#testimonials"  onclick="closeDrawer()">Clients</a>
-    <a href="#tools"         onclick="closeDrawer()">Tools</a>
-    <a href="#insights"      onclick="closeDrawer()">Insights</a>
-    <a href="#faq"           onclick="closeDrawer()">FAQ</a>
-    <a href="#contact"       onclick="closeDrawer()">Contact</a>
+    <a href="#services"      onclick="drawerNav(this)">Services</a>
+    <a href="#about"         onclick="drawerNav(this)">About</a>
+    <a href="#why-us"        onclick="drawerNav(this)">Why Us</a>
+    <a href="#pricing"       onclick="drawerNav(this)">Pricing</a>
+    <a href="#testimonials"  onclick="drawerNav(this)">Clients</a>
+    <a href="#tools"         onclick="drawerNav(this)">Tools</a>
+    <a href="#insights"      onclick="drawerNav(this)">Insights</a>
+    <a href="#faq"           onclick="drawerNav(this)">FAQ</a>
+    <a href="#contact"       onclick="drawerNav(this)">Contact</a>
   </nav>
   <div class="mobile-drawer-cta">
     <button onclick="closeDrawer(); openCalModal();">Book a Free Call</button>
@@ -3980,6 +4072,18 @@ function closeDrawer() {
   document.getElementById('drawer-overlay').classList.remove('open');
   document.getElementById('nav-toggle').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+function drawerNav(el) {
+  var href = el.getAttribute('href');
+  closeDrawer();
+  // Small delay to let drawer close animation start before scrolling
+  setTimeout(function() {
+    var target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 80);
 }
 
 document.addEventListener('keydown', function(e) {
