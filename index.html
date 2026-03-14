@@ -339,7 +339,7 @@ window.addEventListener('scroll', function() {
 
 // ── ACTIVE NAV SCROLL SPY ──
 (function() {
-  const sections = ['home','services','about','why-us','pricing','testimonials','insights','faq','contact'];
+  const sections = ['home','services','about','why-us','pricing','testimonials','tools','insights','faq','contact'];
   const navLinks = document.querySelectorAll('.nav-links a');
   const drawerLinks = document.querySelectorAll('.mobile-drawer-links a');
 
@@ -365,6 +365,233 @@ window.addEventListener('scroll', function() {
     if (el) observer.observe(el);
   });
 })();
+
+// ── TOOLS ──
+function switchTool(id, btn) {
+  document.querySelectorAll('.tool-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tool-' + id).classList.add('active');
+}
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-AU');
+}
+function fmtUS(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function ctaHtml(msg, sub) {
+  return '<div class="tool-cta-strip"><div class="tool-cta-text"><strong>' + msg + '</strong>' + sub + '</div><button class="tool-cta-btn" onclick="openCalModal()">Book Free Call</button></div>';
+}
+
+// ── GST ──
+var gstMode = 'add';
+function setGstMode(mode, btn) {
+  gstMode = mode;
+  document.querySelectorAll('#gst-toggle .tool-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calcGST();
+}
+function calcGST() {
+  var amt = parseFloat(document.getElementById('gst-amount').value);
+  var el = document.getElementById('gst-results');
+  if (!amt || amt <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter an amount above</div>'; return; }
+  var gst, ex, inc;
+  if (gstMode === 'add') {
+    ex = amt; gst = amt * 0.1; inc = amt * 1.1;
+  } else {
+    inc = amt; gst = amt / 11; ex = amt - gst;
+  }
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Amount ex. GST</span><span class="result-value">' + fmt(ex) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">GST (10%)</span><span class="result-value">' + fmt(gst) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Total inc. GST</span><span class="result-value">' + fmt(inc) + '</span></div>' +
+    ctaHtml('Need help with BAS & GST?', 'We lodge your BAS every quarter — accurately and on time.');
+}
+
+// ── BAS DATES ──
+function calcBAS() {
+  var freq = document.getElementById('bas-freq').value;
+  var type = document.getElementById('bas-type').value;
+  var el = document.getElementById('bas-results');
+  var now = new Date();
+  var dates = [];
+
+  if (freq === 'quarterly') {
+    var quarters = [
+      { label: 'Q3 Jan–Mar', month: 3, day: type === 'agent' ? 25 : 28, quarter: 'April' },
+      { label: 'Q4 Apr–Jun', month: 6, day: type === 'agent' ? 25 : 28, quarter: 'July' },
+      { label: 'Q1 Jul–Sep', month: 9, day: type === 'agent' ? 25 : 28, quarter: 'October' },
+      { label: 'Q2 Oct–Dec', month: 1, day: type === 'agent' ? 25 : 28, quarter: 'February', nextYear: true },
+    ];
+    var yr = now.getFullYear();
+    quarters.forEach(function(q) {
+      var y = q.nextYear ? yr + 1 : yr;
+      var d = new Date(y, q.month, q.day);
+      if (d < now) d = new Date(y + 1, q.month, q.day);
+      dates.push({ label: q.label, date: d });
+    });
+  } else {
+    for (var i = 0; i < 4; i++) {
+      var m = now.getMonth() + i + 1;
+      var y = now.getFullYear() + Math.floor(m / 12);
+      m = m % 12 || 12;
+      var day = type === 'agent' ? 21 : 21;
+      dates.push({ label: 'Month ' + (i+1), date: new Date(y, m, day) });
+    }
+  }
+
+  dates.sort(function(a,b){ return a.date - b.date; });
+
+  var html = '<div class="bas-dates-table">';
+  dates.slice(0, 4).forEach(function(d, i) {
+    var diff = Math.ceil((d.date - now) / 86400000);
+    var dStr = d.date.toLocaleDateString('en-AU', {day:'numeric', month:'short', year:'numeric'});
+    html += '<div class="bas-date-row">' +
+      '<div><div class="bas-date-label">' + d.label + '</div><div class="bas-date-val">' + dStr + '</div></div>' +
+      '<span class="bas-date-days">' + (diff > 0 ? diff + ' days' : 'Overdue') + '</span>' +
+      '</div>';
+  });
+  html += '</div>';
+  html += ctaHtml('Never miss a BAS deadline.', 'We manage all your lodgements — on time, every quarter.');
+  el.innerHTML = html;
+}
+calcBAS();
+
+// ── SOLE TRADER TAX ──
+function calcSoleTax() {
+  var rev = parseFloat(document.getElementById('st-revenue').value) || 0;
+  var exp = parseFloat(document.getElementById('st-expenses').value) || 0;
+  var el = document.getElementById('st-results');
+  if (rev <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your annual revenue above</div>'; return; }
+  var taxable = Math.max(0, rev - exp);
+  var tax = 0;
+  if (taxable <= 18200) tax = 0;
+  else if (taxable <= 45000) tax = (taxable - 18200) * 0.19;
+  else if (taxable <= 120000) tax = 5092 + (taxable - 45000) * 0.325;
+  else if (taxable <= 180000) tax = 29467 + (taxable - 120000) * 0.37;
+  else tax = 51667 + (taxable - 180000) * 0.45;
+  var medicare = taxable > 23226 ? taxable * 0.02 : 0;
+  var total = tax + medicare;
+  var quarterly = total / 4;
+  var net = taxable - total;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Taxable income</span><span class="result-value">' + fmt(taxable) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Income tax (est.)</span><span class="result-value">' + fmt(tax) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Medicare levy (2%)</span><span class="result-value">' + fmt(medicare) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">' + fmt(total) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Quarterly PAYG instalment</span><span class="result-value">' + fmt(quarterly) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">' + fmt(net) + '</span></div>' +
+    ctaHtml('Want accurate tax figures?', 'Book a free call — we'll review your actual numbers.');
+}
+
+// ── US SE TAX ──
+function calcSETax() {
+  var profit = parseFloat(document.getElementById('se-profit').value) || 0;
+  var status = document.getElementById('se-status').value;
+  var el = document.getElementById('se-results');
+  if (profit <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your net profit above</div>'; return; }
+  var seTax = profit * 0.9235 * 0.153;
+  var deduction = seTax / 2;
+  var agi = profit - deduction;
+  var fedTax = 0;
+  var brackets = status === 'married'
+    ? [[23200,0.1],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]]
+    : [[11600,0.1],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]];
+  var prev = 0;
+  for (var i = 0; i < brackets.length; i++) {
+    if (agi <= brackets[i][0]) { fedTax += (agi - prev) * brackets[i][1]; break; }
+    fedTax += (brackets[i][0] - prev) * brackets[i][1];
+    prev = brackets[i][0];
+  }
+  var total = seTax + fedTax;
+  var quarterly = total / 4;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Self-employment tax (15.3%)</span><span class="result-value">' + fmtUS(seTax) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">SE deduction (half SE tax)</span><span class="result-value">–' + fmtUS(deduction) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Estimated federal income tax</span><span class="result-value">' + fmtUS(fedTax) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total estimated tax</span><span class="result-value">' + fmtUS(total) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Quarterly IRS payment (est.)</span><span class="result-value">' + fmtUS(quarterly) + '</span></div>' +
+    ctaHtml('Let us handle your quarterly filings.', 'We manage IRS compliance for US small businesses.');
+}
+
+// ── QUIZ ──
+var quizAnswers = {};
+var quizStep = 0;
+function quizAnswer(step, val) {
+  quizAnswers[step] = val;
+  document.querySelectorAll('#qs' + step + ' .quiz-opt').forEach(function(b) {
+    b.classList.toggle('selected', b.getAttribute('onclick').includes("'" + val + "'"));
+  });
+  setTimeout(function() {
+    if (step < 3) {
+      document.getElementById('qs' + step).classList.remove('active');
+      document.getElementById('qs' + (step+1)).classList.add('active');
+      document.getElementById('qp' + (step+1)).classList.add('done');
+      quizStep = step + 1;
+    } else {
+      showQuizResult();
+    }
+  }, 280);
+}
+function showQuizResult() {
+  var a = quizAnswers;
+  var plan, price, currency, why;
+  var isAU = a[0] !== 'us';
+  if (a[1] === 'high' || a[2] === 'many') {
+    plan = 'Premium'; price = 'Custom'; currency = '';
+    why = 'Your transaction volume and team size need our full-service Premium plan with a dedicated account manager.';
+  } else if (a[1] === 'mid' || a[2] === 'few' || a[3] === 'yes') {
+    plan = 'Professional'; price = isAU ? 'A$999' : '$699'; currency = '/mo';
+    why = 'Based on your business size and needs, our Professional plan covers everything — payroll, BAS/IRS, AP/AR and monthly reporting.';
+  } else {
+    plan = 'Essentials'; price = isAU ? 'A$499' : '$349'; currency = '/mo';
+    why = 'Our Essentials plan is a great fit — monthly bookkeeping, bank reconciliation and P&L reporting, all at a fixed price.';
+  }
+  document.getElementById('quiz-empty').style.display = 'none';
+  document.getElementById('quiz-reset').style.display = 'block';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML =
+    '<div class="result-row highlight" style="flex-direction:column;align-items:flex-start;gap:6px;">' +
+      '<div class="result-label">Recommended plan</div>' +
+      '<div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-0.03em;">' + plan + '</div>' +
+      '<div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);">' + price + '<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.4);">' + currency + '</span></div>' +
+    '</div>' +
+    '<div class="result-row"><span class="result-label" style="line-height:1.6;">' + why + '</span></div>' +
+    ctaHtml('Ready to get started?', 'Book a free 30-min call — no commitment required.');
+}
+function resetQuiz() {
+  quizAnswers = {}; quizStep = 0;
+  for (var i = 0; i < 4; i++) {
+    var s = document.getElementById('qs' + i);
+    if (s) { s.classList.toggle('active', i === 0); }
+    var p = document.getElementById('qp' + i);
+    if (p) p.classList.toggle('done', i === 0);
+  }
+  document.getElementById('quiz-empty').style.display = 'block';
+  document.getElementById('quiz-reset').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-result').innerHTML = '';
+}
+
+// ── SUPER ──
+function calcSuper() {
+  var sal = parseFloat(document.getElementById('sup-salary').value) || 0;
+  var rate = parseFloat(document.getElementById('sup-rate').value) / 100;
+  var el = document.getElementById('sup-results');
+  if (sal <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter a salary above</div>'; return; }
+  var annual = sal * rate;
+  var monthly = annual / 12;
+  var fortnightly = annual / 26;
+  var totalComp = sal + annual;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Annual super contribution</span><span class="result-value">' + fmt(annual) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Monthly super</span><span class="result-value">' + fmt(monthly) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Fortnightly super</span><span class="result-value">' + fmt(fortnightly) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total package (salary + super)</span><span class="result-value">' + fmt(totalComp) + '</span></div>' +
+    ctaHtml('Need help with super compliance?', 'We manage superannuation for AU businesses end-to-end.');
+}
 </script>
 
 <!-- ── PERFORMANCE ── -->
@@ -2086,6 +2313,331 @@ footer {
 @media (max-width: 768px) {
   .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
 }
+
+/* ── TOOLS SECTION ── */
+.tools-section { background: var(--navy); }
+.tools-section .eyebrow { color: var(--gold); }
+.tools-section .eyebrow::before { background: var(--gold); }
+
+.tools-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 32px 0 40px;
+}
+.tool-tab {
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.tool-tab:hover { border-color: rgba(201,168,76,0.35); color: rgba(255,255,255,0.8); }
+.tool-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  box-shadow: var(--shadow-gold);
+}
+.tool-tab .tab-flag { font-size: 14px; }
+
+.tool-panel { display: none; }
+.tool-panel.active { display: block; }
+
+.tool-card {
+  background: var(--navy-mid);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+.tool-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.tool-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 380px;
+}
+.tool-left {
+  padding: 44px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.tool-right {
+  padding: 44px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tool-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.tool-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+/* Input fields inside tools */
+.tool-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tool-field label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(255,255,255,0.4);
+}
+.tool-input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+.tool-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255,255,255,0.09); }
+.tool-input::placeholder { color: rgba(255,255,255,0.22); font-weight: 400; }
+.tool-select {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+}
+.tool-select:focus { border-color: rgba(201,168,76,0.5); }
+.tool-select option { background: var(--navy-mid); }
+
+.tool-toggle {
+  display: flex;
+  background: rgba(255,255,255,0.06);
+  border-radius: 100px;
+  padding: 3px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.tool-toggle-btn {
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  transition: all 0.2s;
+}
+.tool-toggle-btn.active { background: var(--gold); color: var(--navy); }
+
+.tool-calc-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+  box-shadow: var(--shadow-gold);
+}
+.tool-calc-btn:hover { background: var(--gold-bright); transform: translateY(-1px); }
+
+/* Results panel */
+.tool-results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tool-result-empty {
+  text-align: center;
+  padding: 32px 20px;
+  color: rgba(255,255,255,0.25);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.tool-result-empty svg {
+  width: 48px; height: 48px;
+  margin: 0 auto 14px;
+  display: block;
+  opacity: 0.2;
+}
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  gap: 12px;
+}
+.result-row.highlight {
+  background: rgba(201,168,76,0.1);
+  border-color: rgba(201,168,76,0.25);
+}
+.result-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+.result-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.result-row.highlight .result-value { color: var(--gold); }
+
+.tool-cta-strip {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: rgba(201,168,76,0.07);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tool-cta-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+.tool-cta-text strong { color: var(--white); display: block; margin-bottom: 2px; }
+.tool-cta-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.tool-cta-btn:hover { background: var(--gold-bright); }
+
+/* Quiz tool */
+.quiz-steps { display: flex; flex-direction: column; gap: 16px; }
+.quiz-step { display: none; }
+.quiz-step.active { display: block; }
+.quiz-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--white); margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  transition: all 0.18s;
+  text-align: left;
+  width: 100%;
+}
+.quiz-opt:hover, .quiz-opt.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+  color: var(--white);
+}
+.quiz-progress {
+  display: flex; gap: 6px; margin-bottom: 20px;
+}
+.quiz-prog-dot {
+  height: 3px; flex: 1; border-radius: 2px;
+  background: rgba(255,255,255,0.12);
+  transition: background 0.3s;
+}
+.quiz-prog-dot.done { background: var(--gold); }
+
+/* BAS dates table */
+.bas-dates-table { display: flex; flex-direction: column; gap: 10px; }
+.bas-date-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; gap: 10px;
+}
+.bas-date-row:first-child {
+  background: rgba(201,168,76,0.1);
+  border-color: rgba(201,168,76,0.25);
+}
+.bas-date-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+.bas-date-val { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--white); }
+.bas-date-days {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 100px;
+  background: rgba(201,168,76,0.15);
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .tool-card-inner { grid-template-columns: 1fr; }
+  .tool-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 32px 28px; }
+  .tool-right { padding: 28px 28px 32px; }
+}
+@media (max-width: 768px) {
+  .tools-tabs { gap: 8px; }
+  .tool-tab { padding: 8px 14px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -2113,6 +2665,7 @@ footer {
     <li><a href="#why-us">About</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#tools">Tools</a></li>
     <li><a href="#insights">Insights</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><button onclick="openCalModal()" class="nav-cta" style="border:none;cursor:pointer;">Book Free Call</button></li>
@@ -2702,6 +3255,256 @@ footer {
 </section>
 
 
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="container">
+    <div class="eyebrow">Free Tools</div>
+    <h2 class="section-title light">Calculators for <em>AU & US businesses.</em></h2>
+    <p class="section-lead light">Free accounting tools — no signup required. Get instant estimates and book a call when you're ready.</p>
+
+    <div class="tools-tabs">
+      <button class="tool-tab active" onclick="switchTool('gst',this)"><span class="tab-flag">🇦🇺</span> GST Calculator</button>
+      <button class="tool-tab" onclick="switchTool('bas',this)"><span class="tab-flag">🇦🇺</span> BAS Due Dates</button>
+      <button class="tool-tab" onclick="switchTool('soletax',this)"><span class="tab-flag">🇦🇺</span> Sole Trader Tax</button>
+      <button class="tool-tab" onclick="switchTool('usse',this)"><span class="tab-flag">🇺🇸</span> SE Tax Calculator</button>
+      <button class="tool-tab" onclick="switchTool('quiz',this)"><span class="tab-flag">🌏</span> Which Plan?</button>
+      <button class="tool-tab" onclick="switchTool('super',this)"><span class="tab-flag">🇦🇺</span> Super Calculator</button>
+    </div>
+
+    <!-- ── GST CALCULATOR ── -->
+    <div class="tool-panel active" id="tool-gst">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">GST Calculator</div>
+              <div class="tool-desc">Add or remove 10% Australian GST from any amount instantly. Shows the GST component and final price.</div>
+              <div class="tool-toggle" id="gst-toggle">
+                <button class="tool-toggle-btn active" onclick="setGstMode('add',this)">Add GST</button>
+                <button class="tool-toggle-btn" onclick="setGstMode('remove',this)">Remove GST</button>
+              </div>
+              <div class="tool-field">
+                <label>Amount (A$)</label>
+                <input type="number" class="tool-input" id="gst-amount" placeholder="e.g. 1000" oninput="calcGST()" min="0">
+              </div>
+            </div>
+            <button class="tool-calc-btn" onclick="calcGST()">Calculate GST</button>
+          </div>
+          <div class="tool-right">
+            <div class="tool-results" id="gst-results">
+              <div class="tool-result-empty">
+                <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="6" stroke="currentColor" stroke-width="2"/><path d="M16 24h16M24 16v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Enter an amount to see your GST breakdown
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BAS DUE DATES ── -->
+    <div class="tool-panel" id="tool-bas">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">BAS Due Date Calculator</div>
+              <div class="tool-desc">See your next BAS lodgement deadlines and days remaining. Never miss an ATO deadline again.</div>
+              <div class="tool-field">
+                <label>Lodgement Frequency</label>
+                <select class="tool-select" id="bas-freq" onchange="calcBAS()">
+                  <option value="quarterly">Quarterly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+              </div>
+              <div class="tool-field">
+                <label>GST Registration Type</label>
+                <select class="tool-select" id="bas-type" onchange="calcBAS()">
+                  <option value="standard">Standard (28th of month)</option>
+                  <option value="agent">Tax Agent (extended)</option>
+                </select>
+              </div>
+            </div>
+            <button class="tool-calc-btn" onclick="calcBAS()">Show My Deadlines</button>
+          </div>
+          <div class="tool-right">
+            <div id="bas-results">
+              <div class="tool-result-empty">
+                <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M16 18h16M16 26h10M16 34h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Select your lodgement frequency above
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOLE TRADER TAX ── -->
+    <div class="tool-panel" id="tool-soletax">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">Sole Trader Tax Estimator</div>
+              <div class="tool-desc">Estimate your Australian income tax, Medicare levy, and suggested quarterly PAYG instalments for the 2024–25 financial year.</div>
+              <div class="tool-field">
+                <label>Annual Revenue (A$)</label>
+                <input type="number" class="tool-input" id="st-revenue" placeholder="e.g. 120000" min="0">
+              </div>
+              <div class="tool-field">
+                <label>Annual Business Expenses (A$)</label>
+                <input type="number" class="tool-input" id="st-expenses" placeholder="e.g. 30000" min="0">
+              </div>
+            </div>
+            <button class="tool-calc-btn" onclick="calcSoleTax()">Estimate My Tax</button>
+          </div>
+          <div class="tool-right">
+            <div class="tool-results" id="st-results">
+              <div class="tool-result-empty">
+                <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/><path d="M24 16v8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Enter your revenue and expenses to get an estimate
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── US SE TAX ── -->
+    <div class="tool-panel" id="tool-usse">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">US Self-Employment Tax Calculator</div>
+              <div class="tool-desc">Calculate your SE tax (15.3%), estimated federal income tax, and quarterly IRS estimated payment amounts for 2025.</div>
+              <div class="tool-field">
+                <label>Net Self-Employment Profit (USD)</label>
+                <input type="number" class="tool-input" id="se-profit" placeholder="e.g. 80000" min="0">
+              </div>
+              <div class="tool-field">
+                <label>Filing Status</label>
+                <select class="tool-select" id="se-status">
+                  <option value="single">Single</option>
+                  <option value="married">Married Filing Jointly</option>
+                  <option value="hoh">Head of Household</option>
+                </select>
+              </div>
+            </div>
+            <button class="tool-calc-btn" onclick="calcSETax()">Calculate SE Tax</button>
+          </div>
+          <div class="tool-right">
+            <div class="tool-results" id="se-results">
+              <div class="tool-result-empty">
+                <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="6" stroke="currentColor" stroke-width="2"/><path d="M16 32l8-16 6 10 4-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Enter your net profit to calculate SE tax
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── QUIZ ── -->
+    <div class="tool-panel" id="tool-quiz">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">Which Plan Is Right For You?</div>
+              <div class="tool-desc">Answer 4 quick questions and we'll recommend the best Digitwise plan for your business. Takes 30 seconds.</div>
+              <div class="quiz-progress" id="quiz-progress">
+                <div class="quiz-prog-dot done" id="qp0"></div>
+                <div class="quiz-prog-dot" id="qp1"></div>
+                <div class="quiz-prog-dot" id="qp2"></div>
+                <div class="quiz-prog-dot" id="qp3"></div>
+              </div>
+              <div class="quiz-steps" id="quiz-steps">
+                <div class="quiz-step active" id="qs0">
+                  <div class="quiz-q">Where is your business based?</div>
+                  <div class="quiz-options">
+                    <button class="quiz-opt" onclick="quizAnswer(0,'au')">🇦🇺 Australia</button>
+                    <button class="quiz-opt" onclick="quizAnswer(0,'us')">🇺🇸 United States</button>
+                    <button class="quiz-opt" onclick="quizAnswer(0,'both')">🌏 Both markets</button>
+                  </div>
+                </div>
+                <div class="quiz-step" id="qs1">
+                  <div class="quiz-q">How many transactions per month?</div>
+                  <div class="quiz-options">
+                    <button class="quiz-opt" onclick="quizAnswer(1,'low')">Under 100</button>
+                    <button class="quiz-opt" onclick="quizAnswer(1,'mid')">100 – 500</button>
+                    <button class="quiz-opt" onclick="quizAnswer(1,'high')">500+</button>
+                  </div>
+                </div>
+                <div class="quiz-step" id="qs2">
+                  <div class="quiz-q">Do you have employees or run payroll?</div>
+                  <div class="quiz-options">
+                    <button class="quiz-opt" onclick="quizAnswer(2,'no')">No — just me / sole trader</button>
+                    <button class="quiz-opt" onclick="quizAnswer(2,'few')">Yes — up to 10 staff</button>
+                    <button class="quiz-opt" onclick="quizAnswer(2,'many')">Yes — 10+ staff</button>
+                  </div>
+                </div>
+                <div class="quiz-step" id="qs3">
+                  <div class="quiz-q">Do you need tax lodgement handled?</div>
+                  <div class="quiz-options">
+                    <button class="quiz-opt" onclick="quizAnswer(3,'no')">No — I handle that myself</button>
+                    <button class="quiz-opt" onclick="quizAnswer(3,'yes')">Yes — BAS, GST or IRS filing</button>
+                  </div>
+                </div>
+              </div>
+              <button class="tool-calc-btn" id="quiz-reset" style="display:none;margin-top:16px;" onclick="resetQuiz()">Start Over</button>
+            </div>
+          </div>
+          <div class="tool-right" id="quiz-right">
+            <div class="tool-result-empty" id="quiz-empty">
+              <svg viewBox="0 0 48 48" fill="none"><path d="M24 8l4 12h12l-10 7 4 12-10-7-10 7 4-12L8 20h12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              Answer the questions to get your recommended plan
+            </div>
+            <div id="quiz-result" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUPER CALCULATOR ── -->
+    <div class="tool-panel" id="tool-super">
+      <div class="tool-card">
+        <div class="tool-card-inner">
+          <div class="tool-left">
+            <div>
+              <div class="tool-title">Superannuation Calculator</div>
+              <div class="tool-desc">Calculate employer super contributions at the current Superannuation Guarantee (SG) rate of 11.5% for FY2024–25.</div>
+              <div class="tool-field">
+                <label>Annual Gross Salary (A$)</label>
+                <input type="number" class="tool-input" id="sup-salary" placeholder="e.g. 85000" min="0">
+              </div>
+              <div class="tool-field">
+                <label>Employer SG Rate (%)</label>
+                <select class="tool-select" id="sup-rate">
+                  <option value="11.5">11.5% (FY2024–25 current)</option>
+                  <option value="12">12% (FY2025–26 onwards)</option>
+                  <option value="11">11% (FY2023–24)</option>
+                </select>
+              </div>
+            </div>
+            <button class="tool-calc-btn" onclick="calcSuper()">Calculate Super</button>
+          </div>
+          <div class="tool-right">
+            <div class="tool-results" id="sup-results">
+              <div class="tool-result-empty">
+                <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="20" r="10" stroke="currentColor" stroke-width="2"/><path d="M10 40c0-7.73 6.27-14 14-14s14 6.27 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Enter a salary to calculate super contributions
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- INSIGHTS / BLOG -->
 <section class="blog-section" id="insights">
   <div class="container">
@@ -2938,6 +3741,7 @@ footer {
     <a href="#why-us"        onclick="closeDrawer()">Why Us</a>
     <a href="#pricing"       onclick="closeDrawer()">Pricing</a>
     <a href="#testimonials"  onclick="closeDrawer()">Clients</a>
+    <a href="#tools"         onclick="closeDrawer()">Tools</a>
     <a href="#insights"      onclick="closeDrawer()">Insights</a>
     <a href="#faq"           onclick="closeDrawer()">FAQ</a>
     <a href="#contact"       onclick="closeDrawer()">Contact</a>
@@ -3197,7 +4001,7 @@ window.addEventListener('scroll', function() {
 
 // ── ACTIVE NAV SCROLL SPY ──
 (function() {
-  const sections = ['home','services','about','why-us','pricing','testimonials','insights','faq','contact'];
+  const sections = ['home','services','about','why-us','pricing','testimonials','tools','insights','faq','contact'];
   const navLinks = document.querySelectorAll('.nav-links a');
   const drawerLinks = document.querySelectorAll('.mobile-drawer-links a');
 
@@ -3223,6 +4027,233 @@ window.addEventListener('scroll', function() {
     if (el) observer.observe(el);
   });
 })();
+
+// ── TOOLS ──
+function switchTool(id, btn) {
+  document.querySelectorAll('.tool-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tool-' + id).classList.add('active');
+}
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-AU');
+}
+function fmtUS(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function ctaHtml(msg, sub) {
+  return '<div class="tool-cta-strip"><div class="tool-cta-text"><strong>' + msg + '</strong>' + sub + '</div><button class="tool-cta-btn" onclick="openCalModal()">Book Free Call</button></div>';
+}
+
+// ── GST ──
+var gstMode = 'add';
+function setGstMode(mode, btn) {
+  gstMode = mode;
+  document.querySelectorAll('#gst-toggle .tool-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calcGST();
+}
+function calcGST() {
+  var amt = parseFloat(document.getElementById('gst-amount').value);
+  var el = document.getElementById('gst-results');
+  if (!amt || amt <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter an amount above</div>'; return; }
+  var gst, ex, inc;
+  if (gstMode === 'add') {
+    ex = amt; gst = amt * 0.1; inc = amt * 1.1;
+  } else {
+    inc = amt; gst = amt / 11; ex = amt - gst;
+  }
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Amount ex. GST</span><span class="result-value">' + fmt(ex) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">GST (10%)</span><span class="result-value">' + fmt(gst) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Total inc. GST</span><span class="result-value">' + fmt(inc) + '</span></div>' +
+    ctaHtml('Need help with BAS & GST?', 'We lodge your BAS every quarter — accurately and on time.');
+}
+
+// ── BAS DATES ──
+function calcBAS() {
+  var freq = document.getElementById('bas-freq').value;
+  var type = document.getElementById('bas-type').value;
+  var el = document.getElementById('bas-results');
+  var now = new Date();
+  var dates = [];
+
+  if (freq === 'quarterly') {
+    var quarters = [
+      { label: 'Q3 Jan–Mar', month: 3, day: type === 'agent' ? 25 : 28, quarter: 'April' },
+      { label: 'Q4 Apr–Jun', month: 6, day: type === 'agent' ? 25 : 28, quarter: 'July' },
+      { label: 'Q1 Jul–Sep', month: 9, day: type === 'agent' ? 25 : 28, quarter: 'October' },
+      { label: 'Q2 Oct–Dec', month: 1, day: type === 'agent' ? 25 : 28, quarter: 'February', nextYear: true },
+    ];
+    var yr = now.getFullYear();
+    quarters.forEach(function(q) {
+      var y = q.nextYear ? yr + 1 : yr;
+      var d = new Date(y, q.month, q.day);
+      if (d < now) d = new Date(y + 1, q.month, q.day);
+      dates.push({ label: q.label, date: d });
+    });
+  } else {
+    for (var i = 0; i < 4; i++) {
+      var m = now.getMonth() + i + 1;
+      var y = now.getFullYear() + Math.floor(m / 12);
+      m = m % 12 || 12;
+      var day = type === 'agent' ? 21 : 21;
+      dates.push({ label: 'Month ' + (i+1), date: new Date(y, m, day) });
+    }
+  }
+
+  dates.sort(function(a,b){ return a.date - b.date; });
+
+  var html = '<div class="bas-dates-table">';
+  dates.slice(0, 4).forEach(function(d, i) {
+    var diff = Math.ceil((d.date - now) / 86400000);
+    var dStr = d.date.toLocaleDateString('en-AU', {day:'numeric', month:'short', year:'numeric'});
+    html += '<div class="bas-date-row">' +
+      '<div><div class="bas-date-label">' + d.label + '</div><div class="bas-date-val">' + dStr + '</div></div>' +
+      '<span class="bas-date-days">' + (diff > 0 ? diff + ' days' : 'Overdue') + '</span>' +
+      '</div>';
+  });
+  html += '</div>';
+  html += ctaHtml('Never miss a BAS deadline.', 'We manage all your lodgements — on time, every quarter.');
+  el.innerHTML = html;
+}
+calcBAS();
+
+// ── SOLE TRADER TAX ──
+function calcSoleTax() {
+  var rev = parseFloat(document.getElementById('st-revenue').value) || 0;
+  var exp = parseFloat(document.getElementById('st-expenses').value) || 0;
+  var el = document.getElementById('st-results');
+  if (rev <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your annual revenue above</div>'; return; }
+  var taxable = Math.max(0, rev - exp);
+  var tax = 0;
+  if (taxable <= 18200) tax = 0;
+  else if (taxable <= 45000) tax = (taxable - 18200) * 0.19;
+  else if (taxable <= 120000) tax = 5092 + (taxable - 45000) * 0.325;
+  else if (taxable <= 180000) tax = 29467 + (taxable - 120000) * 0.37;
+  else tax = 51667 + (taxable - 180000) * 0.45;
+  var medicare = taxable > 23226 ? taxable * 0.02 : 0;
+  var total = tax + medicare;
+  var quarterly = total / 4;
+  var net = taxable - total;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Taxable income</span><span class="result-value">' + fmt(taxable) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Income tax (est.)</span><span class="result-value">' + fmt(tax) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Medicare levy (2%)</span><span class="result-value">' + fmt(medicare) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">' + fmt(total) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Quarterly PAYG instalment</span><span class="result-value">' + fmt(quarterly) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">' + fmt(net) + '</span></div>' +
+    ctaHtml('Want accurate tax figures?', 'Book a free call — we'll review your actual numbers.');
+}
+
+// ── US SE TAX ──
+function calcSETax() {
+  var profit = parseFloat(document.getElementById('se-profit').value) || 0;
+  var status = document.getElementById('se-status').value;
+  var el = document.getElementById('se-results');
+  if (profit <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your net profit above</div>'; return; }
+  var seTax = profit * 0.9235 * 0.153;
+  var deduction = seTax / 2;
+  var agi = profit - deduction;
+  var fedTax = 0;
+  var brackets = status === 'married'
+    ? [[23200,0.1],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]]
+    : [[11600,0.1],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]];
+  var prev = 0;
+  for (var i = 0; i < brackets.length; i++) {
+    if (agi <= brackets[i][0]) { fedTax += (agi - prev) * brackets[i][1]; break; }
+    fedTax += (brackets[i][0] - prev) * brackets[i][1];
+    prev = brackets[i][0];
+  }
+  var total = seTax + fedTax;
+  var quarterly = total / 4;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Self-employment tax (15.3%)</span><span class="result-value">' + fmtUS(seTax) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">SE deduction (half SE tax)</span><span class="result-value">–' + fmtUS(deduction) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Estimated federal income tax</span><span class="result-value">' + fmtUS(fedTax) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total estimated tax</span><span class="result-value">' + fmtUS(total) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Quarterly IRS payment (est.)</span><span class="result-value">' + fmtUS(quarterly) + '</span></div>' +
+    ctaHtml('Let us handle your quarterly filings.', 'We manage IRS compliance for US small businesses.');
+}
+
+// ── QUIZ ──
+var quizAnswers = {};
+var quizStep = 0;
+function quizAnswer(step, val) {
+  quizAnswers[step] = val;
+  document.querySelectorAll('#qs' + step + ' .quiz-opt').forEach(function(b) {
+    b.classList.toggle('selected', b.getAttribute('onclick').includes("'" + val + "'"));
+  });
+  setTimeout(function() {
+    if (step < 3) {
+      document.getElementById('qs' + step).classList.remove('active');
+      document.getElementById('qs' + (step+1)).classList.add('active');
+      document.getElementById('qp' + (step+1)).classList.add('done');
+      quizStep = step + 1;
+    } else {
+      showQuizResult();
+    }
+  }, 280);
+}
+function showQuizResult() {
+  var a = quizAnswers;
+  var plan, price, currency, why;
+  var isAU = a[0] !== 'us';
+  if (a[1] === 'high' || a[2] === 'many') {
+    plan = 'Premium'; price = 'Custom'; currency = '';
+    why = 'Your transaction volume and team size need our full-service Premium plan with a dedicated account manager.';
+  } else if (a[1] === 'mid' || a[2] === 'few' || a[3] === 'yes') {
+    plan = 'Professional'; price = isAU ? 'A$999' : '$699'; currency = '/mo';
+    why = 'Based on your business size and needs, our Professional plan covers everything — payroll, BAS/IRS, AP/AR and monthly reporting.';
+  } else {
+    plan = 'Essentials'; price = isAU ? 'A$499' : '$349'; currency = '/mo';
+    why = 'Our Essentials plan is a great fit — monthly bookkeeping, bank reconciliation and P&L reporting, all at a fixed price.';
+  }
+  document.getElementById('quiz-empty').style.display = 'none';
+  document.getElementById('quiz-reset').style.display = 'block';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML =
+    '<div class="result-row highlight" style="flex-direction:column;align-items:flex-start;gap:6px;">' +
+      '<div class="result-label">Recommended plan</div>' +
+      '<div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-0.03em;">' + plan + '</div>' +
+      '<div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);">' + price + '<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.4);">' + currency + '</span></div>' +
+    '</div>' +
+    '<div class="result-row"><span class="result-label" style="line-height:1.6;">' + why + '</span></div>' +
+    ctaHtml('Ready to get started?', 'Book a free 30-min call — no commitment required.');
+}
+function resetQuiz() {
+  quizAnswers = {}; quizStep = 0;
+  for (var i = 0; i < 4; i++) {
+    var s = document.getElementById('qs' + i);
+    if (s) { s.classList.toggle('active', i === 0); }
+    var p = document.getElementById('qp' + i);
+    if (p) p.classList.toggle('done', i === 0);
+  }
+  document.getElementById('quiz-empty').style.display = 'block';
+  document.getElementById('quiz-reset').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-result').innerHTML = '';
+}
+
+// ── SUPER ──
+function calcSuper() {
+  var sal = parseFloat(document.getElementById('sup-salary').value) || 0;
+  var rate = parseFloat(document.getElementById('sup-rate').value) / 100;
+  var el = document.getElementById('sup-results');
+  if (sal <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter a salary above</div>'; return; }
+  var annual = sal * rate;
+  var monthly = annual / 12;
+  var fortnightly = annual / 26;
+  var totalComp = sal + annual;
+  el.innerHTML =
+    '<div class="result-row"><span class="result-label">Annual super contribution</span><span class="result-value">' + fmt(annual) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Monthly super</span><span class="result-value">' + fmt(monthly) + '</span></div>' +
+    '<div class="result-row"><span class="result-label">Fortnightly super</span><span class="result-value">' + fmt(fortnightly) + '</span></div>' +
+    '<div class="result-row highlight"><span class="result-label">Total package (salary + super)</span><span class="result-value">' + fmt(totalComp) + '</span></div>' +
+    ctaHtml('Need help with super compliance?', 'We manage superannuation for AU businesses end-to-end.');
+}
 </script>
 </body>
 </html>
