@@ -674,19 +674,37 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
   border-bottom: 2px solid #9A7530;
   transform: rotate(-45deg) translate(0,-1px);
 }
-.hc-certs-dark {
-  display: flex; align-items: center; gap: 8px;
-  padding-top: 16px; border-top: 1px solid var(--border);
-  font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--text-muted);
+.card-mini-stats {
+  display: flex;
+  gap: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
 }
-.cert-tag-dark {
-  background: var(--gold-ghost);
-  border: 1px solid rgba(201,168,76,0.3);
-  padding: 4px 10px; border-radius: 5px;
-  font-size: 11px; font-weight: 700;
-  color: #9A7530; letter-spacing: 0.04em;
+.card-mini-stat {
+  flex: 1;
+  text-align: center;
+  padding: 0 8px;
+  border-right: 1px solid var(--border);
+}
+.card-mini-stat:last-child { border-right: none; }
+.card-mini-stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  display: block;
+  letter-spacing: -0.03em;
+}
+.card-mini-stat-n span { color: #9A7530; }
+.card-mini-stat-l {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  display: block;
+  margin-top: 4px;
 }
 .float-pair-cream {
   display: flex; gap: 12px;
@@ -1943,11 +1961,19 @@ footer {
           <li><span class="hc-check-dark"></span>Month-End Close &amp; Reporting</li>
           <li><span class="hc-check-dark"></span>Accounts Payable &amp; Receivable</li>
         </ul>
-        <div class="hc-certs-dark">
-          Certified in
-          <span class="cert-tag-dark">Xero</span>
-          <span class="cert-tag-dark">QBO</span>
-          <span class="cert-tag-dark">MYOB</span>
+        <div class="card-mini-stats">
+          <div class="card-mini-stat">
+            <span class="card-mini-stat-n">50<span>+</span></span>
+            <span class="card-mini-stat-l">Clients</span>
+          </div>
+          <div class="card-mini-stat">
+            <span class="card-mini-stat-n">99<span>%</span></span>
+            <span class="card-mini-stat-l">On-time</span>
+          </div>
+          <div class="card-mini-stat">
+            <span class="card-mini-stat-n">10<span>yr</span></span>
+            <span class="card-mini-stat-l">Experience</span>
+          </div>
         </div>
       </div>
 
