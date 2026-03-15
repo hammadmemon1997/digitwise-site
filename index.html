@@ -2422,6 +2422,121 @@ footer {
   .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
 }
 
+
+/* ── PAY CALCULATOR FEATURED CARD ── */
+.pay-calc-feature-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin: 36px 0 32px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.28s;
+  cursor: pointer;
+}
+.pay-calc-feature-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), #E8D08A, transparent);
+}
+.pay-calc-feature-card::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  top: -80px; right: -80px;
+  pointer-events: none;
+}
+.pay-calc-feature-card:hover {
+  border-color: rgba(201,168,76,0.55);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.pcf-left { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.pcf-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--gold); width: fit-content;
+}
+.pcf-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700; color: var(--white);
+  line-height: 1.2; letter-spacing: -0.02em;
+}
+.pcf-title span { color: var(--gold); font-style: italic; }
+.pcf-desc {
+  font-size: 14px; color: rgba(255,255,255,0.52);
+  line-height: 1.65; max-width: 560px;
+}
+.pcf-features {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.pcf-features span {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.6);
+}
+.pcf-right {
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: space-between;
+  padding-left: 40px; gap: 12px;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  margin-left: 40px; position: relative; z-index: 1;
+}
+.pcf-stat { text-align: center; }
+.pcf-stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--gold); line-height: 1;
+}
+.pcf-stat-l {
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  margin-top: 3px; white-space: nowrap;
+}
+.pcf-cta {
+  background: var(--gold); color: var(--navy);
+  padding: 11px 22px; border-radius: 9px;
+  font-size: 13px; font-weight: 700;
+  white-space: nowrap; transition: all 0.2s;
+}
+.pay-calc-feature-card:hover .pcf-cta {
+  background: var(--gold-bright);
+}
+.tools-tabs-label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .pay-calc-feature-card {
+    grid-template-columns: 1fr;
+    padding: 24px 22px;
+  }
+  .pcf-right {
+    flex-direction: row;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-left: 0; padding-left: 0;
+    padding-top: 16px; margin-top: 4px;
+    align-items: center; justify-content: space-between;
+  }
+  .pcf-features { display: none; }
+}
+
 /* ── TOOLS SECTION ── */
 .tools-section { background: var(--navy); }
 .tools-section .eyebrow { color: var(--gold); }
@@ -3374,6 +3489,37 @@ footer {
     <h2 class="section-title light">Calculators for <em>AU & US businesses.</em></h2>
     <p class="section-lead light">Free accounting tools — no signup required. Get instant estimates and book a call when you're ready.</p>
 
+    <!-- FEATURED: Pay Calculator -->
+    <a href="/pay-calculator" class="pay-calc-feature-card">
+      <div class="pcf-left">
+        <div class="pcf-badge">⭐ Featured Tool</div>
+        <div class="pcf-title">Australian Pay Calculator <span>2024–25</span></div>
+        <div class="pcf-desc">Calculate your exact take-home pay, income tax, Medicare levy, HECS repayments and super. Full graphical breakdown with charts — the most comprehensive free pay calculator in Australia.</div>
+        <div class="pcf-features">
+          <span>🍩 Donut breakdown</span>
+          <span>📊 Monthly cashflow</span>
+          <span>📐 Tax bracket chart</span>
+          <span>🏙️ Salary comparison</span>
+        </div>
+      </div>
+      <div class="pcf-right">
+        <div class="pcf-stat">
+          <div class="pcf-stat-n">0%</div>
+          <div class="pcf-stat-l">Tax under $18,200</div>
+        </div>
+        <div class="pcf-stat">
+          <div class="pcf-stat-n">11.5%</div>
+          <div class="pcf-stat-l">Super rate FY25</div>
+        </div>
+        <div class="pcf-stat">
+          <div class="pcf-stat-n">2%</div>
+          <div class="pcf-stat-l">Medicare levy</div>
+        </div>
+        <div class="pcf-cta">Open Calculator →</div>
+      </div>
+    </a>
+
+    <div class="tools-tabs-label">More free calculators</div>
     <div class="tools-tabs">
       <button class="tool-tab active" onclick="switchTool('gst',this)"><span class="tab-flag">🇦🇺</span> GST Calculator</button>
       <button class="tool-tab" onclick="switchTool('bas',this)"><span class="tab-flag">🇦🇺</span> BAS Due Dates</button>
