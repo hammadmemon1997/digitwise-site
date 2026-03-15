@@ -3918,6 +3918,13 @@ footer {
 <script>
 // ── GLOBAL FUNCTIONS (accessible from onclick attributes) ──
 
+function switchPricing(m, btn) {
+  document.querySelectorAll('.tog-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.pricing-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('pricing-' + m).classList.add('active');
+}
+
 function toggleFaq(el) {
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
