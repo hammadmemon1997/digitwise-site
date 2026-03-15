@@ -36,16 +36,32 @@
       "dest": "/invoice-generator.html"
     },
     {
-      "src": "/expense-tracker",
-      "dest": "/expense-tracker.html"
+      "src": "/tax-checklist",
+      "dest": "/tax-checklist.html"
     },
     {
-      "src": "/bas-reminder",
-      "dest": "/bas-reminder.html"
+      "src": "/stage3-calculator",
+      "dest": "/stage3-calculator.html"
+    },
+    {
+      "src": "/audit-risk",
+      "dest": "/audit-risk.html"
+    },
+    {
+      "src": "/budget-planner",
+      "dest": "/budget-planner.html"
     },
     {
       "src": "/tools",
       "dest": "/tools.html"
+    },
+    {
+      "src": "/blog/work-from-home-deductions",
+      "dest": "/blog-wfh-deductions.html"
+    },
+    {
+      "src": "/blog/how-to-lodge-bas",
+      "dest": "/blog-bas-guide.html"
     },
     {
       "src": "/about",
