@@ -500,7 +500,7 @@ function calcSoleTax() {
     '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">' + fmt(total) + '</span></div>' +
     '<div class="result-row"><span class="result-label">Quarterly PAYG instalment</span><span class="result-value">' + fmt(quarterly) + '</span></div>' +
     '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">' + fmt(net) + '</span></div>' +
-    ctaHtml('Want accurate tax figures?', 'Book a free call — we'll review your actual numbers.');
+    ctaHtml('Want accurate tax figures?', 'Book a free call — we\'ll review your actual numbers.');
 }
 
 // ── US SE TAX ──
@@ -3780,7 +3780,7 @@ footer {
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">Can I upgrade or downgrade my plan?</div>
-        <div class="faq-a">Absolutely. Your plan can be adjusted at any time with 30 days notice. As your business grows, we'll proactively suggest when it makes sense to move up — and we'll never lock you in.</div>
+        <div class="faq-a">Absolutely. Your plan can be adjusted at any time with 30 days notice. As your business grows, we'll proactively suggest when it makes sense to move up — and we\'ll never lock you in.</div>
       </div>
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q">What's your response time if I have an urgent question?</div>
@@ -4022,7 +4022,7 @@ function calcGST() {
     '<div class="result-row"><span class="result-label">Amount ex. GST</span><span class="result-value">' + fmt(ex) + '</span></div>' +
     '<div class="result-row highlight"><span class="result-label">GST (10%)</span><span class="result-value">' + fmt(gst) + '</span></div>' +
     '<div class="result-row"><span class="result-label">Total inc. GST</span><span class="result-value">' + fmt(inc) + '</span></div>' +
-    ctaHtml('Need help with BAS & GST?', 'We lodge your BAS every quarter — accurately and on time.');
+    ctaHtml('Need help with BAS & GST?', 'We lodge your BAS every quarter \u2014 accurately and on time.');
 }
 function calcBAS() {
   var freq = document.getElementById('bas-freq').value;
@@ -4032,10 +4032,10 @@ function calcBAS() {
   var now = new Date(); var dates = [];
   if (freq === 'quarterly') {
     var quarters = [
-      { label: 'Q3 Jan–Mar', month: 3, day: type==='agent'?25:28 },
-      { label: 'Q4 Apr–Jun', month: 6, day: type==='agent'?25:28 },
-      { label: 'Q1 Jul–Sep', month: 9, day: type==='agent'?25:28 },
-      { label: 'Q2 Oct–Dec', month: 1, day: type==='agent'?25:28, nextYear: true },
+      { label: 'Q3 Jan\u2013Mar', month: 3, day: type==='agent'?25:28 },
+      { label: 'Q4 Apr\u2013Jun', month: 6, day: type==='agent'?25:28 },
+      { label: 'Q1 Jul\u2013Sep', month: 9, day: type==='agent'?25:28 },
+      { label: 'Q2 Oct\u2013Dec', month: 1, day: type==='agent'?25:28, nextYear: true },
     ];
     var yr = now.getFullYear();
     quarters.forEach(function(q) {
@@ -4059,7 +4059,7 @@ function calcBAS() {
     var dStr = d.date.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
     html += '<div class="bas-date-row"><div><div class="bas-date-label">'+d.label+'</div><div class="bas-date-val">'+dStr+'</div></div><span class="bas-date-days">'+(diff>0?diff+' days':'Overdue')+'</span></div>';
   });
-  html += '</div>' + ctaHtml('Never miss a BAS deadline.','We manage all your lodgements — on time, every quarter.');
+  html += '</div>' + ctaHtml('Never miss a BAS deadline.','We manage all your lodgements \u2014 on time, every quarter.');
   el.innerHTML = html;
 }
 function calcSoleTax() {
@@ -4082,7 +4082,7 @@ function calcSoleTax() {
     '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">'+fmt(total)+'</span></div>'+
     '<div class="result-row"><span class="result-label">Quarterly PAYG</span><span class="result-value">'+fmt(total/4)+'</span></div>'+
     '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">'+fmt(taxable-total)+'</span></div>'+
-    ctaHtml('Want accurate tax figures?','Book a free call — we'll review your actual numbers.');
+    ctaHtml('Want accurate tax figures?','Book a free call \u2014 we\'ll review your actual numbers.');
 }
 function calcSETax() {
   var profit=parseFloat(document.getElementById('se-profit').value)||0;
@@ -4102,7 +4102,7 @@ function calcSETax() {
   var total=seTax+fedTax;
   el.innerHTML=
     '<div class="result-row"><span class="result-label">SE tax (15.3%)</span><span class="result-value">'+fmtUS(seTax)+'</span></div>'+
-    '<div class="result-row"><span class="result-label">SE deduction</span><span class="result-value">–'+fmtUS(deduction)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">SE deduction</span><span class="result-value">\u2013'+fmtUS(deduction)+'</span></div>'+
     '<div class="result-row"><span class="result-label">Federal income tax</span><span class="result-value">'+fmtUS(fedTax)+'</span></div>'+
     '<div class="result-row highlight"><span class="result-label">Total estimated tax</span><span class="result-value">'+fmtUS(total)+'</span></div>'+
     '<div class="result-row"><span class="result-label">Quarterly IRS payment</span><span class="result-value">'+fmtUS(total/4)+'</span></div>'+
@@ -4127,19 +4127,19 @@ function showQuizResult() {
   var a=quizAnswers, plan, price, currency, why;
   var isAU=a[0]!=='us';
   if (a[1]==='high'||a[2]==='many') { plan='Premium'; price='Custom'; currency=''; why='Your transaction volume and team size need our full-service Premium plan.'; }
-  else if (a[1]==='mid'||a[2]==='few'||a[3]==='yes') { plan='Professional'; price=isAU?'A$999':'$699'; currency='/mo'; why='Our Professional plan covers everything — payroll, BAS/IRS, AP/AR and monthly reporting.'; }
-  else { plan='Essentials'; price=isAU?'A$499':'$349'; currency='/mo'; why='Our Essentials plan is a great fit — bookkeeping, reconciliation and P&L at a fixed price.'; }
+  else if (a[1]==='mid'||a[2]==='few'||a[3]==='yes') { plan='Professional'; price=isAU?'A$999':'$699'; currency='/mo'; why='Our Professional plan covers everything \u2014 payroll, BAS/IRS, AP/AR and monthly reporting.'; }
+  else { plan='Essentials'; price=isAU?'A$499':'$349'; currency='/mo'; why='Our Essentials plan is a great fit \u2014 bookkeeping, reconciliation and P&L at a fixed price.'; }
   document.getElementById('quiz-empty').style.display='none';
   document.getElementById('quiz-reset').style.display='block';
   document.getElementById('quiz-result').style.display='block';
   document.getElementById('quiz-result').innerHTML=
     '<div class="result-row highlight" style="flex-direction:column;align-items:flex-start;gap:6px;">'+
       '<div class="result-label">Recommended plan</div>'+
-      '<div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);">'+plan+'</div>'+
-      '<div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);">'+price+'<span style="font-size:14px;color:rgba(255,255,255,0.4);">'+currency+'</span></div>'+
+      '<div style="font-family:&quot;Playfair Display&quot;,serif;font-size:28px;font-weight:700;color:var(--gold);">'+plan+'</div>'+
+      '<div style="font-family:&quot;Playfair Display&quot;,serif;font-size:22px;font-weight:700;color:var(--white);">'+price+'<span style="font-size:14px;color:rgba(255,255,255,0.4);">'+currency+'</span></div>'+
     '</div>'+
     '<div class="result-row"><span class="result-label" style="line-height:1.6;">'+why+'</span></div>'+
-    ctaHtml('Ready to get started?','Book a free 30-min call — no commitment required.');
+    ctaHtml('Ready to get started?','Book a free 30-min call \u2014 no commitment required.');
 }
 function resetQuiz() {
   quizAnswers={}; quizStep=0;
@@ -4187,11 +4187,11 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   function getNextBASDeadline() {
     var now = new Date(), y = now.getFullYear();
     var deadlines = [
-      { date: new Date(y,1,28), label: 'Q2 (Oct–Dec)' },
-      { date: new Date(y,3,28), label: 'Q3 (Jan–Mar)' },
-      { date: new Date(y,6,28), label: 'Q4 (Apr–Jun)' },
-      { date: new Date(y,9,28), label: 'Q1 (Jul–Sep)' },
-      { date: new Date(y+1,1,28), label: 'Q2 (Oct–Dec)' },
+      { date: new Date(y,1,28), label: 'Q2 (Oct\u2013Dec)' },
+      { date: new Date(y,3,28), label: 'Q3 (Jan\u2013Mar)' },
+      { date: new Date(y,6,28), label: 'Q4 (Apr\u2013Jun)' },
+      { date: new Date(y,9,28), label: 'Q1 (Jul\u2013Sep)' },
+      { date: new Date(y+1,1,28), label: 'Q2 (Oct\u2013Dec)' },
     ];
     for (var i=0;i<deadlines.length;i++) { if (deadlines[i].date>now) return deadlines[i]; }
     return deadlines[deadlines.length-1];
