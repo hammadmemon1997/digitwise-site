@@ -1669,6 +1669,17 @@ footer {
 
   /* Scroll spy / drawer */
   .back-to-top { bottom: 20px; right: 16px; }
+
+
+  /* Tools section mobile */
+  .tools-section { padding: 48px 0; }
+  .tools-section .container { padding: 0 16px; }
+  .tool-card { border-radius: 16px; }
+  .tool-tab { min-width: fit-content; }
+
+  /* Sections general mobile padding */
+  section { padding-left: 0 !important; padding-right: 0 !important; }
+  .section-inner, .container { padding-left: 16px; padding-right: 16px; }
 }
 
 /* Extra small phones */
@@ -2312,27 +2323,15 @@ footer {
 
 
 /* ── MOBILE TOOL TABS SCROLL HINT ── */
-@media (max-width: 768px) {
-  .tools-tabs-wrapper {
-    position: relative;
-  }
-  .tools-tabs-wrapper::after {
-    content: '';
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 40px;
-    background: linear-gradient(to right, transparent, rgba(28,43,58,0.8));
-    pointer-events: none;
-    border-radius: 0 8px 8px 0;
-  }
-}
+
 
 /* ── MOBILE NAV DRAWER ── */
 .mobile-drawer {
   position: fixed;
   top: 0; right: 0;
-  width: 280px;
+  width: 285px;
   height: 100vh;
+  height: 100dvh;
   background: var(--navy-mid);
   border-left: 1px solid rgba(201,168,76,0.15);
   z-index: 9998;
@@ -2342,6 +2341,7 @@ footer {
   flex-direction: column;
   padding: 0;
   box-shadow: -8px 0 40px rgba(0,0,0,0.35);
+  overflow: hidden;
 }
 .mobile-drawer.open { transform: translateX(0); }
 
@@ -2378,6 +2378,8 @@ footer {
   flex-direction: column;
   padding: 16px 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
 }
 .mobile-drawer-links a {
   display: flex;
@@ -2637,7 +2639,7 @@ footer {
 .tool-tab .tab-flag { font-size: 14px; }
 
 .tool-panel { display: none; }
-.tool-panel.active { display: block; }
+.tool-panel.active { display: block; min-height: 200px; }
 
 .tool-card {
   background: var(--navy-mid);
@@ -2922,6 +2924,14 @@ footer {
   .tool-right { padding: 28px 28px 32px; }
 }
 @media (max-width: 768px) {
+  /* Tools tabs wrapper */
+  .tools-tabs-wrapper { position: relative; }
+  .tools-tabs-wrapper::after {
+    content: ''; position: absolute;
+    right: 0; top: 0; bottom: 0; width: 40px;
+    background: linear-gradient(to right, transparent, rgba(28,43,58,0.8));
+    pointer-events: none;
+  }
   /* Tools tabs — horizontally scrollable on mobile */
   .tools-tabs {
     flex-wrap: nowrap;
@@ -4235,6 +4245,7 @@ footer {
     <a href="#pricing"       onclick="drawerNav(this)">Pricing</a>
     <a href="#testimonials"  onclick="drawerNav(this)">Clients</a>
     <a href="#tools"         onclick="drawerNav(this)">Tools</a>
+    <a href="/tools"         onclick="closeDrawer()">All Tools →</a>
     <a href="#insights"      onclick="drawerNav(this)">Insights</a>
     <a href="#faq"           onclick="drawerNav(this)">FAQ</a>
     <a href="#contact"       onclick="drawerNav(this)">Contact</a>
