@@ -365,7 +365,7 @@ footer{background:var(--navy-mid);padding:36px 60px;border-top:1px solid rgba(25
       <h1>Australian <em>Pay Calculator</em><br>2024&ndash;25</h1>
       <p class="hero-sub">Calculate take-home pay, income tax, Medicare, HECS, super, CTC breakdown, monthly breakdown, tax-saving tips and salary comparison.</p>
       <div class="hero-badges">
-        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>FY 2024&ndash;25 ATO rates</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>Stage 3 tax cuts applied</span>
         <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>LITO applied</span>
         <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>HECS &amp; MLS</span>
         <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>CTC breakdown</span>
@@ -730,10 +730,10 @@ footer{background:var(--navy-mid);padding:36px 60px;border-top:1px solid rgba(25
     <div class="bt-title">2024&ndash;25 Australian Income Tax Brackets</div>
     <div class="bt-row hd"><div class="bt-cell">Income range</div><div class="bt-cell">Rate</div><div class="bt-cell">Tax on this portion</div><div class="bt-cell">Marginal rate</div></div>
     <div class="bt-row" id="btr-0"><div class="bt-cell">$0 &ndash; $18,200</div><div class="bt-cell hl">Nil</div><div class="bt-cell">$0</div><div class="bt-cell">0%</div></div>
-    <div class="bt-row" id="btr-1"><div class="bt-cell">$18,201 &ndash; $45,000</div><div class="bt-cell hl">19c per $1</div><div class="bt-cell">up to $5,092</div><div class="bt-cell">19%</div></div>
-    <div class="bt-row" id="btr-2"><div class="bt-cell">$45,001 &ndash; $120,000</div><div class="bt-cell hl">32.5c per $1</div><div class="bt-cell">up to $29,467</div><div class="bt-cell">32.5%</div></div>
-    <div class="bt-row" id="btr-3"><div class="bt-cell">$120,001 &ndash; $180,000</div><div class="bt-cell hl">37c per $1</div><div class="bt-cell">up to $51,667</div><div class="bt-cell">37%</div></div>
-    <div class="bt-row" id="btr-4"><div class="bt-cell">$180,001 and over</div><div class="bt-cell hl">45c per $1</div><div class="bt-cell">$51,667+</div><div class="bt-cell">45%</div></div>
+    <div class="bt-row" id="btr-1"><div class="bt-cell">$18,201 &ndash; $45,000</div><div class="bt-cell hl">16c per $1</div><div class="bt-cell">up to $4,288</div><div class="bt-cell">16%</div></div>
+    <div class="bt-row" id="btr-2"><div class="bt-cell">$45,001 &ndash; $135,000</div><div class="bt-cell hl">30c per $1</div><div class="bt-cell">up to $31,288</div><div class="bt-cell">30%</div></div>
+    <div class="bt-row" id="btr-3"><div class="bt-cell">$135,001 &ndash; $190,000</div><div class="bt-cell hl">37c per $1</div><div class="bt-cell">up to $51,638</div><div class="bt-cell">37%</div></div>
+    <div class="bt-row" id="btr-4"><div class="bt-cell">$190,001 and over</div><div class="bt-cell hl">45c per $1</div><div class="bt-cell">$51,638+</div><div class="bt-cell">45%</div></div>
   </div>
 
   <div class="info-grid">
@@ -882,9 +882,9 @@ function fmtS(n){ return '$'+(Math.round(n)/1000).toFixed(1)+'k'; }
 
 /* ── TAX TABLES ── */
 var TAX = {
-  2025:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] },
+  2025:{ resident:[[18200,0],[45000,.16],[135000,.30],[190000,.37],[Infinity,.45]], 'resident-no':[[0,.16],[45000,.30],[135000,.37],[190000,.45],[Infinity,.45]], foreign:[[0,.30],[135000,.37],[190000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.30],[135000,.37],[190000,.45],[Infinity,.45]] },
   2024:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] },
-  2026:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] }
+  2026:{ resident:[[18200,0],[45000,.16],[135000,.30],[190000,.37],[Infinity,.45]], 'resident-no':[[0,.16],[45000,.30],[135000,.37],[190000,.45],[Infinity,.45]], foreign:[[0,.30],[135000,.37],[190000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.30],[135000,.37],[190000,.45],[Infinity,.45]] }
 };
 var LITO = { 2025:lito, 2024:lito, 2026:lito };
 function lito(i){ if(i<=37500) return 700; if(i<=45000) return 700-(i-37500)*.05; if(i<=66667) return 325-(i-45000)*.015; return 0; }
@@ -904,9 +904,10 @@ function calcTax(taxable, res, fy) {
 }
 function calcMed(inc, res) {
   if(res==='foreign'||res==='working-holiday') return 0;
-  if(inc>=26000) return inc*.02;
-  if(inc>23226) return (inc-23226)*.1;
-  return 0;
+  // ATO FY2024-25: no levy if <= $27,222; phase-in 10c per $1 from $27,222 to $34,027; full 2% above $34,027
+  if(inc<=27222) return 0;
+  if(inc<34027) return (inc-27222)*0.1;
+  return inc*0.02;
 }
 function calcHECS(inc) {
   if(inc<54435) return 0;
@@ -1002,8 +1003,22 @@ function go() {
   document.getElementById('p-a').textContent=fmt(net);    document.getElementById('p-ag').textContent='gross '+fmt(salaryForTax);
 
   /* BRACKET TABLE HIGHLIGHT */
-  [[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]].forEach(function(b,i){
+  var btRanges = fy===2024
+    ? [[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]]
+    : [[0,18200],[18200,45000],[45000,135000],[135000,190000],[190000,Infinity]];
+  btRanges.forEach(function(b,i){
     var row=document.getElementById('btr-'+i); if(row) row.classList.toggle('active-row', taxable>b[0]&&taxable<=b[1]);
+    // Also update bracket labels for correct FY
+    if(row && fy!==2024) {
+      var labels=[['$0 &ndash; $18,200','Nil','$0','0%'],['$18,201 &ndash; $45,000','16c per $1','up to $4,288','16%'],['$45,001 &ndash; $135,000','30c per $1','up to $31,288','30%'],['$135,001 &ndash; $190,000','37c per $1','up to $51,638','37%'],['$190,001 and over','45c per $1','$51,638+','45%']];
+      var cells=row.querySelectorAll('.bt-cell');
+      if(cells.length===4){cells[0].innerHTML=labels[i][0];cells[1].innerHTML=labels[i][1];cells[2].innerHTML=labels[i][2];cells[3].innerHTML=labels[i][3];}
+    }
+    if(row && fy===2024) {
+      var labels2=[['$0 &ndash; $18,200','Nil','$0','0%'],['$18,201 &ndash; $45,000','19c per $1','up to $5,092','19%'],['$45,001 &ndash; $120,000','32.5c per $1','up to $29,467','32.5%'],['$120,001 &ndash; $180,000','37c per $1','up to $51,667','37%'],['$180,001 and over','45c per $1','$51,667+','45%']];
+      var cells2=row.querySelectorAll('.bt-cell');
+      if(cells2.length===4){cells2[0].innerHTML=labels2[i][0];cells2[1].innerHTML=labels2[i][1];cells2[2].innerHTML=labels2[i][2];cells2[3].innerHTML=labels2[i][3];}
+    }
   });
 
   /* MONTHLY TABLE */
@@ -1140,7 +1155,10 @@ function drawBracket(taxable,res,fy){
   killChart('bracket');
   var ctx=document.getElementById('c-bracket').getContext('2d');
   var c=chartColors();
-  var bs=[{l:'$0-$18.2k (0%)',from:0,to:18200},{l:'$18.2k-$45k (19%)',from:18200,to:45000},{l:'$45k-$120k (32.5%)',from:45000,to:120000},{l:'$120k-$180k (37%)',from:120000,to:180000},{l:'$180k+ (45%)',from:180000,to:300000}];
+  var fy2024 = lastResult.fy===2024;
+  var bs = fy2024
+    ? [{l:'$0-$18.2k (0%)',from:0,to:18200},{l:'$18.2k-$45k (19%)',from:18200,to:45000},{l:'$45k-$120k (32.5%)',from:45000,to:120000},{l:'$120k-$180k (37%)',from:120000,to:180000},{l:'$180k+ (45%)',from:180000,to:300000}]
+    : [{l:'$0-$18.2k (0%)',from:0,to:18200},{l:'$18.2k-$45k (16%)',from:18200,to:45000},{l:'$45k-$135k (30%)',from:45000,to:135000},{l:'$135k-$190k (37%)',from:135000,to:190000},{l:'$190k+ (45%)',from:190000,to:350000}];
   var data=bs.map(function(b){ return taxable<=b.from?0:Math.round((Math.min(taxable,b.to)-b.from)/1000); });
   var cols=bs.map(function(b){ if(taxable<=b.from) return 'rgba(201,168,76,0.12)'; if(taxable>b.from&&taxable<=b.to) return '#1C2B3A'; return '#C9A84C'; });
   charts.bracket=new Chart(ctx,{type:'bar',data:{labels:bs.map(function(b){return b.l;}),datasets:[{data:data,backgroundColor:cols,borderRadius:5}]},
