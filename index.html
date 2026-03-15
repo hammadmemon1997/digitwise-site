@@ -2384,6 +2384,67 @@ footer {
   }
 }
 
+
+/* ── HERO PREMIUM TOOL CARD ── */
+.hero-premium-tool {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.14) 0%, rgba(201,168,76,0.06) 100%);
+  border: 1.5px solid rgba(201,168,76,0.4);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.22s;
+  margin-bottom: 12px;
+}
+.hero-premium-tool:hover {
+  background: linear-gradient(135deg, rgba(201,168,76,0.22) 0%, rgba(201,168,76,0.1) 100%);
+  border-color: rgba(201,168,76,0.7);
+  transform: translateY(-1px);
+}
+.hpt-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--gold);
+  margin-bottom: 5px;
+}
+.hpt-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.hpt-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+.hpt-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.hpt-icon {
+  font-size: 28px;
+}
+.hpt-cta {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .hpt-name { font-size: 15px; }
+  .hero-premium-tool { padding: 12px 14px; }
+}
+
 /* ── MOBILE NAV DRAWER ── */
 .mobile-drawer {
   position: fixed;
@@ -3134,25 +3195,33 @@ footer {
         </a>
       </div>
 
-      <div class="hero-trust-pills">
-        <span class="hero-pill">🇦🇺 ATO Compliant</span>
-        <span class="hero-pill">🇺🇸 IRS Compliant</span>
-        <span class="hero-pill">⚡ 48hr Response</span>
-        <span class="hero-pill">🔒 Fixed Pricing</span>
-      </div>
-
-      <!-- FREE TOOLS STRIP — below trust pills -->
+      <!-- FREE TOOLS STRIP -->
       <div class="hero-tools-strip">
-        <div class="hero-tools-label">🔧 Free tools for 2025 — no signup required</div>
+
+        <!-- PREMIUM FEATURED CARD: Pay Calculator -->
+        <a href="/pay-calculator" class="hero-premium-tool">
+          <div class="hpt-left">
+            <div class="hpt-badge">⭐ Premium Tool — Free</div>
+            <div class="hpt-name">Australian Pay Calculator</div>
+            <div class="hpt-desc">Take-home pay · Tax breakdown · Super · HECS · Charts · 5-yr projection</div>
+          </div>
+          <div class="hpt-right">
+            <div class="hpt-icon">💰</div>
+            <div class="hpt-cta">Try now →</div>
+          </div>
+        </a>
+
+        <!-- OTHER FREE TOOLS ROW -->
+        <div class="hero-tools-label">+ 9 more free tools for Australians in 2025</div>
         <div class="hero-tools-row">
           <a href="/tax-checklist"     class="hero-tool-pill">✅ Tax Checklist</a>
-          <a href="/pay-calculator"    class="hero-tool-pill">💰 Pay Calculator</a>
           <a href="/stage3-calculator" class="hero-tool-pill">📈 2026 Tax Cuts</a>
           <a href="/audit-risk"        class="hero-tool-pill">🔍 Audit Risk</a>
           <a href="/budget-planner"    class="hero-tool-pill">📋 Budget Planner</a>
           <a href="/super-calculator"  class="hero-tool-pill">🏦 Super Tracker</a>
-          <a href="/invoice-generator" class="hero-tool-pill">🧾 Invoice Gen</a>
+          <a href="/invoice-generator" class="hero-tool-pill">🧾 Invoices</a>
           <a href="/negative-gearing"  class="hero-tool-pill">🏠 Neg. Gearing</a>
+          <a href="/bonus-calculator"  class="hero-tool-pill">🎯 Bonus Tax</a>
           <a href="/tools"             class="hero-tool-pill hero-tool-pill-all">→ All tools</a>
         </div>
       </div>
