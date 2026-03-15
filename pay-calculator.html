@@ -121,6 +121,13 @@ nav{background:rgba(28,43,58,0.97);backdrop-filter:blur(18px);padding:0 60px;hei
 .field input:focus,.field select:focus{border-color:var(--gold);}
 .field select{-webkit-appearance:none;cursor:pointer;}
 
+
+.field-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0 16px;
+}
+
 .type-toggle{display:flex;background:var(--cream-mid);border-radius:10px;padding:3px;margin-bottom:16px;}
 .ttog{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;}
 .ttog.on{background:var(--white);color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,0.09);}
@@ -333,19 +340,23 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
         </div>
         <div class="card-bd">
 
+          <!-- INCOME TYPE -->
           <div class="type-toggle" id="type-tog">
-            <button class="ttog on" onclick="setType('salary',this)">Annual Salary</button>
-            <button class="ttog" onclick="setType('hourly',this)">Hourly Rate</button>
+            <button class="ttog on" onclick="setType('salary',this)">Salary</button>
+            <button class="ttog" onclick="setType('hourly',this)">Hourly</button>
+            <button class="ttog" onclick="setType('daily',this)">Daily</button>
           </div>
 
+          <!-- SALARY -->
           <div class="field" id="f-salary">
-            <label>Annual salary (A$)</label>
+            <label>Annual gross salary (A$)</label>
             <div class="input-wrap">
               <span class="input-pre">$</span>
               <input type="number" id="inp-salary" class="has-pre" placeholder="80,000" min="0" oninput="go()">
             </div>
           </div>
 
+          <!-- HOURLY -->
           <div id="f-hourly" style="display:none;">
             <div class="field">
               <label>Hourly rate (A$)</label>
@@ -358,12 +369,36 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
               <label>Hours per week &mdash; <span id="hrs-lbl">38</span> hrs</label>
               <div class="slider-wrap">
                 <input type="range" id="inp-hrs" min="1" max="80" value="38" step="1"
-                  oninput="document.getElementById('hrs-lbl').textContent=this.value;go()">
-                <div class="slider-val" id="hrs-val">38 hrs/week &middot; ~$0/year</div>
+                  oninput="document.getElementById('hrs-lbl').textContent=this.value;document.getElementById('hrs-val').textContent=this.value+' hrs/week';go()">
+                <div class="slider-val" id="hrs-val">38 hrs/week</div>
               </div>
             </div>
           </div>
 
+          <!-- DAILY -->
+          <div id="f-daily" style="display:none;">
+            <div class="field">
+              <label>Daily rate (A$)</label>
+              <div class="input-wrap">
+                <span class="input-pre">$</span>
+                <input type="number" id="inp-daily" class="has-pre" placeholder="400" min="0" oninput="go()">
+              </div>
+            </div>
+            <div class="field">
+              <label>Days per week</label>
+              <select id="inp-days" onchange="go()">
+                <option value="5" selected>5 days</option>
+                <option value="4">4 days</option>
+                <option value="3">3 days</option>
+                <option value="2">2 days</option>
+                <option value="1">1 day</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- PAY PERIOD -->
           <div class="field">
             <label>Show results as</label>
             <select id="sel-freq" onchange="go()">
@@ -374,27 +409,98 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
             </select>
           </div>
 
+          <!-- FINANCIAL YEAR -->
           <div class="field">
-            <label>Tax-free threshold</label>
+            <label>Financial year</label>
+            <select id="sel-fy" onchange="go()">
+              <option value="2025" selected>2024&ndash;25 (current)</option>
+              <option value="2024">2023&ndash;24</option>
+              <option value="2026">2025&ndash;26 (estimated)</option>
+            </select>
+          </div>
+
+          <!-- RESIDENCY -->
+          <div class="field">
+            <label>Residency &amp; tax-free threshold</label>
             <select id="sel-thresh" onchange="go()">
-              <option value="1" selected>Yes &mdash; claiming (Australian resident)</option>
-              <option value="0">No &mdash; not claiming</option>
+              <option value="resident" selected>Australian resident &mdash; claiming threshold</option>
+              <option value="resident-no">Australian resident &mdash; not claiming threshold</option>
+              <option value="foreign">Foreign resident</option>
+              <option value="working-holiday">Working holiday maker</option>
             </select>
           </div>
 
+          <!-- SUPERANNUATION -->
           <div class="field">
-            <label>Private hospital insurance?</label>
+            <label>Superannuation</label>
+            <select id="sel-super" onchange="go()">
+              <option value="exclusive" selected>Salary is super-exclusive (super paid on top)</option>
+              <option value="inclusive">Salary is super-inclusive (super from salary)</option>
+              <option value="none">Ignore superannuation</option>
+            </select>
+          </div>
+
+          <!-- SUPER RATE -->
+          <div class="field" id="f-super-rate">
+            <label>Employer super rate</label>
+            <select id="sel-super-rate" onchange="go()">
+              <option value="11.5" selected>11.5% (FY2024&ndash;25 legislated)</option>
+              <option value="12">12% (FY2025&ndash;26 onwards)</option>
+              <option value="11">11% (FY2023&ndash;24)</option>
+              <option value="custom">Custom rate</option>
+            </select>
+          </div>
+          <div class="field" id="f-super-custom" style="display:none;">
+            <label>Custom super rate (%)</label>
+            <input type="number" id="inp-super-custom" placeholder="11.5" min="0" max="30" step="0.5" oninput="go()">
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- MEDICARE -->
+          <div class="field">
+            <label>Medicare Levy Surcharge</label>
             <select id="sel-mls" onchange="go()">
-              <option value="0" selected>Yes &mdash; MLS does not apply</option>
-              <option value="1">No &mdash; Medicare Levy Surcharge applies</option>
+              <option value="0" selected>No MLS &mdash; I have private hospital cover</option>
+              <option value="1">MLS applies &mdash; no private hospital cover</option>
             </select>
           </div>
 
+          <!-- HECS/HELP -->
           <div class="field">
-            <label>HELP / HECS debt?</label>
+            <label>HELP / HECS / VSL / SSL / ABSTUDY debt</label>
             <select id="sel-hecs" onchange="go()">
-              <option value="0" selected>No HECS debt</option>
+              <option value="0" selected>No student debt</option>
               <option value="1">Yes &mdash; repayments apply</option>
+            </select>
+          </div>
+
+          <!-- SALARY SACRIFICE -->
+          <div class="field">
+            <label>Salary sacrifice (pre-tax, A$/year)</label>
+            <div class="input-wrap">
+              <span class="input-pre">$</span>
+              <input type="number" id="inp-sacrifice" class="has-pre" placeholder="0" min="0" oninput="go()">
+            </div>
+          </div>
+
+          <!-- EXTRA WITHHOLDING -->
+          <div class="field">
+            <label>Extra tax withholding (A$/year)</label>
+            <div class="input-wrap">
+              <span class="input-pre">$</span>
+              <input type="number" id="inp-extra-tax" class="has-pre" placeholder="0" min="0" oninput="go()">
+            </div>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- OFFSETS -->
+          <div class="field">
+            <label>Low &amp; Middle Income Tax Offset (LMITO)</label>
+            <select id="sel-lmito" onchange="go()">
+              <option value="0" selected>Not applicable (FY2024&ndash;25)</option>
+              <option value="1">Apply LMITO (FY2021&ndash;22 only)</option>
             </select>
           </div>
 
@@ -607,6 +713,7 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
 </footer>
 
 <script>
+/* Digitwise Pay Calculator v4 — full feature parity */
 var incType = 'salary';
 var charts = {};
 
@@ -616,171 +723,280 @@ function setType(t, btn) {
   btn.classList.add('on');
   document.getElementById('f-salary').style.display = t==='salary' ? 'block' : 'none';
   document.getElementById('f-hourly').style.display = t==='hourly' ? 'block' : 'none';
+  document.getElementById('f-daily').style.display  = t==='daily'  ? 'block' : 'none';
   go();
 }
 
-function fmt(n) { return '$' + Math.round(n).toLocaleString('en-AU'); }
+// Show/hide custom super rate
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('sel-super-rate').addEventListener('change', function() {
+    document.getElementById('f-super-custom').style.display = this.value === 'custom' ? 'block' : 'none';
+    go();
+  });
+  document.getElementById('sel-super').addEventListener('change', function() {
+    document.getElementById('f-super-rate').style.display = this.value === 'none' ? 'none' : 'block';
+    go();
+  });
+});
 
-function calcTax(inc, thresh) {
-  var tax = 0;
-  if (thresh) {
-    if (inc <= 18200) tax = 0;
-    else if (inc <= 45000) tax = (inc-18200)*0.19;
-    else if (inc <= 120000) tax = 5092+(inc-45000)*0.325;
-    else if (inc <= 180000) tax = 29467+(inc-120000)*0.37;
-    else tax = 51667+(inc-180000)*0.45;
-  } else {
-    if (inc <= 45000) tax = inc*0.19;
-    else if (inc <= 120000) tax = 8550+(inc-45000)*0.325;
-    else if (inc <= 180000) tax = 29367.5+(inc-120000)*0.37;
-    else tax = 51587.5+(inc-180000)*0.45;
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-AU'); }
+function fmtD(n, dp) { dp = dp || 0; return '$' + n.toLocaleString('en-AU',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+
+// Tax brackets by FY
+var TAX_TABLES = {
+  2025: { // FY2024-25
+    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
+    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
+  },
+  2024: { // FY2023-24
+    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
+    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
+  },
+  2026: { // FY2025-26 (Stage 3 same rates)
+    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
+    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
+    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
   }
-  var lito = 0;
-  if (inc <= 37500) lito = 700;
-  else if (inc <= 45000) lito = 700-(inc-37500)*0.05;
-  else if (inc <= 66667) lito = 325-(inc-45000)*0.015;
-  return Math.max(0, tax - lito);
+};
+
+var LITO_TABLE = {
+  2025: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; },
+  2024: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; },
+  2026: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; }
+};
+
+function calcTaxFromBrackets(taxable, brackets) {
+  var tax = 0, prev = 0;
+  for (var i = 0; i < brackets.length; i++) {
+    var cap = brackets[i][0], rate = brackets[i][1];
+    if (taxable <= prev) break;
+    var chunk = Math.min(taxable, cap) - prev;
+    tax += chunk * rate;
+    if (taxable <= cap) break;
+    prev = cap;
+  }
+  return tax;
 }
 
-function calcMed(inc) {
-  if (inc >= 26000) return inc*0.02;
-  if (inc > 23226) return (inc-23226)*0.1;
+function calcTax(taxable, residency, fy) {
+  var brackets = TAX_TABLES[fy][residency] || TAX_TABLES[fy].resident;
+  var tax = calcTaxFromBrackets(taxable, brackets);
+  // Apply LITO for residents only
+  if (residency === 'resident' || residency === 'resident-no') {
+    tax = Math.max(0, tax - LITO_TABLE[fy](taxable));
+  }
+  return Math.max(0, tax);
+}
+
+function calcMed(inc, residency) {
+  if (residency === 'foreign' || residency === 'working-holiday') return 0;
+  if (inc >= 26000) return inc * 0.02;
+  if (inc > 23226) return (inc - 23226) * 0.1;
   return 0;
 }
 
 function calcHECS(inc) {
   if (inc < 54435) return 0;
   var r=[[54435,.01],[62850,.02],[66621,.025],[70619,.03],[74956,.035],[79447,.04],[84191,.045],[89243,.05],[94598,.055],[100186,.06],[106126,.065],[112478,.07],[119027,.075],[126143,.08],[133832,.085],[141882,.09],[150289,.095],[159406,.1]];
-  for (var i=r.length-1;i>=0;i--) { if (inc>=r[i][0]) return Math.round(inc*r[i][1]); }
+  for (var i=r.length-1;i>=0;i--) { if(inc>=r[i][0]) return Math.round(inc*r[i][1]); }
   return 0;
 }
 
-function killChart(name) {
-  if (charts[name]) { try { charts[name].destroy(); } catch(e){} charts[name]=null; }
-}
+function killChart(k) { if(charts[k]){ try{charts[k].destroy();}catch(e){} charts[k]=null; } }
 
 function go() {
-  var annual;
+  // Get income
+  var gross = 0;
   if (incType === 'salary') {
-    annual = parseFloat(document.getElementById('inp-salary').value) || 0;
-  } else {
+    gross = parseFloat(document.getElementById('inp-salary').value) || 0;
+  } else if (incType === 'hourly') {
     var hr = parseFloat(document.getElementById('inp-hourly').value) || 0;
     var wk = parseFloat(document.getElementById('inp-hrs').value) || 38;
-    annual = hr * wk * 52;
-    document.getElementById('hrs-val').textContent = wk + ' hrs/week \u00b7 ~' + fmt(annual) + '/year';
+    gross = hr * wk * 52;
+  } else {
+    var dr = parseFloat(document.getElementById('inp-daily').value) || 0;
+    var dw = parseFloat(document.getElementById('inp-days').value) || 5;
+    gross = dr * dw * 52;
   }
-  if (annual <= 0) {
-    document.getElementById('placeholder').style.display='block';
-    document.getElementById('results').style.display='none';
+
+  if (gross <= 0) {
+    document.getElementById('placeholder').style.display = 'block';
+    document.getElementById('results').style.display = 'none';
     return;
   }
 
-  var thresh = parseInt(document.getElementById('sel-thresh').value);
-  var doMLS  = parseInt(document.getElementById('sel-mls').value);
-  var doHECS = parseInt(document.getElementById('sel-hecs').value);
-  var freqDiv = parseInt(document.getElementById('sel-freq').value);
-  var freqName = {52:'week',26:'fortnight',12:'month',1:'year'}[freqDiv];
+  // Options
+  var fy        = parseInt(document.getElementById('sel-fy').value);
+  var residency = document.getElementById('sel-thresh').value;
+  var superMode = document.getElementById('sel-super').value;
+  var superRateEl = document.getElementById('sel-super-rate').value;
+  var superRate = superRateEl === 'custom'
+    ? (parseFloat(document.getElementById('inp-super-custom').value) || 11.5) / 100
+    : parseFloat(superRateEl) / 100;
+  var doMLS     = parseInt(document.getElementById('sel-mls').value);
+  var doHECS    = parseInt(document.getElementById('sel-hecs').value);
+  var sacrifice = parseFloat(document.getElementById('inp-sacrifice').value) || 0;
+  var extraTax  = parseFloat(document.getElementById('inp-extra-tax').value) || 0;
+  var doLMITO   = parseInt(document.getElementById('sel-lmito').value);
+  var freqDiv   = parseInt(document.getElementById('sel-freq').value);
+  var freqName  = {52:'week',26:'fortnight',12:'month',1:'year'}[freqDiv];
 
-  var tax   = calcTax(annual, thresh);
-  var med   = calcMed(annual);
-  var mls   = (doMLS && annual>93000) ? annual*0.01 : 0;
-  var hecs  = doHECS ? calcHECS(annual) : 0;
-  var sup   = annual * 0.115;
-  var ded   = tax+med+mls+hecs;
-  var net   = annual - ded;
-  var eff   = annual > 0 ? (ded/annual*100).toFixed(1)+'%' : '0%';
+  // Super calculation
+  var superAmt = 0, salaryForTax = gross;
+  if (superMode === 'exclusive') {
+    superAmt = gross * superRate;
+    salaryForTax = gross;
+  } else if (superMode === 'inclusive') {
+    salaryForTax = gross / (1 + superRate);
+    superAmt = gross - salaryForTax;
+  } else {
+    superAmt = 0;
+    salaryForTax = gross;
+  }
+
+  // Salary sacrifice reduces taxable income
+  var taxable = Math.max(0, salaryForTax - sacrifice);
+
+  // Tax
+  var tax = calcTax(taxable, residency, fy);
+
+  // LMITO (only FY2021-22, optional toggle)
+  if (doLMITO) {
+    var lmito = 0;
+    if (taxable <= 37000) lmito = 255;
+    else if (taxable <= 48000) lmito = 255 + (taxable - 37000) * 0.075;
+    else if (taxable <= 90000) lmito = 1080;
+    else if (taxable <= 126000) lmito = 1080 - (taxable - 90000) * 0.03;
+    tax = Math.max(0, tax - lmito);
+  }
+
+  // Medicare
+  var med = calcMed(taxable, residency);
+
+  // MLS
+  var mls = 0;
+  if (doMLS && taxable > 93000) {
+    if (taxable <= 108000) mls = taxable * 0.01;
+    else if (taxable <= 144000) mls = taxable * 0.0125;
+    else mls = taxable * 0.015;
+  }
+
+  // HECS
+  var hecs = doHECS ? calcHECS(taxable) : 0;
+
+  var totalDed = tax + med + mls + hecs + extraTax;
+  var net = taxable - totalDed + sacrifice; // sacrifice already deducted from taxable, add back to net (pre-tax benefit)
+  // Actually: net = salaryForTax - tax - med - mls - hecs - extraTax
+  net = salaryForTax - totalDed;
+  var eff = taxable > 0 ? (totalDed/salaryForTax*100).toFixed(1) + '%' : '0%';
   var d = freqDiv;
 
-  document.getElementById('placeholder').style.display='none';
-  document.getElementById('results').style.display='block';
+  // SHOW RESULTS
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
 
   document.getElementById('r-takehome').textContent = fmt(net/d);
   document.getElementById('r-freq').textContent = 'per ' + freqName;
   document.getElementById('r-eff').textContent = eff;
-  document.getElementById('r-hrly').textContent = '$'+(net/2080).toFixed(2);
-  document.getElementById('r-pkg').textContent = fmt((annual+sup)/d);
-  document.getElementById('dc-pct').textContent = Math.round(net/annual*100)+'%';
+  document.getElementById('r-hrly').textContent = '$' + (net/2080).toFixed(2);
+  var pkg = superMode !== 'none' ? fmt((salaryForTax + superAmt)/d) : 'N/A';
+  document.getElementById('r-pkg').textContent = pkg;
+  document.getElementById('dc-pct').textContent = salaryForTax > 0 ? Math.round(net/salaryForTax*100) + '%' : '0%';
 
-  // Breakdown
-  var rows = [
-    {c:'gross', l:'Gross income', v: fmt(annual/d)},
-    {c:'tax', l:'Income tax (after LITO)', v: '-'+fmt(tax/d)},
-    {c:'deduct', l:'Medicare levy (2%)', v: '-'+fmt(med/d)},
-  ];
-  if (mls>0) rows.push({c:'deduct', l:'Medicare Levy Surcharge', v:'-'+fmt(mls/d)});
-  if (hecs>0) rows.push({c:'deduct', l:'HELP / HECS repayment', v:'-'+fmt(hecs/d)});
-  rows.push({c:'super', l:'Superannuation 11.5% (employer, separate)', v:'+'+fmt(sup/d)});
+  // Breakdown rows
+  var rows = [{c:'gross', l:'Gross income', v:fmt(salaryForTax/d)}];
+  if (sacrifice > 0) rows.push({c:'deduct', l:'Salary sacrifice (pre-tax)', v:'-'+fmt(sacrifice/d)});
+  rows.push({c:'tax', l:'Income tax (incl. LITO)', v:'-'+fmt(tax/d)});
+  rows.push({c:'deduct', l:'Medicare levy (2%)', v:'-'+fmt(med/d)});
+  if (mls > 0)      rows.push({c:'deduct', l:'Medicare Levy Surcharge', v:'-'+fmt(mls/d)});
+  if (hecs > 0)     rows.push({c:'deduct', l:'HELP / HECS repayment', v:'-'+fmt(hecs/d)});
+  if (extraTax > 0) rows.push({c:'deduct', l:'Extra withholding', v:'-'+fmt(extraTax/d)});
+  if (superMode !== 'none') rows.push({c:'super', l:'Super (' + (superRate*100).toFixed(1) + '% — employer' + (superMode==='inclusive'?' from salary':' on top') + ')', v: (superMode==='inclusive'?'-':'+') + fmt(superAmt/d)});
   rows.push({c:'total', l:'Net take-home', v:fmt(net/d)});
+
   document.getElementById('bdown').innerHTML = rows.map(function(r){
     return '<div class="brow '+r.c+'"><span class="brow-lbl">'+r.l+'</span><span class="brow-val">'+r.v+'</span></div>';
   }).join('');
 
   // Period cards
-  document.getElementById('p-w').textContent=fmt(net/52);
-  document.getElementById('p-wg').textContent='gross '+fmt(annual/52);
-  document.getElementById('p-f').textContent=fmt(net/26);
-  document.getElementById('p-fg').textContent='gross '+fmt(annual/26);
-  document.getElementById('p-m').textContent=fmt(net/12);
-  document.getElementById('p-mg').textContent='gross '+fmt(annual/12);
+  document.getElementById('p-w').textContent = fmt(net/52);
+  document.getElementById('p-wg').textContent = 'gross ' + fmt(salaryForTax/52);
+  document.getElementById('p-f').textContent = fmt(net/26);
+  document.getElementById('p-fg').textContent = 'gross ' + fmt(salaryForTax/26);
+  document.getElementById('p-m').textContent = fmt(net/12);
+  document.getElementById('p-mg').textContent = 'gross ' + fmt(salaryForTax/12);
 
-  // Highlight active bracket in table
-  var brackets=[[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]];
-  brackets.forEach(function(b,i){
-    var row=document.getElementById('btr-'+i);
-    if(row){ row.classList.toggle('active-row', annual>b[0] && annual<=b[1]); }
+  // Highlight active bracket
+  var btBrackets = [[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]];
+  btBrackets.forEach(function(b,i){
+    var row = document.getElementById('btr-'+i);
+    if (row) row.classList.toggle('active-row', taxable > b[0] && taxable <= b[1]);
   });
 
-  drawDonut(net,tax,med+mls,hecs,sup,annual);
-  drawCashflow(net,tax,med+mls,hecs,sup);
-  drawBracket(annual);
-  drawCompare(annual,net);
+  drawDonut(net, tax, med+mls, hecs, superMode!=='none'?superAmt:0, salaryForTax, superMode);
+  drawCashflow(net, tax, med+mls, hecs, superMode!=='none'?superAmt:0, superMode);
+  drawBracket(taxable, residency, fy);
+  drawCompare(salaryForTax, net);
 }
 
-function drawDonut(net,tax,med,hecs,sup,gross){
+function drawDonut(net,tax,med,hecs,sup,gross,superMode){
   killChart('donut');
-  var ctx=document.getElementById('c-donut').getContext('2d');
-  var data=[net,tax,med]; var lbls=['Take-home','Income tax','Medicare']; var cols=['#C9A84C','#E24B4A','#FB923C'];
+  var ctx = document.getElementById('c-donut').getContext('2d');
+  var data=[net,tax,med], lbls=['Take-home','Income tax','Medicare'], cols=['#C9A84C','#E24B4A','#FB923C'];
   if(hecs>0){data.push(hecs);lbls.push('HECS');cols.push('#378ADD');}
-  data.push(sup);lbls.push('Super');cols.push('#22C55E');
+  if(sup>0){data.push(sup);lbls.push('Super');cols.push('#22C55E');}
   charts.donut=new Chart(ctx,{type:'doughnut',data:{labels:lbls,datasets:[{data:data,backgroundColor:cols,borderWidth:2,borderColor:'#fff',hoverOffset:6}]},
     options:{responsive:true,cutout:'64%',plugins:{legend:{position:'bottom',labels:{font:{family:'Outfit',size:10},padding:8,boxWidth:9}},
     tooltip:{callbacks:{label:function(c){return' '+c.label+': '+fmt(c.raw);}}}},animation:{duration:500}}});
 }
 
-function drawCashflow(net,tax,med,hecs,sup){
+function drawCashflow(net,tax,med,hecs,sup,superMode){
   killChart('cashflow');
   var ctx=document.getElementById('c-cashflow').getContext('2d');
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  charts.cashflow=new Chart(ctx,{type:'bar',data:{labels:months,datasets:[
+  var ds=[
     {label:'Take-home',data:months.map(function(){return Math.round(net/12);}),backgroundColor:'rgba(201,168,76,0.85)',borderRadius:3},
-    {label:'Tax & levies',data:months.map(function(){return Math.round((tax+med+hecs)/12);}),backgroundColor:'rgba(226,75,74,0.7)',borderRadius:3},
-    {label:'Super',data:months.map(function(){return Math.round(sup/12);}),backgroundColor:'rgba(34,197,94,0.65)',borderRadius:3}
-  ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},
+    {label:'Tax & levies',data:months.map(function(){return Math.round((tax+med+hecs)/12);}),backgroundColor:'rgba(226,75,74,0.7)',borderRadius:3}
+  ];
+  if(sup>0) ds.push({label:'Super',data:months.map(function(){return Math.round(sup/12);}),backgroundColor:'rgba(34,197,94,0.65)',borderRadius:3});
+  charts.cashflow=new Chart(ctx,{type:'bar',data:{labels:months,datasets:ds},
+    options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},
     tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
     scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},
     y:{stacked:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
 }
 
-function drawBracket(annual){
+function drawBracket(taxable, residency, fy){
   killChart('bracket');
   var ctx=document.getElementById('c-bracket').getContext('2d');
-  var bs=[{l:'$0\u2013$18.2k (0%)',from:0,to:18200},{l:'$18.2k\u2013$45k (19%)',from:18200,to:45000},{l:'$45k\u2013$120k (32.5%)',from:45000,to:120000},{l:'$120k\u2013$180k (37%)',from:120000,to:180000},{l:'$180k+ (45%)',from:180000,to:300000}];
-  var data=bs.map(function(b){ if(annual<=b.from) return 0; return Math.round((Math.min(annual,b.to)-b.from)/1000); });
-  var cols=bs.map(function(b,i){ if(annual<=b.from) return 'rgba(201,168,76,0.1)'; if(annual>b.from&&annual<=b.to) return '#1C2B3A'; return '#C9A84C'; });
+  var bs=[
+    {l:'$0-$18.2k (0%)',from:0,to:18200},
+    {l:'$18.2k-$45k (19%)',from:18200,to:45000},
+    {l:'$45k-$120k (32.5%)',from:45000,to:120000},
+    {l:'$120k-$180k (37%)',from:120000,to:180000},
+    {l:'$180k+ (45%)',from:180000,to:300000}
+  ];
+  if(residency==='foreign'){bs[0]={l:'$0-$120k (32.5%)',from:0,to:120000};bs.splice(1,1);}
+  var data=bs.map(function(b){ if(taxable<=b.from) return 0; return Math.round((Math.min(taxable,b.to)-b.from)/1000); });
+  var cols=bs.map(function(b){ if(taxable<=b.from) return 'rgba(201,168,76,0.1)'; if(taxable>b.from&&taxable<=b.to) return '#1C2B3A'; return '#C9A84C'; });
   charts.bracket=new Chart(ctx,{type:'bar',data:{labels:bs.map(function(b){return b.l;}),datasets:[{label:'Income in bracket ($000s)',data:data,backgroundColor:cols,borderRadius:6}]},
     options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return' $'+c.raw+'k in this bracket';}}}},
     scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+v+'k';}}},
     y:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}}},animation:{duration:500}}});
 }
 
-function drawCompare(annual,net){
+function drawCompare(gross,net){
   killChart('compare');
   var ctx=document.getElementById('c-compare').getContext('2d');
-  var bm=[{l:'Nat. median',g:67600,n:55200},{l:'Skilled worker',g:90000,n:70300},{l:'Melb. median',g:78000,n:62400},{l:'You',g:annual,n:net}];
-  var isYou=function(i){return i===3;};
+  var bm=[{l:'Nat. median',g:67600,n:55200},{l:'Skilled worker',g:90000,n:70300},{l:'Melb. median',g:78000,n:62400},{l:'You',g:gross,n:net}];
   charts.compare=new Chart(ctx,{type:'bar',data:{labels:bm.map(function(b){return b.l;}),datasets:[
-    {label:'Gross',data:bm.map(function(b){return Math.round(b.g);}),backgroundColor:bm.map(function(b,i){return isYou(i)?'rgba(201,168,76,0.25)':'rgba(28,43,58,0.1)';}),borderColor:bm.map(function(b,i){return isYou(i)?'rgba(201,168,76,0.5)':'rgba(28,43,58,0.18)';}),borderWidth:1.5,borderRadius:5},
-    {label:'Net take-home',data:bm.map(function(b){return Math.round(b.n);}),backgroundColor:bm.map(function(b,i){return isYou(i)?'#C9A84C':'rgba(28,43,58,0.5)';}),borderRadius:5}
+    {label:'Gross',data:bm.map(function(b){return Math.round(b.g);}),backgroundColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.25)':'rgba(28,43,58,0.1)';}),borderColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.5)':'rgba(28,43,58,0.18)';}),borderWidth:1.5,borderRadius:5},
+    {label:'Net take-home',data:bm.map(function(b){return Math.round(b.n);}),backgroundColor:bm.map(function(b,i){return i===3?'#C9A84C':'rgba(28,43,58,0.5)';}),borderRadius:5}
   ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
     scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
 }
