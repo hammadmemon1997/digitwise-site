@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-AU" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Contractor vs Employee Calculator Australia | True Cost Comparison | Digitwise</title>
+<meta name="description" content="Compare contractor vs employee in Australia. Calculate the true cost difference including tax, super, leave, insurance, and take-home pay. Free tool by Digitwise Consulting.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/contractor-calculator">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--card:#fff;--page:#F8F5EE;--green:#22C55E;--red:#E24B4A;--blue:#378ADD;}
+[data-theme=dark]{--navy:#0F1C28;--cream:#1A2535;--white:#E8EDF2;--text:#D4DCE5;--muted:#7A8FA0;--border:#2A3D52;--card:#162230;--page:#0F1C28;}
+body{font-family:'Outfit',sans-serif;background:var(--page);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,0.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-consulting{color:rgba(255,255,255,0.75)!important;font-size:14px!important;font-weight:500!important;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.hero{background:var(--navy);padding:52px 60px 44px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,44px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:10px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:15px;color:rgba(255,255,255,0.5);max-width:560px;}
+.page-wrap{max-width:1180px;margin:0 auto;padding:32px 60px 80px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.card.employee{border-top:3px solid var(--blue);}
+.card.contractor{border-top:3px solid var(--gold);}
+.card-hd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.card-hd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.card-hd-icon.emp{background:rgba(55,138,221,0.1);}
+.card-hd-icon.con{background:rgba(201,168,76,0.1);}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);}
+.card-hd p{font-size:11px;color:var(--muted);}
+.card-bd{padding:18px 22px;}
+.field{margin-bottom:13px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:4px;}
+.field input,.field select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--card);outline:none;transition:border-color .2s;}
+.field input.has-pre{padding-left:26px;}
+.field input:focus,.field select:focus{border-color:var(--gold);}
+.input-wrap{position:relative;}
+.input-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--muted);}
+.divider{height:1px;background:var(--border);margin:6px 0 12px;}
+.sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:8px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px;}
+.field-row .field{margin-bottom:0;}
+.calc-btn{width:100%;padding:13px;background:var(--gold);color:var(--navy);border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:6px;}
+.calc-btn:hover{background:#D4B060;}
+/* Results */
+.results-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.winner-banner{background:var(--navy);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;}
+.winner-text strong{display:block;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:3px;}
+.winner-text span{font-size:13px;color:rgba(255,255,255,.45);}
+.winner-badge{background:var(--gold);color:var(--navy);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;}
+.compare-table{padding:20px 28px;}
+.ct-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;padding:10px 0;border-bottom:1px solid var(--border);align-items:center;}
+.ct-row:last-child{border-bottom:none;}
+.ct-row.hd{background:none;padding-bottom:6px;}
+.ct-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+.ct-label{font-size:13px;color:var(--text);}
+.ct-val{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;text-align:right;}
+.ct-val.emp{color:var(--blue);}
+.ct-val.con{color:var(--gold);}
+.ct-val.win{color:var(--green);}
+.ct-val.lose{color:var(--red);}
+.chart-sec{padding:20px 28px;border-top:1px solid var(--border);}
+.placeholder{text-align:center;padding:64px;color:var(--muted);}
+.placeholder h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.placeholder p{font-size:13px;line-height:1.7;max-width:280px;margin:0 auto;}
+footer{background:var(--navy);padding:32px 60px;}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:20px;}
+.footer-links a:hover{color:var(--gold);}
+@media(max-width:900px){.compare-grid{grid-template-columns:1fr;}.page-wrap{padding:20px 20px 60px;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:20px;padding-right:20px;}.ct-row{grid-template-columns:1fr 1fr;}.ct-hd:first-child,.ct-val:first-child{display:none;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 22 22" fill="none" width="22" height="22"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+    <span class="logo-name">Digit<span>wise</span><span class="logo-consulting"> Consulting</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+</nav>
+<div class="hero">
+  <h1>Contractor <em>vs Employee</em><br>True Cost Comparison</h1>
+  <p>Enter both scenarios below to see the real financial difference — tax, super, leave entitlements, insurance and net take-home pay.</p>
+</div>
+<div class="page-wrap">
+  <div class="compare-grid">
+    <!-- EMPLOYEE -->
+    <div class="card employee">
+      <div class="card-hd"><div class="card-hd-icon emp">💼</div><div><h2>Employee</h2><p>PAYG — employer pays your super &amp; entitlements</p></div></div>
+      <div class="card-bd">
+        <div class="field"><label>Annual salary (A$)</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="e-sal" class="has-pre" placeholder="90,000" oninput="compare()"></div></div>
+        <div class="field-row">
+          <div class="field"><label>Super rate (%)</label><input type="number" id="e-sg" placeholder="11.5" value="11.5" oninput="compare()"></div>
+          <div class="field"><label>Annual leave (days)</label><input type="number" id="e-leave" placeholder="20" value="20" oninput="compare()"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Sick leave (days)</label><input type="number" id="e-sick" placeholder="10" value="10" oninput="compare()"></div>
+          <div class="field"><label>Public holidays (days)</label><input type="number" id="e-pub" placeholder="10" value="10" oninput="compare()"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="sec-lbl">Benefits ($/yr)</div>
+        <div class="field-row">
+          <div class="field"><label>Training budget</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="e-train" class="has-pre" placeholder="2000" value="2000" oninput="compare()"></div></div>
+          <div class="field"><label>Other benefits</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="e-other" class="has-pre" placeholder="0" oninput="compare()"></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- CONTRACTOR -->
+    <div class="card contractor">
+      <div class="card-hd"><div class="card-hd-icon con">🔧</div><div><h2>Contractor</h2><p>ABN — you're responsible for tax, super &amp; insurance</p></div></div>
+      <div class="card-bd">
+        <div class="field"><label>Daily rate (A$)</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="c-day" class="has-pre" placeholder="700" oninput="compare()"></div></div>
+        <div class="field-row">
+          <div class="field"><label>Billable days/week</label><input type="number" id="c-days" placeholder="4.5" value="4.5" step="0.5" oninput="compare()"></div>
+          <div class="field"><label>Weeks/year billed</label><input type="number" id="c-weeks" placeholder="46" value="46" oninput="compare()"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="sec-lbl">Your annual costs (A$)</div>
+        <div class="field-row">
+          <div class="field"><label>Public liability ins.</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="c-ins" class="has-pre" placeholder="1500" value="1500" oninput="compare()"></div></div>
+          <div class="field"><label>Accountant fees</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="c-acct" class="has-pre" placeholder="1500" value="1500" oninput="compare()"></div></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Own super contrib.</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="c-super" class="has-pre" placeholder="10000" value="10000" oninput="compare()"></div></div>
+          <div class="field"><label>Other expenses</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="c-exp" class="has-pre" placeholder="2000" value="2000" oninput="compare()"></div></div>
+        </div>
+        <button class="calc-btn" onclick="compare()">Compare both scenarios →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-card">
+    <div id="cmp-placeholder" class="placeholder"><h3>Enter both scenarios above</h3><p>Fill in the employee salary and contractor daily rate to see a full side-by-side comparison of true take-home pay.</p></div>
+    <div id="cmp-content" style="display:none;">
+      <div class="winner-banner"><div class="winner-text"><strong id="win-title">Contractor wins</strong><span id="win-sub">by $0/year</span></div><div class="winner-badge" id="win-badge">🏆 Better deal</div></div>
+      <div class="compare-table">
+        <div class="ct-row hd"><div class="ct-hd">Item</div><div class="ct-hd" style="text-align:right;color:var(--blue);">Employee</div><div class="ct-hd" style="text-align:right;color:var(--gold);">Contractor</div></div>
+        <div id="cmp-rows"></div>
+      </div>
+      <div class="chart-sec"><canvas id="c-compare" height="180"></canvas></div>
+    </div>
+  </div>
+</div>
+<footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/pay-calculator">Pay Calculator</a><a href="/#tools">Tools</a></div></div></footer>
+<script>
+var cmpChart=null;
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
+function calcTax(inc){
+  var tax=0;
+  if(inc>18200) tax+=(Math.min(inc,45000)-18200)*0.16;
+  if(inc>45000) tax+=(Math.min(inc,135000)-45000)*0.30;
+  if(inc>135000) tax+=(Math.min(inc,190000)-135000)*0.37;
+  if(inc>190000) tax+=(inc-190000)*0.45;
+  var lito=inc<=37500?700:inc<=45000?700-(inc-37500)*0.05:inc<=66667?325-(inc-45000)*0.015:0;
+  var med=inc<=27222?0:inc<34027?(inc-27222)*0.1:inc*0.02;
+  return Math.max(0,tax-lito)+med;
+}
+function compare(){
+  var eSal=parseFloat(document.getElementById('e-sal').value)||0;
+  var cDay=parseFloat(document.getElementById('c-day').value)||0;
+  if(!eSal||!cDay){document.getElementById('cmp-placeholder').style.display='block';document.getElementById('cmp-content').style.display='none';return;}
+  var eSG=parseFloat(document.getElementById('e-sg').value)/100||0.115;
+  var eLeave=parseInt(document.getElementById('e-leave').value)||20;
+  var eSick=parseInt(document.getElementById('e-sick').value)||10;
+  var ePub=parseInt(document.getElementById('e-pub').value)||10;
+  var eTrain=parseFloat(document.getElementById('e-train').value)||0;
+  var eOther=parseFloat(document.getElementById('e-other').value)||0;
+  var cDays=parseFloat(document.getElementById('c-days').value)||4.5;
+  var cWeeks=parseInt(document.getElementById('c-weeks').value)||46;
+  var cIns=parseFloat(document.getElementById('c-ins').value)||0;
+  var cAcct=parseFloat(document.getElementById('c-acct').value)||0;
+  var cSuper=parseFloat(document.getElementById('c-super').value)||0;
+  var cExp=parseFloat(document.getElementById('c-exp').value)||0;
+  // Employee calcs
+  var eSuper=eSal*eSG;
+  var eLeaveVal=(eLeave+eSick)*eSal/260;
+  var eTotalPkg=eSal+eSuper+eLeaveVal+eTrain+eOther;
+  var eTax=calcTax(eSal);
+  var eNet=eSal-eTax;
+  // Contractor calcs
+  var cRevenue=cDay*cDays*cWeeks;
+  var cGST=cRevenue*0.1;
+  var cTotalCosts=cIns+cAcct+cSuper+cExp;
+  var cTaxableIncome=cRevenue-cTotalCosts;
+  var cTax=calcTax(cTaxableIncome);
+  var cNet=cTaxableIncome-cTax+cSuper; // super is own money, just redirected
+  var cNetActual=cTaxableIncome-cTax;
+  // Comparison
+  var diff=cNetActual-eNet;
+  document.getElementById('cmp-placeholder').style.display='none';
+  document.getElementById('cmp-content').style.display='block';
+  var empWins=eNet>cNetActual;
+  document.getElementById('win-title').textContent=(empWins?'Employee':'Contractor')+' gives better net pay';
+  document.getElementById('win-sub').textContent='by '+fmt(Math.abs(diff))+'/year ('+fmt(Math.abs(diff)/12)+'/month)';
+  document.getElementById('win-badge').textContent=(empWins?'💼 Employee wins':'🔧 Contractor wins');
+  var rows=[
+    {l:'Gross / Revenue',e:eSal,c:cRevenue},
+    {l:'Income tax + Medicare',e:-eTax,c:-cTax},
+    {l:'Superannuation',e:eSuper,c:-cSuper+' (own contrib)'},
+    {l:'Leave entitlements value',e:eLeaveVal,c:0,note:'Contractor has no paid leave'},
+    {l:'Business costs',e:0,c:-cTotalCosts},
+    {l:'Training &amp; benefits',e:eTrain+eOther,c:0},
+    {l:'Net take-home',e:eNet,c:cNetActual,bold:true},
+    {l:'Total package value',e:eTotalPkg,c:cRevenue-cTotalCosts,sub:true}
+  ];
+  document.getElementById('cmp-rows').innerHTML=rows.map(function(r){
+    var eV=typeof r.e==='number'?fmt(Math.abs(r.e))+(r.e<0?' (deduction)':''):r.e;
+    var cV=typeof r.c==='number'?fmt(Math.abs(r.c))+(r.c<0?' (deduction)':''):r.c;
+    var eClass=(r.bold?(eNet>cNetActual?'ct-val emp win':'ct-val emp'):'ct-val emp');
+    var cClass=(r.bold?(cNetActual>=eNet?'ct-val con win':'ct-val con'):'ct-val con');
+    return '<div class="ct-row'+(r.bold?' '+(eNet>cNetActual?'':''):'')+'"><div class="ct-label'+(r.bold?' ':'')+'">'+r.l+(r.note?'<br><span style="font-size:10px;color:var(--muted)">'+r.note+'</span>':'')+'</div><div class="'+eClass+'">'+eV+'</div><div class="'+cClass+'">'+cV+'</div></div>';
+  }).join('');
+  if(cmpChart){try{cmpChart.destroy();}catch(e){}}
+  var ctx=document.getElementById('c-compare').getContext('2d');
+  cmpChart=new Chart(ctx,{type:'bar',data:{labels:['Revenue/Salary','Tax paid','Super','Net take-home'],datasets:[{label:'Employee',data:[eSal,eTax,eSuper,eNet],backgroundColor:'rgba(55,138,221,0.75)',borderRadius:5},{label:'Contractor',data:[cRevenue,cTax,cSuper,cNetActual],backgroundColor:'rgba(201,168,76,0.75)',borderRadius:5}]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+}
+</script>
+</body></html>
