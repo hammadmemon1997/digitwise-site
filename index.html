@@ -178,43 +178,45 @@
 // ── BAS DEADLINE COUNTDOWN ──
 (function() {
   function getNextBASDeadline() {
-    const now = new Date();
-    const y = now.getFullYear();
-    // AU BAS quarterly deadlines (28th of month after quarter end, or next business day)
-    const deadlines = [
-      { date: new Date(y, 1, 28), label: 'Q2 (Oct–Dec)' },   // 28 Feb
-      { date: new Date(y, 3, 28), label: 'Q3 (Jan–Mar)' },   // 28 Apr
-      { date: new Date(y, 6, 28), label: 'Q4 (Apr–Jun)' },   // 28 Jul
-      { date: new Date(y, 9, 28), label: 'Q1 (Jul–Sep)' },   // 28 Oct
+    var now = new Date();
+    var y = now.getFullYear();
+    var deadlines = [
+      { date: new Date(y, 1, 28), label: 'Q2 (Oct–Dec)' },
+      { date: new Date(y, 3, 28), label: 'Q3 (Jan–Mar)' },
+      { date: new Date(y, 6, 28), label: 'Q4 (Apr–Jun)' },
+      { date: new Date(y, 9, 28), label: 'Q1 (Jul–Sep)' },
       { date: new Date(y + 1, 1, 28), label: 'Q2 (Oct–Dec)' },
     ];
-    for (const d of deadlines) {
-      if (d.date > now) return d;
+    for (var i = 0; i < deadlines.length; i++) {
+      if (deadlines[i].date > now) return deadlines[i];
     }
     return deadlines[deadlines.length - 1];
   }
 
   function updateBAS() {
-    const daysEl = document.getElementById('bas-days');
-    const hrsEl  = document.getElementById('bas-hrs');
-    const minEl  = document.getElementById('bas-min');
-    const qtrEl  = document.getElementById('bas-quarter');
+    var daysEl = document.getElementById('bas-days');
+    var hrsEl  = document.getElementById('bas-hrs');
+    var minEl  = document.getElementById('bas-min');
+    var secEl  = document.getElementById('bas-sec');
+    var qtrEl  = document.getElementById('bas-quarter');
     if (!daysEl || !hrsEl || !minEl) return;
-    const target = getNextBASDeadline();
-    const diff = target.date - new Date();
-    if (diff <= 0) return;
-    const days = Math.floor(diff / 86400000);
-    const hrs  = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const pad  = n => String(n).padStart(2, '0');
+    var target = getNextBASDeadline();
+    var diff = target.date - new Date();
+    if (diff <= 0) { daysEl.textContent = '0'; hrsEl.textContent = '00'; minEl.textContent = '00'; if (secEl) secEl.textContent = '00'; return; }
+    var days = Math.floor(diff / 86400000);
+    var hrs  = Math.floor((diff % 86400000) / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    var pad  = function(n) { return String(n).padStart(2, '0'); };
     daysEl.textContent = days;
     hrsEl.textContent  = pad(hrs);
     minEl.textContent  = pad(mins);
+    if (secEl) secEl.textContent = pad(secs);
     if (qtrEl) qtrEl.textContent = target.label;
   }
 
   updateBAS();
-  setInterval(updateBAS, 10000);
+  setInterval(updateBAS, 1000);
 })();
 
 // ── FORMSPREE AJAX SUBMIT ──
@@ -2798,6 +2800,8 @@ footer {
             <div class="bas-unit"><span class="bas-num" id="bas-hrs">--</span><span class="bas-sub">hrs</span></div>
             <span class="bas-colon">:</span>
             <div class="bas-unit"><span class="bas-num" id="bas-min">--</span><span class="bas-sub">min</span></div>
+            <span class="bas-colon">:</span>
+            <div class="bas-unit"><span class="bas-num" id="bas-sec">--</span><span class="bas-sub">sec</span></div>
             <span class="bas-quarter" id="bas-quarter"></span>
           </div>
         </div>
