@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Australian Pay Calculator 2024-25 | Digitwise Consulting</title>
+<meta name="description" content="Free Australian income tax and take-home pay calculator for 2024-25. Calculate your net salary, tax, Medicare levy and superannuation instantly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B3A;--navy-mid:#243447;--navy-light:#2E4158;
+  --gold:#C9A84C;--gold-light:#E8D08A;--gold-ghost:#FBF6E8;
+  --cream:#F8F5EE;--white:#fff;
+  --text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{background:var(--navy);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.2);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-back{font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:var(--gold);}
+
+/* HERO */
+.hero{background:var(--navy);padding:52px 32px 40px;text-align:center;}
+.hero-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:12px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:var(--white);line-height:1.1;letter-spacing:-0.02em;margin-bottom:12px;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:16px;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto 24px;}
+.fy-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--gold-light);}
+
+/* MAIN LAYOUT */
+.main{max-width:1100px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+
+/* CARD */
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.card-header{padding:22px 28px 0;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:22px;}
+.card-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.card-sub{font-size:13px;color:var(--muted);}
+.card-body{padding:0 28px 28px;}
+
+/* INPUTS */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);margin-bottom:6px;}
+.input-wrap{position:relative;}
+.input-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;font-weight:600;color:var(--muted);}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;color:var(--navy);background:var(--white);outline:none;transition:border-color 0.2s;}
+.field input.has-prefix{padding-left:30px;}
+.field input:focus,.field select:focus{border-color:var(--gold);}
+.field select{-webkit-appearance:none;cursor:pointer;}
+
+/* TOGGLE ROW */
+.toggle-row{display:flex;background:#F0EDE6;border-radius:10px;padding:3px;margin-bottom:18px;}
+.tog{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.tog.on{background:var(--white);color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+
+/* SLIDER */
+.slider-wrap{position:relative;margin-top:4px;}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--white);box-shadow:0 2px 8px rgba(201,168,76,0.4);}
+.slider-val{text-align:right;font-size:13px;font-weight:600;color:var(--muted);margin-top:6px;}
+
+/* CALCULATE BUTTON */
+.calc-btn{width:100%;padding:15px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:all 0.2s;letter-spacing:0.01em;box-shadow:0 6px 24px rgba(201,168,76,0.3);}
+.calc-btn:hover{background:#D4B060;transform:translateY(-1px);}
+.calc-btn:active{transform:translateY(0);}
+
+/* RESULTS */
+.results-placeholder{text-align:center;padding:48px 20px;color:var(--muted);}
+.results-placeholder svg{width:52px;height:52px;margin:0 auto 14px;display:block;opacity:0.3;}
+.results-placeholder p{font-size:14px;}
+
+.result-headline{padding:22px 28px;border-bottom:1px solid var(--border);background:var(--navy);position:relative;overflow:hidden;}
+.result-headline::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);}
+.takehome-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.45);margin-bottom:4px;}
+.takehome-amount{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:700;color:var(--gold);letter-spacing:-0.03em;line-height:1;}
+.takehome-period{font-size:14px;color:rgba(255,255,255,0.45);margin-top:4px;}
+
+.result-rows{padding:20px 28px;display:flex;flex-direction:column;gap:10px;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:10px;background:var(--cream);}
+.rrow.negative{background:#FEF2F2;}
+.rrow.super{background:#EFF7F0;}
+.rrow.total{background:var(--navy);margin-top:4px;}
+.rrow-label{font-size:13px;font-weight:500;color:var(--muted);}
+.rrow.total .rrow-label{color:rgba(255,255,255,0.55);}
+.rrow-val{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);}
+.rrow.negative .rrow-val{color:#DC2626;}
+.rrow.super .rrow-val{color:#16A34A;}
+.rrow.total .rrow-val{color:var(--gold);}
+
+/* BREAKDOWN CHART */
+.chart-section{padding:20px 28px;border-top:1px solid var(--border);}
+.chart-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);margin-bottom:12px;}
+.bar-chart{display:flex;flex-direction:column;gap:8px;}
+.bar-row{display:grid;grid-template-columns:120px 1fr 80px;align-items:center;gap:10px;}
+.bar-label{font-size:12px;font-weight:500;color:var(--muted);text-align:right;}
+.bar-track{height:10px;background:#F0EDE6;border-radius:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.bar-pct{font-size:12px;font-weight:700;color:var(--muted);}
+
+/* COMPARISON TABLE */
+.compare-section{padding:20px 28px;border-top:1px solid var(--border);}
+.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+.compare-card{background:var(--cream);border-radius:12px;padding:14px;text-align:center;}
+.compare-period{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;}
+.compare-amount{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);}
+.compare-amount.gold{color:var(--gold);}
+
+/* CTA */
+.cta-strip{margin:28px 24px 0;background:var(--navy);border-radius:16px;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;}
+.cta-strip-text strong{display:block;font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:4px;}
+.cta-strip-text span{font-size:13px;color:rgba(255,255,255,0.45);}
+.cta-strip-btn{background:var(--gold);color:var(--navy);padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;transition:all 0.2s;border:none;cursor:pointer;flex-shrink:0;}
+.cta-strip-btn:hover{background:#D4B060;}
+
+/* INFO CARDS */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;}
+.info-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;}
+.info-card-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.info-card p{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* DISCLAIMER */
+.disclaimer{max-width:1100px;margin:0 auto;padding:0 24px 40px;font-size:12px;color:var(--muted);line-height:1.7;}
+.disclaimer strong{color:var(--navy);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .main{grid-template-columns:1fr;padding:24px 16px 60px;}
+  .hero{padding:36px 20px 28px;}
+  .cta-strip{flex-direction:column;margin:20px 16px 0;text-align:center;}
+  .info-grid{grid-template-columns:1fr;}
+  .compare-grid{grid-template-columns:repeat(3,1fr);}
+  .bar-row{grid-template-columns:90px 1fr 60px;}
+}
+@media(max-width:480px){
+  .bar-row{grid-template-columns:80px 1fr 48px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://digitwise-site-orcin.vercel.app" class="nav-logo">Digit<span>wise</span></a>
+  <a href="https://digitwise-site-orcin.vercel.app" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Digitwise
+  </a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Free Tool — No signup required</div>
+  <h1>Australian <em>Pay Calculator</em></h1>
+  <p class="hero-sub">Calculate your take-home pay, income tax, Medicare levy and superannuation for 2024–25.</p>
+  <span class="fy-badge">✦ FY 2024–25 tax rates</span>
+</div>
+
+<div class="main">
+  <!-- INPUT CARD -->
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Your income details</div>
+        <div class="card-sub">Enter your salary or hourly rate below</div>
+      </div>
+      <div class="card-body">
+
+        <div class="toggle-row" id="income-type-toggle">
+          <button class="tog on" onclick="setIncomeType('salary',this)">Annual Salary</button>
+          <button class="tog" onclick="setIncomeType('hourly',this)">Hourly Rate</button>
+        </div>
+
+        <div class="field" id="salary-field">
+          <label>Annual Salary (A$)</label>
+          <div class="input-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="salary-input" class="has-prefix" placeholder="80000" min="0" max="10000000" oninput="calculate()">
+          </div>
+        </div>
+
+        <div class="field" id="hourly-field" style="display:none;">
+          <label>Hourly Rate (A$)</label>
+          <div class="input-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="hourly-input" class="has-prefix" placeholder="45" min="0" max="10000" oninput="calculate()">
+          </div>
+        </div>
+
+        <div class="field" id="hours-field" style="display:none;">
+          <label>Hours per week</label>
+          <div class="slider-wrap">
+            <input type="range" id="hours-slider" min="1" max="80" value="38" step="1" oninput="updateHours();calculate()">
+          </div>
+          <div class="slider-val"><span id="hours-display">38</span> hrs/week</div>
+        </div>
+
+        <div class="field">
+          <label>Pay frequency</label>
+          <select id="pay-freq" onchange="calculate()">
+            <option value="weekly">Weekly</option>
+            <option value="fortnightly">Fortnightly</option>
+            <option value="monthly">Monthly</option>
+            <option value="annually" selected>Annually</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Tax-free threshold</label>
+          <select id="tax-free" onchange="calculate()">
+            <option value="yes" selected>Yes — claiming (resident)</option>
+            <option value="no">No — not claiming</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Include Medicare Levy Surcharge?</label>
+          <select id="mls" onchange="calculate()">
+            <option value="no" selected>No — I have private hospital cover</option>
+            <option value="yes">Yes — no private hospital cover</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>HELP / HECS debt?</label>
+          <select id="hecs" onchange="calculate()">
+            <option value="no" selected>No</option>
+            <option value="yes">Yes — repayments apply</option>
+          </select>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Calculate Take-Home Pay →</button>
+      </div>
+    </div>
+
+    <!-- INFO CARDS -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-title">📅 FY 2024–25 Rates</div>
+        <p>Tax-free threshold $18,200. Rates: 19% to $45k, 32.5% to $120k, 37% to $180k, 45% above $180k.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">🏥 Medicare Levy</div>
+        <p>2% of taxable income. Surcharge of 1–1.5% applies if you earn over $93,000 with no private hospital cover.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">🏦 Superannuation</div>
+        <p>Employer must contribute 11.5% of your ordinary earnings to super in FY2024–25. Rises to 12% in FY2025–26.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">🎓 HELP / HECS</div>
+        <p>Repayments start at $54,435 income. Rate scales from 1% to 10% based on income level.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS CARD -->
+  <div class="card" id="results-card">
+    <div id="results-placeholder" class="results-placeholder">
+      <svg viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="36" rx="6" stroke="currentColor" stroke-width="2"/><path d="M16 26h20M26 16v20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <p>Enter your salary above<br>to see your take-home pay</p>
+    </div>
+
+    <div id="results-content" style="display:none;">
+      <!-- Take-home headline -->
+      <div class="result-headline">
+        <div class="takehome-label">Take-home pay</div>
+        <div class="takehome-amount" id="res-takehome">$0</div>
+        <div class="takehome-period" id="res-period">per year</div>
+      </div>
+
+      <!-- Breakdown rows -->
+      <div class="result-rows">
+        <div class="rrow">
+          <span class="rrow-label">Gross income</span>
+          <span class="rrow-val" id="res-gross">$0</span>
+        </div>
+        <div class="rrow negative">
+          <span class="rrow-label">Income tax</span>
+          <span class="rrow-val" id="res-tax">–$0</span>
+        </div>
+        <div class="rrow negative">
+          <span class="rrow-label">Medicare levy (2%)</span>
+          <span class="rrow-val" id="res-medicare">–$0</span>
+        </div>
+        <div class="rrow negative" id="mls-row" style="display:none;">
+          <span class="rrow-label">Medicare levy surcharge</span>
+          <span class="rrow-val" id="res-mls">–$0</span>
+        </div>
+        <div class="rrow negative" id="hecs-row" style="display:none;">
+          <span class="rrow-label">HELP / HECS repayment</span>
+          <span class="rrow-val" id="res-hecs">–$0</span>
+        </div>
+        <div class="rrow super">
+          <span class="rrow-label">Super (11.5% — separate)</span>
+          <span class="rrow-val" id="res-super">$0</span>
+        </div>
+        <div class="rrow total">
+          <span class="rrow-label">Net take-home</span>
+          <span class="rrow-val" id="res-net">$0</span>
+        </div>
+      </div>
+
+      <!-- Bar chart -->
+      <div class="chart-section">
+        <div class="chart-title">Where your money goes</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-label">Take-home</div>
+            <div class="bar-track"><div class="bar-fill" id="bar-net" style="width:0%;background:#C9A84C;"></div></div>
+            <div class="bar-pct" id="pct-net">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Income tax</div>
+            <div class="bar-track"><div class="bar-fill" id="bar-tax" style="width:0%;background:#E24B4A;"></div></div>
+            <div class="bar-pct" id="pct-tax">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Medicare</div>
+            <div class="bar-track"><div class="bar-fill" id="bar-med" style="width:0%;background:#FB923C;"></div></div>
+            <div class="bar-pct" id="pct-med">0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Super</div>
+            <div class="bar-track"><div class="bar-fill" id="bar-sup" style="width:0%;background:#22C55E;"></div></div>
+            <div class="bar-pct" id="pct-sup">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay period comparison -->
+      <div class="compare-section">
+        <div class="chart-title">Pay period breakdown</div>
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="compare-period">Weekly</div>
+            <div class="compare-amount gold" id="comp-weekly">$0</div>
+          </div>
+          <div class="compare-card">
+            <div class="compare-period">Fortnightly</div>
+            <div class="compare-amount gold" id="comp-fortnightly">$0</div>
+          </div>
+          <div class="compare-card">
+            <div class="compare-period">Monthly</div>
+            <div class="compare-amount gold" id="comp-monthly">$0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <div class="cta-strip-text">
+    <strong>Want accurate payroll calculations for your business?</strong>
+    <span>Digitwise handles payroll, super compliance and ATO reporting — end to end.</span>
+  </div>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="cta-strip-btn">Book a Free Call →</a>
+</div>
+
+<div class="disclaimer" style="margin-top:28px;">
+  <strong>Disclaimer:</strong> This calculator provides estimates based on ATO 2024–25 tax rates and is intended for general guidance only. It does not constitute financial or tax advice. LMITO has ended and is not applied. Results do not account for salary packaging, investment income, rental income, capital gains, or other deductions. For accurate tax advice tailored to your situation, consult a registered tax agent.
+  <br><br>
+  Built by <a href="https://digitwise-site-orcin.vercel.app" style="color:var(--gold);font-weight:600;">Digitwise Consulting</a> — accounting and bookkeeping for AU & US small businesses.
+</div>
+
+<script>
+var incomeType = 'salary';
+
+function setIncomeType(type, btn) {
+  incomeType = type;
+  document.querySelectorAll('#income-type-toggle .tog').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById('salary-field').style.display = type === 'salary' ? 'block' : 'none';
+  document.getElementById('hourly-field').style.display = type === 'hourly' ? 'block' : 'none';
+  document.getElementById('hours-field').style.display = type === 'hourly' ? 'block' : 'none';
+  calculate();
+}
+
+function updateHours() {
+  document.getElementById('hours-display').textContent = document.getElementById('hours-slider').value;
+}
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-AU');
+}
+function pct(n) {
+  return Math.round(n) + '%';
+}
+
+function calcTax(income) {
+  if (income <= 18200) return 0;
+  if (income <= 45000) return (income - 18200) * 0.19;
+  if (income <= 120000) return 5092 + (income - 45000) * 0.325;
+  if (income <= 180000) return 29467 + (income - 120000) * 0.37;
+  return 51667 + (income - 180000) * 0.45;
+}
+
+function calcTaxNoThreshold(income) {
+  if (income <= 45000) return income * 0.19;
+  if (income <= 120000) return 8550 + (income - 45000) * 0.325;
+  if (income <= 180000) return 29367.50 + (income - 120000) * 0.37;
+  return 51587.50 + (income - 180000) * 0.45;
+}
+
+function calcHECS(income) {
+  if (income < 54435) return 0;
+  var rates = [
+    [54435,0.01],[62850,0.02],[66621,0.025],[70619,0.03],[74956,0.035],[79447,0.04],[84191,0.045],[89243,0.05],[94598,0.055],[100186,0.06],[106126,0.065],[112478,0.07],[119027,0.075],[126143,0.08],[133832,0.085],[141882,0.09],[150289,0.095],[159406,0.1],[Infinity,0.1]
+  ];
+  for (var i = 0; i < rates.length - 1; i++) {
+    if (income < rates[i+1][0]) return Math.round(income * rates[i][1]);
+  }
+  return Math.round(income * 0.1);
+}
+
+function calculate() {
+  var annual;
+  if (incomeType === 'salary') {
+    annual = parseFloat(document.getElementById('salary-input').value) || 0;
+  } else {
+    var hourly = parseFloat(document.getElementById('hourly-input').value) || 0;
+    var hrs = parseFloat(document.getElementById('hours-slider').value) || 38;
+    annual = hourly * hrs * 52;
+  }
+
+  if (annual <= 0) {
+    document.getElementById('results-placeholder').style.display = 'block';
+    document.getElementById('results-content').style.display = 'none';
+    return;
+  }
+
+  var claimThreshold = document.getElementById('tax-free').value === 'yes';
+  var hasMLS = document.getElementById('mls').value === 'yes';
+  var hasHECS = document.getElementById('hecs').value === 'yes';
+  var freq = document.getElementById('pay-freq').value;
+
+  // Tax
+  var tax = claimThreshold ? calcTax(annual) : calcTaxNoThreshold(annual);
+
+  // Low income tax offset (LITO)
+  var lito = 0;
+  if (annual <= 37500) lito = 700;
+  else if (annual <= 45000) lito = 700 - (annual - 37500) * 0.05;
+  else if (annual <= 66667) lito = 325 - (annual - 45000) * 0.015;
+  tax = Math.max(0, tax - lito);
+
+  // Medicare levy
+  var medicare = 0;
+  if (annual > 26000) medicare = annual * 0.02;
+  else if (annual > 23226) medicare = (annual - 23226) * 0.1;
+
+  // MLS
+  var mlsAmt = 0;
+  if (hasMLS && annual > 93000) mlsAmt = annual * 0.01;
+
+  // HECS
+  var hecsAmt = hasHECS ? calcHECS(annual) : 0;
+
+  // Super
+  var superAmt = annual * 0.115;
+
+  var totalDeductions = tax + medicare + mlsAmt + hecsAmt;
+  var net = annual - totalDeductions;
+
+  // Period divisors
+  var divs = {weekly:52, fortnightly:26, monthly:12, annually:1};
+  var div = divs[freq];
+
+  var periodLabels = {weekly:'per week', fortnightly:'per fortnight', monthly:'per month', annually:'per year'};
+
+  document.getElementById('results-placeholder').style.display = 'none';
+  document.getElementById('results-content').style.display = 'block';
+
+  document.getElementById('res-takehome').textContent = fmt(net / div);
+  document.getElementById('res-period').textContent = periodLabels[freq];
+  document.getElementById('res-gross').textContent = fmt(annual / div);
+  document.getElementById('res-tax').textContent = '-' + fmt(tax / div);
+  document.getElementById('res-medicare').textContent = '-' + fmt(medicare / div);
+  document.getElementById('res-super').textContent = fmt(superAmt / div);
+  document.getElementById('res-net').textContent = fmt(net / div);
+
+  var mlsRow = document.getElementById('mls-row');
+  if (mlsAmt > 0) { mlsRow.style.display='flex'; document.getElementById('res-mls').textContent = '-' + fmt(mlsAmt/div); }
+  else mlsRow.style.display = 'none';
+
+  var hecsRow = document.getElementById('hecs-row');
+  if (hecsAmt > 0) { hecsRow.style.display='flex'; document.getElementById('res-hecs').textContent = '-' + fmt(hecsAmt/div); }
+  else hecsRow.style.display = 'none';
+
+  // Bar chart (as % of gross + super total)
+  var total = annual + superAmt;
+  var netPct  = (net / total * 100);
+  var taxPct  = (tax / total * 100);
+  var medPct  = ((medicare + mlsAmt) / total * 100);
+  var supPct  = (superAmt / total * 100);
+
+  document.getElementById('bar-net').style.width  = netPct + '%';
+  document.getElementById('bar-tax').style.width  = taxPct + '%';
+  document.getElementById('bar-med').style.width  = medPct + '%';
+  document.getElementById('bar-sup').style.width  = supPct + '%';
+  document.getElementById('pct-net').textContent  = pct(netPct);
+  document.getElementById('pct-tax').textContent  = pct(taxPct);
+  document.getElementById('pct-med').textContent  = pct(medPct);
+  document.getElementById('pct-sup').textContent  = pct(supPct);
+
+  // Period comparison
+  document.getElementById('comp-weekly').textContent      = fmt(net / 52);
+  document.getElementById('comp-fortnightly').textContent = fmt(net / 26);
+  document.getElementById('comp-monthly').textContent     = fmt(net / 12);
+}
+</script>
+</body>
+</html>
