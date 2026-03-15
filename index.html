@@ -734,7 +734,7 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 
 /* ── HERO ── */
 .hero {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1584,6 +1584,7 @@ footer {
   nav { padding: 0 28px; }
   .hero::after { clip-path: none; background: transparent; }
   .hero-inner { grid-template-columns: 1fr; }
+  .hero-right-col { display: none; }
   .hero-left-col { padding: 60px 28px 40px; }
   .hero-right-col { padding: 0 28px 60px; background: var(--cream); }
   section { padding: 80px 28px; }
@@ -2324,6 +2325,64 @@ footer {
 
 /* ── MOBILE TOOL TABS SCROLL HINT ── */
 
+
+
+/* ── HERO TOOLS STRIP ── */
+.hero-tools-strip {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hero-tools-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 10px;
+}
+.hero-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.hero-tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.hero-tool-pill:hover {
+  background: rgba(201,168,76,0.15);
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+.hero-tool-pill-all {
+  background: rgba(201,168,76,0.1);
+  border-color: rgba(201,168,76,0.3);
+  color: var(--gold);
+}
+.hero-tool-pill-all:hover {
+  background: rgba(201,168,76,0.25);
+}
+@media (max-width: 768px) {
+  .hero-tools-row {
+    gap: 6px;
+  }
+  .hero-tool-pill {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+}
 
 /* ── MOBILE NAV DRAWER ── */
 .mobile-drawer {
@@ -3080,6 +3139,22 @@ footer {
         <span class="hero-pill">🇺🇸 IRS Compliant</span>
         <span class="hero-pill">⚡ 48hr Response</span>
         <span class="hero-pill">🔒 Fixed Pricing</span>
+      </div>
+
+      <!-- FREE TOOLS STRIP — below trust pills -->
+      <div class="hero-tools-strip">
+        <div class="hero-tools-label">🔧 Free tools for 2025 — no signup required</div>
+        <div class="hero-tools-row">
+          <a href="/tax-checklist"     class="hero-tool-pill">✅ Tax Checklist</a>
+          <a href="/pay-calculator"    class="hero-tool-pill">💰 Pay Calculator</a>
+          <a href="/stage3-calculator" class="hero-tool-pill">📈 2026 Tax Cuts</a>
+          <a href="/audit-risk"        class="hero-tool-pill">🔍 Audit Risk</a>
+          <a href="/budget-planner"    class="hero-tool-pill">📋 Budget Planner</a>
+          <a href="/super-calculator"  class="hero-tool-pill">🏦 Super Tracker</a>
+          <a href="/invoice-generator" class="hero-tool-pill">🧾 Invoice Gen</a>
+          <a href="/negative-gearing"  class="hero-tool-pill">🏠 Neg. Gearing</a>
+          <a href="/tools"             class="hero-tool-pill hero-tool-pill-all">→ All tools</a>
+        </div>
       </div>
     </div>
 
