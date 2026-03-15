@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026 Stage 3 Tax Cut Calculator Australia | How Much Will You Save? | Digitwise</title>
+<meta name="description" content="See exactly how much money you'll save from Australia's 2026 tax cuts. Compare your take-home pay before and after the next round of rate reductions starting 1 July 2026.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/stage3-calculator">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--card:#fff;--page:#F8F5EE;--green:#22C55E;--red:#E24B4A;--blue:#378ADD;}
+body{font-family:'Outfit',sans-serif;background:var(--page);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,0.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-consulting{color:rgba(255,255,255,.75)!important;font-size:14px!important;font-weight:500!important;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.hero{background:var(--navy);padding:52px 60px 44px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,44px);color:#fff;font-weight:700;line-height:1.1;margin-bottom:10px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.65;margin-bottom:16px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:#4ADE80;}
+.hero-timeline{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:18px 22px;min-width:230px;}
+.tl-item{display:flex;align-items:center;gap:12px;padding:6px 0;}
+.tl-item:not(:last-child){border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:6px;}
+.tl-year{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold);}
+.tl-text{font-size:12px;color:rgba(255,255,255,.55);line-height:1.4;}
+.tl-item.current .tl-year{color:rgba(255,255,255,.4);}
+.tl-item.current .tl-text{color:rgba(255,255,255,.3);}
+.wrap{max-width:1100px;margin:0 auto;padding:36px 60px 80px;}
+.input-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:28px 32px;margin-bottom:28px;}
+.input-row{display:grid;grid-template-columns:1fr 2fr auto;gap:20px;align-items:end;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.field input{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;color:var(--text);background:var(--card);outline:none;transition:border-color .2s;}
+.field input.has-pre{padding-left:27px;}
+.field input:focus{border-color:var(--gold);}
+.input-wrap{position:relative;}
+.input-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--muted);}
+.calc-btn{padding:12px 28px;background:var(--gold);color:var(--navy);border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 4px 20px rgba(201,168,76,.3);}
+.calc-btn:hover{background:#D4B060;}
+
+/* RESULTS */
+.savings-hero{background:var(--navy);border-radius:20px;padding:32px 36px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;position:relative;overflow:hidden;}
+.savings-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),#22C55E,transparent);}
+.sh-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.sh-amount{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);font-weight:700;color:var(--green);letter-spacing:-.03em;line-height:1;}
+.sh-sub{font-size:14px;color:rgba(255,255,255,.45);margin-top:6px;}
+.sh-breakdown{display:flex;gap:28px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);}
+.sh-item{text-align:center;}
+.sh-item-n{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:rgba(255,255,255,.85);}
+.sh-item-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;}
+.sh-qr{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px 22px;text-align:center;flex-shrink:0;}
+.sh-qr-n{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--gold);}
+.sh-qr-l{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+.compare-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;}
+.compare-card.highlight{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.1);}
+.cc-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cc-year{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);}
+.cc-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px;}
+.cc-badge.current{background:rgba(55,138,221,.1);color:var(--blue);}
+.cc-badge.next{background:rgba(34,197,94,.1);color:var(--green);}
+.cc-badge.future{background:rgba(201,168,76,.1);color:var(--gold);}
+.cc-bd{padding:16px 20px;}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);}
+.cc-row:last-child{border-bottom:none;}
+.cc-lbl{font-size:12px;color:var(--muted);}
+.cc-val{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--text);}
+.cc-val.green{color:var(--green);}
+.cc-val.gold{color:var(--gold);}
+
+.brackets-compare{background:var(--card);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:24px;}
+.bc-hd{padding:18px 22px;border-bottom:1px solid var(--border);}
+.bc-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.bc-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.bc-table{width:100%;border-collapse:collapse;}
+.bc-table th{padding:10px 18px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);background:var(--cream);}
+.bc-table td{padding:11px 18px;border-bottom:1px solid var(--border);font-size:13px;}
+.bc-table tr:last-child td{border-bottom:none;}
+.bc-table tr.active-row td{background:rgba(34,197,94,.05);font-weight:700;}
+.rate-old{color:var(--muted);text-decoration:line-through;margin-right:6px;font-size:12px;}
+.rate-new{color:var(--green);font-weight:700;}
+.rate-same{color:var(--text);}
+
+.chart-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:22px 24px;margin-bottom:24px;}
+.chart-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:16px;}
+
+.cta-strip{background:var(--gold);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.cta-strip-text strong{display:block;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cta-strip-text span{font-size:13px;color:rgba(28,43,58,.6);}
+.cta-strip-btn{background:var(--navy);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+.placeholder-msg{text-align:center;padding:48px;color:var(--muted);font-size:14px;}
+
+footer{background:var(--navy);padding:32px 60px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:20px;}
+@media(max-width:900px){.wrap{padding:20px 20px 60px;}.hero-inner{grid-template-columns:1fr;}.input-row{grid-template-columns:1fr;}.compare-grid{grid-template-columns:1fr;}.sh-qr{display:none;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:20px;padding-right:20px;}.savings-hero{grid-template-columns:1fr;}.sh-breakdown{flex-wrap:wrap;gap:16px;}.cta-strip{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span><span class="logo-consulting"> Consulting</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>How much will you save from<br>the <em>2026 Tax Cuts?</em></h1>
+      <p class="hero-sub">Australia's next round of tax cuts starts 1 July 2026. The 16% rate drops to 15%, and the 30% rate drops to 29%. See exactly how much extra you'll keep every week, month and year.</p>
+      <span class="hero-badge">✓ Legislated — already law</span>
+    </div>
+    <div class="hero-timeline">
+      <div class="tl-item current">
+        <div><div class="tl-year">FY2024–26</div><div class="tl-text">Current: 16% / 30% / 37% / 45%</div></div>
+      </div>
+      <div class="tl-item">
+        <div><div class="tl-year">1 Jul 2026</div><div class="tl-text">16% → <strong style="color:var(--green)">15%</strong> &nbsp; 30% → <strong style="color:var(--green)">29%</strong></div></div>
+      </div>
+      <div class="tl-item">
+        <div><div class="tl-year">1 Jul 2027</div><div class="tl-text">15% → <strong style="color:var(--gold)">14%</strong> &nbsp; 29% → <strong style="color:var(--gold)">28%</strong></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="input-card">
+    <div class="input-row">
+      <div class="field">
+        <label>Annual salary (A$)</label>
+        <div class="input-wrap"><span class="input-pre">$</span>
+          <input type="number" id="s-sal" class="has-pre" placeholder="80,000" oninput="calc()">
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;padding-top:20px;">Enter your current salary and see a side-by-side comparison of your take-home pay for <strong>FY2025-26</strong> (now), <strong>FY2026-27</strong> (from July 2026) and <strong>FY2027-28</strong> (from July 2027).</div>
+      </div>
+      <button class="calc-btn" onclick="calc()">Calculate my savings →</button>
+    </div>
+  </div>
+
+  <div id="results" style="display:none;">
+
+    <!-- SAVINGS HERO BANNER -->
+    <div class="savings-hero">
+      <div>
+        <div class="sh-label">Your extra take-home from 1 July 2026</div>
+        <div class="sh-amount" id="r-saving">$0</div>
+        <div class="sh-sub" id="r-saving-sub">more per year starting FY2026-27</div>
+        <div class="sh-breakdown">
+          <div class="sh-item"><div class="sh-item-n" id="r-wk">$0</div><div class="sh-item-l">per week</div></div>
+          <div class="sh-item"><div class="sh-item-n" id="r-ft">$0</div><div class="sh-item-l">per fortnight</div></div>
+          <div class="sh-item"><div class="sh-item-n" id="r-mo">$0</div><div class="sh-item-l">per month</div></div>
+          <div class="sh-item"><div class="sh-item-n" id="r-5yr">$0</div><div class="sh-item-l">over 5 years</div></div>
+        </div>
+      </div>
+      <div class="sh-qr">
+        <div class="sh-qr-n" id="r-eff-diff">0%</div>
+        <div class="sh-qr-l">effective rate<br>reduction</div>
+      </div>
+    </div>
+
+    <!-- 3-WAY COMPARE -->
+    <div class="compare-grid" id="compare-cards"></div>
+
+    <!-- BRACKET TABLE -->
+    <div class="brackets-compare">
+      <div class="bc-hd">
+        <div class="bc-title">Tax bracket comparison across financial years</div>
+        <div class="bc-sub">Cells highlighted in green show your income bracket</div>
+      </div>
+      <table class="bc-table">
+        <thead><tr><th>Income range</th><th>FY2025–26 (now)</th><th>FY2026–27 (Jul 2026)</th><th>FY2027–28 (Jul 2027)</th></tr></thead>
+        <tbody id="bracket-rows"></tbody>
+      </table>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-card">
+      <div class="chart-title">Take-home pay comparison across financial years</div>
+      <canvas id="c-years" height="180"></canvas>
+    </div>
+
+    <div class="cta-strip">
+      <div class="cta-strip-text">
+        <strong>Make the most of your extra income</strong>
+        <span>Book a free call to discuss salary sacrifice, super contributions and tax planning strategies for FY2026-27.</span>
+      </div>
+      <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="cta-strip-btn">Book Free Call →</a>
+    </div>
+  </div>
+
+  <div id="placeholder" class="placeholder-msg">Enter your salary above to see your personalised tax cut savings.</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/pay-calculator">Pay Calculator</a><a href="/tools">Tools</a></div></div></footer>
+
+<script>
+var yearsChart = null;
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
+
+// Tax calculation for each FY
+// FY2025-26 (same as 2024-25 Stage 3)
+function tax2526(inc){
+  var t=0;
+  if(inc>18200) t+=(Math.min(inc,45000)-18200)*.16;
+  if(inc>45000) t+=(Math.min(inc,135000)-45000)*.30;
+  if(inc>135000) t+=(Math.min(inc,190000)-135000)*.37;
+  if(inc>190000) t+=(inc-190000)*.45;
+  var lito=inc<=37500?700:inc<=45000?700-(inc-37500)*.05:inc<=66667?325-(inc-45000)*.015:0;
+  var med=inc<=27222?0:inc<34027?(inc-27222)*.1:inc*.02;
+  return Math.max(0,t-lito)+med;
+}
+// FY2026-27: 16%→15%, 30%→29%
+function tax2627(inc){
+  var t=0;
+  if(inc>18200) t+=(Math.min(inc,45000)-18200)*.15;
+  if(inc>45000) t+=(Math.min(inc,135000)-45000)*.29;
+  if(inc>135000) t+=(Math.min(inc,190000)-135000)*.37;
+  if(inc>190000) t+=(inc-190000)*.45;
+  var lito=inc<=37500?700:inc<=45000?700-(inc-37500)*.05:inc<=66667?325-(inc-45000)*.015:0;
+  var med=inc<=27222?0:inc<34027?(inc-27222)*.1:inc*.02;
+  return Math.max(0,t-lito)+med;
+}
+// FY2027-28: 15%→14%, 29%→28%
+function tax2728(inc){
+  var t=0;
+  if(inc>18200) t+=(Math.min(inc,45000)-18200)*.14;
+  if(inc>45000) t+=(Math.min(inc,135000)-45000)*.28;
+  if(inc>135000) t+=(Math.min(inc,190000)-135000)*.37;
+  if(inc>190000) t+=(inc-190000)*.45;
+  var lito=inc<=37500?700:inc<=45000?700-(inc-37500)*.05:inc<=66667?325-(inc-45000)*.015:0;
+  var med=inc<=27222?0:inc<34027?(inc-27222)*.1:inc*.02;
+  return Math.max(0,t-lito)+med;
+}
+
+function activeBracket(inc) {
+  if(inc<=18200) return 0;
+  if(inc<=45000) return 1;
+  if(inc<=135000) return 2;
+  if(inc<=190000) return 3;
+  return 4;
+}
+
+function calc(){
+  var inc = parseFloat(document.getElementById('s-sal').value)||0;
+  if(inc<=0){
+    document.getElementById('results').style.display='none';
+    document.getElementById('placeholder').style.display='block';
+    return;
+  }
+  var t1=tax2526(inc), t2=tax2627(inc), t3=tax2728(inc);
+  var n1=inc-t1, n2=inc-t2, n3=inc-t3;
+  var save2627=n2-n1, save2728=n3-n1;
+  var effDiff=((t1-t2)/inc*100).toFixed(2);
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('placeholder').style.display='none';
+
+  document.getElementById('r-saving').textContent = fmt(save2627);
+  document.getElementById('r-saving-sub').textContent = 'more per year starting 1 July 2026';
+  document.getElementById('r-wk').textContent = '$'+Math.round(save2627/52).toLocaleString('en-AU');
+  document.getElementById('r-ft').textContent = '$'+Math.round(save2627/26).toLocaleString('en-AU');
+  document.getElementById('r-mo').textContent = '$'+Math.round(save2627/12).toLocaleString('en-AU');
+  document.getElementById('r-5yr').textContent = fmt(save2627*2 + save2728*3);
+  document.getElementById('r-eff-diff').textContent = '-'+effDiff+'%';
+
+  // Compare cards
+  var cards = [
+    {fy:'FY2025–26', sub:'Current year', badge:'current', tax:t1, net:n1, eff:(t1/inc*100).toFixed(1), saving:null},
+    {fy:'FY2026–27', sub:'From 1 July 2026', badge:'next', tax:t2, net:n2, eff:(t2/inc*100).toFixed(1), saving:save2627},
+    {fy:'FY2027–28', sub:'From 1 July 2027', badge:'future', tax:t3, net:n3, eff:(t3/inc*100).toFixed(1), saving:save2728}
+  ];
+  document.getElementById('compare-cards').innerHTML = cards.map(function(c){
+    return '<div class="compare-card'+(c.badge==='next'?' highlight':'')+'">'+
+      '<div class="cc-hd"><span class="cc-year">'+c.fy+'</span><span class="cc-badge '+c.badge+'">'+c.sub+'</span></div>'+
+      '<div class="cc-bd">'+
+        '<div class="cc-row"><span class="cc-lbl">Gross income</span><span class="cc-val">'+fmt(inc)+'</span></div>'+
+        '<div class="cc-row"><span class="cc-lbl">Total tax</span><span class="cc-val">'+fmt(c.tax)+'</span></div>'+
+        '<div class="cc-row"><span class="cc-lbl">Effective rate</span><span class="cc-val">'+c.eff+'%</span></div>'+
+        '<div class="cc-row"><span class="cc-lbl">Net take-home</span><span class="cc-val '+(c.badge==='next'?'green':c.badge==='future'?'gold':'')+'">'+fmt(c.net)+'</span></div>'+
+        (c.saving!==null?'<div class="cc-row"><span class="cc-lbl">Extra vs today</span><span class="cc-val green">+'+fmt(c.saving)+'/yr</span></div>':'')+
+      '</div></div>';
+  }).join('');
+
+  // Brackets table
+  var brackets = [
+    ['$0 – $18,200',   {r:'0%',same:true},   {r:'0%',same:true},   {r:'0%',same:true}],
+    ['$18,201 – $45,000', {r:'16%',same:false,old:''},  {r:'15%',same:false,old:'16%'},{r:'14%',same:false,old:'15%'}],
+    ['$45,001 – $135,000',{r:'30%',same:false,old:''}, {r:'29%',same:false,old:'30%'},{r:'28%',same:false,old:'29%'}],
+    ['$135,001 – $190,000',{r:'37%',same:true},{r:'37%',same:true},{r:'37%',same:true}],
+    ['$190,001+',      {r:'45%',same:true},{r:'45%',same:true},{r:'45%',same:true}]
+  ];
+  var ab = activeBracket(inc);
+  document.getElementById('bracket-rows').innerHTML = brackets.map(function(b,i){
+    var isActive = i===ab;
+    return '<tr'+(isActive?' class="active-row"':'')+'><td>'+b[0]+'</td>'+
+      [b[1],b[2],b[3]].map(function(cell){
+        return '<td>'+(cell.old?'<span class="rate-old">'+cell.old+'</span>':'')+
+          '<span class="rate-'+(cell.same?'same':'new')+'">'+cell.r+'</span></td>';
+      }).join('')+'</tr>';
+  }).join('');
+
+  // Chart
+  if(yearsChart){try{yearsChart.destroy();}catch(e){}}
+  var ctx=document.getElementById('c-years').getContext('2d');
+  yearsChart=new Chart(ctx,{type:'bar',data:{
+    labels:['FY2024–25','FY2025–26','FY2026–27 (+'+fmt(save2627)+')','FY2027–28 (+'+fmt(save2728)+')'],
+    datasets:[
+      {label:'Net take-home',data:[n1,n1,n2,n3],backgroundColor:['rgba(100,120,140,.5)','rgba(100,120,140,.5)','rgba(34,197,94,.75)','rgba(201,168,76,.75)'],borderRadius:6},
+      {label:'Tax paid',data:[t1,t1,t2,t3],backgroundColor:['rgba(226,75,74,.5)','rgba(226,75,74,.5)','rgba(226,75,74,.4)','rgba(226,75,74,.3)'],borderRadius:6}
+    ]},
+    options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return'$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+}
+</script>
+</body></html>
