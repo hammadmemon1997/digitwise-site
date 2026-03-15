@@ -16,6 +16,38 @@
       "dest": "/pay-calculator.html"
     },
     {
+      "src": "/super-calculator",
+      "dest": "/super-calculator.html"
+    },
+    {
+      "src": "/contractor-calculator",
+      "dest": "/contractor-calculator.html"
+    },
+    {
+      "src": "/bonus-calculator",
+      "dest": "/bonus-calculator.html"
+    },
+    {
+      "src": "/negative-gearing",
+      "dest": "/negative-gearing.html"
+    },
+    {
+      "src": "/invoice-generator",
+      "dest": "/invoice-generator.html"
+    },
+    {
+      "src": "/expense-tracker",
+      "dest": "/expense-tracker.html"
+    },
+    {
+      "src": "/bas-reminder",
+      "dest": "/bas-reminder.html"
+    },
+    {
+      "src": "/tools",
+      "dest": "/tools.html"
+    },
+    {
       "src": "/about",
       "dest": "/about.html"
     },
