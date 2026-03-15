@@ -1830,8 +1830,10 @@ footer {
   width: fit-content;
 }
 .bas-flag {
-  font-size: 18px;
+  font-size: 24px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 .bas-label {
   font-size: 12px;
@@ -3166,9 +3168,39 @@ footer {
       </div>
 
       <div class="bas-strip" id="bas-strip">
-        <div class="bas-flag">🇦🇺</div>
+        <div class="bas-flag">
+          <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg" style="border-radius:3px;display:block;">
+            <!-- Blue background -->
+            <rect width="32" height="22" fill="#00008B"/>
+            <!-- Union Jack top-left quadrant -->
+            <g clip-path="url(#ul)">
+              <rect width="16" height="11" fill="#00008B"/>
+              <!-- White diagonals -->
+              <line x1="0" y1="0" x2="16" y2="11" stroke="white" stroke-width="3.5"/>
+              <line x1="16" y1="0" x2="0" y2="11" stroke="white" stroke-width="3.5"/>
+              <!-- Red diagonals -->
+              <line x1="0" y1="0" x2="16" y2="11" stroke="#CC0000" stroke-width="2"/>
+              <line x1="16" y1="0" x2="0" y2="11" stroke="#CC0000" stroke-width="2"/>
+              <!-- White cross -->
+              <rect x="6.5" y="0" width="3" height="11" fill="white"/>
+              <rect x="0" y="4" width="16" height="3" fill="white"/>
+              <!-- Red cross -->
+              <rect x="7.2" y="0" width="1.6" height="11" fill="#CC0000"/>
+              <rect x="0" y="4.7" width="16" height="1.6" fill="#CC0000"/>
+            </g>
+            <defs><clipPath id="ul"><rect width="16" height="11"/></clipPath></defs>
+            <!-- Commonwealth Star (bottom-left) -->
+            <text x="4" y="19" font-size="7" fill="white" text-anchor="middle">★</text>
+            <!-- Southern Cross (right side) -->
+            <text x="24" y="7"  font-size="5" fill="white" text-anchor="middle">★</text>
+            <text x="27" y="13" font-size="4" fill="white" text-anchor="middle">★</text>
+            <text x="23" y="15" font-size="5" fill="white" text-anchor="middle">★</text>
+            <text x="19" y="12" font-size="4" fill="white" text-anchor="middle">★</text>
+            <text x="25" y="19" font-size="3" fill="white" text-anchor="middle">★</text>
+          </svg>
+        </div>
         <div>
-          <div class="bas-label">Next BAS lodgement due</div>
+          <div class="bas-label">🇦🇺 Next BAS lodgement due</div>
           <div class="bas-timer">
             <div class="bas-unit"><span class="bas-num" id="bas-days">--</span><span class="bas-sub">days</span></div>
             <span class="bas-colon">:</span>
