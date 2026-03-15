@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-AU" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Superannuation Balance Calculator | How Much Super Will I Have? | Digitwise</title>
+<meta name="description" content="Free Australian superannuation calculator. See how much super you'll have at retirement, how fees and salary affect your balance, and what you can do to grow it faster.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/super-calculator">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--card:#fff;--page:#F8F5EE;--green:#22C55E;--red:#E24B4A;}
+[data-theme=dark]{--navy:#0F1C28;--cream:#1A2535;--white:#E8EDF2;--text:#D4DCE5;--muted:#7A8FA0;--border:#2A3D52;--card:#162230;--page:#0F1C28;}
+body{font-family:'Outfit',sans-serif;background:var(--page);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,0.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;border-bottom:1px solid rgba(255,255,255,0.07);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-consulting{color:rgba(255,255,255,0.75)!important;font-size:14px!important;font-weight:500!important;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.hero{background:var(--navy);padding:52px 60px 44px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,46px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:10px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:15px;color:rgba(255,255,255,0.5);max-width:520px;}
+.wrap{max-width:1140px;margin:0 auto;padding:32px 60px 80px;display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
+.card-hd{padding:20px 24px;border-bottom:1px solid var(--border);}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.card-hd p{font-size:12px;color:var(--muted);margin-top:2px;}
+.card-bd{padding:20px 24px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:4px;}
+.field input,.field select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--card);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus{border-color:var(--gold);}
+.has-pre{padding-left:26px!important;}
+.input-wrap{position:relative;}
+.input-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--muted);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.field-row .field{margin-bottom:0;}
+.divider{height:1px;background:var(--border);margin:6px 0 14px;}
+.sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:10px;}
+.btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(201,168,76,.3);}
+.btn:hover{background:#D4B060;transform:translateY(-1px);}
+.slider-wrap{margin-top:5px;}
+.slider-wrap input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--card);}
+.slider-val{text-align:right;font-size:11px;font-weight:700;color:var(--text);margin-top:4px;}
+/* Results */
+.res-hd{background:var(--navy);padding:22px 24px;position:relative;}
+.res-hd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);}
+.res-amt{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,50px);font-weight:700;color:var(--gold);line-height:1;}
+.res-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:3px;}
+.res-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
+.res-meta-item{text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,.08);}
+.res-meta-item:last-child{border:none;}
+.res-meta-n{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:rgba(255,255,255,.85);}
+.res-meta-l{font-size:10px;color:rgba(255,255,255,.35);}
+.sec{padding:18px 24px;border-bottom:1px solid var(--border);}
+.sec:last-child{border-bottom:none;}
+.sec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:14px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.stat-card{background:var(--cream);border-radius:12px;padding:14px;}
+[data-theme=dark] .stat-card{background:rgba(255,255,255,0.04);}
+.stat-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.tips{display:flex;flex-direction:column;gap:10px;}
+.tip{background:var(--cream);border-radius:12px;padding:14px 16px;border-left:3px solid var(--gold);}
+[data-theme=dark] .tip{background:rgba(255,255,255,0.04);}
+.tip-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.tip-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.placeholder{text-align:center;padding:64px 24px;color:var(--muted);}
+.placeholder h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.placeholder p{font-size:13px;line-height:1.7;max-width:260px;margin:0 auto;}
+footer{background:var(--navy);padding:32px 60px;border-top:1px solid rgba(255,255,255,0.07);}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;}
+.footer-links a:hover{color:var(--gold);}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:20px 20px 60px;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:20px;padding-right:20px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 22 22" fill="none" width="22" height="22"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+    <span class="logo-name">Digit<span>wise</span><span class="logo-consulting"> Consulting</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+</nav>
+<div class="hero">
+  <h1>Superannuation <em>Balance Tracker</em></h1>
+  <p>See exactly how much super you'll have at retirement, and what you can do to grow it faster.</p>
+</div>
+<div style="padding:0 60px;">
+<div class="wrap" style="padding-left:0;padding-right:0;">
+  <div>
+    <div class="card">
+      <div class="card-hd"><h2>Your super details</h2><p>Enter your current situation</p></div>
+      <div class="card-bd">
+        <div class="field-row">
+          <div class="field"><label>Current age</label><input type="number" id="s-age" placeholder="30" min="18" max="70" oninput="calcSuper()"></div>
+          <div class="field"><label>Retirement age</label><input type="number" id="s-ret" placeholder="67" min="55" max="75" oninput="calcSuper()"></div>
+        </div>
+        <div class="field"><label>Current super balance (A$)</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="s-bal" class="has-pre" placeholder="45,000" min="0" oninput="calcSuper()"></div></div>
+        <div class="field"><label>Annual salary (A$)</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="s-sal" class="has-pre" placeholder="80,000" min="0" oninput="calcSuper()"></div></div>
+        <div class="divider"></div>
+        <div class="sec-lbl">Contribution settings</div>
+        <div class="field"><label>Employer SG rate — <span id="s-sg-lbl">11.5</span>%</label><div class="slider-wrap"><input type="range" id="s-sg" min="9" max="15" value="11.5" step="0.5" oninput="document.getElementById('s-sg-lbl').textContent=this.value;calcSuper()"><div class="slider-val" id="s-sg-val">11.5%</div></div></div>
+        <div class="field"><label>Extra voluntary contributions ($/yr)</label><div class="input-wrap"><span class="input-pre">$</span><input type="number" id="s-extra" class="has-pre" placeholder="0" min="0" oninput="calcSuper()"></div></div>
+        <div class="divider"></div>
+        <div class="sec-lbl">Assumptions</div>
+        <div class="field-row">
+          <div class="field"><label>Annual return — <span id="s-ret-lbl">7</span>%</label><div class="slider-wrap"><input type="range" id="s-return" min="3" max="12" value="7" step="0.5" oninput="document.getElementById('s-ret-lbl').textContent=this.value;calcSuper()"><div class="slider-val" id="s-ret-val">7%</div></div></div>
+          <div class="field"><label>Annual fees — <span id="s-fee-lbl">0.8</span>%</label><div class="slider-wrap"><input type="range" id="s-fees" min="0.1" max="3" value="0.8" step="0.1" oninput="document.getElementById('s-fee-lbl').textContent=this.value;calcSuper()"><div class="slider-val" id="s-fee-val">0.8%</div></div></div>
+        </div>
+        <div class="field"><label>Annual salary growth — <span id="s-grow-lbl">3</span>%</label><div class="slider-wrap"><input type="range" id="s-grow" min="0" max="8" value="3" step="0.5" oninput="document.getElementById('s-grow-lbl').textContent=this.value;calcSuper()"><div class="slider-val" id="s-grow-val">3%</div></div></div>
+        <button class="btn" onclick="calcSuper()">Calculate my retirement balance →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="super-results">
+    <div id="super-placeholder" class="placeholder">
+      <h3>Your super projection</h3>
+      <p>Enter your details on the left to see your projected retirement balance and growth chart.</p>
+    </div>
+    <div id="super-content" style="display:none;">
+      <div class="res-hd">
+        <div class="res-lbl">Projected balance at retirement</div>
+        <div class="res-amt" id="sr-bal">$0</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);margin-top:4px;" id="sr-age-lbl">at age 67</div>
+        <div class="res-meta">
+          <div class="res-meta-item"><div class="res-meta-n" id="sr-contrib">$0</div><div class="res-meta-l">Total contributions</div></div>
+          <div class="res-meta-item"><div class="res-meta-n" id="sr-growth">$0</div><div class="res-meta-l">Investment growth</div></div>
+          <div class="res-meta-item"><div class="res-meta-n" id="sr-income">$0</div><div class="res-meta-l">Annual drawdown</div></div>
+        </div>
+      </div>
+      <div class="sec"><div class="sec-title">Balance projection over time</div><canvas id="c-super" height="200"></canvas></div>
+      <div class="sec"><div class="sec-title">Key stats</div><div class="stat-grid" id="super-stats"></div></div>
+      <div class="sec"><div class="sec-title">Tips to grow your super faster</div><div class="tips" id="super-tips"></div></div>
+    </div>
+  </div>
+</div>
+</div>
+<footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/pay-calculator">Pay Calculator</a><a href="/#tools">Tools</a><a href="/#contact">Contact</a></div></div></footer>
+<script>
+var superChart = null;
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
+function calcSuper(){
+  var age=parseInt(document.getElementById('s-age').value)||0;
+  var ret=parseInt(document.getElementById('s-ret').value)||67;
+  var bal=parseFloat(document.getElementById('s-bal').value)||0;
+  var sal=parseFloat(document.getElementById('s-sal').value)||0;
+  var sg=parseFloat(document.getElementById('s-sg').value)/100;
+  var extra=parseFloat(document.getElementById('s-extra').value)||0;
+  var ret_rate=parseFloat(document.getElementById('s-return').value)/100;
+  var fee=parseFloat(document.getElementById('s-fees').value)/100;
+  var grow=parseFloat(document.getElementById('s-grow').value)/100;
+  if(!age||!sal||age>=ret){document.getElementById('super-placeholder').style.display='block';document.getElementById('super-content').style.display='none';return;}
+  var years=ret-age, netReturn=ret_rate-fee;
+  var balance=bal, totalContrib=0, totalGrowth=0;
+  var balances=[{yr:age,bal:bal}], curSal=sal;
+  for(var i=0;i<years;i++){
+    var sgContrib=curSal*sg;
+    var taxedContrib=(sgContrib+extra)*0.85; // 15% contributions tax
+    var growth=balance*netReturn;
+    balance+=taxedContrib+growth;
+    totalContrib+=taxedContrib;
+    totalGrowth+=growth;
+    curSal*=(1+grow);
+    if(i%2===0||i===years-1) balances.push({yr:age+i+1,bal:Math.round(balance)});
+  }
+  document.getElementById('super-placeholder').style.display='none';
+  document.getElementById('super-content').style.display='block';
+  document.getElementById('sr-bal').textContent=fmt(balance);
+  document.getElementById('sr-age-lbl').textContent='at age '+ret+' ('+years+' years of growth)';
+  document.getElementById('sr-contrib').textContent=fmt(totalContrib);
+  document.getElementById('sr-growth').textContent=fmt(totalGrowth);
+  var annualDraw=balance*0.05;
+  document.getElementById('sr-income').textContent=fmt(annualDraw)+'/yr';
+  // Stats
+  document.getElementById('super-stats').innerHTML=[
+    {l:'Years to retirement',v:years+' years',s:'Starting from age '+age},
+    {l:'Employer contributions',v:fmt(sal*sg)+'/yr',s:'At current salary'},
+    {l:'Balance doubles in',v:Math.round(72/(netReturn*100))+' years',s:'Rule of 72 estimate'},
+    {l:'Monthly drawdown (5%)',v:fmt(annualDraw/12)+'/mo',s:'Sustainable withdrawal rate'}
+  ].map(function(s){return '<div class="stat-card"><div class="stat-lbl">'+s.l+'</div><div class="stat-val">'+s.v+'</div><div class="stat-sub">'+s.s+'</div></div>';}).join('');
+  // Tips
+  var tips=[];
+  if(extra<5000) tips.push({t:'Salary sacrifice to super',d:'Pre-tax contributions reduce your income tax now. At your bracket, every $1,000 sacrificed saves ~$300 in tax and grows tax-advantaged inside super.'});
+  if(fee>1) tips.push({t:'Review your super fees',d:'You\'re paying '+document.getElementById('s-fees').value+'% in fees. Switching to a low-cost fund (0.1-0.5%) could add '+fmt(balance*((fee-0.3)/100)*years)+' to your final balance.'});
+  if(sg<0.115) tips.push({t:'Check your SG rate',d:'Employers must pay 11.5% for FY2024-25. If your rate is lower, check your pay slips — unpaid super can be recovered through the ATO.'});
+  tips.push({t:'First Home Super Saver (FHSS)',d:'If you haven\'t bought a home yet, you can use voluntary super contributions (up to $50k) toward a deposit, with tax benefits on the way in and out.'});
+  tips.push({t:'Spouse contributions',d:'If your spouse earns under $40,000, contributing to their super can earn you a tax offset of up to $540/yr.'});
+  document.getElementById('super-tips').innerHTML=tips.map(function(t){return '<div class="tip"><div class="tip-title">'+t.t+'</div><div class="tip-desc">'+t.d+'</div></div>';}).join('');
+  // Chart
+  if(superChart){try{superChart.destroy();}catch(e){}}
+  var ctx=document.getElementById('c-super').getContext('2d');
+  superChart=new Chart(ctx,{type:'line',data:{labels:balances.map(function(b){return b.yr;}),datasets:[{label:'Super balance',data:balances.map(function(b){return b.bal;}),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.1)',borderWidth:2.5,pointRadius:3,tension:.4,fill:true}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return' Balance: '+fmt(c.raw);}}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+}
+</script>
+</body></html>
