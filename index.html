@@ -3916,22 +3916,7 @@ footer {
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-
-const nav = document.getElementById('main-nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
-
-function switchPricing(m, btn) {
-  document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('pricing-' + m).classList.add('active');
-}
-
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 75); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// ── GLOBAL FUNCTIONS (accessible from onclick attributes) ──
 
 function toggleFaq(el) {
   const isOpen = el.classList.contains('open');
@@ -3939,114 +3924,20 @@ function toggleFaq(el) {
   if (!isOpen) el.classList.add('open');
 }
 
-// ── BAS DEADLINE COUNTDOWN ──
-(function() {
-  function getNextBASDeadline() {
-    const now = new Date();
-    const y = now.getFullYear();
-    // AU BAS quarterly deadlines (28th of month after quarter end, or next business day)
-    const deadlines = [
-      { date: new Date(y, 1, 28), label: 'Q2 (Oct–Dec)' },   // 28 Feb
-      { date: new Date(y, 3, 28), label: 'Q3 (Jan–Mar)' },   // 28 Apr
-      { date: new Date(y, 6, 28), label: 'Q4 (Apr–Jun)' },   // 28 Jul
-      { date: new Date(y, 9, 28), label: 'Q1 (Jul–Sep)' },   // 28 Oct
-      { date: new Date(y + 1, 1, 28), label: 'Q2 (Oct–Dec)' },
-    ];
-    for (const d of deadlines) {
-      if (d.date > now) return d;
-    }
-    return deadlines[deadlines.length - 1];
-  }
-
-  function updateBAS() {
-    const daysEl = document.getElementById('bas-days');
-    const hrsEl  = document.getElementById('bas-hrs');
-    const minEl  = document.getElementById('bas-min');
-    const qtrEl  = document.getElementById('bas-quarter');
-    if (!daysEl || !hrsEl || !minEl) return;
-    const target = getNextBASDeadline();
-    const diff = target.date - new Date();
-    if (diff <= 0) return;
-    const days = Math.floor(diff / 86400000);
-    const hrs  = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const pad  = n => String(n).padStart(2, '0');
-    daysEl.textContent = days;
-    hrsEl.textContent  = pad(hrs);
-    minEl.textContent  = pad(mins);
-    if (qtrEl) qtrEl.textContent = target.label;
-  }
-
-  updateBAS();
-  setInterval(updateBAS, 10000);
-})();
-
-// ── FORMSPREE AJAX SUBMIT ──
-(function() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('form-btn');
-    const errEl = document.getElementById('form-error');
-    const successEl = document.getElementById('form-success');
-    const contentEl = document.getElementById('form-content');
-
-    btn.disabled = true;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28" stroke-dashoffset="28"><animate attributeName="stroke-dashoffset" dur="0.8s" values="28;0" repeatCount="indefinite"/></circle></svg> Sending...';
-    errEl.style.display = 'none';
-
-    try {
-      const data = new FormData(form);
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        contentEl.style.display = 'none';
-        successEl.style.display = 'block';
-      } else {
-        const json = await res.json().catch(() => ({}));
-        errEl.textContent = json.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please email hammad@digitwiseconsulting.com';
-        errEl.style.display = 'block';
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
-      }
-    } catch(err) {
-      errEl.style.display = 'block';
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message';
-    }
-  });
-})();
-
 // ── CALENDLY MODAL ──
 var calLoaded = false;
-
 function openCalModal() {
   document.getElementById('cal-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  if (!calLoaded) {
-    loadCalendly();
-  }
+  if (!calLoaded) loadCalendly();
 }
-
 function closeCalModal() {
   document.getElementById('cal-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function handleOverlayClick(e) {
   if (e.target === document.getElementById('cal-modal-overlay')) closeCalModal();
 }
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeCalModal();
-});
-
 function loadCalendly() {
   var script = document.createElement('script');
   script.src = 'https://assets.calendly.com/assets/external/widget.js';
@@ -4068,10 +3959,11 @@ function loadCalendly() {
 
 // ── MOBILE DRAWER ──
 function toggleDrawer() {
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  const toggle = document.getElementById('nav-toggle');
-  const isOpen = drawer.classList.contains('open');
+  var drawer = document.getElementById('mobile-drawer');
+  var overlay = document.getElementById('drawer-overlay');
+  var toggle = document.getElementById('nav-toggle');
+  if (!drawer) return;
+  var isOpen = drawer.classList.contains('open');
   if (isOpen) {
     closeDrawer();
   } else {
@@ -4081,71 +3973,23 @@ function toggleDrawer() {
     document.body.style.overflow = 'hidden';
   }
 }
-
 function closeDrawer() {
-  document.getElementById('mobile-drawer').classList.remove('open');
-  document.getElementById('drawer-overlay').classList.remove('open');
-  document.getElementById('nav-toggle').classList.remove('open');
+  var drawer = document.getElementById('mobile-drawer');
+  var overlay = document.getElementById('drawer-overlay');
+  var toggle = document.getElementById('nav-toggle');
+  if (drawer) drawer.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  if (toggle) toggle.classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function drawerNav(el) {
   var href = el.getAttribute('href');
   closeDrawer();
-  // Small delay to let drawer close animation start before scrolling
   setTimeout(function() {
     var target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 80);
 }
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeDrawer();
-    closeCalModal();
-  }
-});
-
-// ── BACK TO TOP ──
-const btt = document.getElementById('back-to-top');
-window.addEventListener('scroll', function() {
-  if (window.scrollY > 400) {
-    btt.classList.add('visible');
-  } else {
-    btt.classList.remove('visible');
-  }
-}, { passive: true });
-
-// ── ACTIVE NAV SCROLL SPY ──
-(function() {
-  const sections = ['home','services','about','why-us','pricing','testimonials','tools','insights','faq','contact'];
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const drawerLinks = document.querySelectorAll('.mobile-drawer-links a');
-
-  function setActive(id) {
-    navLinks.forEach(a => {
-      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
-    });
-    drawerLinks.forEach(a => {
-      a.classList.toggle('active-link', a.getAttribute('href') === '#' + id);
-    });
-  }
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        setActive(entry.target.id);
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-
-  sections.forEach(function(id) {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-})();
 
 // ── TOOLS ──
 function switchTool(id, btn) {
@@ -4154,19 +3998,11 @@ function switchTool(id, btn) {
   btn.classList.add('active');
   document.getElementById('tool-' + id).classList.add('active');
 }
-
-function fmt(n) {
-  return '$' + Math.round(n).toLocaleString('en-AU');
-}
-function fmtUS(n) {
-  return '$' + Math.round(n).toLocaleString('en-US');
-}
-
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-AU'); }
+function fmtUS(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 function ctaHtml(msg, sub) {
   return '<div class="tool-cta-strip"><div class="tool-cta-text"><strong>' + msg + '</strong>' + sub + '</div><button class="tool-cta-btn" onclick="openCalModal()">Book Free Call</button></div>';
 }
-
-// ── GST ──
 var gstMode = 'add';
 function setGstMode(mode, btn) {
   gstMode = mode;
@@ -4177,204 +4013,249 @@ function setGstMode(mode, btn) {
 function calcGST() {
   var amt = parseFloat(document.getElementById('gst-amount').value);
   var el = document.getElementById('gst-results');
+  if (!el) return;
   if (!amt || amt <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter an amount above</div>'; return; }
   var gst, ex, inc;
-  if (gstMode === 'add') {
-    ex = amt; gst = amt * 0.1; inc = amt * 1.1;
-  } else {
-    inc = amt; gst = amt / 11; ex = amt - gst;
-  }
+  if (gstMode === 'add') { ex = amt; gst = amt * 0.1; inc = amt * 1.1; }
+  else { inc = amt; gst = amt / 11; ex = amt - gst; }
   el.innerHTML =
     '<div class="result-row"><span class="result-label">Amount ex. GST</span><span class="result-value">' + fmt(ex) + '</span></div>' +
     '<div class="result-row highlight"><span class="result-label">GST (10%)</span><span class="result-value">' + fmt(gst) + '</span></div>' +
     '<div class="result-row"><span class="result-label">Total inc. GST</span><span class="result-value">' + fmt(inc) + '</span></div>' +
     ctaHtml('Need help with BAS & GST?', 'We lodge your BAS every quarter — accurately and on time.');
 }
-
-// ── BAS DATES ──
 function calcBAS() {
   var freq = document.getElementById('bas-freq').value;
   var type = document.getElementById('bas-type').value;
   var el = document.getElementById('bas-results');
-  var now = new Date();
-  var dates = [];
-
+  if (!el) return;
+  var now = new Date(); var dates = [];
   if (freq === 'quarterly') {
     var quarters = [
-      { label: 'Q3 Jan–Mar', month: 3, day: type === 'agent' ? 25 : 28, quarter: 'April' },
-      { label: 'Q4 Apr–Jun', month: 6, day: type === 'agent' ? 25 : 28, quarter: 'July' },
-      { label: 'Q1 Jul–Sep', month: 9, day: type === 'agent' ? 25 : 28, quarter: 'October' },
-      { label: 'Q2 Oct–Dec', month: 1, day: type === 'agent' ? 25 : 28, quarter: 'February', nextYear: true },
+      { label: 'Q3 Jan–Mar', month: 3, day: type==='agent'?25:28 },
+      { label: 'Q4 Apr–Jun', month: 6, day: type==='agent'?25:28 },
+      { label: 'Q1 Jul–Sep', month: 9, day: type==='agent'?25:28 },
+      { label: 'Q2 Oct–Dec', month: 1, day: type==='agent'?25:28, nextYear: true },
     ];
     var yr = now.getFullYear();
     quarters.forEach(function(q) {
-      var y = q.nextYear ? yr + 1 : yr;
+      var y = q.nextYear ? yr+1 : yr;
       var d = new Date(y, q.month, q.day);
-      if (d < now) d = new Date(y + 1, q.month, q.day);
+      if (d < now) d = new Date(y+1, q.month, q.day);
       dates.push({ label: q.label, date: d });
     });
   } else {
-    for (var i = 0; i < 4; i++) {
-      var m = now.getMonth() + i + 1;
-      var y = now.getFullYear() + Math.floor(m / 12);
-      m = m % 12 || 12;
-      var day = type === 'agent' ? 21 : 21;
-      dates.push({ label: 'Month ' + (i+1), date: new Date(y, m, day) });
+    for (var i=0; i<4; i++) {
+      var m = now.getMonth()+i+1;
+      var y = now.getFullYear() + Math.floor(m/12);
+      m = m%12 || 12;
+      dates.push({ label: 'Month '+(i+1), date: new Date(y, m, 21) });
     }
   }
-
-  dates.sort(function(a,b){ return a.date - b.date; });
-
+  dates.sort(function(a,b){ return a.date-b.date; });
   var html = '<div class="bas-dates-table">';
-  dates.slice(0, 4).forEach(function(d, i) {
-    var diff = Math.ceil((d.date - now) / 86400000);
-    var dStr = d.date.toLocaleDateString('en-AU', {day:'numeric', month:'short', year:'numeric'});
-    html += '<div class="bas-date-row">' +
-      '<div><div class="bas-date-label">' + d.label + '</div><div class="bas-date-val">' + dStr + '</div></div>' +
-      '<span class="bas-date-days">' + (diff > 0 ? diff + ' days' : 'Overdue') + '</span>' +
-      '</div>';
+  dates.slice(0,4).forEach(function(d) {
+    var diff = Math.ceil((d.date-now)/86400000);
+    var dStr = d.date.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+    html += '<div class="bas-date-row"><div><div class="bas-date-label">'+d.label+'</div><div class="bas-date-val">'+dStr+'</div></div><span class="bas-date-days">'+(diff>0?diff+' days':'Overdue')+'</span></div>';
   });
-  html += '</div>';
-  html += ctaHtml('Never miss a BAS deadline.', 'We manage all your lodgements — on time, every quarter.');
+  html += '</div>' + ctaHtml('Never miss a BAS deadline.','We manage all your lodgements — on time, every quarter.');
   el.innerHTML = html;
 }
-calcBAS();
-
-// ── SOLE TRADER TAX ──
 function calcSoleTax() {
-  var rev = parseFloat(document.getElementById('st-revenue').value) || 0;
-  var exp = parseFloat(document.getElementById('st-expenses').value) || 0;
+  var rev = parseFloat(document.getElementById('st-revenue').value)||0;
+  var exp = parseFloat(document.getElementById('st-expenses').value)||0;
   var el = document.getElementById('st-results');
-  if (rev <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your annual revenue above</div>'; return; }
-  var taxable = Math.max(0, rev - exp);
-  var tax = 0;
-  if (taxable <= 18200) tax = 0;
-  else if (taxable <= 45000) tax = (taxable - 18200) * 0.19;
-  else if (taxable <= 120000) tax = 5092 + (taxable - 45000) * 0.325;
-  else if (taxable <= 180000) tax = 29467 + (taxable - 120000) * 0.37;
-  else tax = 51667 + (taxable - 180000) * 0.45;
-  var medicare = taxable > 23226 ? taxable * 0.02 : 0;
-  var total = tax + medicare;
-  var quarterly = total / 4;
-  var net = taxable - total;
-  el.innerHTML =
-    '<div class="result-row"><span class="result-label">Taxable income</span><span class="result-value">' + fmt(taxable) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Income tax (est.)</span><span class="result-value">' + fmt(tax) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Medicare levy (2%)</span><span class="result-value">' + fmt(medicare) + '</span></div>' +
-    '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">' + fmt(total) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Quarterly PAYG instalment</span><span class="result-value">' + fmt(quarterly) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">' + fmt(net) + '</span></div>' +
-    ctaHtml('Want accurate tax figures?', 'Book a free call — we'll review your actual numbers.');
+  if (!el) return;
+  if (rev<=0) { el.innerHTML='<div class="tool-result-empty">Enter your annual revenue above</div>'; return; }
+  var taxable=Math.max(0,rev-exp), tax=0;
+  if (taxable<=18200) tax=0;
+  else if (taxable<=45000) tax=(taxable-18200)*0.19;
+  else if (taxable<=120000) tax=5092+(taxable-45000)*0.325;
+  else if (taxable<=180000) tax=29467+(taxable-120000)*0.37;
+  else tax=51667+(taxable-180000)*0.45;
+  var medicare=taxable>23226?taxable*0.02:0, total=tax+medicare;
+  el.innerHTML=
+    '<div class="result-row"><span class="result-label">Taxable income</span><span class="result-value">'+fmt(taxable)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Income tax (est.)</span><span class="result-value">'+fmt(tax)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Medicare levy (2%)</span><span class="result-value">'+fmt(medicare)+'</span></div>'+
+    '<div class="result-row highlight"><span class="result-label">Total tax liability</span><span class="result-value">'+fmt(total)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Quarterly PAYG</span><span class="result-value">'+fmt(total/4)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Net take-home (est.)</span><span class="result-value">'+fmt(taxable-total)+'</span></div>'+
+    ctaHtml('Want accurate tax figures?','Book a free call — we'll review your actual numbers.');
 }
-
-// ── US SE TAX ──
 function calcSETax() {
-  var profit = parseFloat(document.getElementById('se-profit').value) || 0;
-  var status = document.getElementById('se-status').value;
-  var el = document.getElementById('se-results');
-  if (profit <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter your net profit above</div>'; return; }
-  var seTax = profit * 0.9235 * 0.153;
-  var deduction = seTax / 2;
-  var agi = profit - deduction;
-  var fedTax = 0;
-  var brackets = status === 'married'
-    ? [[23200,0.1],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]]
-    : [[11600,0.1],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]];
-  var prev = 0;
-  for (var i = 0; i < brackets.length; i++) {
-    if (agi <= brackets[i][0]) { fedTax += (agi - prev) * brackets[i][1]; break; }
-    fedTax += (brackets[i][0] - prev) * brackets[i][1];
-    prev = brackets[i][0];
+  var profit=parseFloat(document.getElementById('se-profit').value)||0;
+  var status=document.getElementById('se-status').value;
+  var el=document.getElementById('se-results');
+  if (!el) return;
+  if (profit<=0) { el.innerHTML='<div class="tool-result-empty">Enter your net profit above</div>'; return; }
+  var seTax=profit*0.9235*0.153, deduction=seTax/2, agi=profit-deduction, fedTax=0;
+  var brackets=status==='married'
+    ?[[23200,.1],[94300,.12],[201050,.22],[383900,.24],[487450,.32],[731200,.35],[Infinity,.37]]
+    :[[11600,.1],[47150,.12],[100525,.22],[191950,.24],[243725,.32],[609350,.35],[Infinity,.37]];
+  var prev=0;
+  for (var i=0;i<brackets.length;i++) {
+    if (agi<=brackets[i][0]) { fedTax+=(agi-prev)*brackets[i][1]; break; }
+    fedTax+=(brackets[i][0]-prev)*brackets[i][1]; prev=brackets[i][0];
   }
-  var total = seTax + fedTax;
-  var quarterly = total / 4;
-  el.innerHTML =
-    '<div class="result-row"><span class="result-label">Self-employment tax (15.3%)</span><span class="result-value">' + fmtUS(seTax) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">SE deduction (half SE tax)</span><span class="result-value">–' + fmtUS(deduction) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Estimated federal income tax</span><span class="result-value">' + fmtUS(fedTax) + '</span></div>' +
-    '<div class="result-row highlight"><span class="result-label">Total estimated tax</span><span class="result-value">' + fmtUS(total) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Quarterly IRS payment (est.)</span><span class="result-value">' + fmtUS(quarterly) + '</span></div>' +
-    ctaHtml('Let us handle your quarterly filings.', 'We manage IRS compliance for US small businesses.');
+  var total=seTax+fedTax;
+  el.innerHTML=
+    '<div class="result-row"><span class="result-label">SE tax (15.3%)</span><span class="result-value">'+fmtUS(seTax)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">SE deduction</span><span class="result-value">–'+fmtUS(deduction)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Federal income tax</span><span class="result-value">'+fmtUS(fedTax)+'</span></div>'+
+    '<div class="result-row highlight"><span class="result-label">Total estimated tax</span><span class="result-value">'+fmtUS(total)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Quarterly IRS payment</span><span class="result-value">'+fmtUS(total/4)+'</span></div>'+
+    ctaHtml('Let us handle your quarterly filings.','We manage IRS compliance for US small businesses.');
 }
-
-// ── QUIZ ──
-var quizAnswers = {};
-var quizStep = 0;
-function quizAnswer(step, val) {
-  quizAnswers[step] = val;
-  document.querySelectorAll('#qs' + step + ' .quiz-opt').forEach(function(b) {
-    b.classList.toggle('selected', b.getAttribute('onclick').includes("'" + val + "'"));
+var quizAnswers={}, quizStep=0;
+function quizAnswer(step,val) {
+  quizAnswers[step]=val;
+  document.querySelectorAll('#qs'+step+' .quiz-opt').forEach(function(b){
+    b.classList.toggle('selected',b.getAttribute('onclick').includes("'"+val+"'"));
   });
-  setTimeout(function() {
-    if (step < 3) {
-      document.getElementById('qs' + step).classList.remove('active');
-      document.getElementById('qs' + (step+1)).classList.add('active');
-      document.getElementById('qp' + (step+1)).classList.add('done');
-      quizStep = step + 1;
-    } else {
-      showQuizResult();
-    }
-  }, 280);
+  setTimeout(function(){
+    if (step<3) {
+      document.getElementById('qs'+step).classList.remove('active');
+      document.getElementById('qs'+(step+1)).classList.add('active');
+      document.getElementById('qp'+(step+1)).classList.add('done');
+      quizStep=step+1;
+    } else { showQuizResult(); }
+  },280);
 }
 function showQuizResult() {
-  var a = quizAnswers;
-  var plan, price, currency, why;
-  var isAU = a[0] !== 'us';
-  if (a[1] === 'high' || a[2] === 'many') {
-    plan = 'Premium'; price = 'Custom'; currency = '';
-    why = 'Your transaction volume and team size need our full-service Premium plan with a dedicated account manager.';
-  } else if (a[1] === 'mid' || a[2] === 'few' || a[3] === 'yes') {
-    plan = 'Professional'; price = isAU ? 'A$999' : '$699'; currency = '/mo';
-    why = 'Based on your business size and needs, our Professional plan covers everything — payroll, BAS/IRS, AP/AR and monthly reporting.';
-  } else {
-    plan = 'Essentials'; price = isAU ? 'A$499' : '$349'; currency = '/mo';
-    why = 'Our Essentials plan is a great fit — monthly bookkeeping, bank reconciliation and P&L reporting, all at a fixed price.';
-  }
-  document.getElementById('quiz-empty').style.display = 'none';
-  document.getElementById('quiz-reset').style.display = 'block';
-  document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-result').innerHTML =
-    '<div class="result-row highlight" style="flex-direction:column;align-items:flex-start;gap:6px;">' +
-      '<div class="result-label">Recommended plan</div>' +
-      '<div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-0.03em;">' + plan + '</div>' +
-      '<div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);">' + price + '<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,0.4);">' + currency + '</span></div>' +
-    '</div>' +
-    '<div class="result-row"><span class="result-label" style="line-height:1.6;">' + why + '</span></div>' +
-    ctaHtml('Ready to get started?', 'Book a free 30-min call — no commitment required.');
+  var a=quizAnswers, plan, price, currency, why;
+  var isAU=a[0]!=='us';
+  if (a[1]==='high'||a[2]==='many') { plan='Premium'; price='Custom'; currency=''; why='Your transaction volume and team size need our full-service Premium plan.'; }
+  else if (a[1]==='mid'||a[2]==='few'||a[3]==='yes') { plan='Professional'; price=isAU?'A$999':'$699'; currency='/mo'; why='Our Professional plan covers everything — payroll, BAS/IRS, AP/AR and monthly reporting.'; }
+  else { plan='Essentials'; price=isAU?'A$499':'$349'; currency='/mo'; why='Our Essentials plan is a great fit — bookkeeping, reconciliation and P&L at a fixed price.'; }
+  document.getElementById('quiz-empty').style.display='none';
+  document.getElementById('quiz-reset').style.display='block';
+  document.getElementById('quiz-result').style.display='block';
+  document.getElementById('quiz-result').innerHTML=
+    '<div class="result-row highlight" style="flex-direction:column;align-items:flex-start;gap:6px;">'+
+      '<div class="result-label">Recommended plan</div>'+
+      '<div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);">'+plan+'</div>'+
+      '<div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);">'+price+'<span style="font-size:14px;color:rgba(255,255,255,0.4);">'+currency+'</span></div>'+
+    '</div>'+
+    '<div class="result-row"><span class="result-label" style="line-height:1.6;">'+why+'</span></div>'+
+    ctaHtml('Ready to get started?','Book a free 30-min call — no commitment required.');
 }
 function resetQuiz() {
-  quizAnswers = {}; quizStep = 0;
-  for (var i = 0; i < 4; i++) {
-    var s = document.getElementById('qs' + i);
-    if (s) { s.classList.toggle('active', i === 0); }
-    var p = document.getElementById('qp' + i);
-    if (p) p.classList.toggle('done', i === 0);
+  quizAnswers={}; quizStep=0;
+  for(var i=0;i<4;i++){
+    var s=document.getElementById('qs'+i); if(s) s.classList.toggle('active',i===0);
+    var p=document.getElementById('qp'+i); if(p) p.classList.toggle('done',i===0);
   }
-  document.getElementById('quiz-empty').style.display = 'block';
-  document.getElementById('quiz-reset').style.display = 'none';
-  document.getElementById('quiz-result').style.display = 'none';
-  document.getElementById('quiz-result').innerHTML = '';
+  document.getElementById('quiz-empty').style.display='block';
+  document.getElementById('quiz-reset').style.display='none';
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-result').innerHTML='';
+}
+function calcSuper() {
+  var sal=parseFloat(document.getElementById('sup-salary').value)||0;
+  var rate=parseFloat(document.getElementById('sup-rate').value)/100;
+  var el=document.getElementById('sup-results');
+  if (!el) return;
+  if (sal<=0) { el.innerHTML='<div class="tool-result-empty">Enter a salary above</div>'; return; }
+  var annual=sal*rate, monthly=annual/12, fort=annual/26, total=sal+annual;
+  el.innerHTML=
+    '<div class="result-row"><span class="result-label">Annual super</span><span class="result-value">'+fmt(annual)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Monthly super</span><span class="result-value">'+fmt(monthly)+'</span></div>'+
+    '<div class="result-row"><span class="result-label">Fortnightly super</span><span class="result-value">'+fmt(fort)+'</span></div>'+
+    '<div class="result-row highlight"><span class="result-label">Total package</span><span class="result-value">'+fmt(total)+'</span></div>'+
+    ctaHtml('Need help with super compliance?','We manage superannuation for AU businesses end-to-end.');
 }
 
-// ── SUPER ──
-function calcSuper() {
-  var sal = parseFloat(document.getElementById('sup-salary').value) || 0;
-  var rate = parseFloat(document.getElementById('sup-rate').value) / 100;
-  var el = document.getElementById('sup-results');
-  if (sal <= 0) { el.innerHTML = '<div class="tool-result-empty">Enter a salary above</div>'; return; }
-  var annual = sal * rate;
-  var monthly = annual / 12;
-  var fortnightly = annual / 26;
-  var totalComp = sal + annual;
-  el.innerHTML =
-    '<div class="result-row"><span class="result-label">Annual super contribution</span><span class="result-value">' + fmt(annual) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Monthly super</span><span class="result-value">' + fmt(monthly) + '</span></div>' +
-    '<div class="result-row"><span class="result-label">Fortnightly super</span><span class="result-value">' + fmt(fortnightly) + '</span></div>' +
-    '<div class="result-row highlight"><span class="result-label">Total package (salary + super)</span><span class="result-value">' + fmt(totalComp) + '</span></div>' +
-    ctaHtml('Need help with super compliance?', 'We manage superannuation for AU businesses end-to-end.');
+// Keyboard handler (global)
+document.addEventListener('keydown', function(e) {
+  if (e.key==='Escape') { closeDrawer(); closeCalModal(); }
+});
+
+// ── DOM-READY SETUP ──
+document.addEventListener("DOMContentLoaded", function() {
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 75); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── BAS DEADLINE COUNTDOWN ──
+(function() {
+  function getNextBASDeadline() {
+    var now = new Date(), y = now.getFullYear();
+    var deadlines = [
+      { date: new Date(y,1,28), label: 'Q2 (Oct–Dec)' },
+      { date: new Date(y,3,28), label: 'Q3 (Jan–Mar)' },
+      { date: new Date(y,6,28), label: 'Q4 (Apr–Jun)' },
+      { date: new Date(y,9,28), label: 'Q1 (Jul–Sep)' },
+      { date: new Date(y+1,1,28), label: 'Q2 (Oct–Dec)' },
+    ];
+    for (var i=0;i<deadlines.length;i++) { if (deadlines[i].date>now) return deadlines[i]; }
+    return deadlines[deadlines.length-1];
+  }
+  function updateBASTimer() {
+    var daysEl=document.getElementById('bas-days');
+    var hrsEl=document.getElementById('bas-hrs');
+    var minEl=document.getElementById('bas-min');
+    var qtrEl=document.getElementById('bas-quarter');
+    if (!daysEl||!hrsEl||!minEl) return;
+    var target=getNextBASDeadline(), diff=target.date-new Date();
+    if (diff<=0) return;
+    var pad=function(n){return String(n).padStart(2,'0');};
+    daysEl.textContent=Math.floor(diff/86400000);
+    hrsEl.textContent=pad(Math.floor((diff%86400000)/3600000));
+    minEl.textContent=pad(Math.floor((diff%3600000)/60000));
+    if (qtrEl) qtrEl.textContent=target.label;
+  }
+  updateBASTimer();
+  setInterval(updateBASTimer, 10000);
+})();
+
+// ── FORMSPREE ──
+(function() {
+  var form=document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn=document.getElementById('form-btn');
+    var errEl=document.getElementById('form-error');
+    var successEl=document.getElementById('form-success');
+    var contentEl=document.getElementById('form-content');
+    btn.disabled=true; btn.textContent='Sending...'; errEl.style.display='none';
+    try {
+      var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      if (res.ok) { contentEl.style.display='none'; successEl.style.display='block'; }
+      else { errEl.style.display='block'; btn.disabled=false; btn.textContent='Send Message'; }
+    } catch(err) { errEl.style.display='block'; btn.disabled=false; btn.textContent='Send Message'; }
+  });
+})();
+
+// ── BACK TO TOP ──
+var btt=document.getElementById('back-to-top');
+if (btt) {
+  window.addEventListener('scroll',function(){ btt.classList.toggle('visible',window.scrollY>400); },{passive:true});
 }
+
+// ── ACTIVE NAV SCROLL SPY ──
+(function() {
+  var sections=['home','services','about','why-us','pricing','testimonials','tools','insights','faq','contact'];
+  var navLinks=document.querySelectorAll('.nav-links a');
+  var drawerLinks=document.querySelectorAll('.mobile-drawer-links a');
+  function setActive(id) {
+    navLinks.forEach(function(a){a.classList.toggle('active-link',a.getAttribute('href')==='#'+id);});
+    drawerLinks.forEach(function(a){a.classList.toggle('active-link',a.getAttribute('href')==='#'+id);});
+  }
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){if(entry.isIntersecting) setActive(entry.target.id);});
+  },{rootMargin:'-30% 0px -60% 0px',threshold:0});
+  sections.forEach(function(id){var el=document.getElementById(id);if(el)observer.observe(el);});
+})();
+
+// ── INIT BAS DATES TOOL ON LOAD ──
+if (document.getElementById('bas-freq')) calcBAS();
 
 });
 </script>
-</body>
-</html>
