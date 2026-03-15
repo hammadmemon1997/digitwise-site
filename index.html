@@ -195,6 +195,11 @@
   }
 
   function updateBAS() {
+    const daysEl = document.getElementById('bas-days');
+    const hrsEl  = document.getElementById('bas-hrs');
+    const minEl  = document.getElementById('bas-min');
+    const qtrEl  = document.getElementById('bas-quarter');
+    if (!daysEl || !hrsEl || !minEl) return;
     const target = getNextBASDeadline();
     const diff = target.date - new Date();
     if (diff <= 0) return;
@@ -202,14 +207,14 @@
     const hrs  = Math.floor((diff % 86400000) / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
     const pad  = n => String(n).padStart(2, '0');
-    document.getElementById('bas-days').textContent = days;
-    document.getElementById('bas-hrs').textContent  = pad(hrs);
-    document.getElementById('bas-min').textContent  = pad(mins);
-    document.getElementById('bas-quarter').textContent = target.label;
+    daysEl.textContent = days;
+    hrsEl.textContent  = pad(hrs);
+    minEl.textContent  = pad(mins);
+    if (qtrEl) qtrEl.textContent = target.label;
   }
 
   updateBAS();
-  setInterval(updateBAS, 30000);
+  setInterval(updateBAS, 10000);
 })();
 
 // ── FORMSPREE AJAX SUBMIT ──
@@ -667,7 +672,7 @@ body {
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 200;
+  z-index: 9996;
   height: 70px;
   padding: 0 60px;
   display: flex;
@@ -720,7 +725,7 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 }
 .nav-cta:hover { background: var(--gold-bright) !important; transform: translateY(-1px) !important; }
 
-.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; position: relative; z-index: 9996; padding: 8px; margin: -8px; }
 .nav-toggle span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; }
 
 /* ── HERO ── */
@@ -729,10 +734,12 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding-top: 70px;
   background: var(--navy);
 }
+/* Clip decorative orbs without clipping the fixed nav */
+.hero-orb-1, .hero-orb-2, .hero-texture { overflow: hidden; }
 
 /* Diagonal split: cream bleeds in from right */
 .hero::after {
@@ -780,6 +787,7 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
   grid-template-columns: 1.05fr 0.95fr;
   gap: 0;
   align-items: stretch;
+  overflow: hidden;
 }
 
 /* Left column — navy side */
@@ -3908,6 +3916,8 @@ footer {
 </footer>
 
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
@@ -3949,6 +3959,11 @@ function toggleFaq(el) {
   }
 
   function updateBAS() {
+    const daysEl = document.getElementById('bas-days');
+    const hrsEl  = document.getElementById('bas-hrs');
+    const minEl  = document.getElementById('bas-min');
+    const qtrEl  = document.getElementById('bas-quarter');
+    if (!daysEl || !hrsEl || !minEl) return;
     const target = getNextBASDeadline();
     const diff = target.date - new Date();
     if (diff <= 0) return;
@@ -3956,14 +3971,14 @@ function toggleFaq(el) {
     const hrs  = Math.floor((diff % 86400000) / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
     const pad  = n => String(n).padStart(2, '0');
-    document.getElementById('bas-days').textContent = days;
-    document.getElementById('bas-hrs').textContent  = pad(hrs);
-    document.getElementById('bas-min').textContent  = pad(mins);
-    document.getElementById('bas-quarter').textContent = target.label;
+    daysEl.textContent = days;
+    hrsEl.textContent  = pad(hrs);
+    minEl.textContent  = pad(mins);
+    if (qtrEl) qtrEl.textContent = target.label;
   }
 
   updateBAS();
-  setInterval(updateBAS, 30000);
+  setInterval(updateBAS, 10000);
 })();
 
 // ── FORMSPREE AJAX SUBMIT ──
@@ -4358,6 +4373,8 @@ function calcSuper() {
     '<div class="result-row highlight"><span class="result-label">Total package (salary + super)</span><span class="result-value">' + fmt(totalComp) + '</span></div>' +
     ctaHtml('Need help with super compliance?', 'We manage superannuation for AU businesses end-to-end.');
 }
+
+});
 </script>
 </body>
 </html>
