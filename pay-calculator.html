@@ -1,281 +1,345 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en-AU" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- PRIMARY SEO -->
 <title>Australian Pay Calculator 2024–25 | Free Income Tax Calculator | Digitwise Consulting</title>
 <meta name="description" content="Free Australian pay calculator for 2024–25. Calculate your take-home pay, income tax, Medicare levy, HECS and superannuation instantly. No signup required. Built by Digitwise Consulting, Melbourne.">
 <meta name="keywords" content="australian pay calculator, income tax calculator australia, take home pay calculator, salary calculator australia 2024, medicare levy calculator, HECS calculator, superannuation calculator, net pay calculator australia">
 <meta name="author" content="Digitwise Consulting">
 <link rel="canonical" href="https://digitwiseconsulting.com.au/pay-calculator">
-
-<!-- OPEN GRAPH -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://digitwiseconsulting.com.au/pay-calculator">
 <meta property="og:title" content="Free Australian Pay Calculator 2024–25 | Digitwise Consulting">
 <meta property="og:description" content="Calculate your take-home pay, income tax, Medicare levy and superannuation instantly. Free tool, no signup. FY 2024–25 ATO rates.">
 <meta property="og:site_name" content="Digitwise Consulting">
-
-<!-- TWITTER -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Australian Pay Calculator 2024–25 | Digitwise Consulting">
-<meta name="twitter:description" content="Calculate your take-home pay, income tax, Medicare and super instantly. Free, no signup.">
-
-<!-- GEO -->
 <meta name="geo.region" content="AU-VIC">
 <meta name="geo.placename" content="Melbourne, Victoria, Australia">
-
-<!-- SCHEMA -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Australian Pay Calculator 2024–25",
-  "url": "https://digitwiseconsulting.com.au/pay-calculator",
-  "description": "Free Australian income tax and take-home pay calculator for FY 2024–25. Calculate net salary, tax, Medicare levy and superannuation.",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
-  "provider": {
-    "@type": "AccountingService",
-    "name": "Digitwise Consulting",
-    "url": "https://digitwiseconsulting.com.au",
-    "address": { "@type": "PostalAddress", "addressLocality": "Melbourne", "addressRegion": "VIC", "addressCountry": "AU" }
-  }
-}
-</script>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Australian Pay Calculator 2024-25","url":"https://digitwiseconsulting.com.au/pay-calculator","description":"Free Australian income tax and take-home pay calculator for FY 2024-25.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"AUD"},"provider":{"@type":"AccountingService","name":"Digitwise Consulting","url":"https://digitwiseconsulting.com.au"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --navy:#1C2B3A;--navy-mid:#243447;--navy-light:#2E4158;
-  --gold:#C9A84C;--gold-light:#E8D08A;--gold-ghost:#FBF6E8;--gold-pale:#F5EDD0;
+  --gold:#C9A84C;--gold-light:#E8D08A;--gold-ghost:#FBF6E8;
   --cream:#F8F5EE;--cream-mid:#F2EDE0;--white:#fff;
   --text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;
+  --card-bg:#fff;--page-bg:#F8F5EE;--input-bg:#fff;
   --red:#E24B4A;--green:#22C55E;--orange:#FB923C;--blue:#378ADD;
   --shadow-gold:0 8px 32px rgba(201,168,76,0.22);
 }
+[data-theme="dark"]{
+  --navy:#0F1C28;--navy-mid:#162230;--navy-light:#1E2E3E;
+  --cream:#1A2535;--cream-mid:#1E2A3A;--white:#E8EDF2;
+  --text:#D4DCE5;--muted:#7A8FA0;--border:#2A3D52;
+  --card-bg:#162230;--page-bg:#0F1C28;--input-bg:#1A2535;
+}
 html{scroll-behavior:smooth;}
-body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{font-family:'Outfit',sans-serif;background:var(--page-bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s;}
 
-/* ── NAV ── */
+/* NAV */
 nav{background:rgba(28,43,58,0.97);backdrop-filter:blur(18px);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;border-bottom:1px solid rgba(255,255,255,0.07);}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.logo-mark{width:36px;height:36px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;}
-.logo-mark svg{width:20px;height:20px;}
-.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);}
-.logo-name span{color:var(--gold);}.logo-name .logo-consulting{color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;letter-spacing:0.02em;}
-.nav-right{display:flex;align-items:center;gap:28px;}
+.logo-mark{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:22px;height:22px;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-consulting{color:rgba(255,255,255,0.75)!important;font-size:14px!important;font-weight:500!important;letter-spacing:0.02em;}
+.nav-right{display:flex;align-items:center;gap:16px;}
 .nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:color .2s;}
-.nav-link:hover{color:var(--white);}
-.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:var(--shadow-gold);}
+.nav-link:hover{color:#fff;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;}
 .nav-cta:hover{background:#D4B060;}
+.dark-toggle{background:none;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:7px 10px;color:rgba(255,255,255,0.7);cursor:pointer;font-size:15px;transition:all .2s;display:flex;align-items:center;}
+.dark-toggle:hover{border-color:var(--gold);color:var(--gold);}
+.share-btn,.print-btn{background:none;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:7px 12px;color:rgba(255,255,255,0.7);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:5px;}
+.share-btn:hover,.print-btn:hover{border-color:var(--gold);color:var(--gold);}
 
-/* ── HERO ── */
-.hero{background:var(--navy);padding:64px 60px 52px;position:relative;overflow:hidden;}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,var(--gold) 50%,transparent 100%);}
+/* HERO */
+.hero{background:var(--navy);padding:52px 60px 44px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 .hero-orb{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);top:-150px;right:-150px;pointer-events:none;}
 .hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;position:relative;z-index:1;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:14px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:12px;}
 .hero-eyebrow::before{content:'';display:block;width:18px;height:2px;background:var(--gold);border-radius:1px;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,52px);font-weight:700;color:var(--white);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,48px);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px;}
 .hero h1 em{font-style:italic;color:var(--gold);}
-.hero-sub{font-size:16px;color:rgba(255,255,255,0.5);max-width:580px;line-height:1.7;margin-bottom:24px;}
-.hero-badges{display:flex;flex-wrap:wrap;gap:8px;}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.65);}
-.hero-badge .dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-.hero-stats{display:flex;flex-direction:column;gap:12px;flex-shrink:0;}
-.hero-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:14px;padding:16px 22px;text-align:center;min-width:130px;}
-.hero-stat-n{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1;}
-.hero-stat-l{font-size:11px;color:rgba(255,255,255,0.38);margin-top:3px;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.5);max-width:560px;line-height:1.7;margin-bottom:20px;}
+.hero-badges{display:flex;flex-wrap:wrap;gap:7px;}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);}
+.hero-stats{display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
+.hero-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:14px 20px;text-align:center;min-width:120px;}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);line-height:1;}
+.hero-stat-l{font-size:10px;color:rgba(255,255,255,0.38);margin-top:3px;}
 
-/* ── BREADCRUMB ── */
-.breadcrumb{max-width:1180px;margin:0 auto;padding:16px 0 0;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+/* BREADCRUMB */
+.bc-wrap{background:var(--card-bg);border-bottom:1px solid var(--border);padding:0 60px;}
+.breadcrumb{max-width:1180px;margin:0 auto;padding:14px 0;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
 .breadcrumb a{color:var(--muted);text-decoration:none;}
 .breadcrumb a:hover{color:var(--gold);}
-.breadcrumb span{color:var(--muted);}
 
-/* ── MAIN LAYOUT ── */
-.main{max-width:1180px;margin:0 auto;padding:28px 0 80px;display:grid;grid-template-columns:400px 1fr;gap:28px;align-items:start;}
+/* LAYOUT */
+.main{max-width:1180px;margin:0 auto;padding:28px 0 80px;display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start;}
 
-/* ── CARD ── */
-.card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;}
-.card-hd{padding:22px 26px;border-bottom:1px solid var(--border);}
-.card-hd-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);}
-.card-hd-sub{font-size:12px;color:var(--muted);margin-top:3px;}
-.card-bd{padding:22px 26px;}
+/* CARD */
+.card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:background .3s,border-color .3s;}
+.card-hd{padding:20px 24px;border-bottom:1px solid var(--border);}
+.card-hd-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.card-hd-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.card-bd{padding:20px 24px;}
 
-/* ── FORM ELEMENTS ── */
-.field{margin-bottom:16px;}
-.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+/* TABS */
+.tab-bar{display:flex;background:var(--cream-mid);border-radius:10px;padding:3px;margin-bottom:16px;}
+.tab-btn{flex:1;padding:8px 6px;border-radius:8px;border:none;background:transparent;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;}
+.tab-btn.on{background:var(--card-bg);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.09);}
+
+/* FIELDS */
+.field{margin-bottom:14px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:4px;}
 .input-wrap{position:relative;}
-.input-pre{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--muted);}
-.field input,.field select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;color:var(--navy);background:var(--white);outline:none;transition:border-color .2s;}
-.field input.has-pre{padding-left:28px;}
+.input-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--muted);}
+.field input,.field select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--input-bg);outline:none;transition:border-color .2s,background .3s,color .3s;}
+.field input.has-pre{padding-left:26px;}
 .field input:focus,.field select:focus{border-color:var(--gold);}
 .field select{-webkit-appearance:none;cursor:pointer;}
-
-
-.field-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 8px 0 16px;
-}
-
-.type-toggle{display:flex;background:var(--cream-mid);border-radius:10px;padding:3px;margin-bottom:16px;}
-.ttog{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;}
-.ttog.on{background:var(--white);color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,0.09);}
-
-.slider-wrap{margin-top:6px;}
+.field-divider{height:1px;background:var(--border);margin:6px 0 14px;}
+.slider-wrap{margin-top:5px;}
 .slider-wrap input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;}
-.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold);cursor:pointer;border:2.5px solid var(--white);box-shadow:0 2px 8px rgba(201,168,76,0.4);}
-.slider-val{text-align:right;font-size:12px;font-weight:700;color:var(--navy);margin-top:6px;}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--card-bg);box-shadow:0 2px 6px rgba(201,168,76,0.4);}
+.slider-val{text-align:right;font-size:11px;font-weight:700;color:var(--text);margin-top:5px;}
 
-.calc-btn{width:100%;padding:15px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:0.01em;box-shadow:var(--shadow-gold);margin-top:6px;}
+/* SECTION HEADER inside card */
+.sec-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:10px;margin-top:4px;}
+
+/* CALC BUTTON */
+.calc-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-gold);margin-top:4px;}
 .calc-btn:hover{background:#D4B060;transform:translateY(-1px);}
 
-/* ── RESULT HEADLINE ── */
-.res-hd{background:var(--navy);padding:24px 26px;position:relative;overflow:hidden;}
+/* RESULTS HEADLINE */
+.res-hd{background:var(--navy);padding:22px 24px;position:relative;overflow:hidden;}
+[data-theme="dark"] .res-hd{background:#0A1520;}
 .res-hd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);}
-.res-hd-orb{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent);right:-60px;top:-60px;pointer-events:none;}
-.takehome-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:4px;}
-.takehome-val{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,54px);font-weight:700;color:var(--gold);letter-spacing:-.03em;line-height:1;}
-.takehome-freq{font-size:13px;color:rgba(255,255,255,.38);margin-top:5px;}
-.res-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
-.res-meta-item{text-align:center;padding:0 12px;border-right:1px solid rgba(255,255,255,.08);}
+.takehome-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:3px;}
+.takehome-val{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--gold);letter-spacing:-.03em;line-height:1;}
+.takehome-freq{font-size:12px;color:rgba(255,255,255,.38);margin-top:4px;}
+.res-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);}
+.res-meta-item{text-align:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.08);}
 .res-meta-item:last-child{border:none;}
-.res-meta-n{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.85);line-height:1;margin-bottom:3px;}
-.res-meta-l{font-size:10px;color:rgba(255,255,255,.35);line-height:1.4;}
+.res-meta-n{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:rgba(255,255,255,.85);line-height:1;margin-bottom:2px;}
+.res-meta-l{font-size:10px;color:rgba(255,255,255,.35);}
 
-/* ── BREAKDOWN ── */
-.bdown{padding:18px 26px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border);}
-.brow{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;}
-.brow.gross{background:#EFF7F0;}
-.brow.tax{background:#FEF2F2;}
-.brow.deduct{background:#FFF7ED;}
-.brow.super{background:#F0FDF4;}
+/* ACTION BUTTONS */
+.res-actions{display:flex;gap:8px;padding:14px 24px;border-bottom:1px solid var(--border);}
+.res-action-btn{flex:1;padding:9px;border-radius:9px;border:1.5px solid var(--border);background:transparent;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.res-action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.res-action-btn.copied{border-color:var(--green);color:var(--green);}
+
+/* BREAKDOWN */
+.bdown{padding:16px 24px;display:flex;flex-direction:column;gap:7px;border-bottom:1px solid var(--border);}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;}
+.brow.gross{background:rgba(34,197,94,0.08);}
+.brow.tax{background:rgba(226,75,74,0.08);}
+.brow.deduct{background:rgba(251,146,60,0.08);}
+.brow.super-row{background:rgba(55,138,221,0.08);}
 .brow.total{background:var(--navy);margin-top:4px;}
+[data-theme="dark"] .brow.total{background:#0A1520;}
 .brow-lbl{font-size:12px;font-weight:500;color:var(--muted);}
 .brow.total .brow-lbl{color:rgba(255,255,255,.5);}
-.brow-val{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);}
-.brow.gross .brow-val{color:#16A34A;}
+.brow-val{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);}
+.brow.gross .brow-val{color:var(--green);}
 .brow.tax .brow-val,.brow.deduct .brow-val{color:var(--red);}
-.brow.super .brow-val{color:#16A34A;}
+.brow.super-row .brow-val{color:var(--blue);}
 .brow.total .brow-val{color:var(--gold);}
 
-/* ── CHART SECTIONS ── */
-.sec{padding:22px 26px;border-bottom:1px solid var(--border);}
+/* SECTIONS */
+.sec{padding:18px 24px;border-bottom:1px solid var(--border);}
 .sec:last-child{border-bottom:none;}
-.sec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:16px;}
-.charts-2col{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center;}
+.sec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:14px;}
+
+/* CHARTS */
+.charts-2col{display:grid;grid-template-columns:190px 1fr;gap:16px;align-items:center;}
 .donut-wrap{position:relative;}
 .donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;}
-.donut-center-pct{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1;}
-.donut-center-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+.donut-pct{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);line-height:1;}
+.donut-lbl{font-size:10px;color:var(--muted);margin-top:1px;}
 
-/* ── PERIOD GRID ── */
-.period-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.period-card{background:var(--cream);border:1.5px solid var(--border);border-radius:13px;padding:14px 12px;text-align:center;transition:all .2s;}
-.period-card:hover{border-color:var(--gold);background:var(--gold-ghost);}
-.period-card.active{border-color:var(--gold);background:var(--gold-ghost);}
-.period-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:5px;}
-.period-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);}
-.period-gross{font-size:10px;color:var(--muted);margin-top:3px;}
+/* CTC BREAKDOWN */
+.ctc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ctc-card{background:var(--cream-mid);border-radius:12px;padding:14px;}
+[data-theme="dark"] .ctc-card{background:rgba(255,255,255,0.04);}
+.ctc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:5px;}
+.ctc-val{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--text);}
+.ctc-sub{font-size:10px;color:var(--muted);margin-top:2px;}
 
-/* ── PLACEHOLDER ── */
-.placeholder{text-align:center;padding:72px 24px;color:var(--muted);}
-.placeholder svg{width:60px;height:60px;margin:0 auto 16px;display:block;opacity:.18;}
-.placeholder h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
-.placeholder p{font-size:13px;line-height:1.7;max-width:280px;margin:0 auto;}
+/* PERIOD GRID */
+.period-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.period-card{background:var(--cream-mid);border:1.5px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;transition:all .2s;}
+[data-theme="dark"] .period-card{background:rgba(255,255,255,0.04);}
+.period-card:hover{border-color:var(--gold);}
+.period-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px;}
+.period-val{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);}
+.period-gross{font-size:9px;color:var(--muted);margin-top:2px;}
 
-/* ── CTA ── */
-.cta-box{background:var(--gold);border-radius:18px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin:28px 0 0;}
-.cta-box-text strong{display:block;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:5px;}
-.cta-box-text p{font-size:13px;color:rgba(28,43,58,0.65);line-height:1.6;}
-.cta-box-btn{background:var(--navy);color:var(--white);padding:13px 26px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;transition:all .2s;flex-shrink:0;}
-.cta-box-btn:hover{background:var(--navy-mid);}
+/* MONTHLY TABLE */
+.month-table{width:100%;border-collapse:collapse;font-size:12px;}
+.month-table th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);}
+.month-table th:not(:first-child){text-align:right;}
+.month-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.month-table td:not(:first-child){text-align:right;font-family:'Playfair Display',serif;font-weight:700;font-size:13px;}
+.month-table tr:last-child td{border-bottom:none;}
+.month-table tr:nth-child(even) td{background:var(--cream-mid);}
+[data-theme="dark"] .month-table tr:nth-child(even) td{background:rgba(255,255,255,0.03);}
+.month-table td.net{color:var(--gold);}
+.month-table td.tax-col{color:var(--red);}
+.month-table td.super-col{color:var(--blue);}
 
-/* ── INFO SECTION (below calc) ── */
+/* TAX SAVING TIPS */
+.tips-list{display:flex;flex-direction:column;gap:10px;}
+.tip-card{background:var(--cream-mid);border-radius:12px;padding:14px 16px;border-left:3px solid var(--gold);}
+[data-theme="dark"] .tip-card{background:rgba(255,255,255,0.04);}
+.tip-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.tip-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+.tip-save{display:inline-block;background:rgba(34,197,94,0.12);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:5px;}
+
+/* COMPARISON */
+.compare-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.compare-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px;}
+
+/* PROJECTION TABLE */
+.proj-table{width:100%;border-collapse:collapse;font-size:12px;}
+.proj-table th{padding:7px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);}
+.proj-table th:not(:first-child){text-align:right;}
+.proj-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.proj-table td:not(:first-child){text-align:right;font-family:'Playfair Display',serif;font-weight:700;font-size:12px;}
+.proj-table tr.current-yr td{background:rgba(201,168,76,0.08);font-weight:700;}
+.proj-table tr:last-child td{border-bottom:none;}
+.proj-table td.grow{color:var(--green);}
+
+/* PLACEHOLDER */
+.placeholder{text-align:center;padding:64px 24px;color:var(--muted);}
+.placeholder svg{width:56px;height:56px;margin:0 auto 14px;display:block;opacity:.18;}
+.placeholder h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.placeholder p{font-size:13px;line-height:1.7;max-width:260px;margin:0 auto;}
+
+/* RESULT TABS */
+.result-tabs{display:flex;border-bottom:1px solid var(--border);overflow-x:auto;}
+.result-tab{padding:12px 16px;font-size:12px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;font-family:'Outfit',sans-serif;transition:all .2s;}
+.result-tab.on{color:var(--gold);border-bottom-color:var(--gold);}
+.result-panel{display:none;}
+.result-panel.on{display:block;}
+
+/* CTA */
+.cta-box{background:var(--gold);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:20px 24px 0;}
+.cta-box-text strong{display:block;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cta-box-text p{font-size:12px;color:rgba(28,43,58,0.65);}
+.cta-box-btn{background:var(--navy);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+
+/* INFO + FAQ */
 .info-section{max-width:1180px;margin:0 auto;padding:0 0 80px;}
-.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;}
-.info-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:24px;}
-.info-card-icon{font-size:28px;margin-bottom:12px;}
-.info-card h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;}
-.info-card p{font-size:13px;color:var(--muted);line-height:1.7;}
-.info-card ul{font-size:13px;color:var(--muted);line-height:1.7;padding-left:16px;margin-top:6px;}
-
-.brackets-table{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:48px;}
-.bt-title{padding:20px 24px;border-bottom:1px solid var(--border);font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);}
-.bt-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-bottom:1px solid var(--border);}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;}
+.info-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:20px;}
+.info-card-icon{font-size:26px;margin-bottom:10px;}
+.info-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.info-card p,.info-card li{font-size:12px;color:var(--muted);line-height:1.7;}
+.info-card ul{padding-left:14px;margin-top:5px;}
+.brackets-table{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:40px;}
+.bt-title{padding:18px 22px;border-bottom:1px solid var(--border);font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.bt-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:1px solid var(--border);}
 .bt-row:last-child{border-bottom:none;}
 .bt-row.hd{background:var(--navy);}
-.bt-cell{padding:13px 20px;font-size:13px;color:var(--text);}
-.bt-row.hd .bt-cell{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.5);}
-.bt-row:nth-child(even):not(.hd){background:var(--cream);}
-.bt-cell.highlight{font-weight:700;color:var(--gold);}
-.bt-row.active-row{background:var(--gold-ghost) !important;border-left:3px solid var(--gold);}
-.bt-row.active-row .bt-cell{font-weight:700;color:var(--navy);}
-
-.faq-section{margin-bottom:48px;}
-.faq-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);margin-bottom:24px;}
-.faq-item{background:var(--white);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px;}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;font-size:14px;font-weight:600;color:var(--navy);gap:16px;user-select:none;}
+[data-theme="dark"] .bt-row.hd{background:#0A1520;}
+.bt-cell{padding:11px 18px;font-size:12px;color:var(--text);}
+.bt-row.hd .bt-cell{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.5);}
+.bt-row:nth-child(even):not(.hd){background:var(--cream-mid);}
+[data-theme="dark"] .bt-row:nth-child(even):not(.hd){background:rgba(255,255,255,0.03);}
+.bt-cell.hl{font-weight:700;color:var(--gold);}
+.bt-row.active-row{background:var(--gold-ghost)!important;border-left:3px solid var(--gold);}
+[data-theme="dark"] .bt-row.active-row{background:rgba(201,168,76,0.1)!important;}
+.bt-row.active-row .bt-cell{font-weight:700;color:var(--text);}
+.faq-item{background:var(--card-bg);border:1.5px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:8px;}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);gap:14px;}
 .faq-q::after{content:'+';font-size:20px;font-weight:300;color:var(--gold);flex-shrink:0;transition:transform .25s;}
 .faq-item.open .faq-q::after{transform:rotate(45deg);}
-.faq-a{display:none;padding:0 22px 18px;font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:16px;}
+.faq-a{display:none;padding:0 20px 16px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:14px;}
 .faq-item.open .faq-a{display:block;}
 
-/* ── FOOTER ── */
-footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(255,255,255,0.07);}
-.footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
-.footer-brand{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);}
-.footer-brand span{color:var(--gold);}
-.footer-links{display:flex;gap:24px;}
-.footer-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;}
-.footer-links a:hover{color:var(--gold);}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.22);}
+/* PROMO */
+.promo-block{background:var(--navy);border-radius:18px;padding:36px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;margin-bottom:40px;}
+[data-theme="dark"] .promo-block{background:#0A1520;}
+.promo-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:8px;}
+.promo-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,26px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
+.promo-title em{color:var(--gold);font-style:italic;}
+.promo-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:16px;max-width:460px;}
+.promo-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.promo-btn-gold{background:var(--gold);color:var(--navy);padding:11px 22px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;}
+.promo-btn-ghost{background:transparent;color:rgba(255,255,255,.6);padding:11px 22px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;border:1.5px solid rgba(255,255,255,.15);}
+.promo-stats{display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+.promo-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.18);border-radius:11px;padding:13px 18px;text-align:center;}
+.promo-stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);line-height:1;}
+.promo-stat-l{font-size:10px;color:rgba(255,255,255,.32);margin-top:2px;}
 
-/* ── RESPONSIVE ── */
+footer{background:var(--navy-mid);padding:36px 60px;border-top:1px solid rgba(255,255,255,0.07);}
+[data-theme="dark"] footer{background:#0A1520;}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(10px);transition:all .3s;z-index:9999;pointer-events:none;border-left:3px solid var(--gold);}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* COUNTER ANIMATION */
+@keyframes countUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.animated{animation:countUp 0.4s ease-out forwards;}
+
+/* RESPONSIVE */
 @media(max-width:1100px){
   .main{grid-template-columns:1fr;max-width:720px;}
-  nav{padding:0 28px;}
-  .hero{padding:48px 28px 40px;}
-  .hero-inner{grid-template-columns:1fr;}
-  .hero-stats{flex-direction:row;justify-content:flex-start;}
+  nav,.bc-wrap,.hero,footer{padding-left:28px;padding-right:28px;}
   .info-section{padding:0 28px 60px;}
-  footer{padding:32px 28px;}
-  .breadcrumb{padding-left:0;}
+  .charts-2col{grid-template-columns:1fr;}
 }
 @media(max-width:768px){
-  nav{padding:0 20px;}
-  .nav-right .nav-link{display:none;}
-  .hero{padding:36px 20px 32px;}
-  .hero-badges{gap:6px;}
-  .info-grid{grid-template-columns:1fr;}
-  .charts-2col{grid-template-columns:1fr;}
-  .period-grid{grid-template-columns:repeat(3,1fr);}
-  .cta-box{flex-direction:column;text-align:center;}
+  nav{padding:0 16px;}
+  .hero{padding:32px 16px 28px;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-stats{flex-direction:row;}
+  .nav-link,.nav-cta{display:none;}
+  .period-grid{grid-template-columns:repeat(2,1fr);}
+  .ctc-grid{grid-template-columns:1fr 1fr;}
   .bt-row{grid-template-columns:1fr 1fr;}
   .bt-cell:nth-child(3),.bt-cell:nth-child(4){display:none;}
-  footer{padding:24px 20px;}
-  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
-}
-@media(max-width:480px){
+  .promo-block{grid-template-columns:1fr;}
+  .info-grid{grid-template-columns:1fr;}
+  .cta-box{flex-direction:column;text-align:center;}
   .res-meta{grid-template-columns:1fr;}
-  .res-meta-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:8px 0;}
+  .res-meta-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:7px 0;}
   .res-meta-item:last-child{border-bottom:none;}
+  .field-row{grid-template-columns:1fr;}
+  .info-section{padding:0 16px 40px;}
+  footer{padding:24px 16px;}
+}
+
+@media print{
+  nav,.hero,.bc-wrap,.cta-box,.promo-block,.info-section,footer,.res-actions,.result-tabs,
+  .faq-item,.info-grid,.brackets-table{display:none!important;}
+  body{background:#fff!important;color:#000!important;}
+  .main{grid-template-columns:1fr!important;max-width:100%!important;padding:0!important;}
+  .card{border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid;}
+  .res-hd{background:#1C2B3A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="/" class="logo">
     <div class="logo-mark">
@@ -286,120 +350,113 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
   <div class="nav-right">
     <a href="/#services" class="nav-link">Services</a>
     <a href="/#pricing" class="nav-link">Pricing</a>
-    <a href="/#tools" class="nav-link">Tools</a>
-    <a href="/#contact" class="nav-link">Contact</a>
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-btn" title="Toggle dark mode">🌙</button>
+    <button class="share-btn" onclick="shareURL()">🔗 Share</button>
+    <button class="print-btn" onclick="window.print()">🖨 Print</button>
     <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-orb"></div>
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow">Free Tool &mdash; No signup required</div>
       <h1>Australian <em>Pay Calculator</em><br>2024&ndash;25</h1>
-      <p class="hero-sub">Calculate your exact take-home pay, income tax, Medicare levy, HECS repayments and superannuation in seconds. Built on the latest ATO rates by Digitwise Consulting, Melbourne.</p>
+      <p class="hero-sub">Calculate take-home pay, income tax, Medicare, HECS, super, CTC breakdown, monthly breakdown, tax-saving tips and salary comparison.</p>
       <div class="hero-badges">
-        <span class="hero-badge"><span class="dot"></span>FY 2024&ndash;25 ATO rates</span>
-        <span class="hero-badge"><span class="dot"></span>LITO applied automatically</span>
-        <span class="hero-badge"><span class="dot"></span>Includes HECS &amp; MLS</span>
-        <span class="hero-badge"><span class="dot"></span>Salary or hourly</span>
-        <span class="hero-badge"><span class="dot"></span>Updated March 2026</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>FY 2024&ndash;25 ATO rates</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>LITO applied</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>HECS &amp; MLS</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>CTC breakdown</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>5&ndash;year projection</span>
+        <span class="hero-badge"><span style="width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block;"></span>Salary comparison</span>
       </div>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-n">0%</div><div class="hero-stat-l">Tax under $18,200</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">0%</div><div class="hero-stat-l">Under $18,200</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">11.5%</div><div class="hero-stat-l">Super FY25</div></div>
       <div class="hero-stat"><div class="hero-stat-n">2%</div><div class="hero-stat-l">Medicare levy</div></div>
-      <div class="hero-stat"><div class="hero-stat-n">11.5%</div><div class="hero-stat-l">Super rate FY25</div></div>
     </div>
   </div>
 </div>
 
-<!-- BREADCRUMB -->
-<div style="background:var(--white);border-bottom:1px solid var(--border);padding:0 60px;">
+<div class="bc-wrap">
   <div class="breadcrumb">
-    <a href="/">Digitwise Consulting</a>
-    <span>&rsaquo;</span>
-    <a href="/#tools">Tools</a>
-    <span>&rsaquo;</span>
-    <span style="color:var(--navy);font-weight:600;">Pay Calculator</span>
+    <a href="/">Digitwise Consulting</a><span>&rsaquo;</span>
+    <a href="/#tools">Tools</a><span>&rsaquo;</span>
+    <span style="color:var(--text);font-weight:600;">Pay Calculator</span>
   </div>
 </div>
 
-<!-- CALCULATOR -->
 <div style="padding:0 60px;">
-  <div class="main">
+<div class="main">
 
-    <!-- LEFT: INPUTS -->
-    <div>
-      <div class="card">
-        <div class="card-hd">
-          <div class="card-hd-title">Enter your income details</div>
-          <div class="card-hd-sub">Salary, hourly or custom &mdash; all supported</div>
+  <!-- LEFT: INPUTS -->
+  <div>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-hd-title">Your income details</div>
+        <div class="card-hd-sub">Salary, hourly or daily rate</div>
+      </div>
+      <div class="card-bd">
+
+        <div class="tab-bar" id="type-tog">
+          <button class="tab-btn on" onclick="setType('salary',this)">Annual</button>
+          <button class="tab-btn" onclick="setType('hourly',this)">Hourly</button>
+          <button class="tab-btn" onclick="setType('daily',this)">Daily</button>
         </div>
-        <div class="card-bd">
 
-          <!-- INCOME TYPE -->
-          <div class="type-toggle" id="type-tog">
-            <button class="ttog on" onclick="setType('salary',this)">Salary</button>
-            <button class="ttog" onclick="setType('hourly',this)">Hourly</button>
-            <button class="ttog" onclick="setType('daily',this)">Daily</button>
-          </div>
-
-          <!-- SALARY -->
-          <div class="field" id="f-salary">
+        <div id="f-salary">
+          <div class="field">
             <label>Annual gross salary (A$)</label>
-            <div class="input-wrap">
-              <span class="input-pre">$</span>
+            <div class="input-wrap"><span class="input-pre">$</span>
               <input type="number" id="inp-salary" class="has-pre" placeholder="80,000" min="0" oninput="go()">
             </div>
           </div>
+        </div>
 
-          <!-- HOURLY -->
-          <div id="f-hourly" style="display:none;">
-            <div class="field">
-              <label>Hourly rate (A$)</label>
-              <div class="input-wrap">
-                <span class="input-pre">$</span>
-                <input type="number" id="inp-hourly" class="has-pre" placeholder="45.00" min="0" oninput="go()">
-              </div>
-            </div>
-            <div class="field">
-              <label>Hours per week &mdash; <span id="hrs-lbl">38</span> hrs</label>
-              <div class="slider-wrap">
-                <input type="range" id="inp-hrs" min="1" max="80" value="38" step="1"
-                  oninput="document.getElementById('hrs-lbl').textContent=this.value;document.getElementById('hrs-val').textContent=this.value+' hrs/week';go()">
-                <div class="slider-val" id="hrs-val">38 hrs/week</div>
-              </div>
+        <div id="f-hourly" style="display:none;">
+          <div class="field">
+            <label>Hourly rate (A$)</label>
+            <div class="input-wrap"><span class="input-pre">$</span>
+              <input type="number" id="inp-hourly" class="has-pre" placeholder="45.00" min="0" oninput="go()">
             </div>
           </div>
+          <div class="field">
+            <label>Hours per week — <span id="hrs-lbl">38</span> hrs</label>
+            <div class="slider-wrap">
+              <input type="range" id="inp-hrs" min="1" max="80" value="38" step="1" oninput="document.getElementById('hrs-lbl').textContent=this.value;go()">
+              <div class="slider-val" id="hrs-val">38 hrs/week</div>
+            </div>
+          </div>
+        </div>
 
-          <!-- DAILY -->
-          <div id="f-daily" style="display:none;">
-            <div class="field">
+        <div id="f-daily" style="display:none;">
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0;">
               <label>Daily rate (A$)</label>
-              <div class="input-wrap">
-                <span class="input-pre">$</span>
+              <div class="input-wrap"><span class="input-pre">$</span>
                 <input type="number" id="inp-daily" class="has-pre" placeholder="400" min="0" oninput="go()">
               </div>
             </div>
-            <div class="field">
+            <div class="field" style="margin-bottom:0;">
               <label>Days per week</label>
               <select id="inp-days" onchange="go()">
                 <option value="5" selected>5 days</option>
                 <option value="4">4 days</option>
                 <option value="3">3 days</option>
                 <option value="2">2 days</option>
-                <option value="1">1 day</option>
               </select>
             </div>
           </div>
+        </div>
 
-          <div class="field-divider"></div>
+        <div class="field-divider"></div>
+        <div class="sec-hd">Pay &amp; Tax Options</div>
 
-          <!-- PAY PERIOD -->
-          <div class="field">
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0;">
             <label>Show results as</label>
             <select id="sel-freq" onchange="go()">
               <option value="52">Weekly</option>
@@ -408,556 +465,666 @@ footer{background:var(--navy-mid);padding:40px 60px;border-top:1px solid rgba(25
               <option value="1" selected>Annually</option>
             </select>
           </div>
-
-          <!-- FINANCIAL YEAR -->
-          <div class="field">
+          <div class="field" style="margin-bottom:0;">
             <label>Financial year</label>
             <select id="sel-fy" onchange="go()">
-              <option value="2025" selected>2024&ndash;25 (current)</option>
+              <option value="2025" selected>2024&ndash;25</option>
               <option value="2024">2023&ndash;24</option>
-              <option value="2026">2025&ndash;26 (estimated)</option>
+              <option value="2026">2025&ndash;26</option>
             </select>
           </div>
+        </div>
 
-          <!-- RESIDENCY -->
-          <div class="field">
-            <label>Residency &amp; tax-free threshold</label>
-            <select id="sel-thresh" onchange="go()">
-              <option value="resident" selected>Australian resident &mdash; claiming threshold</option>
-              <option value="resident-no">Australian resident &mdash; not claiming threshold</option>
-              <option value="foreign">Foreign resident</option>
-              <option value="working-holiday">Working holiday maker</option>
-            </select>
-          </div>
+        <div class="field" style="margin-top:10px;">
+          <label>Residency &amp; tax-free threshold</label>
+          <select id="sel-thresh" onchange="go()">
+            <option value="resident" selected>Australian resident — claiming threshold</option>
+            <option value="resident-no">Australian resident — not claiming</option>
+            <option value="foreign">Foreign resident</option>
+            <option value="working-holiday">Working holiday maker</option>
+          </select>
+        </div>
 
-          <!-- SUPERANNUATION -->
-          <div class="field">
-            <label>Superannuation</label>
-            <select id="sel-super" onchange="go()">
-              <option value="exclusive" selected>Salary is super-exclusive (super paid on top)</option>
-              <option value="inclusive">Salary is super-inclusive (super from salary)</option>
-              <option value="none">Ignore superannuation</option>
-            </select>
-          </div>
+        <div class="field-divider"></div>
+        <div class="sec-hd">Superannuation</div>
 
-          <!-- SUPER RATE -->
-          <div class="field" id="f-super-rate">
+        <div class="field">
+          <label>Super treatment</label>
+          <select id="sel-super" onchange="updateSuperUI();go()">
+            <option value="exclusive" selected>Super-exclusive (employer pays on top)</option>
+            <option value="inclusive">Super-inclusive (included in salary)</option>
+            <option value="none">Ignore superannuation</option>
+          </select>
+        </div>
+
+        <div class="field-row" id="f-super-rate">
+          <div class="field" style="margin-bottom:0;">
             <label>Employer super rate</label>
-            <select id="sel-super-rate" onchange="go()">
-              <option value="11.5" selected>11.5% (FY2024&ndash;25 legislated)</option>
-              <option value="12">12% (FY2025&ndash;26 onwards)</option>
+            <select id="sel-super-rate" onchange="updateSuperUI();go()">
+              <option value="11.5" selected>11.5% (FY2024&ndash;25)</option>
+              <option value="12">12% (FY2025&ndash;26)</option>
               <option value="11">11% (FY2023&ndash;24)</option>
-              <option value="custom">Custom rate</option>
+              <option value="custom">Custom %</option>
             </select>
           </div>
-          <div class="field" id="f-super-custom" style="display:none;">
-            <label>Custom super rate (%)</label>
+          <div class="field" id="f-super-custom" style="display:none;margin-bottom:0;">
+            <label>Custom rate (%)</label>
             <input type="number" id="inp-super-custom" placeholder="11.5" min="0" max="30" step="0.5" oninput="go()">
           </div>
+        </div>
 
-          <div class="field-divider"></div>
+        <div class="field-divider"></div>
+        <div class="sec-hd">Deductions &amp; Extras</div>
 
-          <!-- MEDICARE -->
-          <div class="field">
-            <label>Medicare Levy Surcharge</label>
-            <select id="sel-mls" onchange="go()">
-              <option value="0" selected>No MLS &mdash; I have private hospital cover</option>
-              <option value="1">MLS applies &mdash; no private hospital cover</option>
-            </select>
-          </div>
+        <div class="field">
+          <label>Medicare Levy Surcharge</label>
+          <select id="sel-mls" onchange="go()">
+            <option value="0" selected>No MLS — I have private hospital cover</option>
+            <option value="1">MLS applies — no private cover</option>
+          </select>
+        </div>
 
-          <!-- HECS/HELP -->
-          <div class="field">
-            <label>HELP / HECS / VSL / SSL / ABSTUDY debt</label>
-            <select id="sel-hecs" onchange="go()">
-              <option value="0" selected>No student debt</option>
-              <option value="1">Yes &mdash; repayments apply</option>
-            </select>
-          </div>
+        <div class="field">
+          <label>HELP / HECS / VSL debt</label>
+          <select id="sel-hecs" onchange="go()">
+            <option value="0" selected>No student debt</option>
+            <option value="1">Yes — repayments apply</option>
+          </select>
+        </div>
 
-          <!-- SALARY SACRIFICE -->
-          <div class="field">
-            <label>Salary sacrifice (pre-tax, A$/year)</label>
-            <div class="input-wrap">
-              <span class="input-pre">$</span>
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0;">
+            <label>Salary sacrifice ($/yr)</label>
+            <div class="input-wrap"><span class="input-pre">$</span>
               <input type="number" id="inp-sacrifice" class="has-pre" placeholder="0" min="0" oninput="go()">
             </div>
           </div>
-
-          <!-- EXTRA WITHHOLDING -->
-          <div class="field">
-            <label>Extra tax withholding (A$/year)</label>
-            <div class="input-wrap">
-              <span class="input-pre">$</span>
+          <div class="field" style="margin-bottom:0;">
+            <label>Extra withholding ($/yr)</label>
+            <div class="input-wrap"><span class="input-pre">$</span>
               <input type="number" id="inp-extra-tax" class="has-pre" placeholder="0" min="0" oninput="go()">
             </div>
           </div>
-
-          <div class="field-divider"></div>
-
-          <!-- OFFSETS -->
-          <div class="field">
-            <label>Low &amp; Middle Income Tax Offset (LMITO)</label>
-            <select id="sel-lmito" onchange="go()">
-              <option value="0" selected>Not applicable (FY2024&ndash;25)</option>
-              <option value="1">Apply LMITO (FY2021&ndash;22 only)</option>
-            </select>
-          </div>
-
-          <button class="calc-btn" onclick="go()">Calculate my take-home pay &rarr;</button>
         </div>
-      </div>
 
-      <!-- CTA -->
-      <div class="cta-box">
-        <div class="cta-box-text">
-          <strong>Need help with payroll or tax?</strong>
-          <p>Digitwise Consulting manages payroll, super compliance and ATO reporting for Australian businesses &mdash; end to end.</p>
-        </div>
-        <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="cta-box-btn">Book Free Call &rarr;</a>
+        <button class="calc-btn" onclick="go()">Calculate my take-home pay &rarr;</button>
       </div>
     </div>
 
-    <!-- RIGHT: RESULTS -->
-    <div class="card" id="results-card">
+    <!-- CTA -->
+    <div class="cta-box" style="margin:16px 0 0;">
+      <div class="cta-box-text">
+        <strong>Need help with payroll or tax?</strong>
+        <p>Digitwise Consulting manages payroll, super and ATO reporting — end to end.</p>
+      </div>
+      <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="cta-box-btn">Book Free Call &rarr;</a>
+    </div>
+  </div>
 
-      <div id="placeholder" class="placeholder">
-        <svg viewBox="0 0 60 60" fill="none"><rect x="6" y="6" width="48" height="48" rx="10" stroke="currentColor" stroke-width="2"/><path d="M18 30h24M30 18v24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>Your results appear here</h3>
-        <p>Enter your salary or hourly rate on the left to see your full take-home pay breakdown and charts.</p>
+  <!-- RIGHT: RESULTS -->
+  <div class="card" id="results-card">
+    <div id="placeholder" class="placeholder">
+      <svg viewBox="0 0 56 56" fill="none"><rect x="6" y="6" width="44" height="44" rx="8" stroke="currentColor" stroke-width="2"/><path d="M14 28h28M28 14v28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Your results appear here</h3>
+      <p>Enter your salary or rate on the left to see your full breakdown, charts and projections.</p>
+    </div>
+
+    <div id="results" style="display:none;">
+
+      <!-- HEADLINE -->
+      <div class="res-hd">
+        <div class="takehome-lbl">Take-home pay</div>
+        <div class="takehome-val" id="r-takehome">$0</div>
+        <div class="takehome-freq" id="r-freq">per year</div>
+        <div class="res-meta">
+          <div class="res-meta-item"><div class="res-meta-n" id="r-eff">0%</div><div class="res-meta-l">Effective tax rate</div></div>
+          <div class="res-meta-item"><div class="res-meta-n" id="r-hrly">$0</div><div class="res-meta-l">Net per hour</div></div>
+          <div class="res-meta-item"><div class="res-meta-n" id="r-pkg">$0</div><div class="res-meta-l">Total package</div></div>
+        </div>
       </div>
 
-      <div id="results" style="display:none;">
+      <!-- ACTION BUTTONS -->
+      <div class="res-actions">
+        <button class="res-action-btn" id="share-result-btn" onclick="shareURL()">🔗 Share results</button>
+        <button class="res-action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <button class="res-action-btn" onclick="toggleDark()">🌙 Dark mode</button>
+      </div>
 
-        <!-- HEADLINE -->
-        <div class="res-hd">
-          <div class="res-hd-orb"></div>
-          <div class="takehome-lbl">Take-home pay</div>
-          <div class="takehome-val" id="r-takehome">$0</div>
-          <div class="takehome-freq" id="r-freq">per year</div>
-          <div class="res-meta">
-            <div class="res-meta-item">
-              <div class="res-meta-n" id="r-eff">0%</div>
-              <div class="res-meta-l">Effective tax rate</div>
-            </div>
-            <div class="res-meta-item">
-              <div class="res-meta-n" id="r-hrly">$0</div>
-              <div class="res-meta-l">Net per hour</div>
-            </div>
-            <div class="res-meta-item">
-              <div class="res-meta-n" id="r-pkg">$0</div>
-              <div class="res-meta-l">Total package inc. super</div>
-            </div>
-          </div>
-        </div>
+      <!-- RESULT TABS -->
+      <div class="result-tabs">
+        <button class="result-tab on" onclick="switchResTab('breakdown',this)">Breakdown</button>
+        <button class="result-tab" onclick="switchResTab('charts',this)">Charts</button>
+        <button class="result-tab" onclick="switchResTab('ctc',this)">CTC</button>
+        <button class="result-tab" onclick="switchResTab('monthly',this)">Monthly</button>
+        <button class="result-tab" onclick="switchResTab('tips',this)">Tax Tips</button>
+        <button class="result-tab" onclick="switchResTab('compare',this)">Compare</button>
+        <button class="result-tab" onclick="switchResTab('projection',this)">Projection</button>
+      </div>
 
-        <!-- BREAKDOWN -->
+      <!-- TAB: BREAKDOWN -->
+      <div class="result-panel on" id="panel-breakdown">
         <div class="bdown" id="bdown"></div>
-
-        <!-- CHARTS: DONUT + CASHFLOW -->
-        <div class="sec">
-          <div class="sec-title">Income breakdown</div>
-          <div class="charts-2col">
-            <div class="donut-wrap">
-              <canvas id="c-donut" width="200" height="200"></canvas>
-              <div class="donut-center">
-                <div class="donut-center-pct" id="dc-pct">0%</div>
-                <div class="donut-center-lbl">take-home</div>
-              </div>
-            </div>
-            <div>
-              <canvas id="c-cashflow" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAX BRACKET CHART -->
-        <div class="sec">
-          <div class="sec-title">Your income across tax brackets</div>
-          <canvas id="c-bracket" height="150"></canvas>
-        </div>
-
-        <!-- SALARY COMPARISON -->
-        <div class="sec">
-          <div class="sec-title">How you compare &mdash; Australian benchmarks</div>
-          <canvas id="c-compare" height="160"></canvas>
-        </div>
-
-        <!-- PERIOD CARDS -->
         <div class="sec">
           <div class="sec-title">Pay period breakdown</div>
           <div class="period-grid">
             <div class="period-card"><div class="period-lbl">Weekly</div><div class="period-val" id="p-w">$0</div><div class="period-gross" id="p-wg"></div></div>
             <div class="period-card"><div class="period-lbl">Fortnightly</div><div class="period-val" id="p-f">$0</div><div class="period-gross" id="p-fg"></div></div>
             <div class="period-card"><div class="period-lbl">Monthly</div><div class="period-val" id="p-m">$0</div><div class="period-gross" id="p-mg"></div></div>
+            <div class="period-card"><div class="period-lbl">Annually</div><div class="period-val" id="p-a">$0</div><div class="period-gross" id="p-ag"></div></div>
           </div>
         </div>
-
       </div>
-    </div>
 
+      <!-- TAB: CHARTS -->
+      <div class="result-panel" id="panel-charts">
+        <div class="sec">
+          <div class="sec-title">Income breakdown</div>
+          <div class="charts-2col">
+            <div class="donut-wrap">
+              <canvas id="c-donut" width="190" height="190"></canvas>
+              <div class="donut-center"><div class="donut-pct" id="dc-pct">0%</div><div class="donut-lbl">take-home</div></div>
+            </div>
+            <canvas id="c-cashflow" height="190"></canvas>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">Your income across tax brackets</div>
+          <canvas id="c-bracket" height="140"></canvas>
+        </div>
+        <div class="sec">
+          <div class="sec-title">How you compare — AU benchmarks</div>
+          <canvas id="c-compare" height="150"></canvas>
+        </div>
+      </div>
+
+      <!-- TAB: CTC -->
+      <div class="result-panel" id="panel-ctc">
+        <div class="sec">
+          <div class="sec-title">Cost To Company (CTC) breakdown</div>
+          <div class="ctc-grid" id="ctc-grid"></div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">Total package visualised</div>
+          <canvas id="c-ctc" height="160"></canvas>
+        </div>
+      </div>
+
+      <!-- TAB: MONTHLY -->
+      <div class="result-panel" id="panel-monthly">
+        <div class="sec">
+          <div class="sec-title">Month-by-month breakdown — full year</div>
+          <div style="overflow-x:auto;">
+            <table class="month-table" id="month-table">
+              <thead><tr>
+                <th>Month</th><th>Gross</th><th>Tax</th><th>Medicare</th><th>HECS</th><th>Super</th><th>Net</th>
+              </tr></thead>
+              <tbody id="month-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TAX TIPS -->
+      <div class="result-panel" id="panel-tips">
+        <div class="sec">
+          <div class="sec-title">Personalised tax-saving tips</div>
+          <div class="tips-list" id="tips-list"></div>
+        </div>
+      </div>
+
+      <!-- TAB: COMPARE -->
+      <div class="result-panel" id="panel-compare">
+        <div class="sec">
+          <div class="sec-title">Side-by-side salary comparison</div>
+          <div class="compare-inputs">
+            <div>
+              <div class="compare-label">Salary A (your current)</div>
+              <div class="input-wrap"><span class="input-pre">$</span>
+                <input type="number" id="cmp-a" class="has-pre" placeholder="80,000" oninput="drawCompareChart()" style="width:100%;padding:10px 10px 10px 26px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--input-bg);outline:none;">
+              </div>
+            </div>
+            <div>
+              <div class="compare-label">Salary B (scenario)</div>
+              <div class="input-wrap"><span class="input-pre">$</span>
+                <input type="number" id="cmp-b" class="has-pre" placeholder="100,000" oninput="drawCompareChart()" style="width:100%;padding:10px 10px 10px 26px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--input-bg);outline:none;">
+              </div>
+            </div>
+          </div>
+          <canvas id="c-side-compare" height="200"></canvas>
+          <div id="compare-summary" style="margin-top:14px;"></div>
+        </div>
+      </div>
+
+      <!-- TAB: PROJECTION -->
+      <div class="result-panel" id="panel-projection">
+        <div class="sec">
+          <div class="sec-title">5-year income projection</div>
+          <div class="field-row" style="margin-bottom:14px;">
+            <div>
+              <div class="compare-label">Annual pay rise %</div>
+              <input type="number" id="proj-rise" value="3" min="0" max="20" step="0.5" oninput="drawProjection()" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--input-bg);outline:none;">
+            </div>
+            <div>
+              <div class="compare-label">Annual super growth %</div>
+              <input type="number" id="proj-super-growth" value="7" min="0" max="20" step="0.5" oninput="drawProjection()" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:var(--text);background:var(--input-bg);outline:none;">
+            </div>
+          </div>
+          <canvas id="c-projection" height="180"></canvas>
+          <div style="margin-top:14px;overflow-x:auto;">
+            <table class="proj-table" id="proj-table"></table>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+</div>
 </div>
 
 <!-- INFO SECTION -->
 <div style="padding:0 60px;">
-  <div class="info-section">
+<div class="info-section">
 
-    <!-- TAX BRACKETS TABLE -->
-    <div class="brackets-table">
-      <div class="bt-title">2024&ndash;25 Australian Income Tax Brackets</div>
-      <div class="bt-row hd">
-        <div class="bt-cell">Taxable Income</div>
-        <div class="bt-cell">Tax Rate</div>
-        <div class="bt-cell">Tax on Income</div>
-        <div class="bt-cell">Marginal Rate</div>
-      </div>
-      <div class="bt-row" id="btr-0"><div class="bt-cell">$0 &ndash; $18,200</div><div class="bt-cell highlight">Nil</div><div class="bt-cell">$0</div><div class="bt-cell">0%</div></div>
-      <div class="bt-row" id="btr-1"><div class="bt-cell">$18,201 &ndash; $45,000</div><div class="bt-cell highlight">19c per $1</div><div class="bt-cell">up to $5,092</div><div class="bt-cell">19%</div></div>
-      <div class="bt-row" id="btr-2"><div class="bt-cell">$45,001 &ndash; $120,000</div><div class="bt-cell highlight">32.5c per $1</div><div class="bt-cell">up to $29,467</div><div class="bt-cell">32.5%</div></div>
-      <div class="bt-row" id="btr-3"><div class="bt-cell">$120,001 &ndash; $180,000</div><div class="bt-cell highlight">37c per $1</div><div class="bt-cell">up to $51,667</div><div class="bt-cell">37%</div></div>
-      <div class="bt-row" id="btr-4"><div class="bt-cell">$180,001 and over</div><div class="bt-cell highlight">45c per $1</div><div class="bt-cell">$51,667 +</div><div class="bt-cell">45%</div></div>
-    </div>
+  <div class="brackets-table">
+    <div class="bt-title">2024&ndash;25 Australian Income Tax Brackets</div>
+    <div class="bt-row hd"><div class="bt-cell">Income range</div><div class="bt-cell">Rate</div><div class="bt-cell">Tax on this portion</div><div class="bt-cell">Marginal rate</div></div>
+    <div class="bt-row" id="btr-0"><div class="bt-cell">$0 &ndash; $18,200</div><div class="bt-cell hl">Nil</div><div class="bt-cell">$0</div><div class="bt-cell">0%</div></div>
+    <div class="bt-row" id="btr-1"><div class="bt-cell">$18,201 &ndash; $45,000</div><div class="bt-cell hl">19c per $1</div><div class="bt-cell">up to $5,092</div><div class="bt-cell">19%</div></div>
+    <div class="bt-row" id="btr-2"><div class="bt-cell">$45,001 &ndash; $120,000</div><div class="bt-cell hl">32.5c per $1</div><div class="bt-cell">up to $29,467</div><div class="bt-cell">32.5%</div></div>
+    <div class="bt-row" id="btr-3"><div class="bt-cell">$120,001 &ndash; $180,000</div><div class="bt-cell hl">37c per $1</div><div class="bt-cell">up to $51,667</div><div class="bt-cell">37%</div></div>
+    <div class="bt-row" id="btr-4"><div class="bt-cell">$180,001 and over</div><div class="bt-cell hl">45c per $1</div><div class="bt-cell">$51,667+</div><div class="bt-cell">45%</div></div>
+  </div>
 
-    <!-- INFO CARDS -->
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-card-icon">🏥</div>
-        <h3>Medicare Levy</h3>
-        <p>Most Australian residents pay a 2% Medicare levy on their taxable income. A reduced levy or full exemption applies if your income is below the low-income threshold ($26,000 for individuals in FY2024–25).</p>
-        <ul><li>Full levy: 2% of taxable income above $26,000</li><li>Shade-in threshold: $23,226 to $26,000</li><li>Surcharge: extra 1–1.5% if no private hospital cover and income &gt;$93,000</li></ul>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🎓</div>
-        <h3>HELP / HECS Repayments</h3>
-        <p>If you have a HELP debt, repayments are automatically deducted by your employer once your income reaches the compulsory repayment threshold of $54,435 in 2024–25.</p>
-        <ul><li>Repayment rates scale from 1% to 10%</li><li>Based on repayment income, not taxable income</li><li>Debt is indexed to CPI annually on 1 June</li></ul>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🏦</div>
-        <h3>Superannuation</h3>
-        <p>Your employer must contribute 11.5% of your ordinary time earnings to super in FY2024–25. This amount is on top of your salary and is shown separately in this calculator.</p>
-        <ul><li>SG rate: 11.5% (FY2024–25)</li><li>Rises to 12% from 1 July 2025</li><li>Annual concessional cap: $30,000</li></ul>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-icon">🏥</div><h3>Medicare Levy</h3><p>Most Australian residents pay a 2% Medicare levy. A shade-in threshold applies for low incomes. The Medicare Levy Surcharge (1&ndash;1.5%) applies if you earn over $93k without private hospital cover.</p></div>
+    <div class="info-card"><div class="info-card-icon">🎓</div><h3>HELP / HECS Repayments</h3><p>Compulsory repayments start at $54,435. Rates scale from 1% to 10% of your income. Debt is indexed to CPI annually on 1 June.</p><ul><li>1% from $54,435</li><li>5% from $79,447</li><li>10% from $159,406+</li></ul></div>
+    <div class="info-card"><div class="info-card-icon">🏦</div><h3>Superannuation</h3><p>Employer must contribute 11.5% of ordinary earnings in FY2024&ndash;25 (rises to 12% in FY2025&ndash;26). Annual concessional contributions cap is $30,000.</p></div>
+  </div>
+
+  <div class="faq-title" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--text);margin-bottom:20px;">Frequently asked questions</div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">How is income tax calculated in Australia?</div><div class="faq-a">Australian income tax is progressive. You pay 0% on the first $18,200, 19% from $18,201&ndash;$45,000, 32.5% from $45,001&ndash;$120,000, 37% from $120,001&ndash;$180,000, and 45% above $180,000. The Low Income Tax Offset (up to $700) reduces your tax further.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What is the Low Income Tax Offset (LITO)?</div><div class="faq-a">The LITO reduces tax owed for incomes under $66,667. Maximum $700 for incomes up to $37,500, phasing out to nil at $66,667. It is applied automatically in this calculator.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Is super included in my salary or on top?</div><div class="faq-a">By default in Australia, super is on top of your salary (super-exclusive). If you earn $80,000, your employer also pays $9,200 in super separately. However some employers quote a total package (super-inclusive) — use the toggle in this calculator to match your situation.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What does effective tax rate mean?</div><div class="faq-a">Your effective rate is total tax divided by total income. Your marginal rate is the rate on your last dollar. Someone earning $90,000 has a 32.5% marginal rate but only about a 21% effective rate, because lower brackets are taxed at lower rates.</div></div>
+  <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Can I use this for a second job?</div><div class="faq-a">Yes. For a second job, select "Australian resident — not claiming threshold" since you can only claim the tax-free threshold from one employer. Your withholding will be calculated at the standard rate.</div></div>
+
+  <div style="height:40px;"></div>
+
+  <div class="promo-block">
+    <div>
+      <div class="promo-eyebrow">Digitwise Consulting</div>
+      <div class="promo-title">Let us handle the numbers<br><em>so you don&apos;t have to.</em></div>
+      <p class="promo-desc">From payroll and superannuation to BAS lodgement and month-end reporting &mdash; Digitwise manages your books end to end. Melbourne-based, serving AU and US businesses.</p>
+      <div class="promo-btns">
+        <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="promo-btn-gold">Book a Free Call &rarr;</a>
+        <a href="/#pricing" class="promo-btn-ghost">View Pricing</a>
       </div>
     </div>
-
-    <!-- FAQ -->
-    <div class="faq-section">
-      <div class="faq-title">Frequently asked questions</div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">How is income tax calculated in Australia?</div>
-        <div class="faq-a">Australian income tax is calculated using a progressive rate system. You pay 0% on the first $18,200, then 19% on income from $18,201 to $45,000, then 32.5% from $45,001 to $120,000, 37% from $120,001 to $180,000, and 45% on everything above $180,000. This calculator applies all these rates automatically, plus the Low Income Tax Offset (LITO) of up to $700.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">What is the Low Income Tax Offset (LITO)?</div>
-        <div class="faq-a">The LITO reduces the amount of income tax you pay if you earn under $66,667. The maximum offset is $700 for incomes up to $37,500. It phases out at 5 cents per dollar between $37,500 and $45,000, and then at 1.5 cents per dollar between $45,000 and $66,667. This calculator automatically includes the LITO in all calculations.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Is super included in my salary or on top?</div>
-        <div class="faq-a">Super is on top of your salary. If your employer says you earn $80,000 salary, they also pay $9,200 in super contributions separately (11.5% x $80,000). Your take-home pay is calculated from your base salary only. This calculator shows super as a separate line so you can see your total package.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">What is the effective tax rate vs the marginal rate?</div>
-        <div class="faq-a">Your effective tax rate is the total tax you pay as a percentage of your total income. Your marginal rate is the rate applied to the last dollar you earn. For example, on a $90,000 salary your marginal rate is 32.5%, but your effective rate might be around 21% because only part of your income is taxed at the higher rate.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Can I use this calculator for a second job?</div>
-        <div class="faq-a">If this is a second job, you generally should not claim the tax-free threshold. Select "No — not claiming" in the tax-free threshold dropdown. Your employer will withhold tax at the standard rate for your income level across both jobs.</div>
-      </div>
-    </div>
-
-    <!-- PROMO CARD -->
-    <div style="background:var(--navy);border-radius:20px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;">
-      <div>
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px;">Digitwise Consulting</div>
-        <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,30px);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:10px;">Let us handle the numbers<br><em style="color:var(--gold);">so you don't have to.</em></div>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:480px;">From payroll and superannuation to BAS lodgement and month-end reporting &mdash; Digitwise manages your books end to end. Melbourne-based, serving AU and US businesses.</p>
-        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
-          <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" style="background:var(--gold);color:var(--navy);padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;">Book a Free Call &rarr;</a>
-          <a href="/#pricing" style="background:transparent;color:rgba(255,255,255,0.65);padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,0.15);">View Pricing</a>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
-        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
-          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);">50+</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;">Businesses served</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
-          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);">99%</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;">On-time filing</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:16px 20px;text-align:center;">
-          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);">🇦🇺 🇺🇸</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;">AU &amp; US markets</div>
-        </div>
-      </div>
+    <div class="promo-stats">
+      <div class="promo-stat"><div class="promo-stat-n">50+</div><div class="promo-stat-l">Businesses served</div></div>
+      <div class="promo-stat"><div class="promo-stat-n">99%</div><div class="promo-stat-l">On-time filing</div></div>
+      <div class="promo-stat"><div class="promo-stat-n">🇦🇺 🇺🇸</div><div class="promo-stat-l">AU &amp; US markets</div></div>
     </div>
   </div>
+
+</div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">Digit<span>wise</span> Consulting</div>
     <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/#services">Services</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/#tools">Tools</a>
-      <a href="/#contact">Contact</a>
-      <a href="/pay-calculator">Pay Calculator</a>
+      <a href="/">Home</a><a href="/#services">Services</a>
+      <a href="/#pricing">Pricing</a><a href="/#tools">Tools</a>
+      <a href="/#contact">Contact</a><a href="/pay-calculator">Pay Calculator</a>
     </div>
     <div class="footer-copy">&copy; 2025 Digitwise Consulting. Melbourne, AU.</div>
   </div>
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <script>
-/* Digitwise Pay Calculator v4 — full feature parity */
+/* ═══════════════════════════════════════════════
+   DIGITWISE PAY CALCULATOR v5
+   Features: animated counters, dark mode, shareable URL,
+   CTC breakdown, monthly table, tax tips, salary compare,
+   5-year projection, 4 chart types, print/PDF
+═══════════════════════════════════════════════ */
+
 var incType = 'salary';
 var charts = {};
+var lastResult = {};
 
+/* ── URL PARAMS ON LOAD ── */
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  var s = p.get('salary'); if(s) { document.getElementById('inp-salary').value = s; }
+  var h = p.get('hourly'); if(h) { document.getElementById('inp-hourly').value = h; setType('hourly', document.querySelectorAll('#type-tog .tab-btn')[1]); }
+  var d = p.get('daily');  if(d) { document.getElementById('inp-daily').value = d;  setType('daily',  document.querySelectorAll('#type-tog .tab-btn')[2]); }
+  var fy = p.get('fy');    if(fy) document.getElementById('sel-fy').value = fy;
+  var dark = p.get('dark') || localStorage.getItem('dw-dark');
+  if(dark === '1') { document.documentElement.setAttribute('data-theme','dark'); document.getElementById('dark-btn').textContent = '☀️'; }
+  if((s||h||d)) setTimeout(go, 100);
+})();
+
+/* ── DARK MODE ── */
+function toggleDark() {
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('dark-btn').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('dw-dark', isDark ? '0' : '1');
+  if(lastResult.annual) setTimeout(redrawCharts, 50);
+}
+
+/* ── SHARE URL ── */
+function shareURL() {
+  var p = new URLSearchParams();
+  var annual = lastResult.annual || 0;
+  if(annual > 0) {
+    if(incType==='salary') p.set('salary', document.getElementById('inp-salary').value);
+    else if(incType==='hourly') p.set('hourly', document.getElementById('inp-hourly').value);
+    else p.set('daily', document.getElementById('inp-daily').value);
+    p.set('fy', document.getElementById('sel-fy').value);
+  }
+  var url = window.location.origin + window.location.pathname + (p.toString() ? '?' + p.toString() : '');
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function(){
+      showToast('Link copied to clipboard!');
+      var btn = document.getElementById('share-result-btn');
+      if(btn){ btn.classList.add('copied'); btn.textContent = '✓ Copied!'; setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = '🔗 Share results'; }, 2500); }
+    });
+  } else {
+    prompt('Copy this URL:', url);
+  }
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
+}
+
+/* ── INCOME TYPE TOGGLE ── */
 function setType(t, btn) {
   incType = t;
-  document.querySelectorAll('#type-tog .ttog').forEach(function(b){ b.classList.remove('on'); });
+  document.querySelectorAll('#type-tog .tab-btn').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
-  document.getElementById('f-salary').style.display = t==='salary' ? 'block' : 'none';
-  document.getElementById('f-hourly').style.display = t==='hourly' ? 'block' : 'none';
-  document.getElementById('f-daily').style.display  = t==='daily'  ? 'block' : 'none';
+  document.getElementById('f-salary').style.display = t==='salary'?'block':'none';
+  document.getElementById('f-hourly').style.display = t==='hourly'?'block':'none';
+  document.getElementById('f-daily').style.display  = t==='daily'?'block':'none';
   go();
 }
 
-// Show/hide custom super rate
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('sel-super-rate').addEventListener('change', function() {
-    document.getElementById('f-super-custom').style.display = this.value === 'custom' ? 'block' : 'none';
-    go();
-  });
-  document.getElementById('sel-super').addEventListener('change', function() {
-    document.getElementById('f-super-rate').style.display = this.value === 'none' ? 'none' : 'block';
-    go();
-  });
-});
-
-function fmt(n) { return '$' + Math.round(n).toLocaleString('en-AU'); }
-function fmtD(n, dp) { dp = dp || 0; return '$' + n.toLocaleString('en-AU',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
-
-// Tax brackets by FY
-var TAX_TABLES = {
-  2025: { // FY2024-25
-    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
-    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
-  },
-  2024: { // FY2023-24
-    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
-    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
-  },
-  2026: { // FY2025-26 (Stage 3 same rates)
-    resident:    [[18200,0],[45000,0.19],[120000,0.325],[180000,0.37],[Infinity,0.45]],
-    'resident-no':[[0,0.19],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    foreign:     [[0,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]],
-    'working-holiday':[[0,0.15],[45000,0.325],[120000,0.37],[180000,0.45],[Infinity,0.45]]
-  }
-};
-
-var LITO_TABLE = {
-  2025: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; },
-  2024: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; },
-  2026: function(inc){ if(inc<=37500) return 700; if(inc<=45000) return 700-(inc-37500)*0.05; if(inc<=66667) return 325-(inc-45000)*0.015; return 0; }
-};
-
-function calcTaxFromBrackets(taxable, brackets) {
-  var tax = 0, prev = 0;
-  for (var i = 0; i < brackets.length; i++) {
-    var cap = brackets[i][0], rate = brackets[i][1];
-    if (taxable <= prev) break;
-    var chunk = Math.min(taxable, cap) - prev;
-    tax += chunk * rate;
-    if (taxable <= cap) break;
-    prev = cap;
-  }
-  return tax;
+function updateSuperUI() {
+  var mode = document.getElementById('sel-super').value;
+  var rate = document.getElementById('sel-super-rate').value;
+  document.getElementById('f-super-rate').style.display = mode==='none'?'none':'grid';
+  document.getElementById('f-super-custom').style.display = rate==='custom'?'block':'none';
 }
 
-function calcTax(taxable, residency, fy) {
-  var brackets = TAX_TABLES[fy][residency] || TAX_TABLES[fy].resident;
-  var tax = calcTaxFromBrackets(taxable, brackets);
-  // Apply LITO for residents only
-  if (residency === 'resident' || residency === 'resident-no') {
-    tax = Math.max(0, tax - LITO_TABLE[fy](taxable));
+/* ── RESULT TABS ── */
+function switchResTab(id, btn) {
+  document.querySelectorAll('.result-tab').forEach(function(b){ b.classList.remove('on'); });
+  document.querySelectorAll('.result-panel').forEach(function(p){ p.classList.remove('on'); });
+  btn.classList.add('on');
+  document.getElementById('panel-'+id).classList.add('on');
+  if(id==='charts') redrawCharts();
+  if(id==='ctc') drawCTC();
+  if(id==='compare') { if(lastResult.annual){ document.getElementById('cmp-a').value=Math.round(lastResult.annual); drawCompareChart(); } }
+  if(id==='projection') drawProjection();
+}
+
+/* ── FORMATTING ── */
+function fmt(n){ return '$'+Math.round(n).toLocaleString('en-AU'); }
+function fmtS(n){ return '$'+(Math.round(n)/1000).toFixed(1)+'k'; }
+
+/* ── TAX TABLES ── */
+var TAX = {
+  2025:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] },
+  2024:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] },
+  2026:{ resident:[[18200,0],[45000,.19],[120000,.325],[180000,.37],[Infinity,.45]], 'resident-no':[[0,.19],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]], foreign:[[0,.325],[120000,.37],[180000,.45],[Infinity,.45]], 'working-holiday':[[0,.15],[45000,.325],[120000,.37],[180000,.45],[Infinity,.45]] }
+};
+var LITO = { 2025:lito, 2024:lito, 2026:lito };
+function lito(i){ if(i<=37500) return 700; if(i<=45000) return 700-(i-37500)*.05; if(i<=66667) return 325-(i-45000)*.015; return 0; }
+
+function calcTax(taxable, res, fy) {
+  var brackets = TAX[fy][res] || TAX[fy].resident;
+  var tax=0, prev=0;
+  for(var i=0;i<brackets.length;i++){
+    var cap=brackets[i][0], rate=brackets[i][1];
+    if(taxable<=prev) break;
+    tax += (Math.min(taxable,cap)-prev)*rate;
+    if(taxable<=cap) break;
+    prev=cap;
   }
+  if(res==='resident'||res==='resident-no') tax = Math.max(0, tax - lito(taxable));
   return Math.max(0, tax);
 }
-
-function calcMed(inc, residency) {
-  if (residency === 'foreign' || residency === 'working-holiday') return 0;
-  if (inc >= 26000) return inc * 0.02;
-  if (inc > 23226) return (inc - 23226) * 0.1;
+function calcMed(inc, res) {
+  if(res==='foreign'||res==='working-holiday') return 0;
+  if(inc>=26000) return inc*.02;
+  if(inc>23226) return (inc-23226)*.1;
   return 0;
 }
-
 function calcHECS(inc) {
-  if (inc < 54435) return 0;
+  if(inc<54435) return 0;
   var r=[[54435,.01],[62850,.02],[66621,.025],[70619,.03],[74956,.035],[79447,.04],[84191,.045],[89243,.05],[94598,.055],[100186,.06],[106126,.065],[112478,.07],[119027,.075],[126143,.08],[133832,.085],[141882,.09],[150289,.095],[159406,.1]];
-  for (var i=r.length-1;i>=0;i--) { if(inc>=r[i][0]) return Math.round(inc*r[i][1]); }
+  for(var i=r.length-1;i>=0;i--){ if(inc>=r[i][0]) return Math.round(inc*r[i][1]); }
   return 0;
 }
 
-function killChart(k) { if(charts[k]){ try{charts[k].destroy();}catch(e){} charts[k]=null; } }
+/* ── ANIMATED COUNTER ── */
+function animateVal(el, target, prefix, suffix) {
+  prefix = prefix||''; suffix = suffix||'';
+  var start = 0, duration = 500, startTime = null;
+  function step(ts) {
+    if(!startTime) startTime=ts;
+    var p = Math.min((ts-startTime)/duration, 1);
+    var ease = 1-Math.pow(1-p,3);
+    var val = Math.round(ease*target);
+    el.textContent = prefix + val.toLocaleString('en-AU') + suffix;
+    if(p<1) requestAnimationFrame(step);
+    else el.textContent = prefix + target.toLocaleString('en-AU') + suffix;
+  }
+  requestAnimationFrame(step);
+}
 
+/* ── MAIN CALCULATION ── */
 function go() {
-  // Get income
-  var gross = 0;
-  if (incType === 'salary') {
-    gross = parseFloat(document.getElementById('inp-salary').value) || 0;
-  } else if (incType === 'hourly') {
-    var hr = parseFloat(document.getElementById('inp-hourly').value) || 0;
-    var wk = parseFloat(document.getElementById('inp-hrs').value) || 38;
-    gross = hr * wk * 52;
-  } else {
-    var dr = parseFloat(document.getElementById('inp-daily').value) || 0;
-    var dw = parseFloat(document.getElementById('inp-days').value) || 5;
-    gross = dr * dw * 52;
-  }
+  var annual = 0;
+  if(incType==='salary') annual = parseFloat(document.getElementById('inp-salary').value)||0;
+  else if(incType==='hourly') { var hr=parseFloat(document.getElementById('inp-hourly').value)||0; var wk=parseFloat(document.getElementById('inp-hrs').value)||38; annual=hr*wk*52; document.getElementById('hrs-val').textContent=wk+' hrs/week'; }
+  else { var dr=parseFloat(document.getElementById('inp-daily').value)||0; var dw=parseFloat(document.getElementById('inp-days').value)||5; annual=dr*dw*52; }
 
-  if (gross <= 0) {
-    document.getElementById('placeholder').style.display = 'block';
-    document.getElementById('results').style.display = 'none';
-    return;
-  }
+  if(annual<=0){ document.getElementById('placeholder').style.display='block'; document.getElementById('results').style.display='none'; return; }
 
-  // Options
-  var fy        = parseInt(document.getElementById('sel-fy').value);
-  var residency = document.getElementById('sel-thresh').value;
+  var fy = parseInt(document.getElementById('sel-fy').value);
+  var res = document.getElementById('sel-thresh').value;
   var superMode = document.getElementById('sel-super').value;
   var superRateEl = document.getElementById('sel-super-rate').value;
-  var superRate = superRateEl === 'custom'
-    ? (parseFloat(document.getElementById('inp-super-custom').value) || 11.5) / 100
-    : parseFloat(superRateEl) / 100;
-  var doMLS     = parseInt(document.getElementById('sel-mls').value);
-  var doHECS    = parseInt(document.getElementById('sel-hecs').value);
-  var sacrifice = parseFloat(document.getElementById('inp-sacrifice').value) || 0;
-  var extraTax  = parseFloat(document.getElementById('inp-extra-tax').value) || 0;
-  var doLMITO   = parseInt(document.getElementById('sel-lmito').value);
-  var freqDiv   = parseInt(document.getElementById('sel-freq').value);
-  var freqName  = {52:'week',26:'fortnight',12:'month',1:'year'}[freqDiv];
+  var superRate = superRateEl==='custom' ? (parseFloat(document.getElementById('inp-super-custom').value)||11.5)/100 : parseFloat(superRateEl)/100;
+  var doMLS = parseInt(document.getElementById('sel-mls').value);
+  var doHECS = parseInt(document.getElementById('sel-hecs').value);
+  var sacrifice = parseFloat(document.getElementById('inp-sacrifice').value)||0;
+  var extraTax = parseFloat(document.getElementById('inp-extra-tax').value)||0;
+  var freqDiv = parseInt(document.getElementById('sel-freq').value);
+  var freqName = {52:'week',26:'fortnight',12:'month',1:'year'}[freqDiv];
 
-  // Super calculation
-  var superAmt = 0, salaryForTax = gross;
-  if (superMode === 'exclusive') {
-    superAmt = gross * superRate;
-    salaryForTax = gross;
-  } else if (superMode === 'inclusive') {
-    salaryForTax = gross / (1 + superRate);
-    superAmt = gross - salaryForTax;
-  } else {
-    superAmt = 0;
-    salaryForTax = gross;
-  }
+  var salaryForTax = annual, superAmt = 0;
+  if(superMode==='exclusive'){ superAmt=annual*superRate; salaryForTax=annual; }
+  else if(superMode==='inclusive'){ salaryForTax=annual/(1+superRate); superAmt=annual-salaryForTax; }
 
-  // Salary sacrifice reduces taxable income
-  var taxable = Math.max(0, salaryForTax - sacrifice);
-
-  // Tax
-  var tax = calcTax(taxable, residency, fy);
-
-  // LMITO (only FY2021-22, optional toggle)
-  if (doLMITO) {
-    var lmito = 0;
-    if (taxable <= 37000) lmito = 255;
-    else if (taxable <= 48000) lmito = 255 + (taxable - 37000) * 0.075;
-    else if (taxable <= 90000) lmito = 1080;
-    else if (taxable <= 126000) lmito = 1080 - (taxable - 90000) * 0.03;
-    tax = Math.max(0, tax - lmito);
-  }
-
-  // Medicare
-  var med = calcMed(taxable, residency);
-
-  // MLS
-  var mls = 0;
-  if (doMLS && taxable > 93000) {
-    if (taxable <= 108000) mls = taxable * 0.01;
-    else if (taxable <= 144000) mls = taxable * 0.0125;
-    else mls = taxable * 0.015;
-  }
-
-  // HECS
+  var taxable = Math.max(0, salaryForTax-sacrifice);
+  var tax = calcTax(taxable, res, fy);
+  var med = calcMed(taxable, res);
+  var mls = (doMLS&&taxable>93000) ? taxable*(taxable<=108000?.01:taxable<=144000?.0125:.015) : 0;
   var hecs = doHECS ? calcHECS(taxable) : 0;
-
-  var totalDed = tax + med + mls + hecs + extraTax;
-  var net = taxable - totalDed + sacrifice; // sacrifice already deducted from taxable, add back to net (pre-tax benefit)
-  // Actually: net = salaryForTax - tax - med - mls - hecs - extraTax
-  net = salaryForTax - totalDed;
-  var eff = taxable > 0 ? (totalDed/salaryForTax*100).toFixed(1) + '%' : '0%';
+  var totalDed = tax+med+mls+hecs+extraTax;
+  var net = salaryForTax-totalDed;
+  var eff = salaryForTax>0 ? (totalDed/salaryForTax*100).toFixed(1)+'%' : '0%';
   var d = freqDiv;
 
-  // SHOW RESULTS
-  document.getElementById('placeholder').style.display = 'none';
-  document.getElementById('results').style.display = 'block';
+  lastResult = { annual:annual, salaryForTax:salaryForTax, taxable:taxable, tax:tax, med:med, mls:mls, hecs:hecs, super:superAmt, superRate:superRate, superMode:superMode, net:net, eff:eff, res:res, fy:fy, sacrifice:sacrifice, extraTax:extraTax, doHECS:doHECS, doMLS:doMLS };
 
-  document.getElementById('r-takehome').textContent = fmt(net/d);
-  document.getElementById('r-freq').textContent = 'per ' + freqName;
+  document.getElementById('placeholder').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  /* ANIMATED HEADLINE */
+  var thEl = document.getElementById('r-takehome');
+  thEl.classList.remove('animated');
+  void thEl.offsetWidth;
+  thEl.classList.add('animated');
+  animateVal(thEl, Math.round(net/d), '$');
+  document.getElementById('r-freq').textContent = 'per '+freqName;
   document.getElementById('r-eff').textContent = eff;
-  document.getElementById('r-hrly').textContent = '$' + (net/2080).toFixed(2);
-  var pkg = superMode !== 'none' ? fmt((salaryForTax + superAmt)/d) : 'N/A';
-  document.getElementById('r-pkg').textContent = pkg;
-  document.getElementById('dc-pct').textContent = salaryForTax > 0 ? Math.round(net/salaryForTax*100) + '%' : '0%';
+  document.getElementById('r-hrly').textContent = '$'+(net/2080).toFixed(2);
+  document.getElementById('r-pkg').textContent = superMode!=='none' ? fmt((salaryForTax+superAmt)/d) : 'N/A';
+  document.getElementById('dc-pct').textContent = salaryForTax>0 ? Math.round(net/salaryForTax*100)+'%' : '0%';
 
-  // Breakdown rows
-  var rows = [{c:'gross', l:'Gross income', v:fmt(salaryForTax/d)}];
-  if (sacrifice > 0) rows.push({c:'deduct', l:'Salary sacrifice (pre-tax)', v:'-'+fmt(sacrifice/d)});
-  rows.push({c:'tax', l:'Income tax (incl. LITO)', v:'-'+fmt(tax/d)});
-  rows.push({c:'deduct', l:'Medicare levy (2%)', v:'-'+fmt(med/d)});
-  if (mls > 0)      rows.push({c:'deduct', l:'Medicare Levy Surcharge', v:'-'+fmt(mls/d)});
-  if (hecs > 0)     rows.push({c:'deduct', l:'HELP / HECS repayment', v:'-'+fmt(hecs/d)});
-  if (extraTax > 0) rows.push({c:'deduct', l:'Extra withholding', v:'-'+fmt(extraTax/d)});
-  if (superMode !== 'none') rows.push({c:'super', l:'Super (' + (superRate*100).toFixed(1) + '% — employer' + (superMode==='inclusive'?' from salary':' on top') + ')', v: (superMode==='inclusive'?'-':'+') + fmt(superAmt/d)});
-  rows.push({c:'total', l:'Net take-home', v:fmt(net/d)});
+  /* BREAKDOWN ROWS */
+  var rows = [{c:'gross',l:'Gross income',v:fmt(salaryForTax/d)}];
+  if(sacrifice>0) rows.push({c:'deduct',l:'Salary sacrifice (pre-tax)',v:'-'+fmt(sacrifice/d)});
+  rows.push({c:'tax',l:'Income tax (incl. LITO)',v:'-'+fmt(tax/d)});
+  rows.push({c:'deduct',l:'Medicare levy (2%)',v:'-'+fmt(med/d)});
+  if(mls>0) rows.push({c:'deduct',l:'Medicare Levy Surcharge',v:'-'+fmt(mls/d)});
+  if(hecs>0) rows.push({c:'deduct',l:'HELP / HECS repayment',v:'-'+fmt(hecs/d)});
+  if(extraTax>0) rows.push({c:'deduct',l:'Extra withholding',v:'-'+fmt(extraTax/d)});
+  if(superMode!=='none') rows.push({c:'super-row',l:'Super ('+(superRate*100).toFixed(1)+'% '+(superMode==='inclusive'?'from salary':'on top')+')',v:(superMode==='inclusive'?'-':'+')+fmt(superAmt/d)});
+  rows.push({c:'total',l:'Net take-home',v:fmt(net/d)});
+  document.getElementById('bdown').innerHTML = rows.map(function(r){ return '<div class="brow '+r.c+'"><span class="brow-lbl">'+r.l+'</span><span class="brow-val">'+r.v+'</span></div>'; }).join('');
 
-  document.getElementById('bdown').innerHTML = rows.map(function(r){
-    return '<div class="brow '+r.c+'"><span class="brow-lbl">'+r.l+'</span><span class="brow-val">'+r.v+'</span></div>';
-  }).join('');
+  /* PERIOD CARDS */
+  document.getElementById('p-w').textContent=fmt(net/52); document.getElementById('p-wg').textContent='gross '+fmt(salaryForTax/52);
+  document.getElementById('p-f').textContent=fmt(net/26); document.getElementById('p-fg').textContent='gross '+fmt(salaryForTax/26);
+  document.getElementById('p-m').textContent=fmt(net/12); document.getElementById('p-mg').textContent='gross '+fmt(salaryForTax/12);
+  document.getElementById('p-a').textContent=fmt(net);    document.getElementById('p-ag').textContent='gross '+fmt(salaryForTax);
 
-  // Period cards
-  document.getElementById('p-w').textContent = fmt(net/52);
-  document.getElementById('p-wg').textContent = 'gross ' + fmt(salaryForTax/52);
-  document.getElementById('p-f').textContent = fmt(net/26);
-  document.getElementById('p-fg').textContent = 'gross ' + fmt(salaryForTax/26);
-  document.getElementById('p-m').textContent = fmt(net/12);
-  document.getElementById('p-mg').textContent = 'gross ' + fmt(salaryForTax/12);
-
-  // Highlight active bracket
-  var btBrackets = [[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]];
-  btBrackets.forEach(function(b,i){
-    var row = document.getElementById('btr-'+i);
-    if (row) row.classList.toggle('active-row', taxable > b[0] && taxable <= b[1]);
+  /* BRACKET TABLE HIGHLIGHT */
+  [[0,18200],[18200,45000],[45000,120000],[120000,180000],[180000,Infinity]].forEach(function(b,i){
+    var row=document.getElementById('btr-'+i); if(row) row.classList.toggle('active-row', taxable>b[0]&&taxable<=b[1]);
   });
 
-  drawDonut(net, tax, med+mls, hecs, superMode!=='none'?superAmt:0, salaryForTax, superMode);
-  drawCashflow(net, tax, med+mls, hecs, superMode!=='none'?superAmt:0, superMode);
-  drawBracket(taxable, residency, fy);
-  drawCompare(salaryForTax, net);
+  /* MONTHLY TABLE */
+  buildMonthlyTable(salaryForTax, tax, med, mls, hecs, superAmt, net, superMode);
+
+  /* TAX TIPS */
+  buildTips(taxable, tax, sacrifice, doHECS, hecs, superAmt, superMode, doMLS, mls);
+
+  /* CHARTS if visible */
+  if(document.getElementById('panel-charts').classList.contains('on')) redrawCharts();
+  if(document.getElementById('panel-ctc').classList.contains('on')) drawCTC();
+  if(document.getElementById('panel-projection').classList.contains('on')) drawProjection();
+}
+
+/* ── MONTHLY TABLE ── */
+function buildMonthlyTable(gross, tax, med, mls, hecs, sup, net, superMode) {
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var wdays=[4,4,5,4,4,5,4,5,4,4,5,4]; // approx working days
+  var html='';
+  var annualTax=tax, annualMed=med+mls, annualHecs=hecs, annualSup=sup, annualNet=net;
+  months.forEach(function(m,i){
+    var frac=wdays[i]/sum(wdays);
+    var mg=gross*frac, mt=annualTax*frac, mm=annualMed*frac, mh=annualHecs*frac, ms=annualSup*frac, mn=annualNet*frac;
+    html+='<tr><td>'+m+'</td><td>'+fmt(mg)+'</td><td class="tax-col">-'+fmt(mt)+'</td><td class="tax-col">-'+fmt(mm)+'</td>';
+    html+='<td class="tax-col">'+(annualHecs>0?'-'+fmt(mh):'—')+'</td>';
+    html+='<td class="super-col">'+(annualSup>0?(superMode==='inclusive'?'-':'')+fmt(ms):'—')+'</td>';
+    html+='<td class="net">'+fmt(mn)+'</td></tr>';
+  });
+  document.getElementById('month-tbody').innerHTML = html;
+}
+function sum(a){ return a.reduce(function(s,v){ return s+v; }, 0); }
+
+/* ── TAX TIPS ── */
+function buildTips(taxable, tax, sacrifice, doHECS, hecs, sup, superMode, doMLS, mls) {
+  var tips = [];
+  var eff = taxable>0 ? tax/taxable : 0;
+
+  if(sacrifice < 5000 && taxable > 37500) tips.push({
+    title:'Salary sacrifice into super',
+    desc:'Pre-tax salary sacrifice reduces your taxable income directly. At your income level, sacrificing $5,000/yr could save ~'+fmt(5000*(taxable>120000?.37:taxable>45000?.325:.19))+' in tax.',
+    save:'Save up to '+fmt(5000*(taxable>120000?.37:taxable>45000?.325:.19))+'/yr'
+  });
+
+  if(doHECS && hecs > 0) tips.push({
+    title:'Voluntary HECS repayments',
+    desc:'Making voluntary HELP/HECS repayments reduces your debt faster and saves on annual CPI indexation (currently ~4%). Your current compulsory repayment is '+fmt(hecs)+'/yr.',
+    save:'Saves future CPI indexation'
+  });
+
+  if(doMLS && mls > 0) tips.push({
+    title:'Get private hospital cover',
+    desc:'You are paying '+fmt(mls)+'/yr in Medicare Levy Surcharge. Basic private hospital cover can cost less than this — removing the surcharge entirely while also gaining hospital coverage.',
+    save:'Save up to '+fmt(mls)+'/yr'
+  });
+
+  if(taxable > 45000) tips.push({
+    title:'Claim all work-related deductions',
+    desc:'Work-related expenses (home office, professional development, union fees, tools, phone) reduce taxable income. At your rate, every $1,000 of deductions saves approximately '+fmt(taxable>120000?370:325)+' in tax.',
+    save:'~'+fmt(taxable>120000?370:325)+' per $1k claimed'
+  });
+
+  if(superMode === 'none') tips.push({
+    title:'Check your superannuation contributions',
+    desc:'Make sure your employer is paying your super correctly. At 11.5%, your employer should be contributing '+fmt(taxable*.115)+'/yr on top of your salary. Use the super toggle in the calculator to see the full picture.',
+    save:'Know your full package'
+  });
+
+  if(taxable > 90000) tips.push({
+    title:'Concessional super contributions cap',
+    desc:'You can contribute up to $30,000/yr to super as concessional (pre-tax) contributions, taxed at only 15%. At your marginal rate of '+(taxable>180000?45:taxable>120000?37:32.5)+'%, this is a significant tax saving strategy.',
+    save:'Taxed at 15% vs '+(taxable>180000?45:taxable>120000?37:32.5)+'%'
+  });
+
+  if(taxable > 18200 && taxable < 37500) tips.push({
+    title:'You qualify for the full LITO',
+    desc:'You receive the maximum Low Income Tax Offset of $700, which is already applied in this calculation. Your take-home pay benefits from this offset automatically through your payroll.',
+    save:'$700 already applied'
+  });
+
+  if(tips.length === 0) tips.push({
+    title:'Your tax situation looks optimised',
+    desc:'Based on the information entered, you appear to be making the most of your current income structure. Book a free call with Digitwise to explore additional strategies specific to your situation.',
+    save:'Book a free review'
+  });
+
+  document.getElementById('tips-list').innerHTML = tips.map(function(t){
+    return '<div class="tip-card"><div class="tip-title">'+t.title+'</div><div class="tip-desc">'+t.desc+'</div><span class="tip-save">'+t.save+'</span></div>';
+  }).join('');
+}
+
+/* ── KILL/DRAW CHARTS ── */
+function killChart(k){ if(charts[k]){ try{charts[k].destroy();}catch(e){} charts[k]=null; } }
+
+function redrawCharts() {
+  if(!lastResult.annual) return;
+  var r = lastResult;
+  drawDonut(r.net, r.tax, r.med+r.mls, r.hecs, r.super, r.salaryForTax, r.superMode);
+  drawCashflow(r.net, r.tax, r.med+r.mls, r.hecs, r.super, r.superMode);
+  drawBracket(r.taxable, r.res, r.fy);
+  drawCompareAU(r.salaryForTax, r.net);
+}
+
+function chartColors() {
+  var dark = document.documentElement.getAttribute('data-theme')==='dark';
+  return { grid: dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.04)', label: dark?'#7A8FA0':'#6A7A8A' };
 }
 
 function drawDonut(net,tax,med,hecs,sup,gross,superMode){
   killChart('donut');
-  var ctx = document.getElementById('c-donut').getContext('2d');
-  var data=[net,tax,med], lbls=['Take-home','Income tax','Medicare'], cols=['#C9A84C','#E24B4A','#FB923C'];
+  var ctx=document.getElementById('c-donut').getContext('2d');
+  var data=[net,tax,med],lbls=['Take-home','Income tax','Medicare'],cols=['#C9A84C','#E24B4A','#FB923C'];
   if(hecs>0){data.push(hecs);lbls.push('HECS');cols.push('#378ADD');}
   if(sup>0){data.push(sup);lbls.push('Super');cols.push('#22C55E');}
-  charts.donut=new Chart(ctx,{type:'doughnut',data:{labels:lbls,datasets:[{data:data,backgroundColor:cols,borderWidth:2,borderColor:'#fff',hoverOffset:6}]},
-    options:{responsive:true,cutout:'64%',plugins:{legend:{position:'bottom',labels:{font:{family:'Outfit',size:10},padding:8,boxWidth:9}},
-    tooltip:{callbacks:{label:function(c){return' '+c.label+': '+fmt(c.raw);}}}},animation:{duration:500}}});
+  charts.donut=new Chart(ctx,{type:'doughnut',data:{labels:lbls,datasets:[{data:data,backgroundColor:cols,borderWidth:2,borderColor:document.documentElement.getAttribute('data-theme')==='dark'?'#162230':'#fff',hoverOffset:5}]},
+    options:{responsive:true,cutout:'65%',plugins:{legend:{position:'bottom',labels:{font:{family:'Outfit',size:10},padding:8,boxWidth:9}},tooltip:{callbacks:{label:function(c){return' '+c.label+': '+fmt(c.raw);}}}},animation:{duration:500}}});
 }
 
 function drawCashflow(net,tax,med,hecs,sup,superMode){
   killChart('cashflow');
   var ctx=document.getElementById('c-cashflow').getContext('2d');
+  var c=chartColors();
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var ds=[
     {label:'Take-home',data:months.map(function(){return Math.round(net/12);}),backgroundColor:'rgba(201,168,76,0.85)',borderRadius:3},
@@ -965,40 +1132,148 @@ function drawCashflow(net,tax,med,hecs,sup,superMode){
   ];
   if(sup>0) ds.push({label:'Super',data:months.map(function(){return Math.round(sup/12);}),backgroundColor:'rgba(34,197,94,0.65)',borderRadius:3});
   charts.cashflow=new Chart(ctx,{type:'bar',data:{labels:months,datasets:ds},
-    options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},
-    tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
-    scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},
-    y:{stacked:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+    options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:6}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
+    scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}},y:{stacked:true,grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
 }
 
-function drawBracket(taxable, residency, fy){
+function drawBracket(taxable,res,fy){
   killChart('bracket');
   var ctx=document.getElementById('c-bracket').getContext('2d');
-  var bs=[
-    {l:'$0-$18.2k (0%)',from:0,to:18200},
-    {l:'$18.2k-$45k (19%)',from:18200,to:45000},
-    {l:'$45k-$120k (32.5%)',from:45000,to:120000},
-    {l:'$120k-$180k (37%)',from:120000,to:180000},
-    {l:'$180k+ (45%)',from:180000,to:300000}
-  ];
-  if(residency==='foreign'){bs[0]={l:'$0-$120k (32.5%)',from:0,to:120000};bs.splice(1,1);}
-  var data=bs.map(function(b){ if(taxable<=b.from) return 0; return Math.round((Math.min(taxable,b.to)-b.from)/1000); });
-  var cols=bs.map(function(b){ if(taxable<=b.from) return 'rgba(201,168,76,0.1)'; if(taxable>b.from&&taxable<=b.to) return '#1C2B3A'; return '#C9A84C'; });
-  charts.bracket=new Chart(ctx,{type:'bar',data:{labels:bs.map(function(b){return b.l;}),datasets:[{label:'Income in bracket ($000s)',data:data,backgroundColor:cols,borderRadius:6}]},
+  var c=chartColors();
+  var bs=[{l:'$0-$18.2k (0%)',from:0,to:18200},{l:'$18.2k-$45k (19%)',from:18200,to:45000},{l:'$45k-$120k (32.5%)',from:45000,to:120000},{l:'$120k-$180k (37%)',from:120000,to:180000},{l:'$180k+ (45%)',from:180000,to:300000}];
+  var data=bs.map(function(b){ return taxable<=b.from?0:Math.round((Math.min(taxable,b.to)-b.from)/1000); });
+  var cols=bs.map(function(b){ if(taxable<=b.from) return 'rgba(201,168,76,0.12)'; if(taxable>b.from&&taxable<=b.to) return '#1C2B3A'; return '#C9A84C'; });
+  charts.bracket=new Chart(ctx,{type:'bar',data:{labels:bs.map(function(b){return b.l;}),datasets:[{data:data,backgroundColor:cols,borderRadius:5}]},
     options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return' $'+c.raw+'k in this bracket';}}}},
-    scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+v+'k';}}},
-    y:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}}},animation:{duration:500}}});
+    scales:{x:{grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+v+'k';}}},y:{grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}}},animation:{duration:500}}});
 }
 
-function drawCompare(gross,net){
-  killChart('compare');
+function drawCompareAU(gross,net){
+  killChart('compareAU');
   var ctx=document.getElementById('c-compare').getContext('2d');
-  var bm=[{l:'Nat. median',g:67600,n:55200},{l:'Skilled worker',g:90000,n:70300},{l:'Melb. median',g:78000,n:62400},{l:'You',g:gross,n:net}];
-  charts.compare=new Chart(ctx,{type:'bar',data:{labels:bm.map(function(b){return b.l;}),datasets:[
-    {label:'Gross',data:bm.map(function(b){return Math.round(b.g);}),backgroundColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.25)':'rgba(28,43,58,0.1)';}),borderColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.5)':'rgba(28,43,58,0.18)';}),borderWidth:1.5,borderRadius:5},
-    {label:'Net take-home',data:bm.map(function(b){return Math.round(b.n);}),backgroundColor:bm.map(function(b,i){return i===3?'#C9A84C':'rgba(28,43,58,0.5)';}),borderRadius:5}
-  ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:7}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
-    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10}}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'Outfit',size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+  var c=chartColors();
+  var bm=[{l:'Nat. median',g:67600,n:55200},{l:'Skilled',g:90000,n:70300},{l:'Melbourne',g:78000,n:62400},{l:'You',g:gross,n:net}];
+  charts.compareAU=new Chart(ctx,{type:'bar',data:{labels:bm.map(function(b){return b.l;}),datasets:[
+    {label:'Gross',data:bm.map(function(b){return Math.round(b.g);}),backgroundColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.25)':'rgba(100,120,140,0.15)';}),borderColor:bm.map(function(b,i){return i===3?'rgba(201,168,76,0.5)':'rgba(100,120,140,0.25)';}),borderWidth:1.5,borderRadius:5},
+    {label:'Net',data:bm.map(function(b){return Math.round(b.n);}),backgroundColor:bm.map(function(b,i){return i===3?'#C9A84C':'rgba(100,120,140,0.45)';}),borderRadius:5}
+  ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:6}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}},y:{grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+}
+
+/* ── CTC BREAKDOWN ── */
+function drawCTC() {
+  if(!lastResult.annual) return;
+  var r = lastResult;
+  var ctcItems = [
+    {lbl:'Base salary',val:r.salaryForTax,sub:'Your gross income'},
+    {lbl:'Superannuation',val:r.superMode!=='none'?r.super:0,sub:(r.superRate*100).toFixed(1)+'% employer SG'},
+    {lbl:'Income tax',val:-r.tax,sub:'ATO income tax'},
+    {lbl:'Medicare levy',val:-(r.med+r.mls),sub:r.mls>0?'2% + MLS':'2% standard levy'},
+    {lbl:'HECS repayment',val:-r.hecs,sub:r.hecs>0?'Compulsory repayment':'No debt'},
+    {lbl:'Net take-home',val:r.net,sub:'Your actual pay'}
+  ];
+  document.getElementById('ctc-grid').innerHTML = ctcItems.map(function(item){
+    var isNeg = item.val < 0;
+    var isNet = item.lbl==='Net take-home';
+    var color = isNet?'var(--gold)':isNeg?'var(--red)':'var(--text)';
+    return '<div class="ctc-card"><div class="ctc-lbl">'+item.lbl+'</div>'+
+      '<div class="ctc-val" style="color:'+color+'">'+(isNeg?'-':'')+fmt(Math.abs(item.val))+'</div>'+
+      '<div class="ctc-sub">'+item.sub+'</div></div>';
+  }).join('');
+
+  killChart('ctc');
+  var ctx = document.getElementById('c-ctc').getContext('2d');
+  var c = chartColors();
+  charts.ctc = new Chart(ctx,{type:'bar',data:{
+    labels:['Base salary','Super','Tax','Medicare','HECS','Net take-home'],
+    datasets:[{data:[r.salaryForTax, r.superMode!=='none'?r.super:0, r.tax, r.med+r.mls, r.hecs, r.net],
+      backgroundColor:['rgba(100,120,140,0.5)','rgba(55,138,221,0.7)','rgba(226,75,74,0.7)','rgba(251,146,60,0.7)','rgba(55,138,221,0.4)','#C9A84C'],
+      borderRadius:6}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return' '+fmt(c.raw);}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}},y:{grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+}
+
+/* ── SIDE-BY-SIDE COMPARISON ── */
+function drawCompareChart() {
+  if(!lastResult.annual) return;
+  var r = lastResult;
+  var aVal = parseFloat(document.getElementById('cmp-a').value)||r.salaryForTax;
+  var bVal = parseFloat(document.getElementById('cmp-b').value)||r.salaryForTax*1.25;
+  if(aVal<=0||bVal<=0) return;
+
+  var calcNet = function(gross){ var tax=calcTax(gross,r.res,r.fy); var med=calcMed(gross,r.res); var mls=(r.doMLS&&gross>93000)?gross*.01:0; var hecs=r.doHECS?calcHECS(gross):0; return gross-tax-med-mls-hecs; };
+  var netA=calcNet(aVal), netB=calcNet(bVal);
+  var taxA=aVal-netA, taxB=bVal-netB;
+  var supA=aVal*(r.superMode!=='none'?r.superRate:0), supB=bVal*(r.superMode!=='none'?r.superRate:0);
+
+  killChart('sideCompare');
+  var ctx=document.getElementById('c-side-compare').getContext('2d');
+  var c=chartColors();
+  charts.sideCompare=new Chart(ctx,{type:'bar',data:{labels:['Gross','Net take-home','Tax & levies','Super'],datasets:[
+    {label:'Salary A: '+fmt(aVal),data:[aVal,netA,taxA,supA],backgroundColor:'rgba(201,168,76,0.75)',borderRadius:5},
+    {label:'Salary B: '+fmt(bVal),data:[bVal,netB,taxB,supB],backgroundColor:'rgba(55,138,221,0.75)',borderRadius:5}
+  ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:6}},tooltip:{callbacks:{label:function(c){return' '+fmt(c.raw);}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}},y:{grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:500}}});
+
+  var diff = netB-netA;
+  document.getElementById('compare-summary').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">'+
+    '<div class="ctc-card"><div class="ctc-lbl">Net difference</div><div class="ctc-val" style="color:'+(diff>=0?'var(--green)':'var(--red)')+';">'+(diff>=0?'+':'')+fmt(diff)+'</div><div class="ctc-sub">per year</div></div>'+
+    '<div class="ctc-card"><div class="ctc-lbl">Monthly diff</div><div class="ctc-val" style="color:'+(diff>=0?'var(--green)':'var(--red)')+';">'+(diff>=0?'+':'')+fmt(diff/12)+'</div><div class="ctc-sub">per month</div></div>'+
+    '<div class="ctc-card"><div class="ctc-lbl">Effective rate B</div><div class="ctc-val">'+((taxB/bVal)*100).toFixed(1)+'%</div><div class="ctc-sub">vs '+((taxA/aVal)*100).toFixed(1)+'% for A</div></div>'+
+    '</div>';
+}
+
+/* ── 5-YEAR PROJECTION ── */
+function drawProjection() {
+  if(!lastResult.annual) return;
+  var r = lastResult;
+  var rise = (parseFloat(document.getElementById('proj-rise').value)||3)/100;
+  var supGrow = (parseFloat(document.getElementById('proj-super-growth').value)||7)/100;
+  var years=[], grossArr=[], netArr=[], supBalArr=[];
+  var supBal = r.super; // first year super
+  var thisYear = new Date().getFullYear();
+
+  for(var i=0;i<6;i++){
+    var gross = r.salaryForTax * Math.pow(1+rise, i);
+    var tax = calcTax(gross, r.res, r.fy);
+    var med = calcMed(gross, r.res);
+    var hecs = r.doHECS ? calcHECS(gross) : 0;
+    var net = gross - tax - med - hecs;
+    var sup = gross * r.superRate;
+    if(i===0) supBal = sup;
+    else supBal = supBal*(1+supGrow) + sup;
+    years.push(thisYear+i);
+    grossArr.push(Math.round(gross));
+    netArr.push(Math.round(net));
+    supBalArr.push(Math.round(supBal));
+  }
+
+  killChart('projection');
+  var ctx=document.getElementById('c-projection').getContext('2d');
+  var c=chartColors();
+  charts.projection=new Chart(ctx,{type:'line',data:{labels:years,datasets:[
+    {label:'Gross salary',data:grossArr,borderColor:'rgba(100,120,140,0.7)',backgroundColor:'rgba(100,120,140,0.08)',borderWidth:2,pointRadius:4,tension:.3,fill:true},
+    {label:'Net take-home',data:netArr,borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.1)',borderWidth:2.5,pointRadius:4,tension:.3,fill:true},
+    {label:'Super balance',data:supBalArr,borderColor:'#22C55E',backgroundColor:'rgba(34,197,94,0.08)',borderWidth:2,pointRadius:4,tension:.3,fill:true,borderDash:[5,3]}
+  ]},options:{responsive:true,plugins:{legend:{labels:{font:{family:'Outfit',size:10},boxWidth:9,padding:6}},tooltip:{callbacks:{label:function(c){return' '+c.dataset.label+': '+fmt(c.raw);}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{family:'Outfit',size:10},color:c.label}},y:{grid:{color:c.grid},ticks:{font:{family:'Outfit',size:10},color:c.label,callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}},animation:{duration:600}}});
+
+  /* PROJECTION TABLE */
+  var html='<thead><tr><th>Year</th><th>Gross</th><th>Net</th><th>Tax</th><th>Super paid</th><th>Super balance</th><th>Growth</th></tr></thead><tbody>';
+  for(var j=0;j<6;j++){
+    var gx=grossArr[j], nx=netArr[j], tx=gx-nx, sx=Math.round(gx*r.superRate), sb=supBalArr[j];
+    var growth = j===0?'—':('+'+((gx/grossArr[0]-1)*100).toFixed(1)+'%');
+    html+='<tr'+(j===0?' class="current-yr"':'')+'>'+
+      '<td>'+(j===0?'Now ('+years[0]+')':years[j])+'</td>'+
+      '<td>'+fmt(gx)+'</td><td style="color:var(--gold)">'+fmt(nx)+'</td>'+
+      '<td style="color:var(--red)">'+fmt(tx)+'</td>'+
+      '<td style="color:var(--blue)">'+fmt(sx)+'</td>'+
+      '<td style="color:var(--green)">'+fmt(sb)+'</td>'+
+      '<td class="grow">'+growth+'</td></tr>';
+  }
+  html+='</tbody>';
+  document.getElementById('proj-table').innerHTML=html;
 }
 
 function toggleFaq(el) {
