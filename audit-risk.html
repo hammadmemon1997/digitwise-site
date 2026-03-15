@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ATO Audit Risk Checker | How Likely Are You to Be Audited? | Digitwise</title>
+<meta name="description" content="Free ATO audit risk checker for Australians. Answer 10 questions and find out your audit risk level plus exactly what to do to protect yourself. Built by Digitwise Consulting Melbourne.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/audit-risk">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--card:#fff;--page:#F8F5EE;--green:#22C55E;--red:#E24B4A;--orange:#F59E0B;}
+body{font-family:'Outfit',sans-serif;background:var(--page);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,0.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-consulting{color:rgba(255,255,255,.75)!important;font-size:14px!important;font-weight:500!important;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.hero{background:var(--navy);padding:52px 60px 44px;position:relative;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,46px);color:#fff;font-weight:700;line-height:1.1;margin-bottom:10px;max-width:700px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:15px;color:rgba(255,255,255,.5);max-width:520px;}
+.wrap{max-width:720px;margin:0 auto;padding:36px 60px 80px;}
+
+/* QUIZ */
+.quiz-progress{background:var(--border);border-radius:4px;height:6px;margin-bottom:28px;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--gold);border-radius:4px;transition:width .4s ease;}
+.quiz-step-lbl{font-size:12px;color:var(--muted);margin-bottom:8px;}
+.question-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:32px;}
+.q-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px;}
+.q-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+.q-options{display:flex;flex-direction:column;gap:10px;}
+.q-opt{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;}
+.q-opt:hover{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.04);}
+.q-opt.selected{border-color:var(--gold);background:rgba(201,168,76,.08);}
+.q-opt-icon{font-size:20px;flex-shrink:0;}
+.q-opt-text strong{display:block;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.q-opt-text span{font-size:12px;color:var(--muted);}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;}
+.q-btn{padding:11px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;border:1.5px solid var(--border);background:var(--card);color:var(--text);}
+.q-btn.primary{background:var(--gold);color:var(--navy);border-color:var(--gold);box-shadow:0 4px 16px rgba(201,168,76,.3);}
+.q-btn.primary:hover{background:#D4B060;}
+.q-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* RESULTS */
+.risk-meter{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:32px;margin-bottom:20px;text-align:center;}
+.risk-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+.risk-score{font-family:'Playfair Display',serif;font-size:80px;font-weight:700;line-height:1;margin-bottom:6px;}
+.risk-level{font-size:20px;font-weight:700;margin-bottom:12px;}
+.risk-bar-wrap{background:var(--border);border-radius:8px;height:14px;overflow:hidden;margin:16px auto;max-width:400px;}
+.risk-bar{height:100%;border-radius:8px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.risk-desc{font-size:14px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto;}
+.risk-low .risk-score,.risk-low .risk-level{color:var(--green);}
+.risk-low .risk-bar{background:var(--green);}
+.risk-medium .risk-score,.risk-medium .risk-level{color:var(--orange);}
+.risk-medium .risk-bar{background:var(--orange);}
+.risk-high .risk-score,.risk-high .risk-level{color:var(--red);}
+.risk-high .risk-bar{background:var(--red);}
+
+.flags-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:20px;}
+.flags-hd{padding:18px 24px;border-bottom:1px solid var(--border);}
+.flags-hd h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.flags-hd p{font-size:12px;color:var(--muted);margin-top:2px;}
+.flag-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border);}
+.flag-item:last-child{border-bottom:none;}
+.flag-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.flag-dot.red{background:var(--red);}
+.flag-dot.orange{background:var(--orange);}
+.flag-dot.green{background:var(--green);}
+.flag-text strong{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.flag-text span{font-size:12px;color:var(--muted);line-height:1.6;}
+
+.actions-card{background:var(--navy);border-radius:20px;padding:28px;margin-bottom:20px;}
+.actions-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
+.actions-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:18px;}
+.action-items{display:flex;flex-direction:column;gap:10px;}
+.action-item{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:14px 16px;}
+.action-num{width:24px;height:24px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0;}
+.action-text strong{display:block;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.action-text span{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
+
+.restart-btn{width:100%;padding:13px;border:1.5px solid var(--border);background:var(--card);border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:var(--text);margin-bottom:20px;transition:all .2s;}
+.restart-btn:hover{border-color:var(--gold);color:var(--gold);}
+.cta-strip{background:var(--gold);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.cta-strip strong{display:block;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cta-strip span{font-size:12px;color:rgba(28,43,58,.6);}
+.cta-strip-btn{background:var(--navy);color:#fff;padding:10px 20px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+footer{background:var(--navy);padding:32px 60px;}
+.footer-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:20px;}
+@media(max-width:600px){nav,.hero,footer{padding-left:20px;padding-right:20px;}.wrap{padding:20px 20px 60px;}.q-text{font-size:17px;}.cta-strip{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span><span class="logo-consulting"> Consulting</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+</nav>
+<div class="hero">
+  <h1>What&apos;s your <em>ATO Audit Risk</em>?</h1>
+  <p>Answer 10 questions about your tax situation and find out your risk level — plus exactly what to do to protect yourself.</p>
+</div>
+<div class="wrap">
+  <div id="quiz-section">
+    <div class="quiz-progress"><div class="quiz-progress-fill" id="q-prog" style="width:0%"></div></div>
+    <div class="quiz-step-lbl" id="q-step">Question 1 of 10</div>
+    <div class="question-card" id="q-card"></div>
+  </div>
+  <div id="results-section" style="display:none;"></div>
+</div>
+<footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/tools">Tools</a></div></div></footer>
+
+<script>
+var QUESTIONS = [
+  {
+    q:'Do you have a rental property?',
+    sub:'The ATO closely scrutinises rental property deductions — it\'s one of the top audit triggers in Australia.',
+    opts:[
+      {icon:'🏠',t:'Yes — one property',s:'Investment property with rental income',score:2},
+      {icon:'🏘',t:'Yes — multiple properties',s:'Two or more investment properties',score:3},
+      {icon:'❌',t:'No rental properties',s:'I don\'t own investment property',score:0}
+    ]
+  },
+  {
+    q:'Do you have cryptocurrency?',
+    sub:'The ATO has data matching agreements with Australian crypto exchanges and flags under-reported crypto income.',
+    opts:[
+      {icon:'₿',t:'Yes — active trading',s:'Frequent buys, sells and swaps',score:3},
+      {icon:'💎',t:'Yes — mainly holding (HODLing)',s:'Occasional transactions',score:1},
+      {icon:'❌',t:'No crypto',s:'I don\'t hold or trade cryptocurrency',score:0}
+    ]
+  },
+  {
+    q:'Do you claim work-from-home deductions?',
+    sub:'WFH claims are one of the most common areas of ATO scrutiny, especially large or undocumented claims.',
+    opts:[
+      {icon:'📋',t:'Yes — with detailed records',s:'Time diary, receipts, proper documentation',score:0},
+      {icon:'🤔',t:'Yes — rough estimates',s:'Approximate hours without detailed records',score:2},
+      {icon:'❌',t:'No WFH claims',s:'I don\'t work from home',score:0}
+    ]
+  },
+  {
+    q:'Are you self-employed or running a business?',
+    sub:'Sole traders and small businesses are audited more frequently than employees, especially with cash transactions.',
+    opts:[
+      {icon:'💼',t:'Employed only (PAYG)',s:'I receive a regular salary or wages',score:0},
+      {icon:'🔧',t:'Self-employed / contractor',s:'ABN, sole trader or freelancer',score:2},
+      {icon:'🏢',t:'Business owner (company/trust)',s:'Pty Ltd, trust or partnership',score:2}
+    ]
+  },
+  {
+    q:'Do you receive cash income?',
+    sub:'The ATO has sophisticated systems to detect unreported cash income, including lifestyle cross-checks.',
+    opts:[
+      {icon:'💵',t:'Yes — significant cash income',s:'Regular cash payments from clients or customers',score:4},
+      {icon:'💰',t:'Occasional cash payments',s:'Small tips or infrequent cash',score:1},
+      {icon:'💳',t:'No cash income',s:'All income is electronic',score:0}
+    ]
+  },
+  {
+    q:'Do you claim large work-related deductions?',
+    sub:'Claiming deductions significantly above the average for your occupation is a known ATO data-matching trigger.',
+    opts:[
+      {icon:'📊',t:'Large deductions (>$5,000)',s:'Significant work expenses claimed',score:2},
+      {icon:'📉',t:'Moderate deductions ($1,000–$5,000)',s:'Normal work-related claims',score:1},
+      {icon:'📋',t:'Small or no deductions (<$1,000)',s:'Minimal work expenses',score:0}
+    ]
+  },
+  {
+    q:'Have you missed or lodged late BAS or tax returns?',
+    sub:'Late lodgements put you on the ATO\'s radar and can trigger increased scrutiny of your affairs.',
+    opts:[
+      {icon:'⚠️',t:'Yes — missed or very late',s:'Outstanding lodgements or significant delays',score:3},
+      {icon:'😅',t:'Occasionally late',s:'Usually on time but sometimes delayed',score:1},
+      {icon:'✅',t:'Always on time',s:'Lodge all returns by the due date',score:0}
+    ]
+  },
+  {
+    q:'Do you have a SMSF (self-managed super fund)?',
+    sub:'SMSFs are subject to strict ATO compliance requirements. Non-compliant SMSFs face audit and heavy penalties.',
+    opts:[
+      {icon:'🏦',t:'Yes — I manage my own super',s:'Self-managed superannuation fund',score:2},
+      {icon:'❌',t:'No — industry or retail fund',s:'Standard superannuation fund',score:0}
+    ]
+  },
+  {
+    q:'Do you own shares or investments?',
+    sub:'Capital gains, dividends and foreign income are matched by the ATO from third-party data. Under-reporting is easily detected.',
+    opts:[
+      {icon:'📈',t:'Yes — active investor',s:'Frequently buy and sell shares/ETFs',score:1},
+      {icon:'💼',t:'Yes — long-term investor',s:'Hold shares but rarely trade',score:0},
+      {icon:'❌',t:'No investments',s:'No shares, ETFs or managed funds',score:0}
+    ]
+  },
+  {
+    q:'Do your tax deductions and lifestyle match?',
+    sub:'The ATO cross-references declared income against lifestyle indicators like property, vehicles and travel.',
+    opts:[
+      {icon:'⚠️',t:'Potential mismatch',s:'My lifestyle might look high for my declared income',score:3},
+      {icon:'✅',t:'They broadly match',s:'My income and lifestyle are consistent',score:0},
+      {icon:'🤷',t:'Not sure',s:'I\'ve never really thought about this',score:1}
+    ]
+  }
+];
+
+var answers = new Array(QUESTIONS.length).fill(null);
+var currentQ = 0;
+
+function renderQuestion() {
+  var q = QUESTIONS[currentQ];
+  var pct = (currentQ / QUESTIONS.length) * 100;
+  document.getElementById('q-prog').style.width = pct + '%';
+  document.getElementById('q-step').textContent = 'Question ' + (currentQ+1) + ' of ' + QUESTIONS.length;
+
+  var optsHtml = q.opts.map(function(o, i) {
+    var sel = answers[currentQ] === i;
+    return '<div class="q-opt'+(sel?' selected':'')+'" onclick="selectOpt('+i+')">'+
+      '<span class="q-opt-icon">'+o.icon+'</span>'+
+      '<div class="q-opt-text"><strong>'+o.t+'</strong><span>'+o.s+'</span></div></div>';
+  }).join('');
+
+  document.getElementById('q-card').innerHTML =
+    '<div class="q-text">'+q.q+'</div>'+
+    '<div class="q-sub">'+q.sub+'</div>'+
+    '<div class="q-options">'+optsHtml+'</div>'+
+    '<div class="q-nav">'+
+      '<button class="q-btn" onclick="prevQ()"'+(currentQ===0?' disabled':'')+'>← Back</button>'+
+      (currentQ < QUESTIONS.length-1
+        ? '<button class="q-btn primary" id="next-btn" onclick="nextQ()"'+(answers[currentQ]===null?' disabled':'')+'>Next →</button>'
+        : '<button class="q-btn primary" id="next-btn" onclick="showResults()"'+(answers[currentQ]===null?' disabled':'')+'>See my audit risk →</button>'
+      )+
+    '</div>';
+}
+
+function selectOpt(i) {
+  answers[currentQ] = i;
+  renderQuestion();
+}
+
+function nextQ() { if(currentQ < QUESTIONS.length-1){ currentQ++; renderQuestion(); } }
+function prevQ() { if(currentQ > 0){ currentQ--; renderQuestion(); } }
+
+function showResults() {
+  var totalScore = 0;
+  var flags = [];
+  QUESTIONS.forEach(function(q, qi) {
+    if(answers[qi] === null) return;
+    var opt = q.opts[answers[qi]];
+    totalScore += opt.score;
+    if(opt.score >= 2) {
+      flags.push({
+        level: opt.score >= 3 ? 'red' : 'orange',
+        title: q.q,
+        action: getAction(qi, answers[qi])
+      });
+    }
+  });
+
+  var maxScore = QUESTIONS.reduce(function(s,q){ return s + Math.max.apply(null,q.opts.map(function(o){return o.score;})); }, 0);
+  var riskPct = Math.min(100, Math.round(totalScore / maxScore * 100));
+  var riskClass, riskLevel, riskDesc;
+
+  if(riskPct < 25) {
+    riskClass='risk-low'; riskLevel='Low Risk';
+    riskDesc='Your tax situation has few red flags. Keep maintaining good records and lodging on time and you\'re well positioned if the ATO ever asks questions.';
+  } else if(riskPct < 55) {
+    riskClass='risk-medium'; riskLevel='Moderate Risk';
+    riskDesc='You have some areas that could attract ATO attention. Taking action on the flags below will significantly reduce your exposure.';
+  } else {
+    riskClass='risk-high'; riskLevel='High Risk';
+    riskDesc='Your situation has several ATO audit triggers. We strongly recommend reviewing your records and speaking with a registered tax agent.';
+  }
+
+  var actions = getTopActions(flags, riskPct);
+
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('results-section').style.display = 'block';
+  document.getElementById('results-section').innerHTML =
+    '<div class="risk-meter '+riskClass+'">'+
+      '<div class="risk-label">Your ATO audit risk score</div>'+
+      '<div class="risk-score">'+riskPct+'</div>'+
+      '<div class="risk-level">'+riskLevel+'</div>'+
+      '<div class="risk-bar-wrap"><div class="risk-bar" style="width:'+riskPct+'%"></div></div>'+
+      '<div class="risk-desc">'+riskDesc+'</div>'+
+    '</div>'+
+    (flags.length > 0 ?
+    '<div class="flags-card">'+
+      '<div class="flags-hd"><h3>Your risk flags</h3><p>Areas the ATO may scrutinise in your return</p></div>'+
+      flags.map(function(f){
+        return '<div class="flag-item"><div class="flag-dot '+f.level+'"></div><div class="flag-text"><strong>'+f.title+'</strong><span>'+f.action+'</span></div></div>';
+      }).join('')+
+    '</div>' : '') +
+    '<div class="actions-card">'+
+      '<div class="actions-title">What to do now</div>'+
+      '<div class="actions-sub">Personalised steps to reduce your audit risk</div>'+
+      '<div class="action-items">'+
+      actions.map(function(a,i){
+        return '<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-text"><strong>'+a.t+'</strong><span>'+a.d+'</span></div></div>';
+      }).join('')+
+      '</div></div>'+
+    '<button class="restart-btn" onclick="restart()">↺ Retake the quiz</button>'+
+    '<div class="cta-strip">'+
+      '<div><strong>Want a professional review of your records?</strong><span>Book a free call with Digitwise — we\'ll assess your situation and make sure you\'re protected.</span></div>'+
+      '<a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="cta-strip-btn">Book Free Call →</a>'+
+    '</div>';
+}
+
+function getAction(qi, ai) {
+  var actions = [
+    ['Keep all rental receipts and a detailed property expense log. Never claim private expenses as rental deductions.'],
+    ['Report every crypto transaction including swaps. The ATO gets data directly from exchanges.','Use Koinly or CoinLedger to generate your ATO report automatically.','Only a 50% CGT discount applies if held 12+ months.'],
+    ['Switch to the 67c fixed rate method and keep a time diary.','Actual cost method requires detailed receipts and floor area calculations.',''],
+    ['Keep business records for 5 years. Separate business and personal bank accounts.','If you receive cash, deposit it and declare it all — the ATO cross-references lifestyle.',''],
+    ['Declare all cash income. The ATO uses lifestyle audits to catch under-reported income.','Open a separate business account for cash handling.',''],
+    ['Only claim genuine work expenses with receipts. ATO benchmarks compare your occupation against peers.'],
+    ['Lodge all outstanding returns immediately. Late lodgement penalties accumulate and draw attention.'],
+    ['Ensure your SMSF annual audit is completed on time. Keep minutes of all trustee decisions.'],
+    ['Make sure you declare all dividends including franking credits. ATO matches this data automatically.'],
+    ['If your lifestyle doesn\'t match your income, make sure you can explain how — inheritance, gifts, loans.']
+  ];
+  return actions[qi][Math.min(ai, actions[qi].length-1)] || actions[qi][0];
+}
+
+function getTopActions(flags, riskPct) {
+  var base = [
+    {t:'Keep receipts for 5 years',d:'The ATO can audit up to 5 years back. Store digital copies in the cloud — Google Drive, Dropbox or a dedicated app.'},
+    {t:'Separate business and personal accounts',d:'Mixing personal and business transactions is a major red flag. Open a dedicated business account even as a sole trader.'},
+    {t:'Lodge on time, every time',d:'On-time lodgement signals compliance and keeps you off the ATO\'s watchlist.'}
+  ];
+  if(riskPct >= 40) base.unshift({t:'Engage a registered tax agent',d:'A registered tax agent provides audit insurance, can respond to ATO correspondence on your behalf, and their fees are tax deductible.'});
+  if(flags.some(function(f){return f.level==='red';})) base.unshift({t:'Review your records now — before lodgement',d:'High-risk items identified in your situation should be reviewed before you lodge. A tax agent can help ensure everything is defensible.'});
+  return base.slice(0,4);
+}
+
+function restart() {
+  answers = new Array(QUESTIONS.length).fill(null);
+  currentQ = 0;
+  document.getElementById('quiz-section').style.display = 'block';
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('results-section').innerHTML = '';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body></html>
