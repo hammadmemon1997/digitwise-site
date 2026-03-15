@@ -873,21 +873,6 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 }
 .btn-outline-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.35); color: white; }
 
-.hero-stats { display: flex; gap: 0; }
-.hstat {
-  padding: 0 28px 0 0; margin-right: 28px;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  min-width: 0;
-}
-.hstat:last-child { border: none; margin: 0; padding: 0; }
-.hstat-n {
-  font-family: 'Playfair Display', serif;
-  font-size: 34px; font-weight: 700;
-  color: var(--white); line-height: 1;
-  letter-spacing: -0.03em;
-}
-.hstat-n span { color: var(--gold); }
-.hstat-l { font-size: 12px; color: rgba(255,255,255,0.38); margin-top: 4px; font-weight: 500; }
 
 /* Hero card */
 .hero-card {
@@ -1051,6 +1036,29 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 .fcard-cream-n span { color: var(--gold); }
 .fcard-cream-l { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
+
+
+/* ── HERO TRUST PILLS ── */
+.hero-trust-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
 
 /* ── HERO RIGHT COL EXTRAS ── */
 .hero-tagline {
@@ -1589,8 +1597,6 @@ footer {
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
-  .hero-stats { flex-wrap: wrap; gap: 20px 0; }
-  .hstat { padding-right: 18px; margin-right: 18px; }
   .float-pair-cream { flex-direction: column; }
   .services-grid, .testi-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
@@ -2819,11 +2825,11 @@ footer {
         <a href="#pricing" class="btn-outline-ghost">View Pricing</a>
       </div>
 
-      <div class="hero-stats">
-        <div class="hstat"><div class="hstat-n">50<span>+</span></div><div class="hstat-l">SMBs Served</div></div>
-        <div class="hstat"><div class="hstat-n">2</div><div class="hstat-l">Countries</div></div>
-        <div class="hstat"><div class="hstat-n">10<span>yr</span></div><div class="hstat-l">Experience</div></div>
-        <div class="hstat"><div class="hstat-n">99<span>%</span></div><div class="hstat-l">On-time filing</div></div>
+      <div class="hero-trust-pills">
+        <span class="hero-pill">🇦🇺 ATO Compliant</span>
+        <span class="hero-pill">🇺🇸 IRS Compliant</span>
+        <span class="hero-pill">⚡ 48hr Response</span>
+        <span class="hero-pill">🔒 Fixed Pricing</span>
       </div>
     </div>
 
@@ -3746,6 +3752,117 @@ footer {
               <div class="blog-author-role">Founder, Digitwise Consulting</div>
             </div>
             <span class="blog-read-time">4 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 4 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background:#1A3A2A;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#1A3A2A"/>
+            <circle cx="320" cy="40" r="80" fill="#C9A84C" fill-opacity="0.06"/>
+            <rect x="40" y="55" width="12" height="70" rx="4" fill="#C9A84C" opacity="0.6"/>
+            <rect x="62" y="70" width="12" height="55" rx="4" fill="#C9A84C" opacity="0.4"/>
+            <rect x="84" y="45" width="12" height="80" rx="4" fill="#C9A84C" opacity="0.7"/>
+            <rect x="106" y="60" width="12" height="65" rx="4" fill="#C9A84C" opacity="0.45"/>
+            <rect x="128" y="50" width="12" height="75" rx="4" fill="#C9A84C" opacity="0.55"/>
+            <text x="200" y="145" font-family="Georgia,serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🇦🇺 Australia</text>
+          </svg>
+          <div class="blog-card-thumb-icon">📊</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-au">🇦🇺 Australia</span>
+            <span class="blog-date">April 2026</span>
+          </div>
+          <h3>Xero vs MYOB vs QuickBooks — Which Is Right for Your AU Small Business?</h3>
+          <p>Choosing accounting software is one of the most important decisions a small business owner makes. We break down Xero, MYOB and QuickBooks Online across price, features, BAS lodgement support and ease of use — so you can pick with confidence.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">H</div>
+            <div>
+              <div class="blog-author-name">Hamey</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">7 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 5 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background:#2A1A3A;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#2A1A3A"/>
+            <circle cx="80" cy="140" r="100" fill="#C9A84C" fill-opacity="0.05"/>
+            <rect x="160" y="40" width="200" height="3" rx="1.5" fill="#C9A84C" opacity="0.3"/>
+            <rect x="160" y="55" width="160" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="160" y="68" width="180" height="3" rx="1.5" fill="white" opacity="0.08"/>
+            <rect x="160" y="81" width="140" height="3" rx="1.5" fill="white" opacity="0.08"/>
+            <rect x="160" y="94" width="170" height="3" rx="1.5" fill="white" opacity="0.08"/>
+            <circle cx="80" cy="70" r="30" fill="#C9A84C" fill-opacity="0.12" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.3"/>
+            <text x="80" y="75" font-family="Georgia,serif" font-size="18" fill="#C9A84C" opacity="0.7" text-anchor="middle">$</text>
+            <text x="200" y="145" font-family="Georgia,serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🇺🇸 United States</text>
+          </svg>
+          <div class="blog-card-thumb-icon">🏛️</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-us">🇺🇸 United States</span>
+            <span class="blog-date">March 2026</span>
+          </div>
+          <h3>LLC vs Sole Proprietor — What Every US Small Business Owner Needs to Know</h3>
+          <p>The business structure you choose affects your taxes, liability, and how much you pay the IRS every year. We break down the key differences between operating as a sole proprietor and forming an LLC — and which makes more sense depending on your revenue.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">H</div>
+            <div>
+              <div class="blog-author-name">Hamey</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">6 min read</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 6 -->
+      <div class="blog-card reveal">
+        <div class="blog-card-thumb" style="background:#1C2B3A;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="180" fill="#1C2B3A"/>
+            <rect x="0" y="0" width="400" height="180" fill="url(#gpay)" opacity="0.3"/>
+            <defs>
+              <radialGradient id="gpay" cx="50%" cy="50%" r="60%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#1C2B3A" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="30" y="50" width="140" height="80" rx="8" fill="white" fill-opacity="0.04" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.2"/>
+            <rect x="45" y="67" width="60" height="4" rx="2" fill="#C9A84C" opacity="0.5"/>
+            <rect x="45" y="79" width="90" height="3" rx="1.5" fill="white" opacity="0.15"/>
+            <rect x="45" y="88" width="75" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="45" y="97" width="85" height="3" rx="1.5" fill="white" opacity="0.1"/>
+            <rect x="230" y="50" width="140" height="80" rx="8" fill="white" fill-opacity="0.04" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.2"/>
+            <rect x="245" y="67" width="55" height="4" rx="2" fill="#C9A84C" opacity="0.4"/>
+            <rect x="245" y="79" width="85" height="3" rx="1.5" fill="white" opacity="0.12"/>
+            <rect x="245" y="88" width="70" height="3" rx="1.5" fill="white" opacity="0.08"/>
+            <text x="200" y="145" font-family="Georgia,serif" font-size="13" fill="#C9A84C" opacity="0.6" text-anchor="middle">🌏 AU &amp; US</text>
+          </svg>
+          <div class="blog-card-thumb-icon">💡</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag blog-tag-both">🌏 AU &amp; US</span>
+            <span class="blog-date">February 2026</span>
+          </div>
+          <h3>How to Separate Personal and Business Finances (And Why It Matters)</h3>
+          <p>Mixing personal and business money is the number one bookkeeping mistake we see from new clients in both Australia and the US. It causes messy books, inflated tax bills, and ATO or IRS headaches. Here is a simple system to separate them once and for all.</p>
+          <div class="blog-author">
+            <div class="blog-author-av">H</div>
+            <div>
+              <div class="blog-author-name">Hamey</div>
+              <div class="blog-author-role">Founder, Digitwise Consulting</div>
+            </div>
+            <span class="blog-read-time">5 min read</span>
           </div>
         </div>
       </div>
