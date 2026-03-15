@@ -1130,7 +1130,7 @@ nav.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
 
 /* ── SHARED SECTION STYLES ── */
 section { padding: 96px 60px; }
-.container { max-width: 1180px; margin: 0 auto; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -1430,10 +1430,6 @@ section { padding: 96px 60px; }
 .btn-gold-solid { background: var(--gold); color: var(--navy); box-shadow: var(--shadow-gold); }
 .btn-gold-solid:hover { background: var(--gold-bright); transform: translateY(-1px); }
 
-
-.testimonial-stars{color:var(--gold);font-size:14px;margin-bottom:8px;letter-spacing:2px;}
-.testimonial-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,0.1);color:#16A34A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:8px;}
-
 /* ── TESTIMONIALS ── */
 .testimonials-section { background: var(--white); }
 .testi-header { text-align: center; margin-bottom: 56px; }
@@ -1610,7 +1606,7 @@ footer {
   .float-pair { display: none; }
 
   /* Hero sizing on small screens */
-  .hero h1 { font-size: 36px; }
+  .hero h1 { font-size: 30px; }
   .hero-left-col { padding: 48px 22px 32px; }
   .hero-right-col { padding: 0 22px 48px; }
   .bas-strip { width: 100%; }
@@ -2314,6 +2310,23 @@ footer {
   .promo-bar-text { font-size: 12px; text-align: center; }
 }
 
+
+/* ── MOBILE TOOL TABS SCROLL HINT ── */
+@media (max-width: 768px) {
+  .tools-tabs-wrapper {
+    position: relative;
+  }
+  .tools-tabs-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, rgba(28,43,58,0.8));
+    pointer-events: none;
+    border-radius: 0 8px 8px 0;
+  }
+}
+
 /* ── MOBILE NAV DRAWER ── */
 .mobile-drawer {
   position: fixed;
@@ -2909,26 +2922,65 @@ footer {
   .tool-right { padding: 28px 28px 32px; }
 }
 @media (max-width: 768px) {
-  .tools-tabs { gap: 8px; }
-  .tool-tab { padding: 8px 14px; font-size: 12px; }
+  /* Tools tabs — horizontally scrollable on mobile */
+  .tools-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    scroll-snap-type: x mandatory;
+  }
+  .tools-tabs::-webkit-scrollbar { display: none; }
+  .tool-tab {
+    padding: 8px 14px;
+    font-size: 12px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+  /* Tool cards — stack vertically */
+  .tool-card-inner {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .tool-left {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    padding: 22px 20px !important;
+  }
+  .tool-right {
+    padding: 20px 20px 24px !important;
+  }
+  /* Result grids — single column */
+  .tool-result-grid { grid-template-columns: 1fr !important; }
+  .result-row { flex-direction: column; gap: 4px; align-items: flex-start !important; }
+  .result-value { font-size: 18px !important; }
+  /* Quiz options — 2 cols on mobile */
+  .quiz-opts { grid-template-columns: 1fr 1fr !important; }
+  /* BAS dates */
+  .bas-dates-table { font-size: 13px; }
+  .bas-date-row { flex-direction: column; gap: 4px; }
+  /* CTA strip inside tool */
+  .tool-cta-strip { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .tool-cta-btn { width: 100%; text-align: center; }
+  /* Super calculator slider */
+  .sup-rate-row { flex-wrap: wrap; }
+  /* Input groups */
+  .tool-input-group { flex-direction: column; }
+  /* Section containers on mobile */
+  section { padding-left: 0; padding-right: 0; }
+}
+
+@media (max-width: 480px) {
+  .quiz-opts { grid-template-columns: 1fr !important; }
+  .tool-tab { font-size: 11px; padding: 7px 11px; }
+  .tool-left, .tool-right { padding: 16px !important; }
+  .result-value { font-size: 16px !important; }
 }
 </style>
-
-<!-- Tawk.to Live Chat — replace YOUR_PROPERTY_ID with your actual ID from tawk.to -->
-<!-- To activate: sign up free at tawk.to, get your Property ID, replace below -->
-<!--
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;s1.src='https://embed.tawk.to/YOUR_PROPERTY_ID/1hxxxxxxx';
-s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
-</script>
--->
-<!-- GA4 — replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
--->
 </head>
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:8px;background:var(--gold);color:var(--navy);padding:8px 16px;border-radius:6px;font-weight:600;font-size:13px;text-decoration:none;z-index:9999;transition:top 0.2s;" onfocus="this.style.top='8px'" onblur="this.style.top='-40px'">Skip to main content</a>
@@ -2953,7 +3005,7 @@ s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore
     <li><a href="#testimonials">Clients</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#insights">Insights</a></li>
-    <li><a href="/tools">All Tools</a></li><li><a href="#faq">FAQ</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><button onclick="openCalModal()" class="nav-cta" style="border:none;cursor:pointer;">Book Free Call</button></li>
   </ul>
   <div class="nav-toggle" id="nav-toggle" onclick="toggleDrawer()" aria-label="Open menu"><span></span><span></span><span></span></div>
@@ -3593,7 +3645,7 @@ s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore
     </a>
 
     <div class="tools-tabs-label">More free calculators</div>
-    <div class="tools-tabs">
+    <div class="tools-tabs-wrapper"><div class="tools-tabs">
       <button class="tool-tab active" onclick="switchTool('gst',this)"><span class="tab-flag">🇦🇺</span> GST Calculator</button>
       <button class="tool-tab" onclick="switchTool('bas',this)"><span class="tab-flag">🇦🇺</span> BAS Due Dates</button>
       <button class="tool-tab" onclick="switchTool('soletax',this)"><span class="tab-flag">🇦🇺</span> Sole Trader Tax</button>
