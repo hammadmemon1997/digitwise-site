@@ -61,6 +61,86 @@ footer{background:var(--navy);padding:32px 60px;border-top:1px solid rgba(255,25
 .footer-links a:hover{color:var(--gold);}
 @media(max-width:900px){.tools-grid{grid-template-columns:1fr 1fr;}.main,.hero{padding-left:28px;padding-right:28px;}.cta-block{flex-direction:column;}}
 @media(max-width:600px){.tools-grid{grid-template-columns:1fr;}nav,.hero,footer{padding-left:20px;padding-right:20px;}.main{padding-left:20px;padding-right:20px;}}
+
+/* ═══ UNIVERSAL MOBILE FIXES ═══ */
+html,body{overflow-x:hidden;}
+*{box-sizing:border-box;}
+img,canvas{max-width:100%;height:auto;}
+input,select,textarea{font-size:16px!important;}
+.field input,.field select{font-size:16px!important;}
+
+@media(max-width:768px){
+  nav{padding:0 16px!important;}
+  .nav-links{display:none!important;}
+  .nav-cta{padding:7px 14px!important;font-size:12px!important;}
+  .hero,.article-hero{padding:28px 16px 24px!important;}
+  .hero h1,.article-hero h1{font-size:clamp(22px,6vw,36px)!important;}
+  .wrap{grid-template-columns:1fr!important;padding:16px 14px 60px!important;}
+  .page-wrap{padding-left:14px!important;padding-right:14px!important;}
+  .card-bd,.card-hd,.panel-bd,.panel-hd{padding:14px 16px!important;}
+  .field-row{grid-template-columns:1fr!important;gap:8px!important;}
+  .compare-grid{grid-template-columns:1fr!important;}
+  .input-row{grid-template-columns:1fr!important;}
+  .stat-grid,.insight-cards,.dates-grid,.related-tools-grid{grid-template-columns:1fr!important;}
+  canvas{max-height:220px!important;}
+  .cta-strip,.article-cta{flex-direction:column!important;gap:14px!important;padding:18px 16px!important;}
+  .cta-strip-btn,.article-cta-btn{width:100%!important;text-align:center!important;}
+  .btn,.calc-btn,.generate-btn{padding:12px!important;}
+  .savings-table,.compare-table,.bc-table,.inv-table{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;font-size:12px!important;}
+  .winner-banner{flex-direction:column!important;gap:10px!important;padding:16px!important;}
+  .ct-row{grid-template-columns:1fr 1fr!important;font-size:12px!important;}
+  .inv-parties,.inv-meta{grid-template-columns:1fr!important;}
+  .inv-header{flex-direction:column!important;gap:10px!important;}
+  .inv-totals-inner{width:100%!important;}
+  .line-item{grid-template-columns:1fr 70px 70px auto!important;gap:4px!important;}
+  .situation-grid{grid-template-columns:1fr 1fr!important;gap:8px!important;}
+  .checklist-grid{grid-template-columns:1fr!important;}
+  .checklist-actions{flex-direction:column!important;align-items:flex-start!important;}
+  .action-btns{width:100%!important;display:flex!important;gap:8px!important;}
+  .action-btn{flex:1!important;justify-content:center!important;}
+  .hero-inner{grid-template-columns:1fr!important;}
+  .hero-timeline{display:none!important;}
+  .savings-hero{grid-template-columns:1fr!important;padding:20px 16px!important;}
+  .sh-amount{font-size:36px!important;}
+  .sh-breakdown{flex-wrap:wrap!important;gap:12px!important;}
+  .sh-qr{display:none!important;}
+  .question-card{padding:20px 16px!important;}
+  .q-text{font-size:16px!important;}
+  .risk-score{font-size:56px!important;}
+  .article-wrap{padding:24px 16px 60px!important;}
+  .article-body h2{font-size:21px!important;}
+  .article-body p,.article-body li{font-size:15px!important;}
+  .tools-grid{grid-template-columns:1fr!important;}
+  .cta-block{flex-direction:column!important;padding:24px 16px!important;}
+  .budget-overview{padding:18px 16px!important;}
+  .bo-amount,.res-amt{font-size:32px!important;}
+  .res-meta{grid-template-columns:repeat(3,1fr)!important;}
+  .invoice-body{padding:16px!important;}
+  .compare-table{padding:12px 14px!important;}
+}
+@media(max-width:480px){
+  .situation-grid{grid-template-columns:1fr!important;}
+  .res-meta{grid-template-columns:1fr 1fr!important;}
+}
+
+
+.mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;}
+.mobile-menu-btn span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .25s;}
+.mobile-nav-drawer{display:none;position:fixed;top:0;right:0;width:260px;height:100dvh;background:var(--navy);z-index:9999;flex-direction:column;padding:20px;box-shadow:-8px 0 40px rgba(0,0,0,.4);overflow-y:auto;}
+.mobile-nav-drawer.open{display:flex;}
+.mobile-nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;}
+.mobile-nav-overlay.open{display:block;}
+.mnd-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.mnd-logo{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;color:#fff;}
+.mnd-logo span{color:var(--gold);}
+.mnd-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:4px;}
+.mnd-links{display:flex;flex-direction:column;gap:2px;flex:1;}
+.mnd-links a{padding:12px 10px;font-size:14px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;border-radius:9px;transition:all .15s;}
+.mnd-links a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.mnd-cta{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);}
+.mnd-cta a{display:block;padding:13px;background:var(--gold);color:var(--navy);border-radius:10px;text-align:center;font-weight:700;font-size:14px;text-decoration:none;}
+@media(max-width:768px){.mobile-menu-btn{display:flex!important;}}
+
 </style>
 </head>
 <body>
@@ -70,6 +150,7 @@ footer{background:var(--navy);padding:32px 60px;border-top:1px solid rgba(255,25
     <span class="logo-name">Digit<span>wise</span><span class="logo-consulting"> Consulting</span></span>
   </a>
   <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+  <button class="mobile-menu-btn" onclick="openMobileNav()" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="hero">
   <div class="hero-orb"></div>
@@ -216,4 +297,33 @@ footer{background:var(--navy);padding:32px 60px;border-top:1px solid rgba(255,25
   </div>
 </div>
 <footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/tools">Tools</a><a href="/pay-calculator">Pay Calculator</a><a href="/#pricing">Pricing</a><a href="/#contact">Contact</a></div></div></footer>
+
+<div class="mobile-nav-overlay" id="mnd-overlay" onclick="closeMobileNav()"></div>
+<div class="mobile-nav-drawer" id="mnd-drawer">
+  <div class="mnd-head">
+    <span class="mnd-logo">Digit<span>wise</span></span>
+    <button class="mnd-close" onclick="closeMobileNav()">×</button>
+  </div>
+  <div class="mnd-links">
+    <a href="/">🏠 Home</a>
+    <a href="/tools">🔧 All Free Tools</a>
+    <a href="/pay-calculator">💰 Pay Calculator</a>
+    <a href="/tax-checklist">✅ Tax Checklist</a>
+    <a href="/stage3-calculator">📈 2026 Tax Cuts</a>
+    <a href="/audit-risk">🔍 Audit Risk</a>
+    <a href="/budget-planner">📋 Budget Planner</a>
+    <a href="/super-calculator">🏦 Super Tracker</a>
+    <a href="/invoice-generator">🧾 Invoice Generator</a>
+    <a href="/blog/work-from-home-deductions">📖 WFH Guide</a>
+    <a href="/blog/how-to-lodge-bas">📖 BAS Guide</a>
+  </div>
+  <div class="mnd-cta">
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+  </div>
+</div>
+<script>
+function openMobileNav(){document.getElementById('mnd-drawer').classList.add('open');document.getElementById('mnd-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeMobileNav(){document.getElementById('mnd-drawer').classList.remove('open');document.getElementById('mnd-overlay').classList.remove('open');document.body.style.overflow='';}
+</script>
+
 </body></html>
