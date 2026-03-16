@@ -64,6 +64,14 @@
       "dest": "/blog-bas-guide.html"
     },
     {
+      "src": "/blog/australia-2026-tax-cuts",
+      "dest": "/blog-stage3-tax-cuts.html"
+    },
+    {
+      "src": "/blog/negative-gearing-australia-explained",
+      "dest": "/blog-negative-gearing.html"
+    },
+    {
       "src": "/about",
       "dest": "/about.html"
     },
