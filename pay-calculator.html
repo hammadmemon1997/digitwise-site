@@ -1409,5 +1409,338 @@ function openMobileNav(){document.getElementById('mnd-drawer').classList.add('op
 function closeMobileNav(){document.getElementById('mnd-drawer').classList.remove('open');document.getElementById('mnd-overlay').classList.remove('open');document.body.style.overflow='';}
 </script>
 
+
+<script>
+(function() {
+  // ── CONFIG ──
+  var WIDGET_CONFIG = {
+    businessName: 'Digitwise Consulting',
+    accentColor: '#C9A84C',
+    navyColor: '#1C2B3A',
+    calendlyUrl: 'https://calendly.com/hammad-digitwiseconsulting',
+    formspreeEndpoint: 'https://formspree.io/f/xwvrnpew',
+    greeting: "Hi! I'm the Digitwise AI assistant 👋\n\nI can answer Australian tax questions, help you understand your deductions, and connect you with Hammad if you need personalised advice.\n\nWhat can I help you with today?",
+    systemPrompt: `You are a friendly, expert accounting assistant for Digitwise Consulting, a Melbourne-based accounting firm serving Australian and US small businesses. Your name is "Digi".
+
+YOUR ROLE:
+- Answer Australian and US tax, accounting, BAS, GST, payroll and bookkeeping questions accurately
+- Qualify leads naturally in conversation (ask about their business type, size, situation)
+- Capture their name and email when they show interest in booking or getting help
+- Encourage booking a free call via Calendly when appropriate
+
+TONE: Warm, professional, concise. Like a knowledgeable friend who happens to be an accountant.
+
+KEY RULES:
+- Always give genuinely useful answers — don't just say "speak to an accountant"
+- After answering 2-3 questions, naturally qualify: "Just so I can give you more tailored advice — are you a sole trader, employee, or do you run a business?"
+- If someone asks about pricing, services, or seems ready to engage, say: "I can connect you with Hammad for a free 20-minute call — what's your name and email so I can note this down?"
+- When you have their name + email, output this EXACT JSON on its own line: {"lead_captured": true, "name": "NAME", "email": "EMAIL", "summary": "ONE LINE SUMMARY OF THEIR SITUATION"}
+- For the Calendly link say: "You can book directly here: https://calendly.com/hammad-digitwiseconsulting"
+- Keep responses under 120 words unless a detailed explanation is genuinely needed
+- Current FY is 2024-25. Stage 3 tax cuts are in effect. Next BAS due: 28 April 2025 (Q3).
+- You represent Digitwise Consulting: digitwiseconsulting.com.au | hammad@digitwiseconsulting.com
+
+TOOLS YOU KNOW ABOUT (mention these naturally):
+- Free Pay Calculator: /pay-calculator
+- Tax Return Checklist: /tax-checklist  
+- ATO Audit Risk Checker: /audit-risk
+- 2026 Tax Cut Calculator: /stage3-calculator
+- Budget Planner: /budget-planner
+- All tools: /tools`
+  };
+
+  // ── STATE ──
+  var state = {
+    open: false,
+    messages: [],
+    leadCaptured: false,
+    typing: false,
+    conversationHistory: []
+  };
+
+  // ── STYLES ──
+  var style = document.createElement('style');
+  style.textContent = `
+    #dw-widget-btn {
+      position: fixed; bottom: 24px; right: 24px; z-index: 99999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, #C9A84C, #B8943A);
+      border: none; cursor: pointer; box-shadow: 0 4px 24px rgba(201,168,76,.5);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s, box-shadow .2s; font-size: 22px;
+    }
+    #dw-widget-btn:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(201,168,76,.65); }
+    #dw-widget-btn .dw-notif {
+      position: absolute; top: -3px; right: -3px; width: 16px; height: 16px;
+      background: #E24B4A; border-radius: 50%; border: 2px solid #fff;
+      font-size: 9px; font-weight: 700; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #dw-chat {
+      position: fixed; bottom: 90px; right: 24px; z-index: 99998;
+      width: 360px; height: 540px; max-height: calc(100vh - 110px);
+      background: #fff; border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.1);
+      display: none; flex-direction: column; overflow: hidden;
+      font-family: 'Outfit', -apple-system, sans-serif;
+      animation: dwSlideUp .25s cubic-bezier(.4,0,.2,1);
+    }
+    #dw-chat.open { display: flex; }
+    @keyframes dwSlideUp { from { opacity:0; transform: translateY(16px) scale(.97); } to { opacity:1; transform: translateY(0) scale(1); } }
+    .dw-head {
+      background: linear-gradient(135deg, #1C2B3A, #243447);
+      padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+      flex-shrink: 0;
+    }
+    .dw-head-av {
+      width: 36px; height: 36px; background: #C9A84C; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #1C2B3A; flex-shrink: 0;
+    }
+    .dw-head-info { flex: 1; }
+    .dw-head-name { font-size: 14px; font-weight: 700; color: #fff; }
+    .dw-head-status { font-size: 11px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 5px; }
+    .dw-head-dot { width: 7px; height: 7px; background: #22C55E; border-radius: 50%; }
+    .dw-head-close { background: rgba(255,255,255,.1); border: none; color: rgba(255,255,255,.7); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+    .dw-head-close:hover { background: rgba(255,255,255,.2); color: #fff; }
+    .dw-msgs {
+      flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+      background: #F8F5EE; scroll-behavior: smooth;
+    }
+    .dw-msgs::-webkit-scrollbar { width: 4px; }
+    .dw-msgs::-webkit-scrollbar-thumb { background: #E0D8C8; border-radius: 2px; }
+    .dw-bubble {
+      max-width: 82%; padding: 10px 13px; border-radius: 14px; font-size: 13.5px;
+      line-height: 1.55; word-break: break-word; animation: dwFadeIn .2s ease;
+    }
+    @keyframes dwFadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+    .dw-bubble.bot {
+      background: #fff; color: #1C2B3A; border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.07); align-self: flex-start;
+    }
+    .dw-bubble.user {
+      background: #1C2B3A; color: #fff; border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+    .dw-bubble a { color: #C9A84C; text-decoration: underline; }
+    .dw-typing {
+      display: flex; align-items: center; gap: 4px; padding: 10px 14px;
+      background: #fff; border-radius: 14px; border-bottom-left-radius: 4px;
+      align-self: flex-start; box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    }
+    .dw-typing span {
+      width: 7px; height: 7px; background: #C9A84C; border-radius: 50%;
+      animation: dwBounce 1.2s infinite;
+    }
+    .dw-typing span:nth-child(2) { animation-delay: .2s; }
+    .dw-typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes dwBounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+    .dw-quick-btns { padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 6px; background: #F8F5EE; flex-shrink: 0; border-top: 1px solid #E0D8C8; }
+    .dw-quick-btn {
+      padding: 5px 11px; background: #fff; border: 1.5px solid #E0D8C8;
+      border-radius: 100px; font-family: inherit; font-size: 12px; font-weight: 600;
+      color: #1C2B3A; cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .dw-quick-btn:hover { border-color: #C9A84C; color: #C9A84C; }
+    .dw-foot {
+      padding: 10px 12px; display: flex; gap: 8px; background: #fff;
+      border-top: 1px solid #E0D8C8; flex-shrink: 0; align-items: flex-end;
+    }
+    #dw-input {
+      flex: 1; border: 1.5px solid #E0D8C8; border-radius: 12px; padding: 9px 12px;
+      font-family: inherit; font-size: 14px; color: #1C2B3A; resize: none;
+      outline: none; max-height: 100px; line-height: 1.4; background: #F8F5EE;
+      transition: border-color .2s;
+    }
+    #dw-input:focus { border-color: #C9A84C; background: #fff; }
+    #dw-send {
+      width: 38px; height: 38px; background: #C9A84C; border: none; border-radius: 10px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .15s;
+    }
+    #dw-send:hover { background: #B8943A; }
+    #dw-send svg { width: 16px; height: 16px; }
+    .dw-lead-card {
+      background: linear-gradient(135deg, rgba(201,168,76,.12), rgba(201,168,76,.06));
+      border: 1.5px solid rgba(201,168,76,.3); border-radius: 12px;
+      padding: 12px 14px; margin-top: 4px;
+    }
+    .dw-lead-title { font-size: 12px; font-weight: 700; color: #C9A84C; margin-bottom: 8px; }
+    .dw-lead-card a {
+      display: block; padding: 9px; background: #1C2B3A; color: #C9A84C;
+      border-radius: 8px; text-align: center; text-decoration: none; font-weight: 700; font-size: 13px;
+    }
+    @media(max-width:420px){
+      #dw-chat { width: calc(100vw - 20px); right: 10px; bottom: 80px; }
+      #dw-widget-btn { right: 16px; bottom: 16px; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ── DOM ──
+  var btn = document.createElement('button');
+  btn.id = 'dw-widget-btn';
+  btn.innerHTML = '💬<span class="dw-notif">1</span>';
+  btn.onclick = toggleChat;
+  document.body.appendChild(btn);
+
+  var chat = document.createElement('div');
+  chat.id = 'dw-chat';
+  chat.innerHTML = `
+    <div class="dw-head">
+      <div class="dw-head-av">D</div>
+      <div class="dw-head-info">
+        <div class="dw-head-name">Digi — Digitwise AI</div>
+        <div class="dw-head-status"><span class="dw-head-dot"></span>Online · Australian tax specialist</div>
+      </div>
+      <button class="dw-head-close" onclick="dwClose()">×</button>
+    </div>
+    <div class="dw-msgs" id="dw-msgs"></div>
+    <div class="dw-quick-btns" id="dw-quick">
+      <button class="dw-quick-btn" onclick="dwSendQuick('What can I claim working from home?')">🏠 WFH deductions</button>
+      <button class="dw-quick-btn" onclick="dwSendQuick('When is my BAS due?')">📋 BAS dates</button>
+      <button class="dw-quick-btn" onclick="dwSendQuick('How much tax will I pay?')">💰 My tax</button>
+      <button class="dw-quick-btn" onclick="dwSendQuick('Book a free call')">📞 Book call</button>
+    </div>
+    <div class="dw-foot">
+      <textarea id="dw-input" rows="1" placeholder="Ask a tax question..." onkeydown="dwKeydown(event)" oninput="dwResize(this)"></textarea>
+      <button id="dw-send" onclick="dwSend()">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M14 8L2 2l2.5 6L2 14l12-6z" fill="white"/></svg>
+      </button>
+    </div>
+  `;
+  document.body.appendChild(chat);
+
+  // ── INIT ──
+  setTimeout(function() {
+    addBotMessage(WIDGET_CONFIG.greeting);
+  }, 600);
+
+  // ── FUNCTIONS ──
+  function toggleChat() {
+    state.open = !state.open;
+    chat.classList.toggle('open', state.open);
+    btn.querySelector('.dw-notif').style.display = state.open ? 'none' : '';
+    if (state.open) document.getElementById('dw-input').focus();
+  }
+  window.dwClose = function() { state.open = false; chat.classList.remove('open'); };
+  window.dwSendQuick = function(text) { sendMessage(text); };
+
+  function addBotMessage(text) {
+    var msgs = document.getElementById('dw-msgs');
+    var div = document.createElement('div');
+    div.className = 'dw-bubble bot';
+    // Convert markdown links and newlines
+    var html = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')
+      .replace(/\n/g, '<br>');
+    div.innerHTML = html;
+
+    // Check for lead capture JSON
+    var leadMatch = text.match(/\{"lead_captured":true[^}]+\}/);
+    if (leadMatch && !state.leadCaptured) {
+      try {
+        var lead = JSON.parse(leadMatch[0]);
+        state.leadCaptured = true;
+        submitLead(lead);
+        div.innerHTML = div.innerHTML.replace(leadMatch[0], '');
+        // Add calendly card
+        var card = document.createElement('div');
+        card.className = 'dw-lead-card';
+        card.innerHTML = '<div class="dw-lead-title">✅ Thanks ' + lead.name + '! Hammad will be in touch. Or book instantly:</div><a href="' + WIDGET_CONFIG.calendlyUrl + '" target="_blank">📅 Book Free 20-min Call →</a>';
+        msgs.appendChild(div);
+        msgs.appendChild(card);
+        msgs.scrollTop = msgs.scrollHeight;
+        return;
+      } catch(e) {}
+    }
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    var msgs = document.getElementById('dw-msgs');
+    var el = document.createElement('div');
+    el.className = 'dw-typing'; el.id = 'dw-typing-ind';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(el);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+  function hideTyping() {
+    var el = document.getElementById('dw-typing-ind');
+    if (el) el.remove();
+  }
+
+  function addUserMessage(text) {
+    var msgs = document.getElementById('dw-msgs');
+    var div = document.createElement('div');
+    div.className = 'dw-bubble user';
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function sendMessage(text) {
+    if (!text.trim() || state.typing) return;
+    addUserMessage(text);
+    document.getElementById('dw-input').value = '';
+    document.getElementById('dw-quick').style.display = 'none';
+    state.conversationHistory.push({ role: 'user', content: text });
+    state.typing = true;
+    showTyping();
+
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: WIDGET_CONFIG.systemPrompt,
+        messages: state.conversationHistory
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      hideTyping();
+      state.typing = false;
+      var reply = (data.content && data.content[0]) ? data.content[0].text : "Sorry, I'm having trouble connecting. Please try again or email hammad@digitwiseconsulting.com";
+      state.conversationHistory.push({ role: 'assistant', content: reply });
+      addBotMessage(reply);
+    })
+    .catch(function() {
+      hideTyping();
+      state.typing = false;
+      addBotMessage("I'm having trouble connecting right now. Please email hammad@digitwiseconsulting.com or [book a call](" + WIDGET_CONFIG.calendlyUrl + ") directly.");
+    });
+  }
+
+  function submitLead(lead) {
+    fetch(WIDGET_CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: lead.name,
+        email: lead.email,
+        message: '🤖 AI Chat Lead: ' + lead.summary,
+        source: 'Digitwise AI Widget — ' + window.location.pathname
+      })
+    }).catch(function(){});
+  }
+
+  window.dwSend = function() {
+    var input = document.getElementById('dw-input');
+    sendMessage(input.value.trim());
+  };
+  window.dwKeydown = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.dwSend(); }
+  };
+  window.dwResize = function(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  };
+})();
+</script>
 </body>
 </html>
