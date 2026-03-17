@@ -791,5 +791,22 @@ TOOLS YOU KNOW ABOUT (mention these naturally):
     el.style.height = Math.min(el.scrollHeight, 100) + 'px';
   };
 })();
+
+// Inject lead CTA into audit results
+var _origShowResults = window.showResults;
+window.showResults = function() {
+  _origShowResults && _origShowResults();
+  setTimeout(function(){
+    var rs = document.getElementById('results-section');
+    if(rs && !document.getElementById('audit-lead-cta')){
+      var cta = document.createElement('div');
+      cta.id = 'audit-lead-cta';
+      cta.style.cssText = 'margin-top:20px;background:linear-gradient(135deg,#1C2B3A,#243447);border-radius:16px;padding:20px 22px;border-left:4px solid #C9A84C;';
+      cta.innerHTML = '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#C9A84C;margin-bottom:6px;">🔍 Don\'t face an ATO audit alone</div><div style="font-family:\'Playfair Display\',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;">Get a free records review with Digitwise</div><div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:14px;line-height:1.6;">We\'ll check your claims are defensible, your records are compliant, and you\'re not carrying any unnecessary audit risk.</div><div style="display:flex;gap:10px;flex-wrap:wrap;"><a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" style="padding:10px 20px;background:#C9A84C;color:#1C2B3A;border-radius:9px;text-decoration:none;font-weight:700;font-size:13px;">📅 Book Free Review →</a><a href="/tax-checklist" style="padding:10px 20px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);border-radius:9px;text-decoration:none;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.12);">✅ Get my tax checklist</a></div>';
+      rs.appendChild(cta);
+    }
+  }, 400);
+};
+
 </script>
 </body></html>
