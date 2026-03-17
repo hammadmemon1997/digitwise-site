@@ -302,6 +302,22 @@ input,select,textarea{font-size:16px!important;}
   <div id="placeholder" class="placeholder-msg">Enter your salary above to see your personalised tax cut savings.</div>
 </div>
 
+
+<div id="s3-lead-cta" style="display:none;margin-top:20px;background:linear-gradient(135deg,#1C2B3A,#243447);border-radius:16px;padding:20px 22px;border-left:4px solid #22C55E;">
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#22C55E;margin-bottom:6px;">📈 Maximise your 2026 tax cut</div>
+  <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:5px;">Plan ahead — salary sacrifice before July 2026</div>
+  <div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:14px;line-height:1.6;">The window to maximise pre-cut salary sacrifice closes 30 June 2026. Book a free call to model your optimal strategy before the rates drop.</div>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" style="display:inline-block;padding:10px 20px;background:#C9A84C;color:#1C2B3A;border-radius:9px;text-decoration:none;font-weight:700;font-size:13px;">📅 Free Tax Planning Call →</a>
+</div>
+<script>
+(function(){
+  var shown=false;
+  function showS3CTA(){if(!shown){var el=document.getElementById('s3-lead-cta');if(el){el.style.display='block';shown=true;}}}
+  var rs=document.getElementById('results');
+  if(rs){new MutationObserver(function(m){m.forEach(function(x){if(x.target.style.display!=='none')showS3CTA();});}).observe(rs,{attributes:true,attributeFilter:['style']});}
+  document.addEventListener('click',function(e){if(e.target&&(e.target.classList.contains('calc-btn')||e.target.textContent.includes('Calculate')))setTimeout(showS3CTA,1000);});
+})();
+</script>
 <footer><div class="footer-inner"><div class="footer-brand">Digit<span>wise</span> Consulting</div><div class="footer-links"><a href="/">Home</a><a href="/pay-calculator">Pay Calculator</a><a href="/tools">Tools</a></div></div></footer>
 
 <script>
