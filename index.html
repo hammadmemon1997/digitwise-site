@@ -3184,6 +3184,41 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
     padding-bottom: 28px !important;
   }
 
+  /* Hero actions — stack buttons vertically on mobile */
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-bottom: 28px !important;
+  }
+  .hero-actions .btn-gold,
+  .hero-actions .btn-outline-ghost,
+  .hero-actions .btn-bas-reminder {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+  }
+
+  /* Hero text sizing */
+  .hero h1 { font-size: clamp(26px, 7vw, 44px) !important; margin-bottom: 14px !important; }
+  .hero-sub, .hero p { font-size: 14px !important; margin-bottom: 20px !important; }
+  .hero-badge { font-size: 11px !important; padding: 5px 12px !important; }
+
+  /* BAS strip — hide on very small screens, clean on medium */
+  .bas-strip { gap: 8px !important; flex-wrap: wrap !important; }
+  .bas-strip-cta { display: none !important; }
+
+  /* Hero tools strip — wrap pills */
+  .hero-tools-strip { flex-wrap: wrap !important; gap: 7px !important; padding: 12px 0 !important; }
+  .hero-tool-pill { font-size: 11px !important; padding: 6px 12px !important; }
+
+  /* Premium tool card */
+  .premium-tool { padding: 12px 14px !important; }
+  .hpt-name { font-size: 15px !important; }
+  .hpt-desc { font-size: 11px !important; }
+
   /* Page wrap / containers */
   .wrap, .page-wrap, .tool-wrap, .content-wrap,
   .section-inner, .inner, .container {
@@ -3255,6 +3290,46 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
 
   /* BAS popup full width on tiny screens */
   .bas-popup { padding: 20px 16px !important; }
+
+  /* Section padding */
+  section, .section { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Cards full width */
+  .tool-card, .blog-card, .service-card, .pricing-card {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Testimonial cards */
+  .testimonial-card { padding: 16px !important; }
+
+  /* Process steps */
+  .process-step { padding: 14px 16px !important; }
+
+  /* Stats strip */
+  .stats-strip, .stats-row { gap: 14px !important; }
+  .stat-num { font-size: 26px !important; }
+
+  /* Hide right hero column (decorative) */
+  .hero-right-col, .hero-image-col { display: none !important; }
+
+  /* FAQ items */
+  .faq-item { padding: 14px 16px !important; }
+
+  /* Form fields */
+  .form-field { margin-bottom: 12px !important; }
+  .form-submit { width: 100% !important; }
+
+  /* Contact form */
+  #contact-form input, #contact-form textarea, #contact-form select {
+    font-size: 16px !important;
+    padding: 12px !important;
+  }
+
+  /* Pricing toggle */
+  .pricing-toggle { flex-wrap: wrap !important; }
+  .tog-btn { width: 100% !important; text-align: center !important; }
 }
 /* ═══ END GLOBAL MOBILE FIX ═══ */
 
@@ -3474,7 +3549,6 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
-        <div class="bas-strip-cta"><a href="#" onclick="scrollToBASBanner();return false;" class="bas-strip-remind-btn">📧 Get reminded →</a></div>
 
 
       <!-- FREE TOOLS STRIP -->
