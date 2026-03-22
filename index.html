@@ -3136,6 +3136,105 @@ footer {
 }
 </style>
 
+
+/* BAS Reminder hero button */
+.btn-bas-reminder {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: transparent;
+  border: 1.5px solid rgba(201,168,76,0.5);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #C9A84C;
+  text-decoration: none;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.btn-bas-reminder:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: #C9A84C;
+  transform: translateY(-1px);
+}
+@media(max-width:600px){
+  .btn-bas-reminder { width: 100%; justify-content: center; }
+}
+
+
+/* BAS banner clean CTA card */
+.brb-cta-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.brb-cta-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.brb-cta-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.brb-cta-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.brb-cta-features {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 20px;
+}
+.brb-cta-feat {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.brb-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px 20px;
+  background: #C9A84C;
+  color: #1C2B3A;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  transition: all .2s;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 20px rgba(201,168,76,.3);
+}
+.brb-cta-btn:hover {
+  background: #D4B060;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(201,168,76,.4);
+}
+.brb-cta-note {
+  font-size: 11px;
+  color: rgba(255,255,255,.25);
+  text-align: center;
+  width: 100%;
+  line-height: 1.5;
+}
+
 <style id="dw-mobile-fix">
 /* ═══ DIGITWISE GLOBAL MOBILE FIX ═══ */
 html, body { overflow-x: hidden !important; max-width: 100vw; }
@@ -3372,6 +3471,10 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
         <a href="/tools" class="btn-outline-ghost">
           🔧 Free Tools
         </a>
+        <a href="/bas-reminder" class="btn-bas-reminder">
+          📅 BAS Reminder
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
         <div class="bas-strip-cta"><a href="#" onclick="scrollToBASBanner();return false;" class="bas-strip-remind-btn">📧 Get reminded →</a></div>
 
@@ -3491,30 +3594,21 @@ html, body { overflow-x: hidden !important; max-width: 100vw; }
       </div>
     </div>
     <div class="brb-form-card">
-      <div id="brb-form-inner">
-        <div class="brb-form-title">📅 Get your free BAS reminder</div>
-        <div class="brb-form-sub">Enter your name and email — we'll remind you before every due date. No spam, unsubscribe anytime.</div>
-        <div class="brb-field"><input type="text" id="brb-name" placeholder="Your name" autocomplete="name"></div>
-        <div class="brb-field"><input type="email" id="brb-email" placeholder="Email address" autocomplete="email"></div>
-        <div class="brb-field-row">
-          <div class="brb-field">
-            <select id="brb-period">
-              <option value="quarterly">📋 Quarterly</option>
-              <option value="monthly">📅 Monthly</option>
-              <option value="annual">📆 Annual</option>
-            </select>
-          </div>
-          <div class="brb-field">
-            <select id="brb-remind">
-              <option value="2 weeks before">⏰ 2 weeks before</option>
-              <option value="1 month before">📅 1 month before</option>
-              <option value="3 days before">⚡ 3 days before</option>
-            </select>
-          </div>
+      <div class="brb-cta-card">
+        <div class="brb-cta-icon">📅</div>
+        <div class="brb-cta-title">Set up your free BAS reminders</div>
+        <div class="brb-cta-sub">Takes 30 seconds. We'll email you before every deadline — no login, no spam, unsubscribe anytime.</div>
+        <div class="brb-cta-features">
+          <div class="brb-cta-feat">✅ 2 weeks before each deadline</div>
+          <div class="brb-cta-feat">✅ Final reminder 3 days before</div>
+          <div class="brb-cta-feat">✅ All ATO quarters covered</div>
         </div>
-        <button class="brb-submit" id="brb-submit-btn" onclick="brbSubmit()">📅 Set up my free reminders →</button>
-        <div class="brb-privacy">🔒 No spam. We only email you before BAS deadlines. Unsubscribe any time.</div>
+        <a href="/bas-reminder" class="brb-cta-btn">
+          📅 Get my free BAS reminders →
+        </a>
+        <div class="brb-cta-note">🔒 Free forever · No account needed · Unsubscribe anytime</div>
       </div>
+    </div>
       <div class="brb-success" id="brb-success">
         <div class="brb-success-icon">✅</div>
         <div class="brb-success-title">You're all set!</div>
