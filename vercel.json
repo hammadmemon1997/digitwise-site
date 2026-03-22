@@ -100,6 +100,10 @@
       "dest": "/bas-reminder.html"
     },
     {
+      "src": "/ndis-tools",
+      "dest": "/ndis-toolkit.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
