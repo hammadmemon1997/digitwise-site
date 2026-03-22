@@ -96,6 +96,10 @@
       "dest": "/currency-calculator.html"
     },
     {
+      "src": "/bas-reminder",
+      "dest": "/bas-reminder.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
