@@ -3249,6 +3249,8 @@ footer {
           🔧 Free Tools
         </a>
       </div>
+        <div class="bas-strip-cta"><a href="#" onclick="scrollToBASBanner();return false;" class="bas-strip-remind-btn">📧 Get reminded →</a></div>
+
 
       <!-- FREE TOOLS STRIP -->
       <div class="hero-tools-strip">
@@ -3350,6 +3352,57 @@ footer {
 
   </div>
 </section>
+
+<!-- ═══ BAS REMINDER FEATURE BANNER ═══ -->
+<section class="bas-reminder-banner">
+  <div class="brb-inner">
+    <div class="brb-left">
+      <div class="brb-eyebrow"><span class="brb-eyebrow-dot"></span>Free — Takes 30 seconds</div>
+      <h2 class="brb-title">Never Miss a BAS Deadline <em>Again</em></h2>
+      <p class="brb-sub">Q3 BAS is due <strong style="color:#C9A84C;">28 April 2026</strong> — that's in <strong style="color:#fff;" id="brb-days-count">36 days</strong>. Late lodgement means ATO penalties starting at $222. Set up a free email reminder right now.</p>
+      <div class="brb-stats">
+        <div class="brb-stat"><div class="brb-stat-num">$222</div><div class="brb-stat-lbl">ATO late penalty (first 28 days)</div></div>
+        <div class="brb-stat"><div class="brb-stat-num">$1,110</div><div class="brb-stat-lbl">Max penalty if ignored</div></div>
+        <div class="brb-stat"><div class="brb-stat-num">30 sec</div><div class="brb-stat-lbl">To set up reminders</div></div>
+      </div>
+    </div>
+    <div class="brb-form-card">
+      <div id="brb-form-inner">
+        <div class="brb-form-title">📅 Get your free BAS reminder</div>
+        <div class="brb-form-sub">Enter your name and email — we'll remind you before every due date. No spam, unsubscribe anytime.</div>
+        <div class="brb-field"><input type="text" id="brb-name" placeholder="Your name" autocomplete="name"></div>
+        <div class="brb-field"><input type="email" id="brb-email" placeholder="Email address" autocomplete="email"></div>
+        <div class="brb-field-row">
+          <div class="brb-field">
+            <select id="brb-period">
+              <option value="quarterly">📋 Quarterly</option>
+              <option value="monthly">📅 Monthly</option>
+              <option value="annual">📆 Annual</option>
+            </select>
+          </div>
+          <div class="brb-field">
+            <select id="brb-remind">
+              <option value="2 weeks before">⏰ 2 weeks before</option>
+              <option value="1 month before">📅 1 month before</option>
+              <option value="3 days before">⚡ 3 days before</option>
+            </select>
+          </div>
+        </div>
+        <button class="brb-submit" id="brb-submit-btn" onclick="brbSubmit()">📅 Set up my free reminders →</button>
+        <div class="brb-privacy">🔒 No spam. We only email you before BAS deadlines. Unsubscribe any time.</div>
+      </div>
+      <div class="brb-success" id="brb-success">
+        <div class="brb-success-icon">✅</div>
+        <div class="brb-success-title">You're all set!</div>
+        <div class="brb-success-sub" id="brb-success-msg">We'll remind you before each BAS due date. Next deadline: 28 April 2026.</div>
+        <a href="/bas-reminder" class="brb-success-link">View all upcoming BAS dates →</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ END BAS REMINDER FEATURE BANNER ═══ -->
+
+
 
 <!-- ABOUT -->
 <section class="about-section" id="about">
@@ -4907,7 +4960,272 @@ document.addEventListener('DOMContentLoaded', function() {
 var C={cal:'https://calendly.com/hammad-digitwiseconsulting',fs:'https://formspree.io/f/xwvrnpew'};
 var S={open:false,typing:false,hist:[],lead:false};
 var css='#dwb{position:fixed;bottom:22px;right:20px;z-index:2147483646;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#B8943A);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(201,168,76,.55);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .2s}#dwb:hover{transform:scale(1.08)}#dwb .n{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#E24B4A;border-radius:50%;border:2px solid #fff;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center}#dww{position:fixed;bottom:86px;right:20px;z-index:2147483645;width:340px;height:520px;max-height:calc(100dvh - 100px);background:#fff;border-radius:18px;box-shadow:0 16px 50px rgba(0,0,0,.18);display:none;flex-direction:column;overflow:hidden;font-family:Outfit,-apple-system,sans-serif}#dww.on{display:flex;animation:up .22s ease}@keyframes up{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}.dh{background:linear-gradient(135deg,#1C2B3A,#243447);padding:13px 15px;display:flex;align-items:center;gap:10px;flex-shrink:0}.da{width:34px;height:34px;background:#C9A84C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#1C2B3A;flex-shrink:0}.dn{font-size:13px;font-weight:700;color:#fff}.ds{font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:4px}.dd{width:6px;height:6px;background:#22C55E;border-radius:50%}.dc{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:16px;margin-left:auto}.dm{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#F8F5EE;scroll-behavior:smooth}.b{max-width:84%;padding:9px 12px;border-radius:13px;font-size:13px;line-height:1.55;animation:fi .18s ease;word-break:break-word}@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.b.bo{background:#fff;color:#1C2B3A;border-bottom-left-radius:3px;box-shadow:0 1px 5px rgba(0,0,0,.07);align-self:flex-start}.b.us{background:#1C2B3A;color:#fff;border-bottom-right-radius:3px;align-self:flex-end}.b a{color:#C9A84C}.ty{display:flex;align-items:center;gap:3px;padding:9px 13px;background:#fff;border-radius:13px;border-bottom-left-radius:3px;align-self:flex-start;box-shadow:0 1px 5px rgba(0,0,0,.07)}.ty span{width:6px;height:6px;background:#C9A84C;border-radius:50%;animation:bo 1.1s infinite}.ty span:nth-child(2){animation-delay:.2s}.ty span:nth-child(3){animation-delay:.4s}@keyframes bo{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}.dq{padding:7px 10px;display:flex;flex-wrap:wrap;gap:5px;background:#F8F5EE;flex-shrink:0;border-top:1px solid #E0D8C8}.qb{padding:5px 11px;background:#fff;border:1.5px solid #E0D8C8;border-radius:100px;font-family:inherit;font-size:11px;font-weight:600;color:#1C2B3A;cursor:pointer;transition:all .15s;white-space:nowrap}.qb:hover{border-color:#C9A84C;color:#C9A84C}.df{padding:9px 11px;display:flex;gap:7px;background:#fff;border-top:1px solid #E0D8C8;flex-shrink:0;align-items:flex-end}#dwi{flex:1;border:1.5px solid #E0D8C8;border-radius:11px;padding:8px 11px;font-family:inherit;font-size:16px;color:#1C2B3A;resize:none;outline:none;max-height:90px;line-height:1.4;background:#F8F5EE;transition:border-color .2s}#dwi:focus{border-color:#C9A84C;background:#fff}#dws{width:35px;height:35px;background:#C9A84C;border:none;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}.lc{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.06));border:1.5px solid rgba(201,168,76,.3);border-radius:11px;padding:11px 13px;margin-top:3px}.lt{font-size:11px;font-weight:700;color:#C9A84C;margin-bottom:7px}.la{display:block;padding:9px;background:#1C2B3A;color:#C9A84C;border-radius:8px;text-align:center;text-decoration:none;font-weight:700;font-size:12px}@media(max-width:400px){#dww{width:calc(100vw - 20px);right:10px;bottom:80px}#dwb{right:12px;bottom:14px}}';
-document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
+document.head.insertAdjacentHTML('beforeend','<style>'+css+'
+/* ── BAS REMINDER FEATURE BANNER ── */
+.bas-reminder-banner {
+  background: linear-gradient(135deg, #1C2B3A 0%, #0F1E2B 100%);
+  border-bottom: 3px solid #C9A84C;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.bas-reminder-banner::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,.08), transparent);
+  pointer-events: none;
+}
+.brb-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 60px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 40px;
+  align-items: center;
+}
+.brb-left {}
+.brb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(201,168,76,.12);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 100px;
+  padding: 4px 13px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #C9A84C;
+  margin-bottom: 14px;
+}
+.brb-eyebrow-dot {
+  width: 6px; height: 6px;
+  background: #C9A84C;
+  border-radius: 50%;
+  animation: brb-pulse 1.8s infinite;
+}
+@keyframes brb-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+.brb-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.brb-title em { color: #C9A84C; font-style: italic; }
+.brb-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.65;
+  max-width: 480px;
+  margin-bottom: 18px;
+}
+.brb-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.brb-stat {}
+.brb-stat-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #C9A84C;
+}
+.brb-stat-lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,.35);
+  margin-top: 1px;
+}
+
+/* INLINE SIGNUP FORM IN BANNER */
+.brb-form-card {
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+}
+.brb-form-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.brb-form-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.brb-field {
+  margin-bottom: 10px;
+}
+.brb-field input, .brb-field select {
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(255,255,255,.08);
+  border: 1.5px solid rgba(255,255,255,.12);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: border-color .2s;
+}
+.brb-field input::placeholder { color: rgba(255,255,255,.3); }
+.brb-field input:focus, .brb-field select:focus { border-color: rgba(201,168,76,.6); }
+.brb-field select { color: rgba(255,255,255,.7); }
+.brb-field select option { background: #1C2B3A; color: #fff; }
+.brb-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.brb-field-row .brb-field { margin-bottom: 0; }
+.brb-submit {
+  width: 100%;
+  padding: 13px;
+  background: #C9A84C;
+  color: #1C2B3A;
+  border: none;
+  border-radius: 11px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 8px;
+}
+.brb-submit:hover { background: #D4B060; transform: translateY(-1px); }
+.brb-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.brb-privacy { font-size: 10px; color: rgba(255,255,255,.3); text-align: center; line-height: 1.5; }
+.brb-success {
+  display: none;
+  text-align: center;
+  padding: 12px 0;
+}
+.brb-success-icon { font-size: 36px; margin-bottom: 10px; }
+.brb-success-title { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.brb-success-sub { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.55; margin-bottom: 14px; }
+.brb-success-link { display: inline-block; padding: 9px 20px; background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3); color: #C9A84C; border-radius: 9px; font-size: 12px; font-weight: 700; text-decoration: none; }
+
+/* BAS STRIP UPGRADE */
+.bas-strip-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.bas-strip-remind-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: #C9A84C;
+  color: #1C2B3A;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.bas-strip-remind-btn:hover { background: #D4B060; transform: translateY(-1px); }
+
+/* EXIT INTENT POPUP */
+.bas-popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 99998;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.bas-popup-overlay.open { display: flex; animation: popfade .2s ease; }
+@keyframes popfade { from{opacity:0} to{opacity:1} }
+.bas-popup {
+  background: #1C2B3A;
+  border: 1.5px solid rgba(201,168,76,.3);
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  animation: popslide .25s cubic-bezier(.4,0,.2,1);
+}
+@keyframes popslide { from{opacity:0;transform:translateY(20px) scale(.97)} to{opacity:1;transform:none} }
+.bas-popup-close {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: rgba(255,255,255,.08);
+  border: none;
+  color: rgba(255,255,255,.5);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.bas-popup-close:hover { background: rgba(255,255,255,.15); color: #fff; }
+.bas-popup-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.25);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+  color: #C9A84C; margin-bottom: 12px;
+}
+.bas-popup h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; font-weight: 700; color: #fff;
+  line-height: 1.2; margin-bottom: 8px;
+}
+.bas-popup h3 em { color: #C9A84C; font-style: italic; }
+.bas-popup p {
+  font-size: 13px; color: rgba(255,255,255,.45);
+  line-height: 1.65; margin-bottom: 18px;
+}
+.bas-popup-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.bas-popup-field input {
+  width: 100%; padding: 12px 14px;
+  background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 11px; font-family: 'Outfit', sans-serif; font-size: 14px;
+  color: #fff; outline: none; transition: border-color .2s;
+}
+.bas-popup-field input::placeholder { color: rgba(255,255,255,.3); }
+.bas-popup-field input:focus { border-color: rgba(201,168,76,.5); }
+.bas-popup-submit {
+  width: 100%; padding: 13px;
+  background: #C9A84C; color: #1C2B3A;
+  border: none; border-radius: 11px;
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .2s; margin-bottom: 8px;
+}
+.bas-popup-submit:hover { background: #D4B060; }
+.bas-popup-skip { display: block; text-align: center; font-size: 12px; color: rgba(255,255,255,.3); cursor: pointer; }
+.bas-popup-skip:hover { color: rgba(255,255,255,.6); }
+.bas-popup-success { display: none; text-align: center; padding: 10px 0; }
+.bas-popup-success-icon { font-size: 40px; margin-bottom: 10px; }
+.bas-popup-success h4 { font-family: 'Playfair Display', serif; font-size: 19px; color: #fff; margin-bottom: 6px; }
+.bas-popup-success p { font-size: 13px; color: rgba(255,255,255,.45); }
+
+@media(max-width:900px){
+  .brb-inner { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
+  .brb-stats { gap: 16px; }
+}
+@media(max-width:600px){
+  .brb-field-row { grid-template-columns: 1fr; }
+  .bas-strip-remind-btn { display: none; }
+}
+
+</style>');
 document.body.insertAdjacentHTML('beforeend','<button id="dwb" aria-label="Chat with Digi" onclick="dwT()">\u{1F4AC}<span class="n">1</span></button><div id="dww"><div class="dh"><div class="da">D</div><div><div class="dn">Digi &middot; Digitwise AI</div><div class="ds"><span class="dd"></span>Online &middot; AU tax specialist</div></div><button class="dc" onclick="dwClose()">&times;</button></div><div class="dm" id="dwm"></div><div class="dq" id="dwq"><button class="qb" onclick="dwQ(this.dataset.t)" data-t="What can I claim working from home?">&#127968; WFH</button><button class="qb" onclick="dwQ(this.dataset.t)" data-t="When is my next BAS due?">&#128203; BAS dates</button><button class="qb" onclick="dwQ(this.dataset.t)" data-t="How much tax will I pay on my salary?">&#128176; My tax</button><button class="qb" onclick="dwQ(this.dataset.t)" data-t="I want to book a free consultation">&#128222; Book call</button></div><div class="df"><textarea id="dwi" rows="1" placeholder="Ask a tax question..." onkeydown="dwK(event)" oninput="dwR(this)"></textarea><button id="dws" onclick="dwSd()"><svg viewBox=\"0 0 16 16\" fill=\"none\" width=\"15\" height=\"15\"><path d=\"M14 8L2 2l2.5 6L2 14l12-6z\" fill=\"white\"/></svg></button></div></div>');
 var SYS='You are Digi, friendly expert AI for Digitwise Consulting Melbourne. Answer AU/US tax, BAS, GST, bookkeeping questions helpfully. After 2-3 turns ask business type. If they want detailed help ask name+email. When you have both output on its own line: {"lead":true,"name":"N","email":"E","note":"situation"} Keep replies under 100 words unless needed. Mention /pay-calculator /tax-checklist /audit-risk /stage3-calculator when relevant.';
 setTimeout(function(){addB("Hi! I'm Digi, Digitwise's AI assistant \ud83d\udc4b\n\nI can answer Australian tax questions instantly and connect you with Hammad for personalised advice.\n\nWhat can I help you with?");},700);
@@ -4994,6 +5312,141 @@ window.dwR=function(el){el.style.height='auto';el.style.height=Math.min(el.scrol
   else setTimeout(attachUsageTracking, 500);
 })();
 
+</script>
+
+<!-- BAS REMINDER EXIT INTENT POPUP -->
+<div class="bas-popup-overlay" id="bas-popup-overlay" onclick="if(event.target===this)closeBASPopup()">
+  <div class="bas-popup">
+    <button class="bas-popup-close" onclick="closeBASPopup()">×</button>
+    <div class="bas-popup-badge">⏰ Q3 BAS due 28 April</div>
+    <h3>Get a free reminder before your <em>BAS deadline</em></h3>
+    <p>28 April is coming up fast. Enter your email and we'll remind you 2 weeks before every BAS due date — completely free, no login needed.</p>
+    <div class="bas-popup-fields" id="popup-form-fields">
+      <div class="bas-popup-field"><input type="text" id="popup-name" placeholder="Your name" autocomplete="name"></div>
+      <div class="bas-popup-field"><input type="email" id="popup-email" placeholder="Email address" autocomplete="email"></div>
+    </div>
+    <button class="bas-popup-submit" onclick="popupSubmit()">📅 Set up free reminders →</button>
+    <span class="bas-popup-skip" onclick="closeBASPopup()">No thanks, I'll risk the $222 penalty</span>
+    <div class="bas-popup-success" id="popup-success">
+      <div class="bas-popup-success-icon">✅</div>
+      <h4>You're all set!</h4>
+      <p>We'll email you before every BAS deadline. Next: 28 April 2026.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── BAS REMINDER INLINE FORMS + POPUP ── */
+(function(){
+  var FS = 'https://formspree.io/f/xwvrnpew';
+  var stored = localStorage.getItem('dw_bas_signed');
+  var popupShown = sessionStorage.getItem('dw_popup_shown');
+
+  // Update live days countdown in banner
+  function updateDays(){
+    var deadline = new Date('2026-04-28');
+    var days = Math.ceil((deadline - new Date()) / (1000*60*60*24));
+    var el = document.getElementById('brb-days-count');
+    if(el) el.textContent = days + ' days';
+  }
+  updateDays();
+
+  // Hide banner form if already signed up
+  if(stored){
+    var inner = document.getElementById('brb-form-inner');
+    var succ = document.getElementById('brb-success');
+    if(inner && succ){
+      inner.style.display = 'none';
+      succ.style.display = 'block';
+      document.getElementById('brb-success-msg').textContent = 'You're already set up for reminders! Next deadline: 28 April 2026.';
+    }
+  }
+
+  // Banner form submit
+  window.brbSubmit = function(){
+    var name = document.getElementById('brb-name').value.trim();
+    var email = document.getElementById('brb-email').value.trim();
+    var period = document.getElementById('brb-period').value;
+    var remind = document.getElementById('brb-remind').value;
+    if(!name){ document.getElementById('brb-name').focus(); return; }
+    if(!email || !email.includes('@')){ document.getElementById('brb-email').focus(); return; }
+    var btn = document.getElementById('brb-submit-btn');
+    btn.disabled = true; btn.textContent = 'Setting up...';
+    fetch(FS, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name:name, email:email, reporting_period:period, reminder_time:remind,
+        message:'📅 BAS Reminder (Homepage Banner): '+name+' — '+period+' — '+remind,
+        source:'Homepage Banner' }) })
+    .then(function(){ showBRBSuccess(name); })
+    .catch(function(){ showBRBSuccess(name); });
+  };
+
+  function showBRBSuccess(name){
+    localStorage.setItem('dw_bas_signed','1');
+    document.getElementById('brb-form-inner').style.display = 'none';
+    var s = document.getElementById('brb-success');
+    s.style.display = 'block';
+    document.getElementById('brb-success-msg').textContent = 'Hi '+name+'! We'll remind you before each BAS due date. Next deadline: 28 April 2026.';
+    popupShown = '1'; sessionStorage.setItem('dw_popup_shown','1');
+  }
+
+  // BAS strip "Remind me" button — scroll to banner
+  window.scrollToBASBanner = function(){
+    var banner = document.querySelector('.bas-reminder-banner');
+    if(banner){ banner.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ var inp=document.getElementById('brb-name'); if(inp)inp.focus(); }, 600); }
+  };
+
+  // Popup
+  var popupTriggered = false;
+  function showPopup(){
+    if(popupTriggered || stored || popupShown) return;
+    if(sessionStorage.getItem('dw_bas_dismissed')) return;
+    popupTriggered = true;
+    sessionStorage.setItem('dw_popup_shown','1');
+    document.getElementById('bas-popup-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  window.closeBASPopup = function(){
+    document.getElementById('bas-popup-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('dw_bas_dismissed','1');
+  };
+  window.popupSubmit = function(){
+    var name = document.getElementById('popup-name').value.trim();
+    var email = document.getElementById('popup-email').value.trim();
+    if(!name){ document.getElementById('popup-name').focus(); return; }
+    if(!email || !email.includes('@')){ document.getElementById('popup-email').focus(); return; }
+    fetch(FS, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name:name, email:email, reporting_period:'quarterly', reminder_time:'2 weeks before',
+        message:'📅 BAS Reminder (Popup): '+name,
+        source:'Homepage Exit Intent Popup' }) })
+    .then(function(){ showPopupSuccess(name); })
+    .catch(function(){ showPopupSuccess(name); });
+  };
+  function showPopupSuccess(name){
+    localStorage.setItem('dw_bas_signed','1');
+    document.getElementById('popup-form-fields').style.display = 'none';
+    document.querySelector('.bas-popup-submit').style.display = 'none';
+    document.querySelector('.bas-popup-skip').style.display = 'none';
+    document.getElementById('popup-success').style.display = 'block';
+    setTimeout(function(){ window.closeBASPopup(); }, 3000);
+    // Also update banner
+    var inner = document.getElementById('brb-form-inner');
+    var succ = document.getElementById('brb-success');
+    if(inner && succ){ inner.style.display='none'; succ.style.display='block'; }
+  }
+
+  // Trigger popup on 65% scroll — only once per session
+  if(!stored && !popupShown){
+    var scrollHandler = function(){
+      var scrollPct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if(scrollPct > 65){ showPopup(); window.removeEventListener('scroll', scrollHandler); }
+    };
+    window.addEventListener('scroll', scrollHandler, {passive:true});
+  }
+
+  // Keyboard close
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') window.closeBASPopup(); });
+})();
 </script>
 </body>
 </html>
