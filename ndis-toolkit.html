@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Free NDIS Tools for Service Providers 2025 | Price Guide, Budget Calculator & Compliance | Digitwise</title>
+<meta name="description" content="Free NDIS tools for Australian service providers. NDIS Price Guide checker, budget calculator, funding explainer and provider compliance checklist. Updated for NDIS Price Guide 2024-25.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/ndis-tools">
+<meta property="og:title" content="Free NDIS Tools for Service Providers | Digitwise Consulting">
+<meta property="og:description" content="NDIS Price Guide rates, budget tracker, funding categories explained. Free tools built for NDIS service providers in Australia.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;
+  --text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;
+  --green:#22C55E;--red:#E24B4A;--blue:#378ADD;--purple:#8B5CF6;
+  --ndis:#1B6CA8;--ndis-light:#E8F4FD;
+}
+html,body{overflow-x:hidden;font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0F2235 0%,#1B4A80 100%);padding:52px 60px 44px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.1),transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:16px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,3.8vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.5);max-width:580px;line-height:1.7;margin-bottom:24px;}
+.hero-stats{display:flex;flex-wrap:wrap;gap:28px;}
+.hs-item{}
+.hs-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--gold);}
+.hs-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+
+/* TOOL TABS */
+.tool-tabs{background:var(--white);border-bottom:2px solid var(--border);padding:0 60px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:70px;z-index:98;}
+.tool-tabs::-webkit-scrollbar{display:none;}
+.tab-btn{padding:16px 22px;background:none;border:none;border-bottom:3px solid transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px;margin-bottom:-2px;}
+.tab-btn:hover{color:var(--ndis);}
+.tab-btn.active{color:var(--ndis);border-bottom-color:var(--ndis);}
+.tab-badge{background:var(--ndis);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;}
+
+/* MAIN LAYOUT */
+.tool-body{max-width:1100px;margin:0 auto;padding:28px 60px 80px;}
+.tool-panel{display:none;}
+.tool-panel.active{display:block;}
+
+/* CARDS */
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;}
+.card-hd{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text);}
+.card-hd p{font-size:12px;color:var(--muted);margin-top:2px;}
+.card-bd{padding:22px 24px;}
+.ndis-badge{background:var(--ndis-light);border:1px solid rgba(27,108,168,.2);color:var(--ndis);font-size:11px;font-weight:700;padding:3px 11px;border-radius:100px;}
+
+/* FORM ELEMENTS */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ndis);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.field-row .field{margin-bottom:0;}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.field-row-3 .field{margin-bottom:0;}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--ndis);color:#fff;border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-primary:hover{background:#1557A0;transform:translateY(-1px);}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--gold);color:var(--navy);border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-ghost{padding:10px 18px;background:none;border:1.5px solid var(--border);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--text);transition:all .2s;}
+.btn-ghost:hover{border-color:var(--ndis);color:var(--ndis);}
+.btn-full{width:100%;justify-content:center;}
+
+/* RESULTS */
+.result-box{background:var(--cream);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;margin-top:16px;}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.result-row:last-child{border-bottom:none;}
+.result-row .label{color:var(--muted);font-weight:500;}
+.result-row .val{font-family:'Playfair Display',serif;font-weight:700;color:var(--text);font-size:15px;}
+.result-row .val.green{color:var(--green);}
+.result-row .val.red{color:var(--red);}
+.result-row .val.blue{color:var(--ndis);}
+.result-highlight{background:linear-gradient(135deg,var(--ndis),#1557A0);border-radius:12px;padding:16px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:10px;}
+.rh-label{font-size:12px;opacity:.7;margin-bottom:4px;}
+.rh-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;}
+
+/* PRICE GUIDE TOOL */
+.search-box{position:relative;margin-bottom:16px;}
+.search-box input{width:100%;padding:13px 48px 13px 16px;border:2px solid var(--border);border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:border-color .2s;}
+.search-box input:focus{border-color:var(--ndis);}
+.search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--muted);}
+.rate-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.rate-card{border:1.5px solid var(--border);border-radius:13px;padding:16px;cursor:pointer;transition:all .2s;background:var(--white);}
+.rate-card:hover{border-color:var(--ndis);box-shadow:0 4px 16px rgba(27,108,168,.1);}
+.rate-card.selected{border-color:var(--ndis);background:var(--ndis-light);}
+.rc-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ndis);margin-bottom:6px;}
+.rc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3;}
+.rc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:8px;}
+.rc-rates{display:flex;gap:10px;flex-wrap:wrap;}
+.rc-rate{background:var(--cream);border-radius:8px;padding:5px 10px;font-size:12px;}
+.rc-rate span{font-weight:700;color:var(--ndis);}
+.rc-rate small{color:var(--muted);display:block;font-size:10px;}
+
+/* FUNDING EXPLAINER */
+.support-cat{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.sc-header{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s;}
+.sc-header:hover{background:rgba(0,0,0,.02);}
+.sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sc-info{flex:1;}
+.sc-name{font-size:14px;font-weight:700;color:var(--text);}
+.sc-budget{font-size:12px;color:var(--muted);margin-top:2px;}
+.sc-arrow{font-size:14px;color:var(--muted);transition:transform .2s;}
+.sc-header.open .sc-arrow{transform:rotate(180deg);}
+.sc-body{display:none;padding:0 18px 16px;}
+.sc-body.open{display:block;}
+.sc-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.sc-items{display:flex;flex-direction:column;gap:6px;}
+.sc-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text);}
+.sc-item::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+.sc-no-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);}
+.sc-no-item::before{content:'✗';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px;}
+.sc-example{background:var(--ndis-light);border-radius:9px;padding:10px 13px;margin-top:10px;font-size:12px;color:var(--ndis);line-height:1.55;}
+.sc-example strong{display:block;font-weight:700;margin-bottom:3px;}
+
+/* COMPLIANCE CHECKLIST */
+.checklist-section{margin-bottom:20px;}
+.cs-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:10px;padding:0 2px;}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:1.5px solid var(--border);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;background:var(--white);}
+.check-item:hover{border-color:rgba(27,108,168,.3);}
+.check-item.done{background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.25);}
+.ci-box{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;}
+.check-item.done .ci-box{background:var(--green);border-color:var(--green);}
+.check-item.done .ci-box::after{content:'✓';color:#fff;font-size:11px;font-weight:700;}
+.ci-info{}
+.ci-label{font-size:13px;font-weight:600;color:var(--text);}
+.check-item.done .ci-label{color:var(--muted);text-decoration:line-through;}
+.ci-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5;}
+.ci-tag{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:100px;margin-top:4px;}
+.ci-tag.required{background:rgba(226,75,74,.1);color:var(--red);}
+.ci-tag.recommended{background:rgba(201,168,76,.1);color:#B8943A;}
+.ci-tag.best-practice{background:rgba(34,197,94,.1);color:#16A34A;}
+
+/* SCORE METER */
+.score-meter{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:20px;}
+.sm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sm-title{font-size:14px;font-weight:700;color:var(--text);}
+.sm-score{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--ndis);}
+.sm-bar-bg{height:10px;background:var(--cream);border-radius:100px;overflow:hidden;}
+.sm-bar{height:100%;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));border-radius:100px;transition:width .4s ease;}
+.sm-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:5px;}
+
+/* CTA STRIP */
+.cta-strip{background:linear-gradient(135deg,var(--navy),#243447);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:24px;}
+.cta-strip strong{display:block;font-family:'Playfair Display',serif;font-size:17px;color:#fff;margin-bottom:4px;}
+.cta-strip span{font-size:13px;color:rgba(255,255,255,.4);}
+.cta-strip a{padding:11px 20px;background:var(--gold);color:var(--navy);border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;}
+
+/* INFO BOXES */
+.info-box{border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.6;}
+.info-box.blue{background:var(--ndis-light);border:1px solid rgba(27,108,168,.2);color:var(--ndis);}
+.info-box.gold{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:#8B6914;}
+.info-box.green{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);color:#166534;}
+.info-box strong{display:block;font-weight:700;margin-bottom:3px;}
+
+/* BUDGET TRACKER */
+.budget-category{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.bc-header{padding:14px 18px;background:var(--cream);display:flex;align-items:center;justify-content:space-between;}
+.bc-left{display:flex;align-items:center;gap:10px;}
+.bc-icon{font-size:20px;}
+.bc-name{font-size:14px;font-weight:700;color:var(--text);}
+.bc-allocated{font-size:12px;color:var(--muted);margin-top:2px;}
+.bc-remaining{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;}
+.bc-remaining.ok{color:var(--green);}
+.bc-remaining.warn{color:var(--gold);}
+.bc-remaining.over{color:var(--red);}
+.bc-body{padding:16px 18px;}
+.bc-progress{height:8px;background:var(--border);border-radius:100px;overflow:hidden;margin-bottom:12px;}
+.bc-bar{height:100%;border-radius:100px;transition:width .4s;}
+.bc-bar.ok{background:var(--green);}
+.bc-bar.warn{background:var(--gold);}
+.bc-bar.over{background:var(--red);}
+.bc-line-items{}
+.bc-line{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.bc-line input{flex:1;padding:8px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;outline:none;}
+.bc-line input:focus{border-color:var(--ndis);}
+.bc-line .amount-in{width:120px;flex-shrink:0;}
+.bc-line .del-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px;}
+.bc-line .del-btn:hover{color:var(--red);}
+.add-line-btn{background:none;border:1.5px dashed var(--border);border-radius:8px;width:100%;padding:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;margin-top:6px;}
+.add-line-btn:hover{border-color:var(--ndis);color:var(--ndis);}
+
+footer{background:var(--navy);padding:32px 60px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:20px;}
+
+@media(max-width:768px){
+  nav,.hero,footer,.tool-body{padding-left:16px!important;padding-right:16px!important;}
+  .tool-tabs{padding-left:12px;}
+  .field-row,.field-row-3{grid-template-columns:1fr!important;}
+  .rate-grid{grid-template-columns:1fr!important;}
+  .hero-stats{gap:16px;}
+  .cta-strip{flex-direction:column;}
+  .mob-btn{display:flex!important;}
+  .nav-cta{font-size:12px;padding:7px 13px;}
+  input,select,textarea{font-size:16px!important;}
+  .hero{padding-top:32px!important;padding-bottom:28px!important;}
+}
+@media(max-width:480px){
+  h1{font-size:clamp(22px,6vw,36px)!important;}
+  .tab-btn{font-size:12px;padding:13px 14px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;flex-shrink:0"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+  <button class="mob-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🏥 Free for NDIS service providers</div>
+  <h1>NDIS Provider <em>Toolkit</em></h1>
+  <p class="hero-sub">Four essential tools for Australian NDIS service providers — price guide rates, budget tracking, funding explainer, and compliance checklist. Built for the 2024–25 NDIS Price Guide.</p>
+  <div class="hero-stats">
+    <div class="hs-item"><div class="hs-num">$42B</div><div class="hs-lbl">NDIS annual spend</div></div>
+    <div class="hs-item"><div class="hs-num">660k+</div><div class="hs-lbl">Active participants</div></div>
+    <div class="hs-item"><div class="hs-num">37,000+</div><div class="hs-lbl">Registered providers</div></div>
+    <div class="hs-item"><div class="hs-num">2024–25</div><div class="hs-lbl">Price guide updated</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tool-tabs" id="tool-tabs">
+  <button class="tab-btn active" onclick="switchTab('price')" id="tab-price">💰 Price Guide Checker</button>
+  <button class="tab-btn" onclick="switchTab('budget')" id="tab-budget">📊 Budget Tracker</button>
+  <button class="tab-btn" onclick="switchTab('funding')" id="tab-funding">📚 Funding Explainer</button>
+  <button class="tab-btn" onclick="switchTab('compliance')" id="tab-compliance">✅ Compliance Checklist</button>
+</div>
+
+<div class="tool-body">
+
+<!-- ══════════════════════════════════════════════
+     TOOL 1 — PRICE GUIDE CHECKER
+══════════════════════════════════════════════ -->
+<div class="tool-panel active" id="panel-price">
+
+  <div class="info-box blue">
+    <strong>📋 NDIS Price Guide 2024–25</strong>
+    Search support item codes, view maximum billable rates by state and time of day. These are the NDIA-set price limits — you cannot charge above these rates to NDIS-funded participants.
+  </div>
+
+  <div class="card">
+    <div class="card-hd">
+      <div><h2>Support Item Rate Lookup</h2><p>Search by support name, item code or category</p></div>
+      <span class="ndis-badge">2024–25 rates</span>
+    </div>
+    <div class="card-bd">
+      <div class="search-box">
+        <input type="text" id="price-search" placeholder="Search e.g. Daily Activities, Support Worker, Therapy..." oninput="searchRates()" autocomplete="off">
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <!-- CATEGORY FILTER -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="cat-filters">
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('all',this)" id="cat-all" class="active">All categories</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('daily',this)">🏠 Daily Activities</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('therapy',this)">💊 Therapy</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('community',this)">🌍 Community</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('support',this)">🤝 Support Coord</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('capacity',this)">📈 Capacity Building</button>
+      </div>
+
+      <div id="rate-results" class="rate-grid"></div>
+      <div id="rate-detail" style="display:none;margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- RATE CALCULATOR -->
+  <div class="card">
+    <div class="card-hd"><div><h2>Service Invoice Calculator</h2><p>Calculate billable amount for a session or shift</p></div></div>
+    <div class="card-bd">
+      <div class="field-row">
+        <div class="field"><label>Support item</label>
+          <select id="inv-item" onchange="calcInvoice()">
+            <option value="">Select support item...</option>
+            <option value="01_011_0107_1_1">Support Worker — Weekday Standard ($67.56/hr)</option>
+            <option value="01_011_0107_1_1_sat">Support Worker — Saturday ($94.24/hr)</option>
+            <option value="01_011_0107_1_1_sun">Support Worker — Sunday ($111.59/hr)</option>
+            <option value="01_011_0107_1_1_ph">Support Worker — Public Holiday ($143.47/hr)</option>
+            <option value="04_049_0125_6_1">Support Coordination ($100.14/hr)</option>
+            <option value="07_001_0106_99_3">OT — Assessment & Therapy ($234.92/hr)</option>
+            <option value="07_002_0128_1_3">Speech Therapy ($220.98/hr)</option>
+            <option value="07_003_0128_1_3">Psychology ($234.92/hr)</option>
+            <option value="08_001_0100_99_3">Specialist Support Coord ($190.54/hr)</option>
+            <option value="15_037_0117_1_3">Early Childhood Intervention ($220.55/hr)</option>
+          </select>
+        </div>
+        <div class="field"><label>State</label>
+          <select id="inv-state" onchange="calcInvoice()">
+            <option value="standard">Standard (ACT/NSW/QLD/SA/TAS/VIC/WA)</option>
+            <option value="remote">Remote (+12.5% loading)</option>
+            <option value="very_remote">Very Remote (+25% loading)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Duration (hours)</label>
+          <input type="number" id="inv-hours" value="2" min="0.5" step="0.5" oninput="calcInvoice()">
+        </div>
+        <div class="field"><label>Number of sessions</label>
+          <input type="number" id="inv-sessions" value="1" min="1" oninput="calcInvoice()">
+        </div>
+      </div>
+
+      <div id="inv-result" style="display:none;">
+        <div class="result-box">
+          <div class="result-row"><span class="label">Rate per hour</span><span class="val blue" id="inv-rate-display">—</span></div>
+          <div class="result-row"><span class="label">Hours × sessions</span><span class="val" id="inv-total-hrs">—</span></div>
+          <div class="result-row"><span class="label">State loading</span><span class="val" id="inv-loading">None</span></div>
+        </div>
+        <div class="result-highlight">
+          <div><div class="rh-label">Maximum billable amount</div><div class="rh-val" id="inv-total">$0.00</div></div>
+          <div style="text-align:right;"><div style="font-size:11px;opacity:.6;margin-bottom:4px;">GST exclusive (NDIS is GST-free)</div><div style="font-size:13px;font-weight:700;">Item code: <span id="inv-code">—</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>Need help with NDIS bookkeeping?</strong><span>Digitwise handles NDIS provider invoicing, reconciliation, payroll and BAS lodgement. Fixed price monthly.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOOL 2 — BUDGET TRACKER
+══════════════════════════════════════════════ -->
+<div class="tool-panel" id="panel-budget">
+
+  <div class="info-box blue">
+    <strong>📊 NDIS Plan Budget Tracker</strong>
+    Track spending across all three NDIS budget categories. Enter your participant's plan amounts and add line items as services are delivered.
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-hd"><div><h2>Plan Setup</h2><p>Enter the participant's approved funding amounts</p></div></div>
+    <div class="card-bd">
+      <div class="field-row-3">
+        <div class="field"><label>Core Supports ($)</label><input type="number" id="alloc-core" placeholder="e.g. 45000" oninput="updateBudget()"></div>
+        <div class="field"><label>Capacity Building ($)</label><input type="number" id="alloc-cap" placeholder="e.g. 12000" oninput="updateBudget()"></div>
+        <div class="field"><label>Capital Supports ($)</label><input type="number" id="alloc-capital" placeholder="e.g. 8000" oninput="updateBudget()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Plan start date</label><input type="date" id="plan-start" oninput="updateBudget()"></div>
+        <div class="field"><label>Plan end date</label><input type="date" id="plan-end" oninput="updateBudget()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE SUPPORTS -->
+  <div class="budget-category" id="bc-core">
+    <div class="bc-header">
+      <div class="bc-left"><span class="bc-icon">🏠</span><div><div class="bc-name">Core Supports</div><div class="bc-allocated" id="core-allocated">Allocated: $0.00</div></div></div>
+      <div class="bc-remaining ok" id="core-remaining">$0.00 remaining</div>
+    </div>
+    <div class="bc-body">
+      <div class="bc-progress"><div class="bc-bar ok" id="core-bar" style="width:0%"></div></div>
+      <div class="bc-line-items" id="core-lines"></div>
+      <button class="add-line-btn" onclick="addLine('core')">+ Add service line item</button>
+    </div>
+  </div>
+
+  <!-- CAPACITY BUILDING -->
+  <div class="budget-category" id="bc-cap">
+    <div class="bc-header">
+      <div class="bc-left"><span class="bc-icon">📈</span><div><div class="bc-name">Capacity Building</div><div class="bc-allocated" id="cap-allocated">Allocated: $0.00</div></div></div>
+      <div class="bc-remaining ok" id="cap-remaining">$0.00 remaining</div>
+    </div>
+    <div class="bc-body">
+      <div class="bc-progress"><div class="bc-bar ok" id="cap-bar" style="width:0%"></div></div>
+      <div class="bc-line-items" id="cap-lines"></div>
+      <button class="add-line-btn" onclick="addLine('cap')">+ Add service line item</button>
+    </div>
+  </div>
+
+  <!-- CAPITAL SUPPORTS -->
+  <div class="budget-category" id="bc-capital">
+    <div class="bc-header">
+      <div class="bc-left"><span class="bc-icon">🔧</span><div><div class="bc-name">Capital Supports</div><div class="bc-allocated" id="capital-allocated">Allocated: $0.00</div></div></div>
+      <div class="bc-remaining ok" id="capital-remaining">$0.00 remaining</div>
+    </div>
+    <div class="bc-body">
+      <div class="bc-progress"><div class="bc-bar ok" id="capital-bar" style="width:0%"></div></div>
+      <div class="bc-line-items" id="capital-lines"></div>
+      <button class="add-line-btn" onclick="addLine('capital')">+ Add service line item</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card">
+    <div class="card-hd"><div><h2>Plan Summary</h2></div></div>
+    <div class="card-bd">
+      <div class="result-box">
+        <div class="result-row"><span class="label">Total plan value</span><span class="val blue" id="sum-total">$0.00</span></div>
+        <div class="result-row"><span class="label">Total spent</span><span class="val" id="sum-spent">$0.00</span></div>
+        <div class="result-row"><span class="label">Remaining</span><span class="val green" id="sum-remaining">$0.00</span></div>
+        <div class="result-row"><span class="label">% utilised</span><span class="val" id="sum-pct">0%</span></div>
+        <div class="result-row"><span class="label">Days remaining in plan</span><span class="val" id="sum-days">—</span></div>
+        <div class="result-row"><span class="label">Recommended weekly spend</span><span class="val blue" id="sum-weekly">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>We handle NDIS plan management bookkeeping</strong><span>Invoicing, payment tracking, monthly reports for plan managers and providers. PRODA-compliant.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOOL 3 — FUNDING EXPLAINER
+══════════════════════════════════════════════ -->
+<div class="tool-panel" id="panel-funding">
+
+  <div class="info-box blue">
+    <strong>📚 What can NDIS funding be used for?</strong>
+    A plain-English breakdown of each support category — what's funded, what's not, and real examples for service providers to share with participants.
+  </div>
+
+  <!-- CORE SUPPORTS -->
+  <div class="support-cat">
+    <div class="sc-header" onclick="toggleCat(this)">
+      <div class="sc-icon" style="background:rgba(27,108,168,.1);">🏠</div>
+      <div class="sc-info">
+        <div class="sc-name">Core Supports</div>
+        <div class="sc-budget">Flexible spending • Most common category</div>
+      </div>
+      <span class="sc-arrow">▼</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-desc">Core supports help participants with daily life and are the most flexible category. Funds can generally be moved between sub-categories within Core (except SIL).</div>
+      <div class="sc-items">
+        <div class="sc-item">Assistance with daily life (personal care, domestic help)</div>
+        <div class="sc-item">Assistance with social and community participation</div>
+        <div class="sc-item">Consumables (continence products, low-cost assistive tech)</div>
+        <div class="sc-item">Supported Independent Living (SIL) — for eligible participants</div>
+      </div>
+      <div class="sc-no-item">SIL funds cannot be used for other Core subcategories</div>
+      <div class="sc-example">
+        <strong>💡 Provider example</strong>
+        A support worker assisting a participant with grocery shopping, cooking or getting ready for work — all billed under Core, Assistance with Daily Life. Item code prefix: 01_
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPACITY BUILDING -->
+  <div class="support-cat">
+    <div class="sc-header" onclick="toggleCat(this)">
+      <div class="sc-icon" style="background:rgba(34,197,94,.1);">📈</div>
+      <div class="sc-info">
+        <div class="sc-name">Capacity Building Supports</div>
+        <div class="sc-budget">Goal-oriented • Builds independence</div>
+      </div>
+      <span class="sc-arrow">▼</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-desc">Capacity Building funds help participants build skills and independence. Unlike Core, funds CANNOT be moved between subcategories — each sub-budget must be used for its stated purpose.</div>
+      <div class="sc-items">
+        <div class="sc-item">Support Coordination — helps participants implement their plan</div>
+        <div class="sc-item">Improved Living Arrangements — help finding & maintaining housing</div>
+        <div class="sc-item">Increased Social & Community Participation</div>
+        <div class="sc-item">Employment Support — finding and keeping a job</div>
+        <div class="sc-item">Improved Health & Wellbeing (exercise physiology, dietetics)</div>
+        <div class="sc-item">Improved Learning — education support and transition</div>
+        <div class="sc-item">Improved Daily Living (OT, speech, psychology, behaviour support)</div>
+        <div class="sc-item">Improved Relationships — positive behaviour support</div>
+      </div>
+      <div class="sc-no-item">Cannot move funds between subcategories (e.g. Support Coordination funds can't fund OT)</div>
+      <div class="sc-example">
+        <strong>💡 Provider example</strong>
+        An Occupational Therapist assessing a participant for home modifications bills under Capacity Building — Improved Daily Living. Item code prefix: 07_
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPITAL SUPPORTS -->
+  <div class="support-cat">
+    <div class="sc-header" onclick="toggleCat(this)">
+      <div class="sc-icon" style="background:rgba(139,92,246,.1);">🔧</div>
+      <div class="sc-info">
+        <div class="sc-name">Capital Supports</div>
+        <div class="sc-budget">Longer-term investments • Requires NDIS approval</div>
+      </div>
+      <span class="sc-arrow">▼</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-desc">Capital supports fund higher-cost items and home modifications. These are one-off or infrequent purchases, not ongoing services. Most items require NDIS approval before purchase.</div>
+      <div class="sc-items">
+        <div class="sc-item">Assistive Technology — wheelchairs, communication devices, hearing aids</div>
+        <div class="sc-item">Home Modifications — ramps, grab rails, bathroom modifications</div>
+        <div class="sc-item">Specialist Disability Accommodation (SDA)</div>
+      </div>
+      <div class="sc-no-item">Cannot fund services, support workers or therapy from Capital budget</div>
+      <div class="sc-no-item">Items over $1,500 generally require a quote and NDIS approval</div>
+      <div class="sc-example">
+        <strong>💡 Provider example</strong>
+        An AT supplier providing a power wheelchair bills under Capital — Assistive Technology. Item code prefix: 05_ (AT) or 06_ (Home Mods)
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMON BILLING MISTAKES -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-hd"><div><h2>⚠️ Top NDIS Billing Mistakes (and how to avoid them)</h2></div></div>
+    <div class="card-bd">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="padding:13px 16px;background:rgba(226,75,74,.04);border:1px solid rgba(226,75,74,.15);border-radius:11px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px;">❌ Billing above the price limit</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Charging more than the NDIS Price Guide rate is a compliance breach. Always check the current 2024–25 rates before invoicing.</div>
+        </div>
+        <div style="padding:13px 16px;background:rgba(226,75,74,.04);border:1px solid rgba(226,75,74,.15);border-radius:11px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px;">❌ Adding GST to NDIS services</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Most NDIS supports are GST-free under the GST Act. Charging GST on top of the price guide rate is incorrect and creates reconciliation issues.</div>
+        </div>
+        <div style="padding:13px 16px;background:rgba(226,75,74,.04);border:1px solid rgba(226,75,74,.15);border-radius:11px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px;">❌ Using wrong support item codes</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Each support has a specific item code. Using a generic code instead of the correct one causes portal rejections and audit risk.</div>
+        </div>
+        <div style="padding:13px 16px;background:rgba(226,75,74,.04);border:1px solid rgba(226,75,74,.15);border-radius:11px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px;">❌ Invoicing for services not yet delivered</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Advance invoicing without a service agreement or completed service is non-compliant. Service must be delivered before claiming.</div>
+        </div>
+        <div style="padding:13px 16px;background:rgba(226,75,74,.04);border:1px solid rgba(226,75,74,.15);border-radius:11px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px;">❌ Travel time billed at incorrect rate</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Travel time (non-labour) and vehicle running costs have separate rules and caps. Many providers bill these incorrectly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>Are your NDIS invoices compliant?</strong><span>We review NDIS provider invoicing, item codes and billing practices. Free 20-min review — no obligation.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Review →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOOL 4 — COMPLIANCE CHECKLIST
+══════════════════════════════════════════════ -->
+<div class="tool-panel" id="panel-compliance">
+
+  <div class="info-box blue">
+    <strong>✅ NDIS Provider Compliance Checklist 2024–25</strong>
+    Essential compliance requirements for NDIS registered providers. Tick off each item to track your compliance status. Requirements from the NDIS Practice Standards and NDIS Act.
+  </div>
+
+  <div class="score-meter">
+    <div class="sm-top">
+      <div class="sm-title">Your compliance score</div>
+      <div class="sm-score" id="compliance-score">0%</div>
+    </div>
+    <div class="sm-bar-bg"><div class="sm-bar" id="compliance-bar" style="width:0%"></div></div>
+    <div class="sm-labels"><span>0% — At risk</span><span>50% — Developing</span><span>100% — Compliant</span></div>
+  </div>
+
+  <!-- REGISTRATION -->
+  <div class="checklist-section">
+    <div class="cs-title">📋 Registration & Governance</div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">NDIS provider registration current and active</div><div class="ci-desc">Registration certificate is valid and registration groups match services delivered</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">NDIS Practice Standards audit completed</div><div class="ci-desc">Mid-term review or renewal audit conducted by approved quality auditor</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">NDIS Worker Screening checks for all staff</div><div class="ci-desc">All workers in risk-assessed roles have current NDIS Worker Screening clearance</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">NDIS Code of Conduct policy implemented</div><div class="ci-desc">Written policy and staff training on the NDIS Code of Conduct</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Board/governing body meeting minutes maintained</div><div class="ci-desc">Records of governance decisions kept for at least 7 years</div><span class="ci-tag recommended">Recommended</span></div>
+    </div>
+  </div>
+
+  <!-- FINANCIAL COMPLIANCE -->
+  <div class="checklist-section">
+    <div class="cs-title">💰 Financial & Billing Compliance</div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Price Guide 2024–25 rates applied to all invoices</div><div class="ci-desc">All NDIS invoices use current price limits — not last year's rates</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Service Agreements signed by all NDIS participants</div><div class="ci-desc">Written service agreements in place before services commence</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">GST-free treatment applied to NDIS supports</div><div class="ci-desc">NDIS supports invoiced without GST; BAS prepared correctly</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Correct support item codes on all invoices</div><div class="ci-desc">Support items match NDIS Catalogue; no generic codes used</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Separate bank account for NDIS trust funds</div><div class="ci-desc">Plan management providers must hold participant funds in trust</div><span class="ci-tag recommended">Recommended</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Monthly reconciliation of NDIS payments vs PRODA</div><div class="ci-desc">Portal payments reconciled to bank account each month</div><span class="ci-tag recommended">Recommended</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">BAS lodged correctly with NDIS income classified</div><div class="ci-desc">NDIS payments reported as GST-free sales on BAS (G3)</div><span class="ci-tag required">Required</span></div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANT RIGHTS -->
+  <div class="checklist-section">
+    <div class="cs-title">🤝 Participant Rights & Safety</div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Incident management system in place</div><div class="ci-desc">Reportable incidents lodged with NDIS Commission within required timeframes</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="2">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Complaints policy and register maintained</div><div class="ci-desc">Accessible complaints process; all complaints recorded and resolved</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Participant Welcome Pack provided at intake</div><div class="ci-desc">Includes service agreement, rights, complaints process, privacy policy</div><span class="ci-tag recommended">Recommended</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Participant progress notes completed each session</div><div class="ci-desc">Records kept for 7 years; notes written on day of service</div><span class="ci-tag required">Required</span></div>
+    </div>
+  </div>
+
+  <!-- WORKFORCE -->
+  <div class="checklist-section">
+    <div class="cs-title">👥 Workforce & HR</div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Staff employment contracts include NDIS obligations</div><div class="ci-desc">Contracts reference Code of Conduct, screening, mandatory reporting</div><span class="ci-tag recommended">Recommended</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">SCHADS Award classification applied correctly</div><div class="ci-desc">Support workers paid at correct SCHADS level; penalty rates applied</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Superannuation paid on time for all workers</div><div class="ci-desc">Super paid quarterly by due dates; SGC reported correctly on BAS</div><span class="ci-tag required">Required</span></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-weight="1">
+      <div class="ci-box"></div>
+      <div class="ci-info"><div class="ci-label">Annual NDIS compliance training completed by staff</div><div class="ci-desc">All staff trained on NDIS updates, practice standards, safe work</div><span class="ci-tag best-practice">Best practice</span></div>
+    </div>
+  </div>
+
+  <div id="compliance-summary" style="display:none;" class="info-box green">
+    <strong>🎉 Great compliance score!</strong>
+    You're well-positioned for an NDIS audit. Keep records current and review again after any Price Guide updates.
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>Worried about NDIS audit readiness?</strong><span>Digitwise reviews NDIS provider financials, BAS treatment, payroll compliance and audit trail. Free 20-min call.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Audit Review →</a>
+  </div>
+</div>
+
+</div><!-- end tool-body -->
+
+<footer><div class="footer-inner">
+  <div class="footer-brand">Digit<span>wise</span> Consulting</div>
+  <div class="footer-links">
+    <a href="/">Home</a><a href="/tools">All Tools</a>
+    <a href="/pay-calculator">Pay Calculator</a>
+    <a href="/audit-risk">Audit Risk</a>
+  </div>
+</div></footer>
+
+<script>
+// ── TAB SWITCHING ─────────────────────────────────────────────
+function switchTab(id) {
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  window.scrollTo({top: document.querySelector('.tool-tabs').offsetTop - 10, behavior: 'smooth'});
+}
+
+// ── PRICE GUIDE DATA ──────────────────────────────────────────
+var PRICE_GUIDE = [
+  {id:'01_011_0107_1_1',name:'Assistance with Self-Care Activities - Standard',code:'01_011_0107_1_1',cat:'daily',weekday:67.56,sat:94.24,sun:111.59,ph:143.47,unit:'hr'},
+  {id:'01_012_0107_1_1',name:'Assistance with Self-Care Activities - High Intensity',code:'01_012_0107_1_1',cat:'daily',weekday:77.12,sat:107.58,sun:127.37,ph:163.89,unit:'hr'},
+  {id:'01_015_0107_1_1',name:'Assistance with Daily Life Tasks in Group Setting',code:'01_015_0107_1_1',cat:'daily',weekday:35.99,sat:50.99,sun:60.27,ph:77.97,unit:'hr'},
+  {id:'01_019_0107_1_1',name:'Household Tasks',code:'01_019_0107_1_1',cat:'daily',weekday:57.43,sat:80.40,sun:95.05,ph:122.29,unit:'hr'},
+  {id:'01_054_0107_1_1',name:'Community Participation - Standard',code:'01_054_0107_1_1',cat:'community',weekday:67.56,sat:94.24,sun:111.59,ph:143.47,unit:'hr'},
+  {id:'04_049_0125_6_1',name:'Support Coordination',code:'04_049_0125_6_1',cat:'support',weekday:100.14,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'04_050_0125_6_1',name:'Specialist Support Coordination',code:'04_050_0125_6_1',cat:'support',weekday:190.54,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'07_001_0106_99_3',name:'Occupational Therapy — Assessment & Therapy',code:'07_001_0106_99_3',cat:'therapy',weekday:234.92,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'07_002_0128_1_3',name:'Speech Pathology — Assessment & Therapy',code:'07_002_0128_1_3',cat:'therapy',weekday:220.98,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'07_003_0128_1_3',name:'Psychology — Assessment & Therapy',code:'07_003_0128_1_3',cat:'therapy',weekday:234.92,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'07_004_0128_1_3',name:'Physiotherapy — Assessment & Therapy',code:'07_004_0128_1_3',cat:'therapy',weekday:193.99,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'07_007_0106_99_3',name:'Behaviour Support Practitioner',code:'07_007_0106_99_3',cat:'therapy',weekday:234.92,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'08_001_0100_99_3',name:'Employment Support Services',code:'08_001_0100_99_3',cat:'capacity',weekday:66.77,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'09_001_0117_99_3',name:'Home Modification Design & Construction',code:'09_001_0117_99_3',cat:'capacity',weekday:null,sat:null,sun:null,ph:null,unit:'quote'},
+  {id:'15_037_0117_1_3',name:'Early Childhood Early Intervention',code:'15_037_0117_1_3',cat:'capacity',weekday:220.55,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'03_001_0103_1_1',name:'Group Based Community Participation',code:'03_001_0103_1_1',cat:'community',weekday:28.21,sat:null,sun:null,ph:null,unit:'hr'},
+  {id:'01_013_0107_1_1',name:'Assistance with Daily Life - Overnight Support',code:'01_013_0107_1_1',cat:'daily',weekday:243.35,sat:null,sun:null,ph:null,unit:'shift'},
+];
+
+var currentCat = 'all';
+var currentSearch = '';
+
+function searchRates() {
+  currentSearch = document.getElementById('price-search').value.toLowerCase();
+  renderRates();
+}
+
+function filterCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('#cat-filters button').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderRates();
+}
+
+function renderRates() {
+  var filtered = PRICE_GUIDE.filter(function(r) {
+    var matchCat = currentCat === 'all' || r.cat === currentCat;
+    var matchSearch = !currentSearch || r.name.toLowerCase().includes(currentSearch) || r.code.toLowerCase().includes(currentSearch);
+    return matchCat && matchSearch;
+  });
+  var html = '';
+  filtered.slice(0, 12).forEach(function(r) {
+    var rateDisplay = r.weekday ? '$' + r.weekday.toFixed(2) + '/' + r.unit : 'Quote required';
+    var satDisplay = r.sat ? '$' + r.sat.toFixed(2) : '—';
+    var sunDisplay = r.sun ? '$' + r.sun.toFixed(2) : '—';
+    var catLabel = {daily:'Daily Activities',therapy:'Therapy',community:'Community',support:'Support Coord',capacity:'Capacity Building'}[r.cat] || r.cat;
+    html += '<div class="rate-card" onclick="showRateDetail(\'' + r.id + '\')">' +
+      '<div class="rc-cat">' + catLabel + '</div>' +
+      '<div class="rc-name">' + r.name + '</div>' +
+      '<div class="rc-code">📋 ' + r.code + '</div>' +
+      '<div class="rc-rates">' +
+        '<div class="rc-rate"><span>' + rateDisplay + '</span><small>Weekday</small></div>' +
+        (r.sat ? '<div class="rc-rate"><span>$' + r.sat.toFixed(2) + '</span><small>Sat</small></div>' : '') +
+        (r.sun ? '<div class="rc-rate"><span>$' + r.sun.toFixed(2) + '</span><small>Sun</small></div>' : '') +
+      '</div></div>';
+  });
+  document.getElementById('rate-results').innerHTML = html || '<div style="padding:20px;color:var(--muted);font-size:13px;">No items found. Try a different search term.</div>';
+}
+
+function showRateDetail(id) {
+  var r = PRICE_GUIDE.find(function(x){return x.id===id;});
+  if(!r) return;
+  var det = document.getElementById('rate-detail');
+  det.style.display = 'block';
+  det.innerHTML = '<div class="result-highlight"><div><div class="rh-label">Selected: ' + r.code + '</div><div class="rh-val" style="font-size:20px;">' + r.name + '</div></div></div>' +
+    '<div class="result-box" style="margin-top:12px;">' +
+    '<div class="result-row"><span class="label">Weekday standard</span><span class="val blue">' + (r.weekday ? '$'+r.weekday.toFixed(2)+'/'+r.unit : 'N/A') + '</span></div>' +
+    '<div class="result-row"><span class="label">Saturday</span><span class="val">' + (r.sat ? '$'+r.sat.toFixed(2) : '—') + '</span></div>' +
+    '<div class="result-row"><span class="label">Sunday</span><span class="val">' + (r.sun ? '$'+r.sun.toFixed(2) : '—') + '</span></div>' +
+    '<div class="result-row"><span class="label">Public Holiday</span><span class="val">' + (r.ph ? '$'+r.ph.toFixed(2) : '—') + '</span></div>' +
+    '<div class="result-row"><span class="label">GST treatment</span><span class="val green">GST-free</span></div>' +
+    '</div>';
+  det.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ── INVOICE CALCULATOR ────────────────────────────────────────
+var INVOICE_RATES = {
+  '01_011_0107_1_1': {rate:67.56, label:'Support Worker — Weekday Standard'},
+  '01_011_0107_1_1_sat': {rate:94.24, label:'Support Worker — Saturday'},
+  '01_011_0107_1_1_sun': {rate:111.59, label:'Support Worker — Sunday'},
+  '01_011_0107_1_1_ph': {rate:143.47, label:'Support Worker — Public Holiday'},
+  '04_049_0125_6_1': {rate:100.14, label:'Support Coordination'},
+  '07_001_0106_99_3': {rate:234.92, label:'OT Assessment & Therapy'},
+  '07_002_0128_1_3': {rate:220.98, label:'Speech Pathology'},
+  '07_003_0128_1_3': {rate:234.92, label:'Psychology'},
+  '08_001_0100_99_3': {rate:190.54, label:'Specialist Support Coord'},
+  '15_037_0117_1_3': {rate:220.55, label:'Early Childhood Intervention'},
+};
+var LOADINGS = {standard:1, remote:1.125, very_remote:1.25};
+
+function calcInvoice() {
+  var itemKey = document.getElementById('inv-item').value;
+  var state = document.getElementById('inv-state').value;
+  var hours = parseFloat(document.getElementById('inv-hours').value) || 0;
+  var sessions = parseInt(document.getElementById('inv-sessions').value) || 1;
+  if(!itemKey) return;
+  var item = INVOICE_RATES[itemKey];
+  if(!item) return;
+  var loading = LOADINGS[state];
+  var rate = item.rate * loading;
+  var total = rate * hours * sessions;
+  document.getElementById('inv-result').style.display = 'block';
+  document.getElementById('inv-rate-display').textContent = '$' + rate.toFixed(2) + '/hr';
+  document.getElementById('inv-total-hrs').textContent = (hours * sessions).toFixed(1) + ' hours';
+  document.getElementById('inv-loading').textContent = state === 'standard' ? 'None' : (loading * 100 - 100).toFixed(0) + '% remote loading applied';
+  document.getElementById('inv-total').textContent = '$' + total.toFixed(2);
+  document.getElementById('inv-code').textContent = itemKey.replace(/_sat|_sun|_ph/,'');
+}
+
+// ── BUDGET TRACKER ────────────────────────────────────────────
+var lines = {core:[], cap:[], capital:[]};
+
+function addLine(cat) {
+  var id = cat + '_' + Date.now();
+  lines[cat].push({id:id, desc:'', amount:0});
+  renderLines(cat);
+}
+
+function renderLines(cat) {
+  var container = document.getElementById(cat + '-lines');
+  container.innerHTML = '';
+  lines[cat].forEach(function(line, i) {
+    var div = document.createElement('div');
+    div.className = 'bc-line';
+    div.innerHTML = '<input type="text" placeholder="Service description..." value="' + line.desc + '" oninput="updateLine(\'' + cat + '\',' + i + ',\'desc\',this.value)">' +
+      '<input type="number" class="amount-in" placeholder="$0.00" value="' + (line.amount||'') + '" oninput="updateLine(\'' + cat + '\',' + i + ',\'amount\',this.value)">' +
+      '<button class="del-btn" onclick="deleteLine(\'' + cat + '\',' + i + ')">×</button>';
+    container.appendChild(div);
+  });
+  updateBudget();
+}
+
+function updateLine(cat, i, field, val) {
+  if(field === 'amount') lines[cat][i].amount = parseFloat(val) || 0;
+  else lines[cat][i].desc = val;
+  updateBudget();
+}
+
+function deleteLine(cat, i) {
+  lines[cat].splice(i, 1);
+  renderLines(cat);
+}
+
+function updateBudget() {
+  var cats = ['core','cap','capital'];
+  var totalAlloc = 0, totalSpent = 0;
+
+  cats.forEach(function(cat) {
+    var alloc = parseFloat(document.getElementById('alloc-' + cat).value) || 0;
+    var spent = lines[cat].reduce(function(s,l){return s + (l.amount||0);}, 0);
+    var remaining = alloc - spent;
+    var pct = alloc > 0 ? Math.min(100, (spent/alloc)*100) : 0;
+    var statusClass = pct >= 90 ? 'over' : pct >= 70 ? 'warn' : 'ok';
+
+    document.getElementById(cat+'-allocated').textContent = 'Allocated: $' + alloc.toFixed(2);
+    document.getElementById(cat+'-remaining').textContent = '$' + Math.abs(remaining).toFixed(2) + (remaining < 0 ? ' over budget' : ' remaining');
+    document.getElementById(cat+'-remaining').className = 'bc-remaining ' + statusClass;
+    document.getElementById(cat+'-bar').style.width = pct + '%';
+    document.getElementById(cat+'-bar').className = 'bc-bar ' + statusClass;
+
+    totalAlloc += alloc;
+    totalSpent += spent;
+  });
+
+  var totalRemaining = totalAlloc - totalSpent;
+  var totalPct = totalAlloc > 0 ? ((totalSpent/totalAlloc)*100).toFixed(0) : 0;
+  document.getElementById('sum-total').textContent = '$' + totalAlloc.toFixed(2);
+  document.getElementById('sum-spent').textContent = '$' + totalSpent.toFixed(2);
+  document.getElementById('sum-remaining').textContent = '$' + totalRemaining.toFixed(2);
+  document.getElementById('sum-pct').textContent = totalPct + '%';
+
+  // Days remaining
+  var start = document.getElementById('plan-start').value;
+  var end = document.getElementById('plan-end').value;
+  if(end) {
+    var daysLeft = Math.max(0, Math.ceil((new Date(end) - new Date()) / 86400000));
+    var weeksLeft = daysLeft / 7;
+    document.getElementById('sum-days').textContent = daysLeft + ' days';
+    document.getElementById('sum-weekly').textContent = weeksLeft > 0 ? '$' + (totalRemaining/weeksLeft).toFixed(2) + '/week' : '—';
+  }
+}
+
+// ── FUNDING EXPLAINER ─────────────────────────────────────────
+function toggleCat(header) {
+  var body = header.nextElementSibling;
+  var isOpen = body.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.sc-body').forEach(function(b){b.classList.remove('open');});
+  document.querySelectorAll('.sc-header').forEach(function(h){h.classList.remove('open');});
+  if(!isOpen) {
+    body.classList.add('open');
+    header.classList.add('open');
+  }
+}
+
+// ── COMPLIANCE CHECKLIST ──────────────────────────────────────
+function toggleCheck(item) {
+  item.classList.toggle('done');
+  updateComplianceScore();
+}
+
+function updateComplianceScore() {
+  var items = document.querySelectorAll('#panel-compliance .check-item');
+  var totalWeight = 0, doneWeight = 0;
+  items.forEach(function(item) {
+    var w = parseInt(item.getAttribute('data-weight')) || 1;
+    totalWeight += w;
+    if(item.classList.contains('done')) doneWeight += w;
+  });
+  var pct = totalWeight > 0 ? Math.round((doneWeight/totalWeight)*100) : 0;
+  document.getElementById('compliance-score').textContent = pct + '%';
+  document.getElementById('compliance-bar').style.width = pct + '%';
+  document.getElementById('compliance-summary').style.display = pct >= 80 ? 'block' : 'none';
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+renderRates();
+// Set default plan dates
+var today = new Date();
+var yearEnd = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+document.getElementById('plan-start').value = today.toISOString().split('T')[0];
+document.getElementById('plan-end').value = yearEnd.toISOString().split('T')[0];
+</script>
+</body>
+</html>
