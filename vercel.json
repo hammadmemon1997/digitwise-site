@@ -92,6 +92,10 @@
       "dest": "/contact.html"
     },
     {
+      "src": "/currency-calculator",
+      "dest": "/currency-calculator.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
