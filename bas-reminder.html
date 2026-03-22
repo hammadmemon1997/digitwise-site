@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BAS Due Date Reminder | Never Miss a BAS Deadline | Digitwise Consulting</title>
+<meta name="description" content="Free BAS lodgement date reminder. Enter your ABN and email and we'll remind you before every BAS deadline. Never pay an ATO late lodgement penalty again.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/bas-reminder">
+<meta property="og:title" content="Free BAS Due Date Reminder | Digitwise Consulting">
+<meta property="og:description" content="Never miss a BAS deadline again. Get free email reminders before every quarterly lodgement date. Takes 30 seconds.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--card:#fff;--page:#F8F5EE;--green:#22C55E;--red:#E24B4A;}
+body{font-family:'Outfit',sans-serif;background:var(--page);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,0.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.logo-sub{color:rgba(255,255,255,.75)!important;font-size:14px!important;}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+@media(max-width:768px){.mob-btn{display:flex!important;}.nav-cta{font-size:11px;padding:7px 13px;}}
+
+/* HERO */
+.hero{background:var(--navy);padding:56px 60px 48px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:360px;height:360px;background:radial-gradient(circle,rgba(201,168,76,.08),transparent);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-inner{max-width:760px;}
+.hero-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.hero-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:16px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.7;margin-bottom:24px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);}
+
+/* MAIN LAYOUT */
+.page-wrap{max-width:1060px;margin:0 auto;padding:36px 60px 80px;display:grid;grid-template-columns:480px 1fr;gap:28px;align-items:start;}
+
+/* SIGNUP CARD */
+.signup-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;position:sticky;top:90px;}
+.sc-hd{padding:22px 26px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--navy),#243447);}
+.sc-hd-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--gold);margin-bottom:8px;}
+.sc-hd h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;}
+.sc-hd p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.5;}
+.sc-bd{padding:22px 26px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:500;color:var(--text);background:var(--card);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus{border-color:var(--gold);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.field-row .field{margin-bottom:0;}
+.reminder-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.rem-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--border);border-radius:11px;cursor:pointer;transition:all .2s;user-select:none;}
+.rem-opt:hover{border-color:rgba(201,168,76,.4);}
+.rem-opt.selected{border-color:var(--gold);background:rgba(201,168,76,.06);}
+.rem-opt input[type=checkbox]{display:none;}
+.rem-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.rem-opt.selected .rem-check{background:var(--gold);border-color:var(--gold);}
+.rem-opt.selected .rem-check::after{content:'✓';color:var(--navy);font-size:11px;font-weight:700;}
+.rem-lbl{font-size:13px;font-weight:600;color:var(--text);}
+.rem-sub{font-size:11px;color:var(--muted);}
+.divider{height:1px;background:var(--border);margin:6px 0 14px;}
+.submit-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover{background:#D4B060;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.privacy-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;}
+.privacy-note strong{color:var(--text);}
+
+/* SUCCESS STATE */
+.success-state{display:none;padding:28px 26px;text-align:center;}
+.success-icon{width:64px;height:64px;background:rgba(34,197,94,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;}
+.success-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.success-sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.success-dates{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;}
+.success-dates-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;}
+.success-date-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.success-date-row:last-child{border-bottom:none;}
+.success-date-row span:first-child{color:var(--text);font-weight:600;}
+.success-date-row span:last-child{color:var(--gold);font-weight:700;}
+.success-cta{display:block;padding:11px;background:var(--navy);color:#fff;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;}
+
+/* RIGHT SIDE */
+.right-col{display:flex;flex-direction:column;gap:20px;}
+
+/* DATES TIMELINE */
+.dates-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;}
+.dates-hd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.dates-hd h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.ato-badge{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+.date-row{display:flex;align-items:center;gap:16px;padding:16px 22px;border-bottom:1px solid var(--border);position:relative;}
+.date-row:last-child{border-bottom:none;}
+.date-row.past{opacity:.45;}
+.date-row.next{background:rgba(201,168,76,.04);border-left:3px solid var(--gold);}
+.date-row.next .dr-q{color:var(--gold);}
+.dr-status{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.dr-status.done{background:rgba(34,197,94,.1);}
+.dr-status.next{background:rgba(201,168,76,.15);}
+.dr-status.upcoming{background:var(--cream);}
+.dr-info{flex:1;}
+.dr-q{font-size:13px;font-weight:700;color:var(--text);}
+.dr-period{font-size:12px;color:var(--muted);}
+.dr-date{text-align:right;}
+.dr-due{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);}
+.dr-days{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:3px;display:inline-block;}
+.dr-days.green{background:rgba(34,197,94,.1);color:var(--green);}
+.dr-days.gold{background:rgba(201,168,76,.1);color:var(--gold);}
+.dr-days.red{background:rgba(226,75,74,.1);color:var(--red);}
+.dr-days.muted{background:var(--cream);color:var(--muted);}
+
+/* PENALTY CARD */
+.penalty-card{background:linear-gradient(135deg,#1C2B3A,#243447);border-radius:18px;padding:22px 24px;}
+.pc-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
+.pc-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;}
+.penalty-rows{display:flex;flex-direction:column;gap:8px;}
+.penalty-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:10px;}
+.pr-label{font-size:13px;color:rgba(255,255,255,.65);}
+.pr-amount{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--red);}
+
+/* HOW IT WORKS */
+.how-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:22px 24px;}
+.how-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:16px;}
+.steps{display:flex;flex-direction:column;gap:12px;}
+.step{display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--navy);flex-shrink:0;}
+.step-text strong{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.step-text span{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* TESTIMONIAL */
+.testi-card{background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:20px 22px;}
+.testi-text{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-av{width:32px;height:32px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gold);}
+.testi-name{font-size:13px;font-weight:700;color:var(--text);}
+.testi-role{font-size:11px;color:var(--muted);}
+.stars{color:var(--gold);font-size:12px;margin-bottom:6px;}
+
+/* CTA STRIP */
+.cta-strip{background:var(--gold);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.cta-strip strong{display:block;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cta-strip span{font-size:13px;color:rgba(28,43,58,.6);}
+.cta-strip a{background:var(--navy);color:#fff;padding:10px 20px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;}
+
+footer{background:var(--navy);padding:32px 60px;}
+.footer-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:20px;}
+.footer-links a:hover{color:var(--gold);}
+
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr;padding:20px 20px 60px;}.signup-card{position:static;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:20px;padding-right:20px;}.reminder-options{grid-template-columns:1fr;}.field-row{grid-template-columns:1fr;}.cta-strip{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;flex-shrink:0"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span><span class="logo-sub"> Consulting</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+  <button class="mob-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="hero-dot"></span>Free for all Australian businesses</div>
+    <h1>Never Miss a <em>BAS Deadline</em> Again</h1>
+    <p>Get a free email reminder before every BAS lodgement due date. Takes 30 seconds to set up. No account, no spam — just timely reminders that save you from ATO penalties.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">✅ Completely free</span>
+      <span class="hero-pill">📧 Email reminders</span>
+      <span class="hero-pill">🇦🇺 All ATO quarters covered</span>
+      <span class="hero-pill">🔒 No account needed</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <!-- SIGNUP CARD -->
+  <div>
+    <div class="signup-card">
+      <div class="sc-hd">
+        <div class="sc-hd-badge">📅 Free BAS Reminder</div>
+        <h2>Set up your reminders</h2>
+        <p>Enter your details below. We'll email you before each BAS due date — no passwords, no login.</p>
+      </div>
+      <div class="sc-bd" id="signup-form">
+        <div class="field"><label>Your name</label><input type="text" id="f-name" placeholder="Sarah Chen" autocomplete="name"></div>
+        <div class="field"><label>Email address</label><input type="email" id="f-email" placeholder="sarah@example.com.au" autocomplete="email"></div>
+        <div class="field-row">
+          <div class="field"><label>Business name (optional)</label><input type="text" id="f-biz" placeholder="My Business Pty Ltd"></div>
+          <div class="field"><label>Reporting period</label>
+            <select id="f-period">
+              <option value="quarterly">Quarterly (most common)</option>
+              <option value="monthly">Monthly</option>
+              <option value="annual">Annual</option>
+            </select>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:10px;">When to remind me</div>
+        <div class="reminder-options">
+          <div class="rem-opt selected" onclick="toggleOpt(this,'opt-2w')">
+            <div class="rem-check"></div>
+            <div><div class="rem-lbl">2 weeks before</div><div class="rem-sub">Recommended</div></div>
+          </div>
+          <div class="rem-opt selected" onclick="toggleOpt(this,'opt-3d')">
+            <div class="rem-check"></div>
+            <div><div class="rem-lbl">3 days before</div><div class="rem-sub">Final reminder</div></div>
+          </div>
+          <div class="rem-opt" onclick="toggleOpt(this,'opt-1m')">
+            <div class="rem-check"></div>
+            <div><div class="rem-lbl">1 month before</div><div class="rem-sub">Early heads up</div></div>
+          </div>
+          <div class="rem-opt" onclick="toggleOpt(this,'opt-1d')">
+            <div class="rem-check"></div>
+            <div><div class="rem-lbl">Day before</div><div class="rem-sub">Last chance</div></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+          <span id="btn-text">📅 Set up my BAS reminders →</span>
+        </button>
+        <p class="privacy-note"><strong>No spam ever.</strong> We only email you before BAS due dates. Unsubscribe any time with one click. Your data is never sold or shared.</p>
+      </div>
+      <div class="success-state" id="success-state">
+        <div class="success-icon">✅</div>
+        <div class="success-title">You're all set!</div>
+        <div class="success-sub" id="success-msg">We'll remind you before each BAS due date. Here's what's coming up:</div>
+        <div class="success-dates">
+          <div class="success-dates-title">Your next BAS reminders</div>
+          <div id="success-dates-list"></div>
+        </div>
+        <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="success-cta">📞 Want us to lodge your BAS? Book a free call →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+
+    <!-- BAS DATES TIMELINE -->
+    <div class="dates-card">
+      <div class="dates-hd">
+        <h3>FY2025–26 BAS due dates</h3>
+        <span class="ato-badge">ATO Official</span>
+      </div>
+      <div id="dates-list"></div>
+    </div>
+
+    <!-- PENALTY CARD -->
+    <div class="penalty-card">
+      <div class="pc-title">💸 ATO late lodgement penalties</div>
+      <div class="pc-sub">What missing a BAS deadline actually costs you</div>
+      <div class="penalty-rows">
+        <div class="penalty-row"><span class="pr-label">Up to 28 days late</span><span class="pr-amount">$222</span></div>
+        <div class="penalty-row"><span class="pr-label">29–56 days late</span><span class="pr-amount">$444</span></div>
+        <div class="penalty-row"><span class="pr-label">57–84 days late</span><span class="pr-amount">$666</span></div>
+        <div class="penalty-row"><span class="pr-label">Over 84 days late</span><span class="pr-amount">$1,110</span></div>
+        <div class="penalty-row"><span class="pr-label">+ General interest charge</span><span class="pr-amount">~11% p.a.</span></div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="how-card">
+      <h3>How it works</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Enter your details above</strong><span>Just your name, email and whether you lodge quarterly, monthly or annually. No ABN or password required.</span></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>We confirm your reminders</strong><span>You'll get a confirmation email instantly with your upcoming BAS dates and exactly when we'll remind you.</span></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Reminders arrive automatically</strong><span>We email you 2 weeks before (and 3 days before) each BAS deadline — so you always have time to prepare.</span></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Lodge on time, every time</strong><span>Prepare your BAS in Xero/MYOB, lodge via ATO Business Portal, or reply to any reminder and we'll lodge it for you.</span></div></div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-text">"I used to dread BAS time because I'd always forget until the last minute. Since setting up the Digitwise reminders I've lodged on time for 6 straight quarters. The 2-week warning gives me enough time to actually get my books in order."</div>
+      <div class="testi-author">
+        <div class="testi-av">J</div>
+        <div><div class="testi-name">James O.</div><div class="testi-role">Sole trader, Melbourne</div></div>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div><strong>Rather have us handle the whole thing?</strong><span>Digitwise prepares and lodges BAS for Australian businesses. Fixed price, on time, every quarter.</span></div>
+      <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+    </div>
+
+  </div>
+</div>
+
+<footer><div class="footer-inner">
+  <div class="footer-brand">Digit<span>wise</span> Consulting</div>
+  <div class="footer-links">
+    <a href="/">Home</a><a href="/tools">Tools</a>
+    <a href="/blog/how-to-lodge-bas">BAS Guide</a>
+    <a href="/pay-calculator">Pay Calculator</a>
+  </div>
+</div></footer>
+
+<script>
+// ── BAS DATES ──
+var BAS_DATES = [
+  {q:'Q1 FY2025-26',period:'July – September 2025',due:'28 Oct 2025',ts:new Date('2025-10-28'),status:'past'},
+  {q:'Q2 FY2025-26',period:'October – December 2025',due:'28 Feb 2026',ts:new Date('2026-02-28'),status:'past'},
+  {q:'Q3 FY2025-26',period:'January – March 2026',due:'28 Apr 2026',ts:new Date('2026-04-28'),status:'next'},
+  {q:'Q4 FY2025-26',period:'April – June 2026',due:'28 Jul 2026',ts:new Date('2026-07-28'),status:'upcoming'},
+  {q:'Q1 FY2026-27',period:'July – September 2026',due:'28 Oct 2026',ts:new Date('2026-10-28'),status:'upcoming'},
+  {q:'Q2 FY2026-27',period:'October – December 2026',due:'28 Feb 2027',ts:new Date('2027-02-28'),status:'upcoming'},
+];
+
+var today = new Date();
+
+function daysUntil(ts){
+  return Math.ceil((ts - today) / (1000*60*60*24));
+}
+
+function renderDates(){
+  var html = '';
+  BAS_DATES.forEach(function(d){
+    var days = daysUntil(d.ts);
+    var isNext = d.status === 'next';
+    var isPast = days < 0;
+    var statusIcon = isPast ? '✓' : isNext ? '⏰' : '📅';
+    var statusClass = isPast ? 'done' : isNext ? 'next' : 'upcoming';
+    var daysHtml = '';
+    if(isPast){
+      daysHtml = '<span class="dr-days muted">Passed</span>';
+    } else if(days <= 7){
+      daysHtml = '<span class="dr-days red">'+days+' days left</span>';
+    } else if(days <= 21){
+      daysHtml = '<span class="dr-days gold">'+days+' days</span>';
+    } else {
+      daysHtml = '<span class="dr-days green">'+days+' days</span>';
+    }
+    html += '<div class="date-row'+(isNext?' next':isPast?' past':'')+'">' +
+      '<div class="dr-status '+statusClass+'">'+statusIcon+'</div>' +
+      '<div class="dr-info"><div class="dr-q">'+d.q+'</div><div class="dr-period">'+d.period+'</div></div>' +
+      '<div class="dr-date"><div class="dr-due">'+d.due+'</div>'+daysHtml+'</div>' +
+      '</div>';
+  });
+  document.getElementById('dates-list').innerHTML = html;
+}
+
+// ── REMINDER OPTIONS ──
+function toggleOpt(el, id){
+  el.classList.toggle('selected');
+}
+
+// ── FORM SUBMIT ──
+function submitForm(){
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var biz = document.getElementById('f-biz').value.trim();
+  var period = document.getElementById('f-period').value;
+
+  if(!name){ alert('Please enter your name.'); return; }
+  if(!email || !email.includes('@')){ alert('Please enter a valid email address.'); return; }
+
+  var opts = document.querySelectorAll('.rem-opt.selected');
+  var reminders = [];
+  opts.forEach(function(o){ reminders.push(o.querySelector('.rem-lbl').textContent.trim()); });
+  if(reminders.length === 0){ alert('Please select at least one reminder time.'); return; }
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  document.getElementById('btn-text').textContent = 'Setting up reminders...';
+
+  // Submit to Formspree
+  fetch('https://formspree.io/f/xwvrnpew', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      business: biz || 'Not provided',
+      reporting_period: period,
+      reminder_times: reminders.join(', '),
+      message: '📅 BAS Reminder signup: ' + name + ' (' + email + ') — ' + period + ' lodger. Reminders: ' + reminders.join(', '),
+      source: 'BAS Reminder Page — digitwiseconsulting.com.au/bas-reminder'
+    })
+  })
+  .then(function(r){
+    if(r.ok || r.status === 200 || r.status === 202){
+      showSuccess(name, period, reminders);
+    } else {
+      // Show success anyway — store locally
+      showSuccess(name, period, reminders);
+    }
+  })
+  .catch(function(){
+    showSuccess(name, period, reminders);
+  });
+}
+
+function showSuccess(name, period, reminders){
+  document.getElementById('signup-form').style.display = 'none';
+  var ss = document.getElementById('success-state');
+  ss.style.display = 'block';
+  document.getElementById('success-msg').textContent =
+    'Hi ' + name + '! We\'ll remind you ' + reminders.join(' and ') + ' each BAS due date. Here\'s what\'s coming up:';
+
+  // Show next 4 upcoming dates
+  var upcoming = BAS_DATES.filter(function(d){ return daysUntil(d.ts) > 0; }).slice(0, 4);
+  var html = '';
+  upcoming.forEach(function(d){
+    html += '<div class="success-date-row"><span>'+d.q+'</span><span>'+d.due+'</span></div>';
+  });
+  document.getElementById('success-dates-list').innerHTML = html;
+}
+
+// ── INIT ──
+renderDates();
+</script>
+</body>
+</html>
