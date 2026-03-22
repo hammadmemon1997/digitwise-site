@@ -2451,6 +2451,24 @@ footer {
   .hero-premium-tool { padding: 12px 14px; }
 }
 
+
+/* ── TOOL USAGE LIMIT ── */
+.tool-usage-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: rgba(201,168,76,0.06);
+  border-top: 1px solid rgba(201,168,76,0.15);
+  font-size: 11px;
+}
+.tool-usage-label { color: var(--muted); font-weight: 600; }
+.tool-usage-dots { display: flex; gap: 4px; }
+.tool-usage-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); transition: all .3s;
+}
+.tool-usage-dot.used { background: var(--border); }
+.tool-usage-cta { color: var(--gold); font-weight: 700; font-size: 11px; text-decoration: none; }
+.tool-usage-cta:hover { text-decoration: underline; }
+
 /* ── MOBILE NAV DRAWER ── */
 .mobile-drawer {
   position: fixed;
@@ -3259,6 +3277,7 @@ footer {
           <a href="/invoice-generator" class="hero-tool-pill">🧾 Invoices</a>
           <a href="/negative-gearing"  class="hero-tool-pill">🏠 Neg. Gearing</a>
           <a href="/bonus-calculator"  class="hero-tool-pill">🎯 Bonus Tax</a>
+          <a href="/currency-calculator" class="hero-tool-pill">💱 Exchange Rate</a>
           <a href="/tools"             class="hero-tool-pill hero-tool-pill-all">→ All tools</a>
         </div>
       </div>
@@ -4479,6 +4498,7 @@ footer {
           <li><a href="/stage3-calculator">2026 Tax Cuts</a></li>
           <li><a href="/audit-risk">Audit Risk Checker</a></li>
           <li><a href="/budget-planner">Budget Planner</a></li>
+          <li><a href="/currency-calculator">Exchange Rate</a></li>
           <li><a href="/tools">All Tools →</a></li>
         </ul>
       </div>
@@ -4901,6 +4921,77 @@ window.dwSd=function(){sd(document.getElementById('dwi').value.trim());};
 window.dwK=function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();window.dwSd();}};
 window.dwR=function(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';};
 })();
+
+
+/* ── TOOL USAGE LIMIT TRACKER ── */
+(function(){
+  var LIMIT = 3;
+  var KEY = 'dw_tool_uses';
+  var used = parseInt(sessionStorage.getItem(KEY)||'0');
+
+  function getUsed(){ return parseInt(sessionStorage.getItem(KEY)||'0'); }
+  function increment(){ var n=getUsed()+1; sessionStorage.setItem(KEY,n); return n; }
+
+  function renderBar(panelEl, toolName){
+    var n = getUsed();
+    var remaining = Math.max(0, LIMIT - n);
+    var dots = '';
+    for(var i=0;i<LIMIT;i++) dots += '<span class="tool-usage-dot'+(i<n?' used':'')+'" title="Use '+(i+1)+'"></span>';
+    var html = '<div class="tool-usage-bar">' +
+      '<span class="tool-usage-label">Free uses: '+remaining+' of '+LIMIT+' remaining today</span>' +
+      '<span class="tool-usage-dots">'+dots+'</span>' +
+      (remaining===0 ? '<a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="tool-usage-cta">Get unlimited → Book call</a>' : '') +
+    '</div>';
+    var existing = panelEl.querySelector('.tool-usage-bar');
+    if(existing) existing.outerHTML = html;
+    else panelEl.insertAdjacentHTML('beforeend', html);
+  }
+
+  function attachUsageTracking(){
+    // Track calculate button clicks in each tool panel
+    document.querySelectorAll('.tool-card').forEach(function(card){
+      var btns = card.querySelectorAll('button, input[type=button]');
+      btns.forEach(function(btn){
+        if(btn.classList.contains('dw-tracked')) return;
+        btn.classList.add('dw-tracked');
+        btn.addEventListener('click', function(){
+          var n = increment();
+          // Re-render all usage bars
+          document.querySelectorAll('.tool-panel.active .tool-card').forEach(function(tc){
+            renderBar(tc, '');
+          });
+          // If over limit, show gentle prompt
+          if(n > LIMIT){
+            var overlay = document.createElement('div');
+            overlay.style.cssText='position:fixed;bottom:80px;right:20px;z-index:9997;background:var(--navy);color:#fff;padding:14px 18px;border-radius:14px;border-left:3px solid var(--gold);max-width:280px;font-size:13px;font-family:Outfit,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.3);';
+            overlay.innerHTML='<div style="font-weight:700;margin-bottom:5px;">&#127775; You're using the tools a lot!</div><div style="color:rgba(255,255,255,.6);font-size:12px;line-height:1.5;margin-bottom:10px;">Our tools are always free. For personalised advice based on your numbers, <strong style="color:var(--gold)">book a free call</strong>.</div><a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" style="display:block;padding:8px;background:var(--gold);color:var(--navy);border-radius:8px;text-align:center;font-weight:700;font-size:12px;text-decoration:none;">&#128197; Book Free Call →</a>';
+            var closeBtn=document.createElement('button');
+            closeBtn.style.cssText='position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,.4);font-size:16px;cursor:pointer;';
+            closeBtn.textContent='×'; closeBtn.onclick=function(){overlay.remove();};
+            overlay.style.position='fixed'; overlay.appendChild(closeBtn);
+            document.body.appendChild(overlay);
+            setTimeout(function(){if(overlay.parentNode)overlay.remove();},8000);
+          }
+        });
+      });
+    });
+    // Add usage bars to all visible tool cards
+    document.querySelectorAll('.tool-panel.active .tool-card').forEach(function(tc){
+      if(!tc.querySelector('.tool-usage-bar')) renderBar(tc,'');
+    });
+  }
+
+  // Init on panel switch
+  var origSwitch = window.switchTool;
+  window.switchTool = function(id, btn){
+    if(origSwitch) origSwitch(id, btn);
+    setTimeout(attachUsageTracking, 100);
+  };
+  // Init on page load
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', attachUsageTracking);
+  else setTimeout(attachUsageTracking, 500);
+})();
+
 </script>
 </body>
 </html>
