@@ -43,9 +43,9 @@ nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-
 .hs-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
 
 /* TOOL TABS */
-.tool-tabs{background:var(--white);border-bottom:2px solid var(--border);padding:0 60px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:70px;z-index:98;}
+.tool-tabs{background:var(--white);border-bottom:2px solid var(--border);padding:0 60px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:70px;z-index:98;pointer-events:all;}
 .tool-tabs::-webkit-scrollbar{display:none;}
-.tab-btn{padding:16px 22px;background:none;border:none;border-bottom:3px solid transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px;margin-bottom:-2px;}
+.tab-btn{padding:16px 22px;background:none;border:none;border-bottom:3px solid transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px;margin-bottom:-2px;touch-action:manipulation;-webkit-tap-highlight-color:rgba(27,108,168,.15);user-select:none;-webkit-user-select:none;}
 .tab-btn:hover{color:var(--ndis);}
 .tab-btn.active{color:var(--ndis);border-bottom-color:var(--ndis);}
 .tab-badge{background:var(--ndis);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;}
@@ -249,12 +249,12 @@ footer{background:var(--navy);padding:32px 60px;}
 
 <!-- TABS -->
 <div class="tool-tabs" id="tool-tabs">
-  <button class="tab-btn active" onclick="switchTab('price')" id="tab-price">💰 Price Guide Checker</button>
-  <button class="tab-btn" onclick="switchTab('budget')" id="tab-budget">📊 Budget Tracker</button>
-  <button class="tab-btn" onclick="switchTab('funding')" id="tab-funding">📚 Funding Explainer</button>
-  <button class="tab-btn" onclick="switchTab('compliance')" id="tab-compliance">✅ Compliance Checklist</button>
-  <button class="tab-btn" onclick="switchTab('schads')" id="tab-schads">💼 SCHADS Pay Calc</button>
-  <button class="tab-btn" onclick="switchTab('regfinder')" id="tab-regfinder">🔍 Registration Finder</button>
+  <button class="tab-btn active" data-tab="price" id="tab-price">💰 Price Guide Checker</button>
+  <button class="tab-btn" data-tab="budget" id="tab-budget">📊 Budget Tracker</button>
+  <button class="tab-btn" data-tab="funding" id="tab-funding">📚 Funding Explainer</button>
+  <button class="tab-btn" data-tab="compliance" id="tab-compliance">✅ Compliance Checklist</button>
+  <button class="tab-btn" data-tab="schads" id="tab-schads">💼 SCHADS Pay Calc</button>
+  <button class="tab-btn" data-tab="regfinder" id="tab-regfinder">🔍 Registration Finder</button>
 </div>
 
 <div class="tool-body">
@@ -890,8 +890,6 @@ function switchTab(id) {
   var tabTarget = document.getElementById('tab-' + id);
   if (target) { target.classList.add('active'); target.style.display = 'block'; }
   if (tabTarget) { tabTarget.classList.add('active'); }
-  var tabBar = document.querySelector('.tool-tabs');
-  if (tabBar) { window.scrollTo({top: tabBar.getBoundingClientRect().top + window.pageYOffset - 10, behavior: 'smooth'}); }
 }
 
 // ── PRICE GUIDE DATA ──────────────────────────────────────────
@@ -1248,6 +1246,22 @@ function searchRegGroups() {
 calcSCHADS();
 renderSCHADSTable();
 searchRegGroups();
+
+// Tab event listeners - most reliable approach for mobile touch
+document.addEventListener('DOMContentLoaded', function() {
+  var tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      switchTab(this.getAttribute('data-tab'));
+    });
+    // Also handle touchend for iOS
+    btn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      switchTab(this.getAttribute('data-tab'));
+    });
+  });
+});
 
 </script>
 </body>
