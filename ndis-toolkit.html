@@ -100,6 +100,7 @@ nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-
 .search-box input:focus{border-color:var(--ndis);}
 .search-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--muted);}
 .rate-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.rate-grid{grid-template-columns:1fr!important;}}
 .rate-card{border:1.5px solid var(--border);border-radius:13px;padding:16px;cursor:pointer;transition:all .2s;background:var(--white);}
 .rate-card:hover{border-color:var(--ndis);box-shadow:0 4px 16px rgba(27,108,168,.1);}
 .rate-card.selected{border-color:var(--ndis);background:var(--ndis-light);}
