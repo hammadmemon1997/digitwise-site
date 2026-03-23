@@ -52,8 +52,8 @@ nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-
 
 /* MAIN LAYOUT */
 .tool-body{max-width:1100px;margin:0 auto;padding:28px 60px 80px;}
-.tool-panel{display:none;}
-.tool-panel.active{display:block;}
+.tool-panel{display:none!important;}
+.tool-panel.active{display:block!important;}
 
 /* CARDS */
 .card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;}
@@ -877,11 +877,21 @@ footer{background:var(--navy);padding:32px 60px;}
 <script>
 // ── TAB SWITCHING ─────────────────────────────────────────────
 function switchTab(id) {
-  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  document.getElementById('tab-' + id).classList.add('active');
-  window.scrollTo({top: document.querySelector('.tool-tabs').offsetTop - 10, behavior: 'smooth'});
+  var panels = document.querySelectorAll('.tool-panel');
+  var tabs = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panels.length; i++) {
+    panels[i].classList.remove('active');
+    panels[i].style.display = 'none';
+  }
+  for (var j = 0; j < tabs.length; j++) {
+    tabs[j].classList.remove('active');
+  }
+  var target = document.getElementById('panel-' + id);
+  var tabTarget = document.getElementById('tab-' + id);
+  if (target) { target.classList.add('active'); target.style.display = 'block'; }
+  if (tabTarget) { tabTarget.classList.add('active'); }
+  var tabBar = document.querySelector('.tool-tabs');
+  if (tabBar) { window.scrollTo({top: tabBar.getBoundingClientRect().top + window.pageYOffset - 10, behavior: 'smooth'}); }
 }
 
 // ── PRICE GUIDE DATA ──────────────────────────────────────────
