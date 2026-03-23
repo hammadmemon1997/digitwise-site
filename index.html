@@ -5391,89 +5391,7 @@ document.head.insertAdjacentHTML('beforeend','<style>'+css+'
 }
 .bas-strip-remind-btn:hover { background: #D4B060; transform: translateY(-1px); }
 
-/* EXIT INTENT POPUP */
-.bas-popup-overlay {
-  display: none !important;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  z-index: 99998;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.bas-popup-overlay.open { display: flex !important; animation: popfade .2s ease; }
-@keyframes popfade { from{opacity:0} to{opacity:1} }
-.bas-popup {
-  background: #1C2B3A;
-  border: 1.5px solid rgba(201,168,76,.3);
-  border-radius: 20px;
-  max-width: 480px;
-  width: 100%;
-  padding: 30px;
-  position: relative;
-  box-shadow: 0 24px 60px rgba(0,0,0,.5);
-  animation: popslide .25s cubic-bezier(.4,0,.2,1);
-}
-@keyframes popslide { from{opacity:0;transform:translateY(20px) scale(.97)} to{opacity:1;transform:none} }
-.bas-popup-close {
-  position: absolute;
-  top: 14px; right: 16px;
-  background: rgba(255,255,255,.08);
-  border: none;
-  color: rgba(255,255,255,.5);
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-.bas-popup-close:hover { background: rgba(255,255,255,.15); color: #fff; }
-.bas-popup-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.25);
-  border-radius: 100px; padding: 4px 12px;
-  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
-  color: #C9A84C; margin-bottom: 12px;
-}
-.bas-popup h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 22px; font-weight: 700; color: #fff;
-  line-height: 1.2; margin-bottom: 8px;
-}
-.bas-popup h3 em { color: #C9A84C; font-style: italic; }
-.bas-popup p {
-  font-size: 13px; color: rgba(255,255,255,.45);
-  line-height: 1.65; margin-bottom: 18px;
-}
-.bas-popup-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
-.bas-popup-field input {
-  width: 100%; padding: 12px 14px;
-  background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.1);
-  border-radius: 11px; font-family: 'Outfit', sans-serif; font-size: 14px;
-  color: #fff; outline: none; transition: border-color .2s;
-}
-.bas-popup-field input::placeholder { color: rgba(255,255,255,.3); }
-.bas-popup-field input:focus { border-color: rgba(201,168,76,.5); }
-.bas-popup-submit {
-  width: 100%; padding: 13px;
-  background: #C9A84C; color: #1C2B3A;
-  border: none; border-radius: 11px;
-  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
-  cursor: pointer; transition: all .2s; margin-bottom: 8px;
-}
-.bas-popup-submit:hover { background: #D4B060; }
-.bas-popup-skip { display: block; text-align: center; font-size: 12px; color: rgba(255,255,255,.3); cursor: pointer; }
-.bas-popup-skip:hover { color: rgba(255,255,255,.6); }
-.bas-popup-success { display: none; text-align: center; padding: 10px 0; }
-.bas-popup-success-icon { font-size: 40px; margin-bottom: 10px; }
-.bas-popup-success h4 { font-family: 'Playfair Display', serif; font-size: 19px; color: #fff; margin-bottom: 6px; }
-.bas-popup-success p { font-size: 13px; color: rgba(255,255,255,.45); }
 
-@media(max-width:900px){
-  .brb-inner { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
-  .brb-stats { gap: 16px; }
-}
 @media(max-width:600px){
   .brb-field-row { grid-template-columns: 1fr; }
   .bas-strip-remind-btn { display: none; }
@@ -5590,118 +5508,27 @@ window.dwR=function(el){el.style.height='auto';el.style.height=Math.min(el.scrol
 </div>
 
 <script>
-/* ── BAS REMINDER INLINE FORMS + POPUP ── */
-(function(){
-  var FS = 'https://formspree.io/f/xwvrnpew';
-  var stored = localStorage.getItem('dw_bas_signed');
-  var popupShown = sessionStorage.getItem('dw_popup_shown');
-
-  // Update live days countdown in banner
-  function updateDays(){
-    var deadline = new Date('2026-04-28');
-    var days = Math.ceil((deadline - new Date()) / (1000*60*60*24));
-    var el = document.getElementById('brb-days-count');
-    if(el) el.textContent = days + ' days';
-  }
-  updateDays();
-
-  // Hide banner form if already signed up
-  if(stored){
-    var inner = document.getElementById('brb-form-inner');
-    var succ = document.getElementById('brb-success');
-    if(inner && succ){
-      inner.style.display = 'none';
-      succ.style.display = 'block';
-      document.getElementById('brb-success-msg').textContent = 'You're already set up for reminders! Next deadline: 28 April 2026.';
-    }
-  }
-
-  // Banner form submit
-  window.brbSubmit = function(){
-    var name = document.getElementById('brb-name').value.trim();
-    var email = document.getElementById('brb-email').value.trim();
-    var period = document.getElementById('brb-period').value;
-    var remind = document.getElementById('brb-remind').value;
-    if(!name){ document.getElementById('brb-name').focus(); return; }
-    if(!email || !email.includes('@')){ document.getElementById('brb-email').focus(); return; }
-    var btn = document.getElementById('brb-submit-btn');
-    btn.disabled = true; btn.textContent = 'Setting up...';
-    fetch(FS, { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name:name, email:email, reporting_period:period, reminder_time:remind,
-        message:'📅 BAS Reminder (Homepage Banner): '+name+' — '+period+' — '+remind,
-        source:'Homepage Banner' }) })
-    .then(function(){ showBRBSuccess(name); })
-    .catch(function(){ showBRBSuccess(name); });
-  };
-
-  function showBRBSuccess(name){
-    localStorage.setItem('dw_bas_signed','1');
-    document.getElementById('brb-form-inner').style.display = 'none';
-    var s = document.getElementById('brb-success');
-    s.style.display = 'block';
-    document.getElementById('brb-success-msg').textContent = 'Hi '+name+'! We'll remind you before each BAS due date. Next deadline: 28 April 2026.';
-    popupShown = '1'; sessionStorage.setItem('dw_popup_shown','1');
-  }
-
-  // BAS strip "Remind me" button — scroll to banner
-  window.scrollToBASBanner = function(){
-    var banner = document.querySelector('.bas-reminder-banner');
-    if(banner){ banner.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(function(){ var inp=document.getElementById('brb-name'); if(inp)inp.focus(); }, 600); }
-  };
-
-  // Popup
-  var popupTriggered = false;
-  function showPopup(){
-    if(popupTriggered || stored || popupShown) return;
-    if(sessionStorage.getItem('dw_bas_dismissed')) return;
-    popupTriggered = true;
-    sessionStorage.setItem('dw_popup_shown','1');
-    document.getElementById('bas-popup-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  window.closeBASPopup = function(){
-    document.getElementById('bas-popup-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-    sessionStorage.setItem('dw_bas_dismissed','1');
-  };
-  window.popupSubmit = function(){
-    var name = document.getElementById('popup-name').value.trim();
-    var email = document.getElementById('popup-email').value.trim();
-    if(!name){ document.getElementById('popup-name').focus(); return; }
-    if(!email || !email.includes('@')){ document.getElementById('popup-email').focus(); return; }
-    fetch(FS, { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name:name, email:email, reporting_period:'quarterly', reminder_time:'2 weeks before',
-        message:'📅 BAS Reminder (Popup): '+name,
-        source:'Homepage Exit Intent Popup' }) })
-    .then(function(){ showPopupSuccess(name); })
-    .catch(function(){ showPopupSuccess(name); });
-  };
-  function showPopupSuccess(name){
-    localStorage.setItem('dw_bas_signed','1');
-    document.getElementById('popup-form-fields').style.display = 'none';
-    document.querySelector('.bas-popup-submit').style.display = 'none';
-    document.querySelector('.bas-popup-skip').style.display = 'none';
-    document.getElementById('popup-success').style.display = 'block';
-    setTimeout(function(){ window.closeBASPopup(); }, 3000);
-    // Also update banner
-    var inner = document.getElementById('brb-form-inner');
-    var succ = document.getElementById('brb-success');
-    if(inner && succ){ inner.style.display='none'; succ.style.display='block'; }
-  }
-
-  // Trigger popup on 65% scroll — only once per session
-  if(!stored && !popupShown){
-    var scrollHandler = function(){
-      var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight;
-      var scrollPct = (window.scrollY / (scrollH - window.innerHeight)) * 100;
-      if(scrollPct > 80 && window.scrollY > 600){ showPopup(); window.removeEventListener('scroll', scrollHandler); }
-    };
-    window.addEventListener('scroll', scrollHandler, {passive:true});
-  }
-
-  // Keyboard close
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') window.closeBASPopup(); });
-})();
 </script>
+
+<!-- BAS REMINDER BAR - simple sticky bottom, no popup -->
+<div id="bas-bar" style="position:fixed;bottom:0;left:0;right:0;background:#1C2B3A;border-top:2px solid #C9A84C;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:9999;flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:200px;">
+    <span style="font-size:18px;">⏰</span>
+    <div>
+      <span style="color:#fff;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;">Q3 BAS due 28 April</span>
+      <span style="color:rgba(255,255,255,.5);font-family:'Outfit',sans-serif;font-size:12px;margin-left:8px;">Don't miss the deadline</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <a href="/bas-reminder" style="background:#C9A84C;color:#1C2B3A;padding:8px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">📅 Set reminder →</a>
+    <button onclick="document.getElementById('bas-bar').style.display='none';localStorage.setItem('dw_bar_closed','1')" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;">×</button>
+  </div>
+</div>
+<script>
+if(localStorage.getItem('dw_bar_closed')||localStorage.getItem('dw_bas_signed')){
+  var b=document.getElementById('bas-bar');if(b)b.style.display='none';
+}
+</script>
+
 </body>
 </html>
