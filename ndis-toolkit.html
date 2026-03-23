@@ -252,6 +252,8 @@ footer{background:var(--navy);padding:32px 60px;}
   <button class="tab-btn" onclick="switchTab('budget')" id="tab-budget">📊 Budget Tracker</button>
   <button class="tab-btn" onclick="switchTab('funding')" id="tab-funding">📚 Funding Explainer</button>
   <button class="tab-btn" onclick="switchTab('compliance')" id="tab-compliance">✅ Compliance Checklist</button>
+  <button class="tab-btn" onclick="switchTab('schads')" id="tab-schads">💼 SCHADS Pay Calc</button>
+  <button class="tab-btn" onclick="switchTab('regfinder')" id="tab-regfinder">🔍 Registration Finder</button>
 </div>
 
 <div class="tool-body">
@@ -691,6 +693,164 @@ footer{background:var(--navy);padding:32px 60px;}
   </div>
 </div>
 
+
+<!-- ══════════════════════════════════════════════
+     TOOL 5 — SCHADS AWARD PAY CALCULATOR
+══════════════════════════════════════════════ -->
+<div class="tool-panel" id="panel-schads">
+
+  <div class="info-box blue">
+    <strong>💼 SCHADS Award 2024–25 Pay Calculator</strong>
+    The Social, Community, Home Care and Disability Services (SCHADS) Industry Award covers most NDIS support workers. Use this calculator to determine the correct minimum pay rate, including penalty rates for weekends and public holidays.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div>
+      <div class="card">
+        <div class="card-hd"><div><h2>Worker Classification</h2><p>Select the worker's stream, level and shift type</p></div></div>
+        <div class="card-bd">
+          <div class="field">
+            <label>Employment stream</label>
+            <select id="sc-stream" onchange="calcSCHADS()">
+              <option value="disability">Disability Support Worker</option>
+              <option value="community">Community Services</option>
+              <option value="homecare">Home Care</option>
+              <option value="crisis">Crisis Accommodation</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Pay classification level</label>
+            <select id="sc-level" onchange="calcSCHADS()">
+              <option value="1">Level 1 — Entry level, limited experience</option>
+              <option value="2" selected>Level 2 — Qualified, working under supervision</option>
+              <option value="3">Level 3 — Qualified, works with autonomy</option>
+              <option value="4">Level 4 — Advanced skills, team leader</option>
+              <option value="5">Level 5 — Supervisor / Senior practitioner</option>
+              <option value="6">Level 6 — Management / Specialist</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Shift type</label>
+            <select id="sc-shift" onchange="calcSCHADS()">
+              <option value="weekday">Weekday (Mon–Fri, standard hours)</option>
+              <option value="evening">Evening (Mon–Fri after 8pm)</option>
+              <option value="saturday">Saturday</option>
+              <option value="sunday">Sunday</option>
+              <option value="public_holiday">Public Holiday</option>
+              <option value="sleepover">Sleepover allowance (flat rate)</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Hours worked</label>
+              <input type="number" id="sc-hours" value="8" min="0.5" step="0.5" oninput="calcSCHADS()">
+            </div>
+            <div class="field">
+              <label>Employment type</label>
+              <select id="sc-emptype" onchange="calcSCHADS()">
+                <option value="full_part">Full-time / Part-time</option>
+                <option value="casual">Casual (+25% loading)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Broken shift? (non-continuous work)</label>
+            <select id="sc-broken" onchange="calcSCHADS()">
+              <option value="no">No — continuous shift</option>
+              <option value="yes">Yes — broken shift (+$15.88 allowance)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-hd"><div><h2>Pay Calculation</h2></div><span class="ndis-badge">SCHADS 2024–25</span></div>
+        <div class="card-bd">
+          <div id="schads-result">
+            <div class="result-box">
+              <div class="result-row"><span class="label">Base hourly rate</span><span class="val blue" id="sc-base">—</span></div>
+              <div class="result-row"><span class="label">Penalty rate applied</span><span class="val" id="sc-penalty">—</span></div>
+              <div class="result-row"><span class="label">Casual loading</span><span class="val" id="sc-casual-load">None</span></div>
+              <div class="result-row"><span class="label">Broken shift allowance</span><span class="val" id="sc-broken-allow">None</span></div>
+              <div class="result-row"><span class="label">Effective hourly rate</span><span class="val blue" id="sc-effective">—</span></div>
+              <div class="result-row"><span class="label">Hours worked</span><span class="val" id="sc-hrs-display">—</span></div>
+            </div>
+            <div class="result-highlight" style="margin-top:14px;">
+              <div><div class="rh-label">Total pay for this shift (minimum)</div><div class="rh-val" id="sc-total">$0.00</div></div>
+              <div style="text-align:right;font-size:12px;opacity:.7;">Super (11.5%): <span id="sc-super">$0.00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd"><div><h2>SCHADS Pay Levels Reference</h2><p>Disability stream base hourly rates 2024–25</p></div></div>
+        <div class="card-bd" style="padding:0;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead><tr style="background:var(--cream);">
+              <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);">Level</th>
+              <th style="padding:10px 16px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);">Base/hr</th>
+              <th style="padding:10px 16px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);">Saturday</th>
+              <th style="padding:10px 16px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border);">Sunday</th>
+            </tr></thead>
+            <tbody id="schads-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>SCHADS payroll giving you a headache?</strong><span>Digitwise handles NDIS provider payroll — correct classifications, penalty rates, STP and super. Fixed monthly price.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOOL 6 — NDIS REGISTRATION GROUP FINDER
+══════════════════════════════════════════════ -->
+<div class="tool-panel" id="panel-regfinder">
+
+  <div class="info-box blue">
+    <strong>🔍 NDIS Registration Group Finder</strong>
+    Find which NDIS Registration Group covers your service. There are 56 registration groups — this tool helps you identify the right one so you can register correctly with the NDIS Commission.
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-hd"><h2>Search Registration Groups</h2><p>Search by service type, keyword or support category</p></div>
+    <div class="card-bd">
+      <div class="search-box" style="margin-bottom:16px;">
+        <input type="text" id="rg-search" placeholder="Search e.g. 'support worker', 'OT', 'SIL', 'early childhood'..." oninput="searchRegGroups()" autocomplete="off">
+        <span class="search-icon">🔍</span>
+      </div>
+      <div id="rg-results" class="rate-grid"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><h2>🗺️ Registration group by audit type</h2><p>Different registration groups require different audit standards</p></div>
+    <div class="card-bd">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:14px 16px;">
+          <div style="font-size:12px;font-weight:700;color:#16A34A;margin-bottom:8px;">✅ Certification (lower risk)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Support Coordination, Therapeutic Supports, Daily Activities (non-SIL), Community Participation, Employment Support, Early Childhood</div>
+        </div>
+        <div style="background:rgba(27,108,168,.07);border:1px solid rgba(27,108,168,.2);border-radius:12px;padding:14px 16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--ndis);margin-bottom:8px;">🔵 Verification (higher risk)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">SIL, Specialist Disability Accommodation, High Intensity Daily Activities, Specialist Support Coordination, Behaviour Support, Early Childhood (specialist)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div><strong>Need help with NDIS registration?</strong><span>We help NDIS providers understand their registration obligations and ensure financial compliance from day one.</span></div>
+    <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+  </div>
+</div>
+
 </div><!-- end tool-body -->
 
 <footer><div class="footer-inner">
@@ -936,6 +1096,137 @@ var today = new Date();
 var yearEnd = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
 document.getElementById('plan-start').value = today.toISOString().split('T')[0];
 document.getElementById('plan-end').value = yearEnd.toISOString().split('T')[0];
+
+
+// ── SCHADS AWARD RATES ──────────────────────────────────────
+var SCHADS_RATES = {
+  disability: {
+    1: 23.39, 2: 24.61, 3: 26.41, 4: 28.43, 5: 31.15, 6: 34.23
+  },
+  community: {
+    1: 22.98, 2: 24.18, 3: 25.94, 4: 27.91, 5: 30.56, 6: 33.56
+  },
+  homecare: {
+    1: 22.55, 2: 23.73, 3: 25.46, 4: 27.41, 5: 30.01, 6: 32.97
+  },
+  crisis: {
+    1: 23.87, 2: 25.13, 3: 26.98, 4: 29.05, 5: 31.83, 6: 34.97
+  }
+};
+var SCHADS_PENALTIES = {
+  weekday: {rate: 1.0, label: 'Ordinary time (100%)'},
+  evening: {rate: 1.15, label: 'Evening penalty (115%)'},
+  saturday: {rate: 1.5, label: 'Saturday penalty (150%)'},
+  sunday: {rate: 2.0, label: 'Sunday penalty (200%)'},
+  public_holiday: {rate: 2.5, label: 'Public Holiday (250%)'},
+  sleepover: {rate: null, flat: 51.27, label: 'Sleepover allowance (flat)'}
+};
+
+function calcSCHADS() {
+  var stream = document.getElementById('sc-stream').value;
+  var level = parseInt(document.getElementById('sc-level').value);
+  var shift = document.getElementById('sc-shift').value;
+  var hours = parseFloat(document.getElementById('sc-hours').value) || 0;
+  var empType = document.getElementById('sc-emptype').value;
+  var broken = document.getElementById('sc-broken').value;
+  var baseRate = SCHADS_RATES[stream][level];
+  var penalty = SCHADS_PENALTIES[shift];
+  var casualLoad = empType === 'casual' ? 0.25 : 0;
+  var brokenAllow = broken === 'yes' ? 15.88 : 0;
+  var effectiveRate, total;
+  if (penalty.flat) {
+    effectiveRate = penalty.flat + (baseRate * casualLoad);
+    total = penalty.flat + (hours > 0 ? hours * baseRate * casualLoad : 0) + brokenAllow;
+  } else {
+    effectiveRate = baseRate * penalty.rate * (1 + casualLoad);
+    total = effectiveRate * hours + brokenAllow;
+  }
+  var superAmt = total * 0.115;
+  document.getElementById('sc-base').textContent = '$' + baseRate.toFixed(2) + '/hr';
+  document.getElementById('sc-penalty').textContent = penalty.label;
+  document.getElementById('sc-casual-load').textContent = casualLoad > 0 ? '+25% casual loading' : 'None';
+  document.getElementById('sc-broken-allow').textContent = brokenAllow > 0 ? '$' + brokenAllow.toFixed(2) : 'None';
+  document.getElementById('sc-effective').textContent = penalty.flat ? 'Flat: $' + penalty.flat.toFixed(2) : '$' + effectiveRate.toFixed(2) + '/hr';
+  document.getElementById('sc-hrs-display').textContent = hours + ' hours';
+  document.getElementById('sc-total').textContent = '$' + total.toFixed(2);
+  document.getElementById('sc-super').textContent = '$' + superAmt.toFixed(2);
+}
+
+function renderSCHADSTable() {
+  var levels = [1,2,3,4,5,6];
+  var labels = ['L1','L2','L3','L4','L5','L6'];
+  var html = '';
+  levels.forEach(function(l, i) {
+    var base = SCHADS_RATES.disability[l];
+    var sat = base * 1.5;
+    var sun = base * 2.0;
+    html += '<tr style="border-bottom:1px solid var(--border);">' +
+      '<td style="padding:10px 16px;font-weight:700;color:var(--ndis);">' + labels[i] + '</td>' +
+      '<td style="padding:10px 16px;text-align:right;font-family:Georgia,serif;font-weight:700;">$' + base.toFixed(2) + '</td>' +
+      '<td style="padding:10px 16px;text-align:right;color:var(--muted);">$' + sat.toFixed(2) + '</td>' +
+      '<td style="padding:10px 16px;text-align:right;color:var(--muted);">$' + sun.toFixed(2) + '</td>' +
+      '</tr>';
+  });
+  document.getElementById('schads-table').innerHTML = html;
+}
+
+// ── REGISTRATION GROUP DATA ───────────────────────────────────
+var REG_GROUPS = [
+  {code:'0101',name:'Accommodation/Tenancy Assistance',keywords:['accommodation','tenancy','housing'],audit:'certification',desc:'Assistance with finding and maintaining appropriate accommodation'},
+  {code:'0104',name:'Assistance with Self-Care Activities',keywords:['self-care','daily activities','support worker','personal care','hygiene','daily'],audit:'certification',desc:'Daily personal care and support activities'},
+  {code:'0106',name:'Assistance with Social, Economic and Community Participation',keywords:['community','social','participation','recreation'],audit:'certification',desc:'Support to participate in community and social activities'},
+  {code:'0107',name:'Assistive Equipment for Recreation',keywords:['equipment','recreation','assistive','sport'],audit:'verification',desc:'Specialised equipment to support participation in recreation'},
+  {code:'0108',name:'Assistive Products for Household Tasks',keywords:['household','cooking','cleaning','domestic'],audit:'verification',desc:'Assistive products to assist with household tasks'},
+  {code:'0110',name:'Assistive Products for Personal Care and Safety',keywords:['personal care','safety','assistive products'],audit:'verification',desc:'Products to assist personal care and maintain safety'},
+  {code:'0113',name:'Assistive Technology for Communication',keywords:['communication','AAC','speech','devices'],audit:'verification',desc:'Devices and technology to support communication'},
+  {code:'0115',name:'Assistive Technology for Hearing',keywords:['hearing','hearing aids','deaf','cochlear'],audit:'verification',desc:'Hearing aids and related technology'},
+  {code:'0116',name:'Assistive Technology for Recreation',keywords:['recreation','leisure','sport','play'],audit:'verification',desc:'AT for participation in recreation'},
+  {code:'0117',name:'Assistive Technology for Vision',keywords:['vision','blindness','sight','visual'],audit:'verification',desc:'Technology for participants with vision impairment'},
+  {code:'0118',name:'Community Nursing Care',keywords:['nursing','nurse','medical','clinical','wound'],audit:'certification',desc:'Nursing care in the community setting'},
+  {code:'0119',name:'Domestic Assistance',keywords:['domestic','cleaning','laundry','household tasks','home help'],audit:'certification',desc:'Assistance with domestic tasks at home'},
+  {code:'0120',name:'Early Childhood Supports',keywords:['early childhood','ECIA','kids','children','0-6'],audit:'certification',desc:'Supports for children aged 0-6 and their families'},
+  {code:'0121',name:'Home Modification',keywords:['home modification','ramps','rails','bathroom','modifications'],audit:'verification',desc:'Physical modifications to a participant's home'},
+  {code:'0122',name:'Innovative Community Participation',keywords:['innovative','community','creative'],audit:'certification',desc:'Innovative approaches to community participation'},
+  {code:'0124',name:'Interpreting and Translating',keywords:['interpreter','translating','language','AUSLAN'],audit:'certification',desc:'Interpreting and translation services'},
+  {code:'0125',name:'Participation in Supported Independent Living',keywords:['SIL','supported independent living','group home','residential'],audit:'verification',desc:'Support for people living in shared accommodation'},
+  {code:'0126',name:'Personal Mobility Equipment',keywords:['wheelchair','mobility','scooter','walker','rollator'],audit:'verification',desc:'Wheelchairs and other personal mobility aids'},
+  {code:'0127',name:'Positive Behaviour Support',keywords:['behaviour','PBS','challenging behaviour','behaviour support'],audit:'verification',desc:'Specialist behaviour support services'},
+  {code:'0128',name:'Therapeutic Supports',keywords:['OT','occupational therapy','speech','physio','psychology','psychology','dietitian','therapy'],audit:'certification',desc:'Allied health and therapeutic supports'},
+  {code:'0129',name:'Training for Carers and Parents',keywords:['carer','parent','training','family'],audit:'certification',desc:'Training for family members and carers'},
+  {code:'0130',name:'Vehicle Modifications',keywords:['vehicle','car','modifications','driving'],audit:'verification',desc:'Modifications to vehicles for accessibility'},
+  {code:'0131',name:'Specialist Disability Accommodation',keywords:['SDA','specialist disability accommodation','housing'],audit:'verification',desc:'Purpose-built disability accommodation'},
+  {code:'0132',name:'Support Coordination',keywords:['support coordination','support coordinator','plan implementation'],audit:'certification',desc:'Help implementing and coordinating NDIS plans'},
+  {code:'0133',name:'Specialist Support Coordination',keywords:['specialist support coordination','complex','specialist coordinator'],audit:'verification',desc:'Specialist coordination for complex situations'},
+  {code:'0136',name:'Group and Centre Based Activities',keywords:['group','centre','day program','activities'],audit:'certification',desc:'Group-based activities and day programs'},
+  {code:'0137',name:'Development of Daily Living and Life Skills',keywords:['life skills','daily living','skills development','independence'],audit:'certification',desc:'Building daily living skills and independence'},
+  {code:'0140',name:'Specialised Hearing Services',keywords:['hearing specialist','audiology','ear'],audit:'certification',desc:'Specialist hearing assessment and intervention'},
+  {code:'0106',name:'Employment Related Assessments',keywords:['employment','job','work','vocational'],audit:'certification',desc:'Assessment and support for employment'},
+];
+
+function searchRegGroups() {
+  var q = document.getElementById('rg-search').value.toLowerCase().trim();
+  var results = REG_GROUPS.filter(function(g) {
+    return !q || g.name.toLowerCase().includes(q) || g.keywords.some(function(k){ return k.includes(q); }) || g.code.includes(q);
+  });
+  var html = '';
+  results.slice(0,12).forEach(function(g) {
+    var auditColor = g.audit === 'verification' ? '#1B6CA8' : '#16A34A';
+    var auditLabel = g.audit === 'verification' ? 'Verification' : 'Certification';
+    html += '<div class="rate-card">' +
+      '<div class="rc-cat">' + (g.audit === 'verification' ? '🔵' : '✅') + ' Registration Group ' + g.code + '</div>' +
+      '<div class="rc-name">' + g.name + '</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.4;">' + g.desc + '</div>' +
+      '<span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:100px;background:' + auditColor + '20;color:' + auditColor + '">' + auditLabel + ' audit</span>' +
+      '</div>';
+  });
+  document.getElementById('rg-results').innerHTML = html || '<div style="padding:20px;color:var(--muted);font-size:13px;">No matching registration groups. Try a different search term.</div>';
+}
+
+// Init SCHADS
+calcSCHADS();
+renderSCHADSTable();
+searchRegGroups();
+
 </script>
 </body>
 </html>
