@@ -104,6 +104,14 @@
       "dest": "/ndis-toolkit.html"
     },
     {
+      "src": "/ndis-incident-report",
+      "dest": "/ndis-incident-report.html"
+    },
+    {
+      "src": "/ndis-service-agreement",
+      "dest": "/ndis-service-agreement.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
