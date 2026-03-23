@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NDIS Incident Report Builder | NDIS Commission Compliant | Digitwise</title>
+<meta name="description" content="Free NDIS incident report template builder. Generates compliant incident reports for the NDIS Commission. Covers all reportable incident types with correct notification timeframes.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/ndis-incident-report">
+<meta property="og:title" content="NDIS Incident Report Builder | Digitwise Consulting">
+<meta property="og:description" content="Build compliant NDIS incident reports in minutes. Covers all reportable incident types, notification timeframes and NDIS Commission requirements.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--green:#22C55E;--red:#E24B4A;--orange:#F97316;--ndis:#1B6CA8;--ndis-light:#E8F4FD;}
+html,body{overflow-x:hidden;font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+.hero{background:linear-gradient(135deg,#1a0a0a 0%,#6B1A1A 100%);padding:48px 60px 40px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#F97316,transparent);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#F97316;margin-bottom:14px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3.6vw,46px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:10px;}
+.hero h1 em{color:#F97316;font-style:italic;}
+.hero p{font-size:15px;color:rgba(255,255,255,.5);max-width:540px;line-height:1.7;}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 60px 80px;}
+.alert-bar{background:rgba(249,115,22,.1);border:1.5px solid rgba(249,115,22,.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;}
+.alert-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.alert-text{font-size:13px;color:var(--text);line-height:1.6;}
+.alert-text strong{color:#C2410C;display:block;margin-bottom:3px;}
+/* INCIDENT TYPE SELECTOR */
+.incident-types{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.inc-type{border:1.5px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:all .2s;background:var(--white);text-align:center;}
+.inc-type:hover{border-color:#F97316;transform:translateY(-2px);}
+.inc-type.selected{border-color:#F97316;background:rgba(249,115,22,.05);}
+.inc-type-icon{font-size:28px;margin-bottom:8px;}
+.inc-type-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.inc-type-time{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;display:inline-block;}
+.inc-type-time.urgent{background:rgba(226,75,74,.1);color:var(--red);}
+.inc-type-time.standard{background:rgba(201,168,76,.1);color:#B8943A;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;}
+.card-hd{padding:16px 22px;border-bottom:1px solid var(--border);background:var(--cream);}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;}
+.card-bd{padding:20px 22px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#F97316;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.field-row .field{margin-bottom:0;}
+.checkbox-group{display:flex;flex-direction:column;gap:8px;}
+.cb-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;}
+.cb-item:hover{border-color:rgba(249,115,22,.4);}
+.cb-item.checked{border-color:#F97316;background:rgba(249,115,22,.04);}
+.cb-item input[type=checkbox]{display:none;}
+.cb-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;}
+.cb-item.checked .cb-box{background:#F97316;border-color:#F97316;}
+.cb-item.checked .cb-box::after{content:'✓';color:#fff;font-size:10px;font-weight:700;}
+.cb-label{font-size:13px;font-weight:600;color:var(--text);}
+.cb-desc{font-size:11px;color:var(--muted);margin-top:1px;line-height:1.4;}
+/* OUTPUT */
+.report-preview{background:var(--white);border:2px solid var(--border);border-radius:16px;overflow:hidden;}
+.rp-hd{background:linear-gradient(135deg,#6B1A1A,#8B2222);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.rp-hd h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;}
+.rp-actions{display:flex;gap:7px;}
+.act-btn{padding:6px 13px;border-radius:7px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer;color:#fff;transition:all .2s;}
+.act-btn:hover{background:rgba(255,255,255,.2);}
+.report-body{padding:20px;min-height:300px;font-size:13px;line-height:1.8;color:var(--text);}
+.report-section{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.report-section:last-child{border-bottom:none;}
+.rs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.rs-value{font-size:13px;color:var(--text);font-weight:500;}
+.rs-value.empty{color:var(--muted);font-style:italic;}
+.report-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:250px;color:var(--muted);text-align:center;gap:10px;}
+.gen-btn{width:100%;padding:14px;background:#C2410C;color:#fff;border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;}
+.gen-btn:hover{background:#9A3412;}
+.submission-guide{background:var(--ndis-light);border:1px solid rgba(27,108,168,.2);border-radius:13px;padding:16px 18px;margin-top:16px;}
+.sg-title{font-size:13px;font-weight:700;color:var(--ndis);margin-bottom:10px;}
+.sg-step{display:flex;gap:10px;margin-bottom:8px;font-size:12px;color:var(--text);line-height:1.5;}
+.sg-num{width:20px;height:20px;background:var(--ndis);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.cta-strip{background:linear-gradient(135deg,var(--navy),#243447);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:20px;}
+.cta-strip strong{display:block;font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:3px;}
+.cta-strip span{font-size:12px;color:rgba(255,255,255,.4);}
+.cta-strip a{padding:9px 18px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap;}
+footer{background:var(--navy);padding:28px 60px;}
+.footer-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:16px;}
+@media(max-width:900px){.wrap{padding:16px 16px 60px;}.grid-2{grid-template-columns:1fr;}.incident-types{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:16px!important;padding-right:16px!important;}.field-row{grid-template-columns:1fr;}.incident-types{grid-template-columns:1fr;}input,select,textarea{font-size:16px!important;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;flex-shrink:0"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+  <button class="mob-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🚨 NDIS Commission compliant</div>
+  <h1>NDIS Incident Report <em>Builder</em></h1>
+  <p>Build compliant NDIS incident reports in minutes. Covers all reportable incident types with correct notification timeframes and Commission requirements.</p>
+</div>
+
+<div class="wrap">
+  <div class="alert-bar">
+    <span class="alert-icon">⏰</span>
+    <div class="alert-text">
+      <strong>Notification timeframes matter</strong>
+      Serious incidents (abuse, neglect, death) must be reported to the NDIS Commission within 24 hours of becoming aware. Other reportable incidents require notification within 5 business days. Failure to notify is a compliance breach.
+    </div>
+  </div>
+
+  <!-- INCIDENT TYPE -->
+  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:12px;">Step 1 — Select incident type</div>
+  <div class="incident-types" id="incident-types">
+    <div class="inc-type" onclick="selectType(this,'death','Death of a participant','⚰️','24 hours','urgent')">
+      <div class="inc-type-icon">⚰️</div>
+      <div class="inc-type-name">Death of participant</div>
+      <span class="inc-type-time urgent">Report: 24 hours</span>
+    </div>
+    <div class="inc-type" onclick="selectType(this,'serious_injury','Serious injury','🏥','24 hours','urgent')">
+      <div class="inc-type-icon">🏥</div>
+      <div class="inc-type-name">Serious injury</div>
+      <span class="inc-type-time urgent">Report: 24 hours</span>
+    </div>
+    <div class="inc-type" onclick="selectType(this,'abuse','Abuse or neglect','🛡️','24 hours','urgent')">
+      <div class="inc-type-icon">🛡️</div>
+      <div class="inc-type-name">Abuse or neglect</div>
+      <span class="inc-type-time urgent">Report: 24 hours</span>
+    </div>
+    <div class="inc-type" onclick="selectType(this,'unauthorised','Unauthorised restraint','🔒','24 hours','urgent')">
+      <div class="inc-type-icon">🔒</div>
+      <div class="inc-type-name">Unauthorised restraint</div>
+      <span class="inc-type-time urgent">Report: 24 hours</span>
+    </div>
+    <div class="inc-type" onclick="selectType(this,'missing','Missing participant','🔍','24 hours','urgent')">
+      <div class="inc-type-icon">🔍</div>
+      <div class="inc-type-name">Missing participant</div>
+      <span class="inc-type-time urgent">Report: 24 hours</span>
+    </div>
+    <div class="inc-type" onclick="selectType(this,'other','Other reportable incident','📋','5 business days','standard')">
+      <div class="inc-type-icon">📋</div>
+      <div class="inc-type-name">Other reportable incident</div>
+      <span class="inc-type-time standard">Report: 5 business days</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <!-- INCIDENT DETAILS -->
+      <div class="card">
+        <div class="card-hd"><h2>Incident Details</h2></div>
+        <div class="card-bd">
+          <div class="field-row">
+            <div class="field"><label>Date of incident</label><input type="date" id="ir-date"></div>
+            <div class="field"><label>Time of incident</label><input type="time" id="ir-time"></div>
+          </div>
+          <div class="field"><label>Location of incident</label><input type="text" id="ir-location" placeholder="e.g. Participant's home, 45 Oak Ave Brunswick"></div>
+          <div class="field"><label>Participant full name</label><input type="text" id="ir-participant" placeholder="Jane Smith"></div>
+          <div class="field"><label>NDIS Number</label><input type="text" id="ir-ndis" placeholder="430 123 456"></div>
+          <div class="field"><label>Staff member(s) involved</label><input type="text" id="ir-staff" placeholder="e.g. John Brown (Support Worker)"></div>
+          <div class="field"><label>What happened? (detailed description)</label>
+            <textarea id="ir-description" rows="4" placeholder="Describe exactly what happened, in the order events occurred. Include what led up to the incident..."></textarea>
+          </div>
+          <div class="field"><label>Immediate response taken</label>
+            <textarea id="ir-response" rows="3" placeholder="e.g. Ambulance called, participant assessed, family notified, incident documented..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROVIDER & WITNESSES -->
+      <div class="card">
+        <div class="card-hd"><h2>Provider & Witnesses</h2></div>
+        <div class="card-bd">
+          <div class="field"><label>Provider / Organisation</label><input type="text" id="ir-provider" placeholder="Provider name"></div>
+          <div class="field"><label>NDIS Registration Number</label><input type="text" id="ir-reg" placeholder="4050XXXXXX"></div>
+          <div class="field"><label>Person completing this report</label><input type="text" id="ir-reporter" placeholder="Name and role"></div>
+          <div class="field"><label>Date report completed</label><input type="date" id="ir-report-date"></div>
+          <div class="field"><label>Witness name(s)</label><input type="text" id="ir-witnesses" placeholder="Names of any witnesses (or 'None')"></div>
+        </div>
+      </div>
+
+      <!-- ACTIONS TAKEN -->
+      <div class="card">
+        <div class="card-hd"><h2>Actions & Notifications</h2></div>
+        <div class="card-bd">
+          <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:10px;">Who has been notified? (tick all that apply)</div>
+          <div class="checkbox-group" id="notifications">
+            <div class="cb-item" onclick="toggleCb(this)"><div class="cb-box"></div><div><div class="cb-label">NDIS Commission notified</div><div class="cb-desc">Via NDIS Commission Portal</div></div></div>
+            <div class="cb-item" onclick="toggleCb(this)"><div class="cb-box"></div><div><div class="cb-label">Participant's family / guardian notified</div><div class="cb-desc">Phone call or in person</div></div></div>
+            <div class="cb-item" onclick="toggleCb(this)"><div class="cb-box"></div><div><div class="cb-label">Emergency services called (000)</div><div class="cb-desc">Police, Ambulance or Fire</div></div></div>
+            <div class="cb-item" onclick="toggleCb(this)"><div class="cb-box"></div><div><div class="cb-label">Provider management notified</div><div class="cb-desc">Manager or supervisor</div></div></div>
+            <div class="cb-item" onclick="toggleCb(this)"><div class="cb-box"></div><div><div class="cb-label">Support Coordinator notified</div><div class="cb-desc">If participant has one</div></div></div>
+          </div>
+          <div class="field" style="margin-top:12px;"><label>Follow-up actions planned</label>
+            <textarea id="ir-followup" rows="3" placeholder="e.g. Review of risk assessment, staff training, policy update, investigation..."></textarea>
+          </div>
+          <button class="gen-btn" onclick="buildReport()">📋 Build Incident Report</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div>
+      <div class="report-preview" style="position:sticky;top:90px;">
+        <div class="rp-hd">
+          <h3>🚨 Incident Report</h3>
+          <div class="rp-actions">
+            <button class="act-btn" onclick="copyReport()">📋 Copy</button>
+            <button class="act-btn" onclick="printReport()">🖨️ Print</button>
+          </div>
+        </div>
+        <div class="report-body" id="report-body">
+          <div class="report-placeholder">
+            <div style="font-size:48px;opacity:.25;">🚨</div>
+            <div style="font-size:13px;color:var(--muted);text-align:center;line-height:1.6;">Select an incident type and<br>fill in the details, then click<br><strong>"Build Incident Report"</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="submission-guide">
+        <div class="sg-title">📋 How to submit to NDIS Commission</div>
+        <div class="sg-step"><div class="sg-num">1</div><div>Log in to the <strong>NDIS Commission Portal</strong> at myplace.ndis.gov.au</div></div>
+        <div class="sg-step"><div class="sg-num">2</div><div>Go to <strong>Incidents & Complaints</strong> → <strong>Report an Incident</strong></div></div>
+        <div class="sg-step"><div class="sg-num">3</div><div>Select the incident type and enter the details from this report</div></div>
+        <div class="sg-step"><div class="sg-num">4</div><div>Submit the <strong>initial notification</strong> within the required timeframe</div></div>
+        <div class="sg-step"><div class="sg-num">5</div><div>Submit the <strong>final report</strong> with investigation outcomes within 90 days</div></div>
+      </div>
+
+      <div class="cta-strip">
+        <div><strong>Need help with NDIS compliance?</strong><span>Digitwise reviews provider financials, payroll and compliance records.</span></div>
+        <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="footer-inner">
+  <div class="footer-brand">Digit<span>wise</span> Consulting</div>
+  <div class="footer-links"><a href="/">Home</a><a href="/ndis-tools">NDIS Tools</a><a href="/tools">All Tools</a></div>
+</div></footer>
+
+<script>
+var selectedType = null;
+var reportText = '';
+
+function selectType(el, id, name, icon, time, urgency) {
+  document.querySelectorAll('.inc-type').forEach(function(t){ t.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedType = {id:id, name:name, icon:icon, time:time, urgency:urgency};
+}
+
+function toggleCb(el) {
+  el.classList.toggle('checked');
+}
+
+function buildReport() {
+  if (!selectedType) { alert('Please select an incident type first.'); return; }
+  var date = document.getElementById('ir-date').value;
+  var time = document.getElementById('ir-time').value;
+  var location = document.getElementById('ir-location').value || '[Location]';
+  var participant = document.getElementById('ir-participant').value || '[Participant Name]';
+  var ndisNo = document.getElementById('ir-ndis').value || '[NDIS Number]';
+  var staff = document.getElementById('ir-staff').value || '[Staff member(s)]';
+  var description = document.getElementById('ir-description').value || '[Incident description required]';
+  var response = document.getElementById('ir-response').value || '[Immediate response]';
+  var provider = document.getElementById('ir-provider').value || '[Provider Name]';
+  var reg = document.getElementById('ir-reg').value || '[NDIS Reg No.]';
+  var reporter = document.getElementById('ir-reporter').value || '[Reporter name and role]';
+  var reportDate = document.getElementById('ir-report-date').value || new Date().toISOString().split('T')[0];
+  var witnesses = document.getElementById('ir-witnesses').value || 'None';
+  var followup = document.getElementById('ir-followup').value || '[Follow-up actions]';
+  var notifications = [];
+  document.querySelectorAll('#notifications .cb-item.checked .cb-label').forEach(function(el){ notifications.push(el.textContent); });
+
+  var urgencyColor = selectedType.urgency === 'urgent' ? '#E24B4A' : '#F97316';
+  var html = '<div style="text-align:center;padding:12px 0 16px;border-bottom:2px solid #E0D8C8;margin-bottom:16px;">' +
+    '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6A7A8A;margin-bottom:4px;">NDIS Reportable Incident</div>' +
+    '<div style="font-size:22px;margin-bottom:4px;">' + selectedType.icon + '</div>' +
+    '<div style="font-family:Georgia,serif;font-size:16px;font-weight:700;color:#1C2B3A;">' + selectedType.name + '</div>' +
+    '<div style="margin-top:6px;"><span style="background:' + urgencyColor + '20;border:1px solid ' + urgencyColor + '40;color:' + urgencyColor + ';font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;">⏰ Must report within: ' + selectedType.time + '</span></div>' +
+    '</div>';
+
+  var sections = [
+    ['PROVIDER', provider + ' | NDIS Reg: ' + reg],
+    ['PARTICIPANT', participant + ' | NDIS: ' + ndisNo],
+    ['DATE & TIME OF INCIDENT', (date ? new Date(date).toLocaleDateString('en-AU', {day:'numeric',month:'long',year:'numeric'}) : '[Date]') + (time ? ' at ' + time : '')],
+    ['LOCATION', location],
+    ['STAFF INVOLVED', staff],
+    ['WITNESSES', witnesses],
+    ['INCIDENT DESCRIPTION', description],
+    ['IMMEDIATE RESPONSE', response],
+    ['NOTIFICATIONS MADE', notifications.length ? notifications.join(', ') : 'None recorded yet'],
+    ['FOLLOW-UP ACTIONS', followup],
+    ['REPORT COMPLETED BY', reporter],
+    ['DATE OF REPORT', reportDate ? new Date(reportDate).toLocaleDateString('en-AU', {day:'numeric',month:'long',year:'numeric'}) : new Date().toLocaleDateString('en-AU')],
+  ];
+
+  sections.forEach(function(s) {
+    html += '<div class="report-section"><div class="rs-label">' + s[0] + '</div><div class="rs-value">' + s[1].replace(/\n/g,'<br>') + '</div></div>';
+  });
+
+  html += '<div style="margin-top:16px;padding:12px 14px;background:#FFF7ED;border:1px solid rgba(249,115,22,.2);border-radius:10px;font-size:12px;color:#9A3412;line-height:1.6;"><strong style="display:block;margin-bottom:3px;">⚠️ Disclaimer</strong>This template is a guide only. Always submit the official incident notification through the NDIS Commission Portal. Consult your legal or compliance advisor for complex incidents.</div>';
+
+  document.getElementById('report-body').innerHTML = html;
+
+  // Also build plain text version for copying
+  reportText = 'NDIS INCIDENT REPORT\n' + '='.repeat(40) + '\n\n' +
+    'Incident Type: ' + selectedType.name + '\n' +
+    'Notification Required Within: ' + selectedType.time + '\n\n' +
+    sections.map(function(s){ return s[0] + ':\n' + s[1]; }).join('\n\n');
+}
+
+function copyReport() {
+  if (!reportText) { alert('Please build the report first.'); return; }
+  navigator.clipboard.writeText(reportText);
+  var btn = event.target;
+  btn.textContent = '✅ Copied!';
+  setTimeout(function(){ btn.textContent = '📋 Copy'; }, 2000);
+}
+
+function printReport() {
+  if (!reportText) { alert('Please build the report first.'); return; }
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>NDIS Incident Report</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;font-size:13px;}.section{margin-bottom:14px;border-bottom:1px solid #ddd;padding-bottom:12px;}.label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6A7A8A;}@media print{body{margin:0;}}</style></head><body>');
+  win.document.write('<h2 style="color:#C2410C;">NDIS Incident Report</h2>');
+  win.document.write('<pre style="white-space:pre-wrap;font-family:Arial,sans-serif;font-size:13px;">' + reportText + '</pre>');
+  win.document.write('</body></html>');
+  win.document.close();
+  win.print();
+}
+
+// Set default dates
+var today = new Date().toISOString().split('T')[0];
+document.getElementById('ir-date').value = today;
+document.getElementById('ir-report-date').value = today;
+</script>
+</body>
+</html>
