@@ -932,7 +932,7 @@ function renderRates() {
     var satDisplay = r.sat ? '$' + r.sat.toFixed(2) : '—';
     var sunDisplay = r.sun ? '$' + r.sun.toFixed(2) : '—';
     var catLabel = {daily:'Daily Activities',therapy:'Therapy',community:'Community',support:'Support Coord',capacity:'Capacity Building'}[r.cat] || r.cat;
-    html += '<div class="rate-card" onclick="showRateDetail(\'' + r.id + '\')">' +
+    html += '<div class="rate-card" onclick="showRateDetail('' + r.id + '')">' +
       '<div class="rc-cat">' + catLabel + '</div>' +
       '<div class="rc-name">' + r.name + '</div>' +
       '<div class="rc-code">📋 ' + r.code + '</div>' +
@@ -1010,9 +1010,9 @@ function renderLines(cat) {
   lines[cat].forEach(function(line, i) {
     var div = document.createElement('div');
     div.className = 'bc-line';
-    div.innerHTML = '<input type="text" placeholder="Service description..." value="' + line.desc + '" oninput="updateLine(\'' + cat + '\',' + i + ',\'desc\',this.value)">' +
-      '<input type="number" class="amount-in" placeholder="$0.00" value="' + (line.amount||'') + '" oninput="updateLine(\'' + cat + '\',' + i + ',\'amount\',this.value)">' +
-      '<button class="del-btn" onclick="deleteLine(\'' + cat + '\',' + i + ')">×</button>';
+    div.innerHTML = '<input type="text" placeholder="Service description..." value="' + line.desc + '" oninput="updateLine('' + cat + '',' + i + ','desc',this.value)">' +
+      '<input type="number" class="amount-in" placeholder="$0.00" value="' + (line.amount||'') + '" oninput="updateLine('' + cat + '',' + i + ','amount',this.value)">' +
+      '<button class="del-btn" onclick="deleteLine('' + cat + '',' + i + ')">×</button>';
     container.appendChild(div);
   });
   updateBudget();
