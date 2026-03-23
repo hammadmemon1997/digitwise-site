@@ -77,7 +77,7 @@ nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--ndis);color:#fff;border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
 .btn-primary:hover{background:#1557A0;transform:translateY(-1px);}
 .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--gold);color:var(--navy);border:none;border-radius:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
-.btn-ghost{padding:10px 18px;background:none;border:1.5px solid var(--border);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--text);transition:all .2s;}
+.btn-ghost{padding:10px 18px;background:none;border:1.5px solid var(--border);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--text);transition:all .2s;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,.08);}
 .btn-ghost:hover{border-color:var(--ndis);color:var(--ndis);}
 .btn-full{width:100%;justify-content:center;}
 
@@ -197,7 +197,7 @@ nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-
 .bc-line .amount-in{width:120px;flex-shrink:0;}
 .bc-line .del-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px;}
 .bc-line .del-btn:hover{color:var(--red);}
-.add-line-btn{background:none;border:1.5px dashed var(--border);border-radius:8px;width:100%;padding:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;margin-top:6px;}
+.add-line-btn{background:none;border:1.5px dashed var(--border);border-radius:8px;width:100%;padding:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;margin-top:6px;touch-action:manipulation;}
 .add-line-btn:hover{border-color:var(--ndis);color:var(--ndis);}
 
 footer{background:var(--navy);padding:32px 60px;}
@@ -249,12 +249,12 @@ footer{background:var(--navy);padding:32px 60px;}
 
 <!-- TABS -->
 <div class="tool-tabs" id="tool-tabs">
-  <button class="tab-btn active" data-tab="price" id="tab-price">💰 Price Guide Checker</button>
-  <button class="tab-btn" data-tab="budget" id="tab-budget">📊 Budget Tracker</button>
-  <button class="tab-btn" data-tab="funding" id="tab-funding">📚 Funding Explainer</button>
-  <button class="tab-btn" data-tab="compliance" id="tab-compliance">✅ Compliance Checklist</button>
-  <button class="tab-btn" data-tab="schads" id="tab-schads">💼 SCHADS Pay Calc</button>
-  <button class="tab-btn" data-tab="regfinder" id="tab-regfinder">🔍 Registration Finder</button>
+  <button class="tab-btn active" data-tab="price" id="tab-price" onclick="switchTab('price')">💰 Price Guide Checker</button>
+  <button class="tab-btn" data-tab="budget" id="tab-budget" onclick="switchTab('budget')">📊 Budget Tracker</button>
+  <button class="tab-btn" data-tab="funding" id="tab-funding" onclick="switchTab('funding')">📚 Funding Explainer</button>
+  <button class="tab-btn" data-tab="compliance" id="tab-compliance" onclick="switchTab('compliance')">✅ Compliance Checklist</button>
+  <button class="tab-btn" data-tab="schads" id="tab-schads" onclick="switchTab('schads')">💼 SCHADS Pay Calc</button>
+  <button class="tab-btn" data-tab="regfinder" id="tab-regfinder" onclick="switchTab('regfinder')">🔍 Registration Finder</button>
 </div>
 
 <div class="tool-body">
@@ -293,12 +293,12 @@ footer{background:var(--navy);padding:32px 60px;}
 
       <!-- CATEGORY FILTER -->
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="cat-filters">
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('all',this)" id="cat-all" class="active">All categories</button>
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('daily',this)">🏠 Daily Activities</button>
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('therapy',this)">💊 Therapy</button>
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('community',this)">🌍 Community</button>
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('support',this)">🤝 Support Coord</button>
-        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;" onclick="filterCat('capacity',this)">📈 Capacity Building</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('all',this)" id="cat-all">All categories</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('daily',this)">🏠 Daily Activities</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('therapy',this)">💊 Therapy</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('community',this)">🌍 Community</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('support',this)">🤝 Support Coord</button>
+        <button class="btn-ghost" style="padding:6px 13px;font-size:11px;touch-action:manipulation;" onclick="filterCat('capacity',this)">📈 Capacity Building</button>
       </div>
 
       <div id="rate-results" class="rate-grid"></div>
@@ -877,19 +877,12 @@ footer{background:var(--navy);padding:32px 60px;}
 <script>
 // ── TAB SWITCHING ─────────────────────────────────────────────
 function switchTab(id) {
-  var panels = document.querySelectorAll('.tool-panel');
-  var tabs = document.querySelectorAll('.tab-btn');
-  for (var i = 0; i < panels.length; i++) {
-    panels[i].classList.remove('active');
-    panels[i].style.display = 'none';
-  }
-  for (var j = 0; j < tabs.length; j++) {
-    tabs[j].classList.remove('active');
-  }
-  var target = document.getElementById('panel-' + id);
-  var tabTarget = document.getElementById('tab-' + id);
-  if (target) { target.classList.add('active'); target.style.display = 'block'; }
-  if (tabTarget) { tabTarget.classList.add('active'); }
+  var i, panels = document.querySelectorAll('.tool-panel'), tabs = document.querySelectorAll('.tab-btn');
+  for (i = 0; i < panels.length; i++) { panels[i].style.display='none'; panels[i].classList.remove('active'); }
+  for (i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+  var p = document.getElementById('panel-'+id), t = document.getElementById('tab-'+id);
+  if (p) { p.style.display='block'; p.classList.add('active'); }
+  if (t) { t.classList.add('active'); }
 }
 
 // ── PRICE GUIDE DATA ──────────────────────────────────────────
@@ -1247,21 +1240,8 @@ calcSCHADS();
 renderSCHADSTable();
 searchRegGroups();
 
-// Tab event listeners - most reliable approach for mobile touch
-document.addEventListener('DOMContentLoaded', function() {
-  var tabBtns = document.querySelectorAll('.tab-btn[data-tab]');
-  tabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      switchTab(this.getAttribute('data-tab'));
-    });
-    // Also handle touchend for iOS
-    btn.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      switchTab(this.getAttribute('data-tab'));
-    });
-  });
-});
+// Tab click handlers - simple onclick via data-tab attribute
+// Note: touchend+preventDefault was removed - it blocks clicks on Android
 
 </script>
 </body>
