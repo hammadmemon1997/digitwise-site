@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NDIS Service Agreement Generator | AI-Written, NDIS Compliant | Digitwise</title>
+<meta name="description" content="Free AI-powered NDIS Service Agreement generator. Creates compliant, professional service agreements for NDIS providers in seconds. Covers all support types and funding categories.">
+<link rel="canonical" href="https://digitwiseconsulting.com.au/ndis-service-agreement">
+<meta property="og:title" content="Free NDIS Service Agreement Generator | Digitwise Consulting">
+<meta property="og:description" content="AI-written NDIS service agreements, ready to customise and send to participants. Compliant with NDIS Practice Standards 2024-25.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B3A;--gold:#C9A84C;--cream:#F8F5EE;--white:#fff;--text:#1C2B3A;--muted:#6A7A8A;--border:#E0D8C8;--green:#22C55E;--red:#E24B4A;--ndis:#1B6CA8;--ndis-light:#E8F4FD;}
+html,body{overflow-x:hidden;font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;}
+nav{background:rgba(28,43,58,.97);padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-name span{color:var(--gold);}
+.nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
+.mob-btn span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+.hero{background:linear-gradient(135deg,#0F2235 0%,#1B4A80 100%);padding:48px 60px 40px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:14px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3.6vw,48px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:10px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{font-size:15px;color:rgba(255,255,255,.5);max-width:560px;line-height:1.7;}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 60px 80px;display:grid;grid-template-columns:440px 1fr;gap:24px;align-items:start;}
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;}
+.card-hd{padding:18px 22px;border-bottom:1px solid var(--border);background:var(--cream);}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);}
+.card-hd p{font-size:12px;color:var(--muted);margin-top:2px;}
+.card-bd{padding:20px 22px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ndis);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.field-row .field{margin-bottom:0;}
+.divider{height:1px;background:var(--border);margin:14px 0;}
+.gen-btn{width:100%;padding:14px;background:var(--ndis);color:#fff;border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.gen-btn:hover{background:#1557A0;transform:translateY(-1px);}
+.gen-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.info-box{border-radius:11px;padding:12px 14px;margin-bottom:12px;font-size:12px;line-height:1.6;}
+.info-box.blue{background:var(--ndis-light);border:1px solid rgba(27,108,168,.2);color:var(--ndis);}
+.info-box strong{display:block;font-weight:700;margin-bottom:2px;}
+/* OUTPUT */
+.output-card{background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;position:sticky;top:90px;}
+.oc-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--cream);}
+.oc-hd h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);}
+.oc-actions{display:flex;gap:8px;}
+.act-btn{padding:7px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+.act-btn:hover{border-color:var(--ndis);color:var(--ndis);}
+.act-btn.primary{background:var(--ndis);color:#fff;border-color:var(--ndis);}
+.act-btn.primary:hover{background:#1557A0;}
+.oc-body{padding:20px;min-height:400px;max-height:70vh;overflow-y:auto;}
+.placeholder-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;color:var(--muted);text-align:center;gap:12px;}
+.placeholder-icon{font-size:48px;opacity:.3;}
+.placeholder-text{font-size:14px;line-height:1.6;}
+.streaming-output{font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;font-family:'Outfit',sans-serif;}
+.streaming-output h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin:16px 0 6px;color:var(--ndis);border-bottom:1px solid var(--border);padding-bottom:6px;}
+.streaming-output h3{font-size:14px;font-weight:700;margin:12px 0 4px;color:var(--text);}
+.streaming-output strong{font-weight:700;}
+.streaming-output ul{margin:6px 0 6px 20px;}
+.streaming-output li{margin-bottom:3px;}
+.typing-cursor{display:inline-block;width:2px;height:14px;background:var(--ndis);animation:blink .7s infinite;margin-left:2px;vertical-align:middle;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.cta-strip{background:linear-gradient(135deg,var(--navy),#243447);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:20px;}
+.cta-strip strong{display:block;font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:3px;}
+.cta-strip span{font-size:12px;color:rgba(255,255,255,.4);}
+.cta-strip a{padding:9px 18px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:12px;text-decoration:none;white-space:nowrap;}
+footer{background:var(--navy);padding:28px 60px;}
+.footer-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#fff;}
+.footer-brand span{color:var(--gold);}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.32);text-decoration:none;margin-left:16px;}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:16px 16px 60px;}.output-card{position:static;}}
+@media(max-width:600px){nav,.hero,footer{padding-left:16px!important;padding-right:16px!important;}.field-row{grid-template-columns:1fr;}input,select,textarea{font-size:16px!important;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg viewBox="0 0 22 22" fill="none" width="36" height="36" style="border-radius:9px;flex-shrink:0"><rect x="1" y="1" width="20" height="20" rx="5" fill="#1C2B3A" stroke="#C9A84C" stroke-width="1.5"/><text font-family="Georgia,serif" font-size="14" font-weight="700" fill="#C9A84C" x="3.5" y="16">D</text><path d="M14 8L18 11L14 14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span class="logo-name">Digit<span>wise</span></span>
+  </a>
+  <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank" class="nav-cta">Book Free Call</a>
+  <button class="mob-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🤖 AI-powered · NDIS compliant</div>
+  <h1>NDIS Service Agreement <em>Generator</em></h1>
+  <p>Generate a professional, NDIS-compliant service agreement in seconds. Powered by Claude AI — customised to your provider details, support types and participant's needs.</p>
+</div>
+
+<div class="wrap">
+  <!-- FORM -->
+  <div>
+    <div class="card">
+      <div class="card-hd"><h2>Provider & Participant Details</h2><p>Fill in the details below to generate a tailored service agreement</p></div>
+      <div class="card-bd">
+        <div class="info-box blue"><strong>✅ What's included</strong>Parties, support details, pricing, cancellation policy, participant rights, complaints process, privacy, payment terms and review clause — all NDIS-compliant.</div>
+
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:8px;">Provider details</div>
+        <div class="field"><label>Provider / Organisation name</label><input type="text" id="sa-provider" placeholder="e.g. Sunrise Support Services Pty Ltd"></div>
+        <div class="field-row">
+          <div class="field"><label>ABN</label><input type="text" id="sa-abn" placeholder="12 345 678 901"></div>
+          <div class="field"><label>NDIS Registration No.</label><input type="text" id="sa-reg" placeholder="4050012345"></div>
+        </div>
+        <div class="field"><label>Provider address</label><input type="text" id="sa-addr" placeholder="123 Main Street, Melbourne VIC 3000"></div>
+        <div class="field-row">
+          <div class="field"><label>Provider phone</label><input type="text" id="sa-phone" placeholder="03 9XXX XXXX"></div>
+          <div class="field"><label>Provider email</label><input type="email" id="sa-email" placeholder="info@provider.com.au"></div>
+        </div>
+
+        <div class="divider"></div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:8px;">Participant details</div>
+        <div class="field-row">
+          <div class="field"><label>Participant full name</label><input type="text" id="sa-part-name" placeholder="Jane Smith"></div>
+          <div class="field"><label>NDIS Number</label><input type="text" id="sa-ndis-no" placeholder="430 123 456"></div>
+        </div>
+        <div class="field"><label>Participant address</label><input type="text" id="sa-part-addr" placeholder="45 Oak Ave, Brunswick VIC 3056"></div>
+        <div class="field"><label>Guardian / Nominee (if applicable)</label><input type="text" id="sa-guardian" placeholder="Leave blank if not applicable"></div>
+
+        <div class="divider"></div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:8px;">Support details</div>
+        <div class="field"><label>Type of support provided</label>
+          <select id="sa-support">
+            <option value="daily_activities">Assistance with Daily Activities (Core)</option>
+            <option value="community">Community Participation (Core)</option>
+            <option value="support_coord">Support Coordination (Capacity Building)</option>
+            <option value="ot">Occupational Therapy (Capacity Building)</option>
+            <option value="speech">Speech Pathology (Capacity Building)</option>
+            <option value="psychology">Psychology (Capacity Building)</option>
+            <option value="physio">Physiotherapy (Capacity Building)</option>
+            <option value="behaviour">Positive Behaviour Support (Capacity Building)</option>
+            <option value="early_childhood">Early Childhood Intervention (Capacity Building)</option>
+            <option value="sil">Supported Independent Living (Core)</option>
+            <option value="employment">Employment Support (Capacity Building)</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Hours per week</label><input type="number" id="sa-hours" placeholder="e.g. 10" min="0.5" step="0.5"></div>
+          <div class="field"><label>Hourly rate (AUD)</label><input type="number" id="sa-rate" placeholder="e.g. 67.56" min="0" step="0.01"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Agreement start date</label><input type="date" id="sa-start"></div>
+          <div class="field"><label>Agreement end date</label><input type="date" id="sa-end"></div>
+        </div>
+        <div class="field"><label>Cancellation notice period</label>
+          <select id="sa-cancel">
+            <option value="7">7 days notice required</option>
+            <option value="2" selected>2 business days (NDIS standard)</option>
+            <option value="24">24 hours notice</option>
+            <option value="48">48 hours notice</option>
+          </select>
+        </div>
+        <div class="field"><label>Additional notes / specific goals (optional)</label>
+          <textarea id="sa-notes" rows="3" placeholder="e.g. Participant wants to develop cooking skills and community connections..."></textarea>
+        </div>
+
+        <button class="gen-btn" id="gen-btn" onclick="generateAgreement()">
+          <span id="gen-btn-text">✨ Generate Service Agreement</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cta-strip" style="margin-top:16px;">
+      <div><strong>Need NDIS bookkeeping too?</strong><span>Digitwise handles provider invoicing, payroll and BAS — all NDIS compliant.</span></div>
+      <a href="https://calendly.com/hammad-digitwiseconsulting" target="_blank">Book Free Call →</a>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-card">
+    <div class="oc-hd">
+      <h3>Generated Agreement</h3>
+      <div class="oc-actions">
+        <button class="act-btn" onclick="copyAgreement()" id="copy-btn">📋 Copy</button>
+        <button class="act-btn" onclick="printAgreement()" id="print-btn">🖨️ Print / PDF</button>
+      </div>
+    </div>
+    <div class="oc-body" id="oc-body">
+      <div class="placeholder-state" id="placeholder">
+        <div class="placeholder-icon">📄</div>
+        <div class="placeholder-text">Fill in the form and click<br><strong>"Generate Service Agreement"</strong><br>Your NDIS-compliant agreement<br>will appear here in seconds.</div>
+      </div>
+      <div class="streaming-output" id="agreement-output" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="footer-inner">
+  <div class="footer-brand">Digit<span>wise</span> Consulting</div>
+  <div class="footer-links"><a href="/">Home</a><a href="/ndis-tools">NDIS Tools</a><a href="/tools">All Tools</a></div>
+</div></footer>
+
+<script>
+var fullText = '';
+
+function generateAgreement() {
+  var provider = document.getElementById('sa-provider').value.trim() || 'Provider Name';
+  var abn = document.getElementById('sa-abn').value.trim() || 'XX XXX XXX XXX';
+  var reg = document.getElementById('sa-reg').value.trim() || 'XXXXXXXXXX';
+  var addr = document.getElementById('sa-addr').value.trim() || '[Provider Address]';
+  var phone = document.getElementById('sa-phone').value.trim() || '[Phone]';
+  var email = document.getElementById('sa-email').value.trim() || '[Email]';
+  var partName = document.getElementById('sa-part-name').value.trim() || 'Participant Name';
+  var ndisNo = document.getElementById('sa-ndis-no').value.trim() || 'XXX XXX XXX';
+  var partAddr = document.getElementById('sa-part-addr').value.trim() || '[Participant Address]';
+  var guardian = document.getElementById('sa-guardian').value.trim();
+  var supportType = document.getElementById('sa-support');
+  var supportLabel = supportType.options[supportType.selectedIndex].text;
+  var hours = document.getElementById('sa-hours').value || 'TBC';
+  var rate = document.getElementById('sa-rate').value || 'Per NDIS Price Guide';
+  var startDate = document.getElementById('sa-start').value || '[Start Date]';
+  var endDate = document.getElementById('sa-end').value || '[End Date]';
+  var cancelDays = document.getElementById('sa-cancel').value;
+  var notes = document.getElementById('sa-notes').value.trim();
+
+  var btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  document.getElementById('gen-btn-text').textContent = '⏳ Generating agreement...';
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('agreement-output').style.display = 'block';
+  document.getElementById('agreement-output').innerHTML = '<span class="typing-cursor"></span>';
+  fullText = '';
+
+  var prompt = 'Generate a complete, professional NDIS Service Agreement for Australia. Use formal legal language suitable for NDIS compliance. Format with clear headings using ## for sections and ### for subsections.\n\n' +
+    'PROVIDER: ' + provider + ' | ABN: ' + abn + ' | NDIS Reg: ' + reg + ' | Address: ' + addr + ' | Phone: ' + phone + ' | Email: ' + email + '\n' +
+    'PARTICIPANT: ' + partName + ' | NDIS Number: ' + ndisNo + ' | Address: ' + partAddr +
+    (guardian ? ' | Guardian/Nominee: ' + guardian : '') + '\n' +
+    'SUPPORT TYPE: ' + supportLabel + '\n' +
+    'HOURS: ' + hours + ' hours per week | RATE: $' + rate + '/hour | TOTAL WEEKLY: $' + (hours && rate ? (parseFloat(hours)*parseFloat(rate)).toFixed(2) : 'TBC') + '\n' +
+    'PERIOD: ' + startDate + ' to ' + endDate + '\n' +
+    'CANCELLATION: ' + cancelDays + (cancelDays==='2'?' business days':' days') + ' notice required\n' +
+    (notes ? 'PARTICIPANT GOALS/NOTES: ' + notes + '\n' : '') +
+    '\nThe agreement must include these sections:\n' +
+    '1. Parties to this Agreement\n2. Purpose of this Agreement\n3. Support to be Provided (detailed)\n4. Fees and Payment\n5. GST Statement (NDIS supports are GST-free)\n6. Cancellation Policy (reference NDIS Short Notice Cancellation rules)\n7. Participant Rights and Responsibilities\n8. Provider Responsibilities\n9. NDIS Code of Conduct\n10. Feedback and Complaints\n11. Privacy and Confidentiality\n12. Review of this Agreement\n13. Ending this Agreement\n14. Signatures\n\nMake it professional, warm in tone, and ready to use. Include today\'s date (' + new Date().toLocaleDateString('en-AU') + ') in the header.';
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      stream: false,
+      messages: [{role: 'user', content: prompt}]
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    btn.disabled = false;
+    document.getElementById('gen-btn-text').textContent = '✨ Generate Service Agreement';
+    var text = d.content && d.content[0] ? d.content[0].text : 'Error generating agreement. Please try again.';
+    fullText = text;
+    // Render with markdown-like formatting
+    var html = text
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+    document.getElementById('agreement-output').innerHTML = html;
+  })
+  .catch(function() {
+    btn.disabled = false;
+    document.getElementById('gen-btn-text').textContent = '✨ Generate Service Agreement';
+    document.getElementById('agreement-output').innerHTML = '<div style="color:var(--red);font-size:13px;padding:20px;">Connection error. Please check your internet and try again.</div>';
+  });
+}
+
+function copyAgreement() {
+  if (!fullText) return;
+  navigator.clipboard.writeText(fullText);
+  var btn = document.getElementById('copy-btn');
+  btn.textContent = '✅ Copied!';
+  setTimeout(function(){ btn.textContent = '📋 Copy'; }, 2000);
+}
+
+function printAgreement() {
+  if (!fullText) return;
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>NDIS Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;font-size:14px;}h2{color:#1B6CA8;border-bottom:1px solid #ddd;padding-bottom:6px;margin-top:24px;}h3{margin-top:16px;}@media print{body{margin:0;}}</style></head><body>');
+  win.document.write('<pre style="white-space:pre-wrap;font-family:Arial,sans-serif;">' + fullText + '</pre>');
+  win.document.write('</body></html>');
+  win.document.close();
+  win.print();
+}
+
+// Set default dates
+var today = new Date();
+var nextYear = new Date(today.getFullYear()+1, today.getMonth(), today.getDate());
+document.getElementById('sa-start').value = today.toISOString().split('T')[0];
+document.getElementById('sa-end').value = nextYear.toISOString().split('T')[0];
+</script>
+</body>
+</html>
