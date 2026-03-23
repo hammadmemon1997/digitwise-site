@@ -5393,7 +5393,7 @@ document.head.insertAdjacentHTML('beforeend','<style>'+css+'
 
 /* EXIT INTENT POPUP */
 .bas-popup-overlay {
-  display: none;
+  display: none !important;
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.55);
@@ -5402,7 +5402,7 @@ document.head.insertAdjacentHTML('beforeend','<style>'+css+'
   justify-content: center;
   padding: 20px;
 }
-.bas-popup-overlay.open { display: flex; animation: popfade .2s ease; }
+.bas-popup-overlay.open { display: flex !important; animation: popfade .2s ease; }
 @keyframes popfade { from{opacity:0} to{opacity:1} }
 .bas-popup {
   background: #1C2B3A;
@@ -5692,8 +5692,9 @@ window.dwR=function(el){el.style.height='auto';el.style.height=Math.min(el.scrol
   // Trigger popup on 65% scroll — only once per session
   if(!stored && !popupShown){
     var scrollHandler = function(){
-      var scrollPct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-      if(scrollPct > 65){ showPopup(); window.removeEventListener('scroll', scrollHandler); }
+      var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight;
+      var scrollPct = (window.scrollY / (scrollH - window.innerHeight)) * 100;
+      if(scrollPct > 80 && window.scrollY > 600){ showPopup(); window.removeEventListener('scroll', scrollHandler); }
     };
     window.addEventListener('scroll', scrollHandler, {passive:true});
   }
