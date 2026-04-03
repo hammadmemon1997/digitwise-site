@@ -336,7 +336,9 @@ function printReport() {
   win.document.write('<html><head><title>NDIS Incident Report</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;font-size:13px;}.section{margin-bottom:14px;border-bottom:1px solid #ddd;padding-bottom:12px;}.label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6A7A8A;}@media print{body{margin:0;}}</style></head><body>');
   win.document.write('<h2 style="color:#C2410C;">NDIS Incident Report</h2>');
   win.document.write('<pre style="white-space:pre-wrap;font-family:Arial,sans-serif;font-size:13px;">' + reportText + '</pre>');
-  win.document.write('</body></html>');
+  win.document.write('<!-- Vercel Speed Insights -->
+<script defer src="/speed-insights-bundle.js"></script>
+</body></html>');
   win.document.close();
   win.print();
 }
@@ -346,5 +348,6 @@ var today = new Date().toISOString().split('T')[0];
 document.getElementById('ir-date').value = today;
 document.getElementById('ir-report-date').value = today;
 </script>
+<!-- Vercel Speed Insights -->
 </body>
 </html>

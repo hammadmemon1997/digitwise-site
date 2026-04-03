@@ -288,7 +288,9 @@ function printAgreement() {
   var win = window.open('', '_blank');
   win.document.write('<html><head><title>NDIS Service Agreement</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.7;font-size:14px;}h2{color:#1B6CA8;border-bottom:1px solid #ddd;padding-bottom:6px;margin-top:24px;}h3{margin-top:16px;}@media print{body{margin:0;}}</style></head><body>');
   win.document.write('<pre style="white-space:pre-wrap;font-family:Arial,sans-serif;">' + fullText + '</pre>');
-  win.document.write('</body></html>');
+  win.document.write('<!-- Vercel Speed Insights -->
+<script defer src="/speed-insights-bundle.js"></script>
+</body></html>');
   win.document.close();
   win.print();
 }
@@ -299,5 +301,6 @@ var nextYear = new Date(today.getFullYear()+1, today.getMonth(), today.getDate()
 document.getElementById('sa-start').value = today.toISOString().split('T')[0];
 document.getElementById('sa-end').value = nextYear.toISOString().split('T')[0];
 </script>
+<!-- Vercel Speed Insights -->
 </body>
 </html>
