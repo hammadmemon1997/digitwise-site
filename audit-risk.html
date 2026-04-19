@@ -602,7 +602,7 @@ function closeMobileNav(){document.getElementById('mnd-drawer').classList.remove
     navyColor: '#1C2B3A',
     calendlyUrl: 'https://calendly.com/hammad-digitwiseconsulting',
     formspreeEndpoint: 'https://formspree.io/f/xwvrnpew',
-    greeting: "Hi! I'm the Digitwise AI assistant 👋\n\nI can answer Australian tax questions, help you understand your deductions, and connect you with Hammad if you need personalised advice.\n\nWhat can I help you with today?",
+    greeting: "Hi! I'm the Digitwise AI assistant 👋\n\nI can answer Australian tax questions, help you understand your deductions, and connect you with Yamna if you need personalised advice.\n\nWhat can I help you with today?",
     systemPrompt: `You are a friendly, expert accounting assistant for Digitwise Consulting, a Melbourne-based accounting firm serving Australian and US small businesses. Your name is "Digi".
 
 YOUR ROLE:
@@ -616,12 +616,12 @@ TONE: Warm, professional, concise. Like a knowledgeable friend who happens to be
 KEY RULES:
 - Always give genuinely useful answers — don't just say "speak to an accountant"
 - After answering 2-3 questions, naturally qualify: "Just so I can give you more tailored advice — are you a sole trader, employee, or do you run a business?"
-- If someone asks about pricing, services, or seems ready to engage, say: "I can connect you with Hammad for a free 20-minute call — what's your name and email so I can note this down?"
+- If someone asks about pricing, services, or seems ready to engage, say: "I can connect you with Yamna for a free 20-minute call — what's your name and email so I can note this down?"
 - When you have their name + email, output this EXACT JSON on its own line: {"lead_captured": true, "name": "NAME", "email": "EMAIL", "summary": "ONE LINE SUMMARY OF THEIR SITUATION"}
 - For the Calendly link say: "You can book directly here: https://calendly.com/hammad-digitwiseconsulting"
 - Keep responses under 120 words unless a detailed explanation is genuinely needed
 - Current FY is 2024-25. Stage 3 tax cuts are in effect. Next BAS due: 28 April 2025 (Q3).
-- You represent Digitwise Consulting: digitwiseconsulting.com.au | hamey@digitwiseconsulting.com.au
+- You represent Digitwise Consulting: digitwiseconsulting.com.au | yamna@digitwiseconsulting.com.au
 
 TOOLS YOU KNOW ABOUT (mention these naturally):
 - Free Pay Calculator: /pay-calculator
@@ -832,7 +832,7 @@ TOOLS YOU KNOW ABOUT (mention these naturally):
         // Add calendly card
         var card = document.createElement('div');
         card.className = 'dw-lead-card';
-        card.innerHTML = '<div class="dw-lead-title">✅ Thanks ' + lead.name + '! Hammad will be in touch. Or book instantly:</div><a href="' + WIDGET_CONFIG.calendlyUrl + '" target="_blank">📅 Book Free 20-min Call →</a>';
+        card.innerHTML = '<div class="dw-lead-title">✅ Thanks ' + lead.name + '! Yamna will be in touch. Or book instantly:</div><a href="' + WIDGET_CONFIG.calendlyUrl + '" target="_blank">📅 Book Free 20-min Call →</a>';
         msgs.appendChild(div);
         msgs.appendChild(card);
         msgs.scrollTop = msgs.scrollHeight;
@@ -888,14 +888,14 @@ TOOLS YOU KNOW ABOUT (mention these naturally):
     .then(function(data) {
       hideTyping();
       state.typing = false;
-      var reply = (data.content && data.content[0]) ? data.content[0].text : "Sorry, I'm having trouble connecting. Please try again or email hamey@digitwiseconsulting.com.au";
+      var reply = (data.content && data.content[0]) ? data.content[0].text : "Sorry, I'm having trouble connecting. Please try again or email yamna@digitwiseconsulting.com.au";
       state.conversationHistory.push({ role: 'assistant', content: reply });
       addBotMessage(reply);
     })
     .catch(function() {
       hideTyping();
       state.typing = false;
-      addBotMessage("I'm having trouble connecting right now. Please email hamey@digitwiseconsulting.com.au or [book a call](" + WIDGET_CONFIG.calendlyUrl + ") directly.");
+      addBotMessage("I'm having trouble connecting right now. Please email yamna@digitwiseconsulting.com.au or [book a call](" + WIDGET_CONFIG.calendlyUrl + ") directly.");
     });
   }
 
