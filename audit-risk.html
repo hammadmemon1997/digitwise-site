@@ -621,7 +621,7 @@ KEY RULES:
 - For the Calendly link say: "You can book directly here: https://calendly.com/hammad-digitwiseconsulting"
 - Keep responses under 120 words unless a detailed explanation is genuinely needed
 - Current FY is 2024-25. Stage 3 tax cuts are in effect. Next BAS due: 28 April 2025 (Q3).
-- You represent Digitwise Consulting: digitwiseconsulting.com.au | yamna@digitwiseconsulting.com.au
+- You represent Digitwise Consulting: digitwiseconsulting.com.au | yamna@digitwiseconsulting.com
 
 TOOLS YOU KNOW ABOUT (mention these naturally):
 - Free Pay Calculator: /pay-calculator
@@ -888,14 +888,14 @@ TOOLS YOU KNOW ABOUT (mention these naturally):
     .then(function(data) {
       hideTyping();
       state.typing = false;
-      var reply = (data.content && data.content[0]) ? data.content[0].text : "Sorry, I'm having trouble connecting. Please try again or email yamna@digitwiseconsulting.com.au";
+      var reply = (data.content && data.content[0]) ? data.content[0].text : "Sorry, I'm having trouble connecting. Please try again or email yamna@digitwiseconsulting.com";
       state.conversationHistory.push({ role: 'assistant', content: reply });
       addBotMessage(reply);
     })
     .catch(function() {
       hideTyping();
       state.typing = false;
-      addBotMessage("I'm having trouble connecting right now. Please email yamna@digitwiseconsulting.com.au or [book a call](" + WIDGET_CONFIG.calendlyUrl + ") directly.");
+      addBotMessage("I'm having trouble connecting right now. Please email yamna@digitwiseconsulting.com or [book a call](" + WIDGET_CONFIG.calendlyUrl + ") directly.");
     });
   }
 
