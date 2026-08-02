@@ -16,9 +16,9 @@
   <rect x="100" y="455" width="200" height="3" fill="#C9A84C" rx="2"/>
   <!-- Trust pills -->
   <rect x="100" y="490" width="180" height="40" rx="20" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"/>
-  <text font-family="Arial,sans-serif" font-size="18" fill="#C9A84C" x="130" y="516" font-weight="700">🇦🇺 ATO Compliant</text>
+  <text font-family="Arial,sans-serif" font-size="18" fill="#C9A84C" x="130" y="516" font-weight="700">🇦🇺 AU Bookkeeping</text>
   <rect x="300" y="490" width="180" height="40" rx="20" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"/>
-  <text font-family="Arial,sans-serif" font-size="18" fill="#C9A84C" x="328" y="516" font-weight="700">🇺🇸 IRS Compliant</text>
+  <text font-family="Arial,sans-serif" font-size="18" fill="#C9A84C" x="328" y="516" font-weight="700">🇺🇸 US Bookkeeping</text>
   <rect x="500" y="490" width="200" height="40" rx="20" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"/>
   <text font-family="Arial,sans-serif" font-size="18" fill="#C9A84C" x="530" y="516" font-weight="700">🔒 Fixed Pricing</text>
   <!-- URL -->
