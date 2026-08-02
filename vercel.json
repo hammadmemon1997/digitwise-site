@@ -112,6 +112,9 @@
       "dest": "/ndis-service-agreement.html"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
