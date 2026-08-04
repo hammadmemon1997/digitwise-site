@@ -86,6 +86,10 @@
       "dest": "/contact.html"
     },
     {
+      "src": "/thank-you",
+      "dest": "/thank-you.html"
+    },
+    {
       "src": "/currency-calculator",
       "dest": "/currency-calculator.html"
     },
