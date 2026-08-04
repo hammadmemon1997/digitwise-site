@@ -319,12 +319,21 @@
 <script>
   function submitForm() {
     const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
     const email = document.getElementById('email').value;
+    const country = document.getElementById('country').value;
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value;
     if (!firstName || !email) { alert('Please fill in at least your name and email.'); return; }
-    document.getElementById('form-body').style.display = 'none';
-    document.getElementById('success-message').style.display = 'block';
-    // In production, replace with actual form submission (Formspree, EmailJS, etc.)
-    window.location.href = 'mailto:yamna@digitwiseconsulting.com.au?subject=New Enquiry from ' + firstName + '&body=Name: ' + firstName + '%0AEmail: ' + email;
+    const btn = document.querySelector('.form-submit');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    fetch('https://formspree.io/f/xwvrnpew', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, email, country, service, message, source: 'contact-page' })
+    }).finally(() => {
+      window.location.href = 'thank-you.html';
+    });
   }
 
   const reveals = document.querySelectorAll('.reveal');
